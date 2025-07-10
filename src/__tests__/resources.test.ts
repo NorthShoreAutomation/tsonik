@@ -78,8 +78,8 @@ describe('IconikClient Resources', () => {
         description: 'Test Description',
         created_date: '2025-06-30T13:51:20-05:00',
         modified_date: '2025-06-30T13:51:20-05:00',
-        status: 'active',
-        type: 'asset',
+        status: 'ACTIVE',
+        type: 'ASSET',
       };
 
       mockAxiosInstance.get.mockResolvedValueOnce({
@@ -152,8 +152,8 @@ describe('IconikClient Resources', () => {
         description: 'Created through API',
         created_date: '2025-06-30T13:51:20-05:00',
         modified_date: '2025-06-30T13:51:20-05:00',
-        status: 'active',
-        type: 'asset',
+        status: 'ACTIVE',
+        type: 'ASSET',
       };
 
       mockAxiosInstance.post.mockResolvedValueOnce({
@@ -202,7 +202,7 @@ describe('IconikClient Resources', () => {
 
       // Assertions
       expect(mockAxiosInstance.post).toHaveBeenCalledWith(
-        '/search/assets',
+        '/API/search/v1/assets',
         { query: 'video', limit: 20 },
         undefined
       );
@@ -226,6 +226,40 @@ describe('IconikClient Resources', () => {
         undefined
       );
       expect(result.status).toBe(204);
+    });
+
+    it('should bulk delete assets', async () => {
+      const assetIds = ['asset-1', 'asset-2', 'asset-3'];
+      
+      mockAxiosInstance.post.mockResolvedValueOnce({
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        data: undefined
+      });
+
+      const result = await client.assets.bulkDeleteAssets(assetIds);
+      
+      expect(mockAxiosInstance.post).toHaveBeenCalledWith(
+        '/API/assets/v1/assets/bulk_delete',
+        { asset_ids: assetIds },
+        undefined
+      );
+      expect(result.status).toBe(200);
+    });
+
+    it('should validate bulk delete - empty array', async () => {
+      await expect(client.assets.bulkDeleteAssets([]))
+        .rejects
+        .toThrow('Asset IDs array cannot be empty');
+    });
+
+    it('should validate bulk delete - too many assets', async () => {
+      const tooManyAssets = Array.from({ length: 501 }, (_, i) => `asset-${i}`);
+      
+      await expect(client.assets.bulkDeleteAssets(tooManyAssets))
+        .rejects
+        .toThrow('Cannot delete more than 500 assets at once');
     });
 
     it('should get asset permissions', async () => {

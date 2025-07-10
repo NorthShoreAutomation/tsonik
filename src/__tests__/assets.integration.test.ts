@@ -79,7 +79,7 @@ describe('AssetResource Integration Tests', () => {
     it('should create a new asset', async () => {
       const assetData = {
         title: 'Test Asset Creation',
-        type: 'ASSET',
+        type: 'ASSET' as const,
         metadata: {
           description: 'Integration test asset creation',
           category: 'test'
@@ -231,7 +231,7 @@ describe('AssetResource Integration Tests', () => {
     it('should handle invalid asset creation', async () => {
       const invalidAssetData = {
         // Missing required fields
-      };
+      } as any;
 
       await expect(client.assets.createAsset(invalidAssetData))
         .rejects
@@ -273,5 +273,49 @@ describe('AssetResource Integration Tests', () => {
       expect(response.data).toBeDefined();
       expect(duration).toBeLessThan(10000); // Should complete within 10 seconds
     }, 15000);
+  });
+
+  describe('Bulk Operations', () => {
+    it('should bulk delete multiple assets (with fallback to individual deletes)', async () => {
+      // Create test assets for bulk deletion
+      const testAssets = [];
+      for (let i = 0; i < 3; i++) {
+        const assetData = {
+          title: `Bulk Delete Test Asset ${i}`,
+          type: 'ASSET' as const,
+          metadata: {
+            description: 'Test asset for bulk deletion',
+            category: 'test'
+          }
+        };
+        
+        const response = await client.assets.createAsset(assetData);
+        testAssets.push(response.data.id);
+      }
+
+      // Perform bulk delete (should fall back to individual deletes if bulk endpoint doesn't exist)
+      const bulkDeleteResponse = await client.assets.bulkDeleteAssets(testAssets);
+      
+      expect(bulkDeleteResponse.status).toBe(200);
+      
+      // Verify assets are deleted (in Iconik, deleted assets are marked as DELETED but still retrievable)
+      for (const assetId of testAssets) {
+        const response = await client.assets.getAsset(assetId);
+        expect(response.data.status).toBe('DELETED');
+      }
+    }, 30000);
+
+    it('should handle bulk delete validation errors', async () => {
+      // Test empty array
+      await expect(client.assets.bulkDeleteAssets([]))
+        .rejects
+        .toThrow('Asset IDs array cannot be empty');
+
+      // Test too many assets (we'll just test the validation, not actually create 501 assets)
+      const tooManyAssets = Array.from({ length: 501 }, (_, i) => `fake-asset-${i}`);
+      await expect(client.assets.bulkDeleteAssets(tooManyAssets))
+        .rejects
+        .toThrow('Cannot delete more than 500 assets at once');
+    }, 10000);
   });
 });
