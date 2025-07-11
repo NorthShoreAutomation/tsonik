@@ -167,16 +167,6 @@ describe('AssetResource Integration Tests', () => {
     }, 10000);
   });
 
-  // Note: Asset metadata operations have been moved to a dedicated MetadataResource
-  // and are no longer part of AssetResource
-
-
-  // Note: Asset permission operations are not available in the Iconik API
-  // and have been removed from AssetResource
-
-  // Note: Asset comment operations are not available in the Iconik API
-  // and have been removed from AssetResource
-
   describe('Error Handling', () => {
     it('should handle asset not found error', async () => {
       const nonExistentId = 'non-existent-asset-id';
