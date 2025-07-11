@@ -2346,4 +2346,152 @@ describe('IconikClient Resources', () => {
         .toThrow('File set ID is required');
     });
   });
+
+  describe('FileResource', () => {
+    it('should get asset files with default parameters', async () => {
+      // Setup mock paginated response matching API spec
+      const mockFiles = {
+        objects: [
+          {
+            id: 'file-123',
+            asset_id: 'asset-456',
+            name: 'example.mp4',
+            type: 'FILE',
+            status: 'UPLOADED',
+            size: 1024000
+          },
+          {
+            id: 'file-456',
+            asset_id: 'asset-456',
+            name: 'thumbnail.jpg',
+            type: 'FILE',
+            status: 'UPLOADED',
+            size: 52000
+          }
+        ],
+        total: 2,
+        page: 1,
+        pages: 1,
+        per_page: 100
+      };
+
+      // Mock the axios get method
+      mockAxiosInstance.get.mockResolvedValue({
+        data: mockFiles,
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        config: {}
+      });
+
+      // Call the method
+      const result = await client.files.getAssetFiles('asset-456');
+
+      // Assert correct URL was called
+      expect(mockAxiosInstance.get).toHaveBeenCalledWith(
+        '/v1/assets/asset-456/files/',
+        undefined
+      );
+
+      // Assert response is correct
+      expect(result.data).toEqual(mockFiles);
+      expect(result.status).toEqual(200);
+    });
+
+    it('should get asset files with all parameters', async () => {
+      // Setup mock response
+      const mockFiles = {
+        objects: [
+          {
+            id: 'file-123',
+            asset_id: 'asset-456',
+            name: 'example.mp4',
+            type: 'FILE',
+            status: 'UPLOADED',
+            size: 1024000,
+            url: 'https://example.com/signed-url'
+          }
+        ],
+        total: 1,
+        page: 1,
+        pages: 1,
+        per_page: 10
+      };
+
+      mockAxiosInstance.get.mockResolvedValue({
+        data: mockFiles,
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        config: {}
+      });
+
+      // Call with all parameters
+      const result = await client.files.getAssetFiles('asset-456', {
+        per_page: 10,
+        generate_signed_url: true,
+        content_disposition: 'attachment',
+        last_id: 'prev-file-id'
+      });
+
+      // Assert correct URL was called with query parameters
+      expect(mockAxiosInstance.get).toHaveBeenCalledWith(
+        '/v1/assets/asset-456/files/',
+        {
+          params: {
+            per_page: 10,
+            generate_signed_url: true,
+            content_disposition: 'attachment',
+            last_id: 'prev-file-id'
+          }
+        }
+      );
+
+      // Assert response
+      expect(result.data).toEqual(mockFiles);
+      expect(result.status).toEqual(200);
+    });
+
+    it('should handle empty file list', async () => {
+      // Setup mock response for empty list
+      const mockEmptyFiles = {
+        objects: [],
+        total: 0,
+        page: 1,
+        pages: 0,
+        per_page: 100
+      };
+
+      mockAxiosInstance.get.mockResolvedValue({
+        data: mockEmptyFiles,
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        config: {}
+      });
+
+      // Call the method
+      const result = await client.files.getAssetFiles('asset-no-files');
+
+      // Assert
+      expect(mockAxiosInstance.get).toHaveBeenCalledWith(
+        '/v1/assets/asset-no-files/files/',
+        undefined
+      );
+      expect(result.data.objects).toEqual([]);
+      expect(result.data.total).toEqual(0);
+    });
+
+    it('should validate asset ID is required', async () => {
+      await expect(client.files.getAssetFiles(''))
+        .rejects
+        .toThrow('Asset ID is required');
+    });
+
+    it('should validate asset ID cannot be whitespace', async () => {
+      await expect(client.files.getAssetFiles('   '))
+        .rejects
+        .toThrow('Asset ID is required');
+    });
+  });
 });
