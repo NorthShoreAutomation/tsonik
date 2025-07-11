@@ -57,7 +57,7 @@ export abstract class BaseResource {
   /**
    * Delete a resource by ID
    */
-  async delete(id: string): Promise<ApiResponse<void>> {
-    return this.client.delete(`${this.basePath}/${id}`);
+  async delete<T = void>(id: string): Promise<ApiResponse<T>> {
+    return this.client.delete<T>(`${this.basePath}/${id}`);
   }
 }

@@ -28,6 +28,34 @@ export type ArchiveStatus =
   | 'FAILED_TO_ARCHIVE'
   | 'ARCHIVED';
 
+export type ApprovalStatus = 
+  | 'N/A'
+  | 'REQUESTED'
+  | 'APPROVED'
+  | 'NOT_APPROVED'
+  | 'MIXED';
+
+export type FaceRecognitionStatus = 
+  | 'N/A'
+  | 'REQUESTED'
+  | 'IN_PROGRESS'
+  | 'FAILED'
+  | 'DONE';
+
+export type TranscriptionStatus = 
+  | 'N/A'
+  | 'REQUESTED'
+  | 'IN_PROGRESS'
+  | 'FAILED'
+  | 'DONE';
+
+export type AssetVersionStatus = 
+  | 'ACTIVE'
+  | 'IN_PROGRESS'
+  | 'FAILED'
+  | 'DELETING'
+  | 'DELETED';
+
 export type MediaType = 
   | 'video'
   | 'audio'

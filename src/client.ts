@@ -2,7 +2,7 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { IconikConfig } from './config';
 import { IconikError, IconikAuthError, IconikAPIError } from './errors';
 import { ApiResponse } from './types';
-import { AssetResource, CollectionResource, JobResource } from './resources';
+import { AssetResource, JobResource, CollectionResource } from './resources';
 
 /**
  * Main client class for interacting with the Iconik API
@@ -13,8 +13,8 @@ export class Tsonik {
   
   // ORM-like resource properties
   public readonly assets: AssetResource;
-  public readonly collections: CollectionResource;
   public readonly jobs: JobResource;
+  public readonly collections: CollectionResource;
 
   constructor(config: IconikConfig) {
     this.config = config;
@@ -79,8 +79,8 @@ export class Tsonik {
     
     // Initialize ORM-like resources
     this.assets = new AssetResource(this);
-    this.collections = new CollectionResource(this);
     this.jobs = new JobResource(this);
+    this.collections = new CollectionResource(this);
   }
 
   /**
