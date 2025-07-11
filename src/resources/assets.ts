@@ -43,27 +43,6 @@ export class AssetResource extends BaseResource {
   }
 
   /**
-   * Get asset files/formats
-   */
-  async getFiles(id: string): Promise<ApiResponse<any[]>> {
-    return this.client.get(`/API/files/v1/assets/${id}/files/`);
-  }
-
-  /**
-   * Get asset thumbnails
-   */
-  async getThumbnails(id: string): Promise<ApiResponse<any[]>> {
-    return this.client.get(`/API/files/v1/assets/${id}/keyframes/`);
-  }
-
-  /**
-   * Get asset proxies
-   */
-  async getProxies(id: string): Promise<ApiResponse<any[]>> {
-    return this.client.get(`/API/files/v1/assets/${id}/proxies/`);
-  }
-
-  /**
    * Delete an asset
    */
   async deleteAsset(id: string): Promise<ApiResponse<void>> {
@@ -102,25 +81,5 @@ export class AssetResource extends BaseResource {
     }
   }
 
-  /**
-   * Search assets
-   */
-  async search(params: SearchQuery): Promise<ApiResponse<PaginatedResponse<Asset>>> {
-    return this.client.post(`/API/search/v1/assets`, params);
-  }
-
-  /**
-   * Get asset permissions
-   */
-  async getPermissions(id: string): Promise<ApiResponse<any>> {
-    return this.client.get(`${this.basePath}/${id}/permissions`);
-  }
-
-  /**
-   * Add comment to asset
-   */
-  async addComment(id: string, comment: any): Promise<ApiResponse<any>> {
-    return this.client.post(`${this.basePath}/${id}/comments`, comment);
-  }
 
 }

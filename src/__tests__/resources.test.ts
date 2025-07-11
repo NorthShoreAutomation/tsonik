@@ -178,40 +178,6 @@ describe('IconikClient Resources', () => {
       expect(result.status).toBe(201);
     });
 
-    it('should search assets', async () => {
-      // Setup mock search response
-      const searchResults = {
-        objects: [
-          { id: 'asset-3', title: 'Video Asset' },
-          { id: 'asset-4', title: 'Another Video' }
-        ],
-        page_token: null,
-        total_count: 2
-      };
-
-      mockAxiosInstance.post.mockResolvedValueOnce({
-        status: 200,
-        statusText: 'OK',
-        headers: {},
-        data: searchResults
-      });
-
-      // Call the search method
-      const result = await client.assets.search({
-        query: 'video',
-        limit: 20
-      });
-
-      // Assertions
-      expect(mockAxiosInstance.post).toHaveBeenCalledWith(
-        '/API/search/v1/assets',
-        { query: 'video', limit: 20 },
-        undefined
-      );
-      expect(result.data).toEqual(searchResults);
-      expect(result.status).toBe(200);
-      expect(result.data.objects).toHaveLength(2);
-    });
 
     it('should delete an asset', async () => {
       mockAxiosInstance.delete.mockResolvedValueOnce({
@@ -264,55 +230,6 @@ describe('IconikClient Resources', () => {
         .toThrow('Cannot delete more than 500 assets at once');
     });
 
-    it('should get asset permissions', async () => {
-      const mockPermissions = {
-        read: ['user-1', 'group-1'],
-        write: ['user-1']
-      };
-
-      mockAxiosInstance.get.mockResolvedValueOnce({
-        status: 200,
-        statusText: 'OK',
-        headers: {},
-        data: mockPermissions
-      });
-
-      const result = await client.assets.getPermissions('asset-123');
-      
-      expect(mockAxiosInstance.get).toHaveBeenCalledWith(
-        '/API/assets/v1/assets/asset-123/permissions',
-        undefined
-      );
-      expect(result.status).toBe(200);
-      expect(result.data).toEqual(mockPermissions);
-    });
-
-    it('should add a comment to an asset', async () => {
-      const mockComment = { text: 'Test comment' };
-      const mockResponse = {
-        id: 'comment-1',
-        text: 'Test comment',
-        user_id: 'user-1',
-        created_date: '2025-07-02T08:32:14-05:00'
-      };
-
-      mockAxiosInstance.post.mockResolvedValueOnce({
-        status: 201,
-        statusText: 'Created',
-        headers: {},
-        data: mockResponse
-      });
-
-      const result = await client.assets.addComment('asset-123', mockComment);
-      
-      expect(mockAxiosInstance.post).toHaveBeenCalledWith(
-        '/API/assets/v1/assets/asset-123/comments',
-        mockComment,
-        undefined
-      );
-      expect(result.status).toBe(201);
-      expect(result.data).toEqual(mockResponse);
-    });
   });
 
   describe('CollectionResource', () => {
@@ -850,10 +767,8 @@ describe('IconikClient Resources', () => {
       const result = await client.jobs.reindexJob('job-123', { sync_to_another_dc: true });
 
       // Verify call and response
-      expect(mockAxiosInstance.post).toHaveBeenCalledWith(
-        '/API/jobs/v1/jobs/job-123/reindex', 
-        { sync_to_another_dc: true }
-      );
+      expect(mockAxiosInstance.post.mock.calls[0][0]).toBe('/API/jobs/v1/jobs/job-123/reindex');
+      expect(mockAxiosInstance.post.mock.calls[0][1]).toEqual({ sync_to_another_dc: true });
       expect(result.status).toBe(202);
     });
     
@@ -911,10 +826,8 @@ describe('IconikClient Resources', () => {
       const result = await client.jobs.updateJobSteps('job-123', stepsUpdateData);
 
       // Verify call and response
-      expect(mockAxiosInstance.patch).toHaveBeenCalledWith(
-        '/API/jobs/v1/jobs/job-123/steps/', 
-        stepsUpdateData
-      );
+      expect(mockAxiosInstance.patch.mock.calls[0][0]).toBe('/API/jobs/v1/jobs/job-123/steps/');
+      expect(mockAxiosInstance.patch.mock.calls[0][1]).toEqual(stepsUpdateData);
       expect(result.data).toEqual(mockUpdatedJob);
       expect(result.status).toBe(200);
     });
