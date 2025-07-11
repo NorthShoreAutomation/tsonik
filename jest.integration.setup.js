@@ -20,7 +20,7 @@ if (!process.env.ICONIK_APP_ID || !process.env.ICONIK_AUTH_TOKEN) {
 // Log integration test configuration
 if (process.env.ICONIK_APP_ID && process.env.ICONIK_AUTH_TOKEN) {
   console.log('✅ Integration test environment configured');
-  console.log(`   Base URL: ${process.env.ICONIK_BASE_URL || 'https://api.iconik.io'}`);
+  console.log(`   Base URL: ${process.env.ICONIK_BASE_URL || 'https://app.iconik.io'}`);
   console.log(`   App ID: ${process.env.ICONIK_APP_ID?.substring(0, 8)}...`);
   console.log('');
 }

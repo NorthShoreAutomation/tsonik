@@ -9,7 +9,7 @@ import { Asset } from '../types';
  * Prerequisites:
  * - Copy .env.example to .env and fill in your credentials
  * - Set ICONIK_APP_ID and ICONIK_AUTH_TOKEN in .env file
- * - Set ICONIK_BASE_URL (optional, defaults to https://api.iconik.io)
+ * - Set ICONIK_BASE_URL (optional, defaults to https://app.iconik.io)
  * - Ensure test environment has proper permissions
  */
 

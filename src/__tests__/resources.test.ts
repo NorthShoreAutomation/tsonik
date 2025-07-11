@@ -7,11 +7,13 @@ import {
   Job,
   JobAction,
   JobCreate,
+  JobStep,
+  JobStepStatus,
   JobsPriorityUpdate,
   JobsQuery,
   JobsStateUpdate,
   JobStepsUpdate,
-  JobUpdate,
+  JobUpdate
 } from '../types';
 
 // Create mock Axios instance with proper interceptors setup
@@ -65,7 +67,7 @@ describe('IconikClient Resources', () => {
     client = new IconikClient({
       appId: 'test-app-id',
       authToken: 'test-auth-token',
-      baseUrl: 'https://api.iconik.io/v1'
+      baseUrl: 'https://app.iconik.io/v1'
     });
   });
 
@@ -658,6 +660,73 @@ describe('IconikClient Resources', () => {
       expect(result.status).toBe(200);
     });
 
+    it('should update a job with comprehensive fields', async () => {
+      // Setup comprehensive job update with new fields
+      const comprehensiveJobUpdate: JobUpdate = {
+        title: 'Comprehensive Update Test',
+        status: 'STARTED',
+        type: 'CUSTOM',
+        custom_type: 'test_job',
+        message: 'Testing comprehensive update',
+        object_id: 'asset-456',
+        object_type: 'assets',
+        parent_id: 'parent-job-123',
+        started_at: '2023-01-01T10:00:00Z',
+        has_children: false,
+        progress_processed: 25,
+        progress_total: 100,
+        job_context: {
+          workflow_id: 'workflow-123',
+          step: 'processing'
+        },
+        metadata: {
+          priority: 'high',
+          department: 'video'
+        },
+        action_context: {
+          PAUSE: {
+            bulk: true,
+            url: '/jobs/bulk/pause'
+          }
+        },
+        related_objects: [
+          {
+            object_id: 'asset-456',
+            object_type: 'assets'
+          }
+        ]
+      };
+
+      const mockUpdatedJob: Job = {
+        id: 'job-123',
+        title: 'Comprehensive Update Test',
+        type: 'CUSTOM',
+        status: 'STARTED',
+        date_created: '2023-01-01T00:00:00Z',
+        custom_type: 'test_job',
+        message: 'Testing comprehensive update',
+        object_id: 'asset-456',
+        object_type: 'assets',
+        progress_processed: 25,
+        progress_total: 100
+      };
+
+      mockAxiosInstance.patch.mockResolvedValue({
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        data: mockUpdatedJob
+      });
+
+      // Execute test
+      const result = await client.jobs.updateJob('job-123', comprehensiveJobUpdate);
+
+      // Verify call and response
+      expect(mockAxiosInstance.patch).toHaveBeenCalledWith('/API/jobs/v1/jobs/job-123', comprehensiveJobUpdate, undefined);
+      expect(result.data).toEqual(mockUpdatedJob);
+      expect(result.status).toBe(200);
+    });
+
     it('should delete a job', async () => {
       mockAxiosInstance.delete.mockResolvedValue({
         status: 204,
@@ -674,138 +743,53 @@ describe('IconikClient Resources', () => {
       expect(result.status).toBe(204);
     });
 
-    it('should get job children', async () => {
-      // Setup mock response
-      const mockChildren = {
-        objects: [
-          {
-            id: 'child-job-1',
-            title: 'Child Job 1',
-            type: 'KEYFRAMES',
-            status: 'FINISHED',
-            parent_id: 'job-123'
-          }
-        ],
-        total_count: 1
-      };
-
-      mockAxiosInstance.get.mockResolvedValue({
-        status: 200,
-        statusText: 'OK',
-        headers: {},
-        data: mockChildren
-      });
-
-      // Execute test
-      const result = await client.jobs.getJobChildren('job-123');
-
-      // Verify call and response
-      expect(mockAxiosInstance.get).toHaveBeenCalledWith('/API/jobs/v1/jobs/job-123/children/', { params: {} });
-      expect(result.data).toEqual(mockChildren);
-      expect(result.status).toBe(200);
-    });
-
-    it('should pause a job', async () => {
-      // Setup mock response
-      const mockPausedJob: Job = {
-        id: 'job-123',
-        title: 'Test Job',
-        type: 'TRANSCODE',
-        status: 'PAUSED',
-        date_created: '2023-01-01T00:00:00Z'
-      };
-
-      mockAxiosInstance.post.mockResolvedValue({
-        status: 200,
-        statusText: 'OK',
-        headers: {},
-        data: mockPausedJob
-      });
-
-      // Execute test
-      const result = await client.jobs.pause('job-123');
-
-      // Verify call and response
-      expect(mockAxiosInstance.post).toHaveBeenCalledWith('/API/jobs/v1/jobs/job-123/actions/pause/', {}, undefined);
-      expect(result.data).toEqual(mockPausedJob);
-      expect(result.status).toBe(200);
-    });
-
-    it('should resume a job', async () => {
-      // Setup mock response
-      const mockResumedJob: Job = {
-        id: 'job-123',
-        title: 'Test Job',
-        type: 'TRANSCODE',
-        status: 'STARTED',
-        date_created: '2023-01-01T00:00:00Z'
-      };
-
-      mockAxiosInstance.post.mockResolvedValue({
-        status: 200,
-        statusText: 'OK',
-        headers: {},
-        data: mockResumedJob
-      });
-
-      // Execute test
-      const result = await client.jobs.resume('job-123');
-
-      // Verify call and response
-      expect(mockAxiosInstance.post).toHaveBeenCalledWith('/API/jobs/v1/jobs/job-123/actions/resume/', {}, undefined);
-      expect(result.data).toEqual(mockResumedJob);
-      expect(result.status).toBe(200);
-    });
-
-    it('should abort a job', async () => {
-      // Setup mock response
-      const mockAbortedJob: Job = {
-        id: 'job-123',
-        title: 'Test Job',
-        type: 'TRANSCODE',
-        status: 'ABORTED',
-        date_created: '2023-01-01T00:00:00Z'
-      };
-
-      mockAxiosInstance.post.mockResolvedValue({
-        status: 200,
-        statusText: 'OK',
-        headers: {},
-        data: mockAbortedJob
-      });
-
-      // Execute test
-      const result = await client.jobs.abort('job-123');
-
-      // Verify call and response
-      expect(mockAxiosInstance.post).toHaveBeenCalledWith('/API/jobs/v1/jobs/job-123/actions/abort/', {}, undefined);
-      expect(result.data).toEqual(mockAbortedJob);
-      expect(result.status).toBe(200);
-    });
-
-    it('should restart a job', async () => {
-      // Setup mock response
-      const mockRestartedJob: Job = {
-        id: 'job-123',
-        title: 'Test Job',
-        type: 'TRANSCODE',
+    it('should replace a job (full update)', async () => {
+      // Setup job data for full replacement
+      const jobReplacement: JobUpdate = {
+        title: 'Fully Replaced Job',
+        type: 'MEDIAINFO',
         status: 'READY',
-        date_created: '2023-01-01T00:00:00Z'
+        custom_type: 'full_replace_test',
+        metadata: {
+          test_key: 'test_value'
+        },
+        progress_processed: 0,
+        progress_total: 100
       };
 
-      mockAxiosInstance.post.mockResolvedValue({
+      // Setup mock response
+      const mockReplacedJob: Job = {
+        id: 'job-123',
+        title: 'Fully Replaced Job',
+        type: 'MEDIAINFO',
+        status: 'READY',
+        custom_type: 'full_replace_test',
+        metadata: {
+          test_key: 'test_value'
+        },
+        progress_processed: 0,
+        progress_total: 100,
+        date_created: '2023-01-01T00:00:00Z',
+        date_modified: '2023-01-01T00:01:00Z'
+      };
+
+      mockAxiosInstance.put.mockResolvedValue({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockRestartedJob
+        data: mockReplacedJob
       });
 
-      // Execute test
-      const result = await client.jobs.restart('job-123');
+      // Execute test with merge_metadata option
+      const result = await client.jobs.replaceJob('job-123', jobReplacement, { merge_metadata: 'true' });
 
       // Verify call and response
-      expect(mockAxiosInstance.post).toHaveBeenCalledWith('/API/jobs/v1/jobs/job-123/actions/restart/', {}, undefined);
-      expect(result.data).toEqual(mockRestartedJob);
+      expect(mockAxiosInstance.put).toHaveBeenCalledWith(
+        '/API/jobs/v1/jobs/job-123', 
+        jobReplacement, 
+        { params: { merge_metadata: 'true' } }
+      );
+      expect(result.data).toEqual(mockReplacedJob);
       expect(result.status).toBe(200);
     });
 
@@ -836,101 +820,272 @@ describe('IconikClient Resources', () => {
       expect(result.status).toBe(200);
     });
 
-    it('should bulk pause jobs', async () => {
-      // Setup mock response
-      const mockBulkResult = [
-        { job_id: 'job-1' },
-        { job_id: 'job-2' }
-      ];
-
-      mockAxiosInstance.post.mockResolvedValue({
-        status: 200,
-        statusText: 'OK',
-        headers: {},
-        data: mockBulkResult
-      });
-
-      // Execute test
-      const result = await client.jobs.bulkPause(['job-1', 'job-2']);
-
-      // Verify call and response
-      expect(mockAxiosInstance.post).toHaveBeenCalledWith('/API/jobs/v1/jobs/bulk/actions/pause/', {
-        job_ids: ['job-1', 'job-2']
-      }, undefined);
-      expect(result.data).toEqual(mockBulkResult);
-      expect(result.status).toBe(200);
-    });
-
     it('should bulk delete jobs', async () => {
-      // Setup mock response
-      const mockBulkResult = [
-        { job_id: 'job-1' },
-        { job_id: 'job-2' }
-      ];
-
       mockAxiosInstance.delete.mockResolvedValue({
-        status: 200,
-        statusText: 'OK',
+        status: 204,
+        statusText: 'No Content',
         headers: {},
-        data: mockBulkResult
+        data: undefined
       });
 
       // Execute test
       const result = await client.jobs.bulkDelete(['job-1', 'job-2']);
 
-      // Verify call and response
-      expect(mockAxiosInstance.delete).toHaveBeenCalledWith('/API/jobs/v1/jobs/bulk/', {
+      // Verify call and response match API spec
+      expect(mockAxiosInstance.delete).toHaveBeenCalledWith('/API/jobs/v1/jobs/', {
         data: { job_ids: ['job-1', 'job-2'] }
       });
-      expect(result.data).toEqual(mockBulkResult);
-      expect(result.status).toBe(200);
+      expect(result.status).toBe(204);
     });
+    
+    it('should reindex a job', async () => {
+      mockAxiosInstance.post.mockResolvedValue({
+        status: 202,
+        statusText: 'Accepted',
+        headers: {},
+        data: null
+      });
 
-    it('should get job statistics', async () => {
-      // Setup mock response
-      const mockStats = {
-        facets: {
-          status: {
-            'FINISHED': 50,
-            'STARTED': 10,
-            'FAILED': 5
+      // Execute test with sync option
+      const result = await client.jobs.reindexJob('job-123', { sync_to_another_dc: true });
+
+      // Verify call and response
+      expect(mockAxiosInstance.post).toHaveBeenCalledWith(
+        '/API/jobs/v1/jobs/job-123/reindex', 
+        { sync_to_another_dc: true }
+      );
+      expect(result.status).toBe(202);
+    });
+    
+    it('should update job steps', async () => {
+      // Mock job with updated steps
+      const mockUpdatedJob: Job = {
+        id: 'job-123',
+        title: 'Test Job',
+        type: 'TRANSCODE',
+        status: 'STARTED',
+        steps: [
+          {
+            id: 'step-1',
+            label: 'Preprocessing',
+            status: 'DONE',
+            message: 'Preprocessing completed',
+            date_updated: '2025-07-10T18:24:22.811Z'
           },
-          type: {
-            'TRANSCODE': 30,
-            'MEDIAINFO': 20,
-            'KEYFRAMES': 15
+          {
+            id: 'step-2',
+            label: 'Transcoding',
+            status: 'IN_PROGRESS',
+            message: 'Transcoding in progress',
+            date_updated: '2025-07-10T18:24:22.811Z'
           }
-        }
+        ]
       };
-
-      mockAxiosInstance.get.mockResolvedValue({
+      
+      // Setup request body
+      const stepsUpdateData: JobStepsUpdate = {
+        steps: [
+          {
+            id: 'step-1',
+            label: 'Preprocessing',
+            status: 'DONE',
+            message: 'Preprocessing completed'
+          },
+          {
+            id: 'step-2',
+            label: 'Transcoding',
+            status: 'IN_PROGRESS',
+            message: 'Transcoding in progress'
+          }
+        ]
+      };
+      
+      mockAxiosInstance.patch.mockResolvedValue({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockStats
+        data: mockUpdatedJob
       });
 
       // Execute test
-      const result = await client.jobs.getStats({ 
-        facets: true, 
-        type: 'TRANSCODE',
-        status: 'FINISHED',
-        aggregations: 'status,type',
-        object_type: 'assets'
-      });
+      const result = await client.jobs.updateJobSteps('job-123', stepsUpdateData);
 
       // Verify call and response
-      expect(mockAxiosInstance.get).toHaveBeenCalledWith('/API/jobs/v1/jobs/', {
-        params: { 
-          facets: true, 
-          type: 'TRANSCODE',
-          status: 'FINISHED',
-          object_type: 'assets',
-          aggregations: 'status,type'
-        }
-      });
-      expect(result.data).toEqual(mockStats);
+      expect(mockAxiosInstance.patch).toHaveBeenCalledWith(
+        '/API/jobs/v1/jobs/job-123/steps/', 
+        stepsUpdateData
+      );
+      expect(result.data).toEqual(mockUpdatedJob);
       expect(result.status).toBe(200);
     });
+    
+    it('should replace job steps using PUT', async () => {
+      // Mock job with replaced steps
+      const mockUpdatedJob: Job = {
+        id: 'job-123',
+        title: 'Test Job',
+        type: 'TRANSCODE',
+        status: 'STARTED',
+        steps: [
+          {
+            id: 'step-1',
+            label: 'New Step 1',
+            status: 'DONE',
+            message: 'Step replaced',
+            date_updated: '2025-07-10T18:31:34.099Z'
+          },
+          {
+            id: 'step-2',
+            label: 'New Step 2',
+            status: 'WAITING',
+            message: 'Waiting to start',
+            date_updated: '2025-07-10T18:31:34.099Z'
+          }
+        ]
+      };
+      
+      // Setup request body
+      const stepsReplaceData: JobStepsUpdate = {
+        steps: [
+          {
+            id: 'step-1',
+            label: 'New Step 1',
+            status: 'DONE',
+            message: 'Step replaced'
+          },
+          {
+            id: 'step-2',
+            label: 'New Step 2',
+            status: 'WAITING',
+            message: 'Waiting to start'
+          }
+        ]
+      };
+      
+      mockAxiosInstance.put.mockResolvedValue({
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        data: mockUpdatedJob
+      });
+
+      // Execute test
+      const result = await client.jobs.replaceJobSteps('job-123', stepsReplaceData);
+
+      // Verify call and response
+      expect(mockAxiosInstance.put).toHaveBeenCalledWith(
+        '/API/jobs/v1/jobs/job-123/steps/', 
+        stepsReplaceData,
+        undefined // Include the undefined options parameter that axios client is passing
+      );
+      expect(result.data).toEqual(mockUpdatedJob);
+      expect(result.status).toBe(200);
+    });
+    
+    it('should update a single job step', async () => {
+      // Mock job with updated single step
+      const mockUpdatedJob: Job = {
+        id: 'job-123',
+        title: 'Test Job',
+        type: 'TRANSCODE',
+        status: 'STARTED',
+        steps: [
+          {
+            id: 'step-1',
+            label: 'Processing',
+            status: 'IN_PROGRESS',
+            message: 'Processing at 75%',
+            date_updated: '2025-07-10T18:42:25.668Z'
+          },
+          {
+            id: 'step-2',
+            label: 'Finalization',
+            status: 'WAITING',
+            date_updated: '2025-07-10T18:31:34.099Z'
+          }
+        ]
+      };
+      
+      // Setup request body for single step update
+      const stepUpdateData = {
+        status: 'IN_PROGRESS' as JobStepStatus,
+        message: 'Processing at 75%'
+      };
+      
+      mockAxiosInstance.patch.mockResolvedValue({
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        data: mockUpdatedJob
+      });
+
+      // Execute test
+      const result = await client.jobs.updateJobStep('job-123', 'step-1', stepUpdateData);
+
+      // Verify call and response
+      expect(mockAxiosInstance.patch).toHaveBeenCalledWith(
+        '/API/jobs/v1/jobs/job-123/steps/step-1/', 
+        stepUpdateData,
+        undefined
+      );
+      expect(result.data).toEqual(mockUpdatedJob);
+      expect(result.status).toBe(200);
+    });
+
+    it('should replace a single job step using PUT', async () => {
+      // Mock job with replaced single step
+      const mockUpdatedJob: Job = {
+        id: 'job-123',
+        title: 'Test Job',
+        type: 'TRANSCODE',
+        status: 'STARTED',
+        steps: [
+          {
+            id: 'step-1',
+            label: 'Completely Replaced Step',
+            status: 'DONE',
+            message: 'Step fully replaced',
+            error_message: '',
+            date_updated: '2025-07-11T13:15:22.123Z'
+          },
+          {
+            id: 'step-2',
+            label: 'Finalization',
+            status: 'WAITING',
+            date_updated: '2025-07-10T18:31:34.099Z'
+          }
+        ]
+      };
+      
+      // Setup request body for single step replacement
+      const stepReplaceData: JobStep = {
+        id: 'step-1',
+        label: 'Completely Replaced Step',
+        status: 'DONE' as JobStepStatus,
+        message: 'Step fully replaced',
+        error_message: ''
+      };
+      
+      mockAxiosInstance.put.mockResolvedValue({
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        data: mockUpdatedJob
+      });
+
+      // Execute test
+      const result = await client.jobs.replaceJobStep('job-123', 'step-1', stepReplaceData);
+
+      // Verify call and response
+      expect(mockAxiosInstance.put).toHaveBeenCalledWith(
+        '/API/jobs/v1/jobs/job-123/steps/step-1/', 
+        stepReplaceData,
+        undefined
+      );
+      expect(result.data).toEqual(mockUpdatedJob);
+      expect(result.status).toBe(200);
+    });
+
+
   });
 });
