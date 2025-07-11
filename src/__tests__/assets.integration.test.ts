@@ -226,7 +226,7 @@ describe('AssetResource Integration Tests', () => {
   describe('Bulk Operations', () => {
     it('should bulk delete multiple assets (with fallback to individual deletes)', async () => {
       // Create test assets for bulk deletion
-      const testAssets = [];
+      const testAssets: string[] = [];
       for (let i = 0; i < 3; i++) {
         const assetData = {
           title: `Bulk Delete Test Asset ${i}`,
