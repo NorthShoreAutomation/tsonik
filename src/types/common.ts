@@ -14,3 +14,14 @@ export interface PaginatedResponse<T = any> {
   next_page_token?: string;
   previous_page_token?: string;
 }
+
+export interface ListParams {
+  limit?: number;
+  offset?: number;
+  page?: number;
+  per_page?: number;
+  sort?: string;
+  filter?: Record<string, any>;
+  page_token?: string;
+  scroll?: string;
+}

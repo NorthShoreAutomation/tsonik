@@ -3,18 +3,21 @@ import { Tsonik } from '../client';
 import {
   ApiResponse,
   BulkJobResult,
-  HttpMethod,
-  HttpOptions,
   Job,
   JobAction,
   JobCreate,
+  JobsBulkDeleteRequest,
+  JobsBulkEditQuery,
+  JobsBulkEditRequest,
+  JobsBulkEditResponse,
   JobsPriorityUpdate,
   JobsQuery,
   JobsStateUpdate,
   JobStepsUpdate,
   JobUpdate,
   PaginatedResponse,
-  QueryParams,
+  ListParams,
+  JobStep
 } from '../types';
 
 /**
@@ -64,68 +67,25 @@ export class JobResource extends BaseResource {
   }
 
   /**
+   * Replace an existing job (full update)
+   * @param jobId The job ID to replace
+   * @param jobData Complete job data to replace with
+   * @param options Optional request options
+   * @returns Promise resolving to the replaced job
+   */
+  async replaceJob(jobId: string, jobData: JobUpdate, options?: { merge_metadata?: string }): Promise<ApiResponse<Job>> {
+    return this.client.put<Job>(`${this.basePath}/${jobId}`, jobData, {
+      params: options
+    });
+  }
+
+  /**
    * Delete a job
    * @param jobId The job ID to delete
    * @returns Promise resolving to deletion confirmation
    */
   async deleteJob(jobId: string): Promise<ApiResponse<void>> {
     return this.client.delete<void>(`${this.basePath}/${jobId}`);
-  }
-
-  /**
-   * Get children jobs of a parent job
-   * @param jobId The parent job ID
-   * @param query Optional query parameters
-   * @returns Promise resolving to paginated child job results
-   */
-  async getJobChildren(jobId: string, query: JobsQuery = {}): Promise<ApiResponse<PaginatedResponse<Job>>> {
-    return this.client.get(`${this.basePath}/${jobId}/children/`, { params: query });
-  }
-
-  /**
-   * Perform state management actions on a job (pause, resume, abort, restart)
-   * @param jobId The job ID
-   * @param action The action to perform
-   * @returns Promise resolving to the updated job
-   */
-  async performAction(jobId: string, action: JobAction): Promise<ApiResponse<Job>> {
-    return this.client.post(`${this.basePath}/${jobId}/actions/${action.toLowerCase()}/`, {});
-  }
-
-  /**
-   * Pause a job
-   * @param jobId The job ID to pause
-   * @returns Promise resolving to updated job data
-   */
-  async pause(jobId: string): Promise<ApiResponse<Job>> {
-    return this.client.post<Job>(`${this.basePath}/${jobId}/actions/pause/`, {});
-  }
-
-  /**
-   * Resume a paused job
-   * @param jobId The job ID to resume
-   * @returns Promise resolving to updated job data
-   */
-  async resume(jobId: string): Promise<ApiResponse<Job>> {
-    return this.client.post<Job>(`${this.basePath}/${jobId}/actions/resume/`, {});
-  }
-
-  /**
-   * Abort a job
-   * @param jobId The job ID to abort
-   * @returns Promise resolving to updated job data
-   */
-  async abort(jobId: string): Promise<ApiResponse<Job>> {
-    return this.client.post<Job>(`${this.basePath}/${jobId}/actions/abort/`, {});
-  }
-
-  /**
-   * Restart a job
-   * @param jobId The job ID to restart
-   * @returns Promise resolving to updated job data
-   */
-  async restart(jobId: string): Promise<ApiResponse<Job>> {
-    return this.client.post<Job>(`${this.basePath}/${jobId}/actions/restart/`, {});
   }
 
   /**
@@ -149,80 +109,97 @@ export class JobResource extends BaseResource {
   }
 
   /**
+   * Bulk edit jobs based on query filters
+   * @param query Query parameters to filter which jobs to edit
+   * @param editData Data to update on matching jobs
+   * @returns Promise resolving to bulk edit result
+   */
+  async bulkEditJobs(query: JobsBulkEditQuery, editData: JobsBulkEditRequest): Promise<ApiResponse<JobsBulkEditResponse>> {
+    return this.client.patch<JobsBulkEditResponse>(`${this.basePath}/`, editData, {
+      params: query
+    });
+  }
+
+  /**
    * Bulk update job priorities
    * @param priorityData Bulk priority update data
    * @returns Promise resolving to bulk operation results
    */
   async bulkUpdatePriority(priorityData: JobsPriorityUpdate): Promise<ApiResponse<BulkJobResult[]>> {
-    return this.client.patch(`/jobs/v1/jobs/bulk/change_priority/`, priorityData);
+    return this.client.put(`${this.basePath}/priority/`, priorityData);
   }
 
   /**
-   * Bulk update job states (pause, resume, abort, restart)
+   * Bulk update job states
    * @param stateData Bulk state update data
    * @returns Promise resolving to bulk operation results
    */
   async bulkUpdateState(stateData: JobsStateUpdate): Promise<ApiResponse<BulkJobResult[]>> {
-    return this.client.post(`/jobs/v1/jobs/bulk/actions/${stateData.action.toLowerCase()}/`, {
-      job_ids: stateData.job_ids
-    });
+    return this.client.put(`${this.basePath}/state/`, stateData);
   }
 
   /**
-   * Bulk pause multiple jobs
-   * @param jobIds Array of job IDs to pause
-   * @returns Promise resolving to bulk operation results
-   */
-  async bulkPause(jobIds: string[]): Promise<ApiResponse<BulkJobResult[]>> {
-    return this.client.post<BulkJobResult[]>(`${this.basePath}/bulk/actions/pause/`, { job_ids: jobIds });
-  }
-
-  /**
-   * Bulk resume jobs
-   * @param jobIds Array of job IDs to resume
-   * @returns Promise resolving to bulk operation results
-   */
-  async bulkResume(jobIds: string[]): Promise<ApiResponse<BulkJobResult[]>> {
-    return this.bulkUpdateState({ job_ids: jobIds, action: 'RESUME' });
-  }
-
-  /**
-   * Bulk abort jobs
-   * @param jobIds Array of job IDs to abort
-   * @returns Promise resolving to bulk operation results
-   */
-  async bulkAbort(jobIds: string[]): Promise<ApiResponse<BulkJobResult[]>> {
-    return this.bulkUpdateState({ job_ids: jobIds, action: 'ABORT' });
-  }
-
-  /**
-   * Bulk restart jobs
-   * @param jobIds Array of job IDs to restart
-   * @returns Promise resolving to bulk operation results
-   */
-  async bulkRestart(jobIds: string[]): Promise<ApiResponse<BulkJobResult[]>> {
-    return this.bulkUpdateState({ job_ids: jobIds, action: 'RESTART' });
-  }
-
-  /**
-   * Bulk delete jobs
+   * Bulk delete multiple jobs
    * @param jobIds Array of job IDs to delete
-   * @returns Promise resolving to bulk operation results
+   * @returns Promise resolving to deletion confirmation (204 No Content)
    */
-  async bulkDelete(jobIds: string[]): Promise<ApiResponse<BulkJobResult[]>> {
-    return this.client.delete<BulkJobResult[]>(`${this.basePath}/bulk/`, {
-      data: { job_ids: jobIds }
+  async bulkDelete(jobIds: string[]): Promise<ApiResponse<void>> {
+    const requestBody: JobsBulkDeleteRequest = { job_ids: jobIds };
+    
+    return this.client.delete<void>(`${this.basePath}/`, {
+      data: requestBody
     });
   }
 
   /**
-   * Get job statistics/aggregations
-   * @param query Query parameters for statistics
-   * @returns Promise resolving to job statistics
+   * Reindex a job
+   * @param jobId The job ID to reindex
+   * @param options Options for reindexing
+   * @returns Promise resolving to success confirmation
    */
-  async getStats(query: Pick<JobsQuery, 'aggregations' | 'facets' | 'type' | 'status' | 'object_type'>): Promise<ApiResponse<any>> {
-    return this.client.get<any>(`${this.basePath}/`, { 
-      params: query
-    });
+  async reindexJob(jobId: string, options?: { sync_to_another_dc?: boolean }): Promise<ApiResponse<void>> {
+    return this.client.post<void>(`${this.basePath}/${jobId}/reindex`, options || {});
+  }
+
+  /**
+   * Update multiple steps for a job
+   * @param jobId The job ID to update steps for
+   * @param stepsData Job steps update data
+   * @returns Promise resolving to the updated job
+   */
+  async updateJobSteps(jobId: string, stepsData: JobStepsUpdate): Promise<ApiResponse<Job>> {
+    return this.client.patch<Job>(`${this.basePath}/${jobId}/steps/`, stepsData);
+  }
+
+  /**
+   * Replace multiple steps for a job
+   * @param jobId The job ID to replace steps for
+   * @param stepsData Job steps update data
+   * @returns Promise resolving to the updated job
+   */
+  async replaceJobSteps(jobId: string, stepsData: JobStepsUpdate): Promise<ApiResponse<Job>> {
+    return this.client.put<Job>(`${this.basePath}/${jobId}/steps/`, stepsData);
+  }
+
+  /**
+   * Update a single job step
+   * @param jobId The job ID the step belongs to
+   * @param stepId The ID of the step to update
+   * @param stepData Step update data (status, message, etc.)
+   * @returns Promise resolving to the updated job
+   */
+  async updateJobStep(jobId: string, stepId: string, stepData: Partial<JobStep>): Promise<ApiResponse<Job>> {
+    return this.client.patch<Job>(`${this.basePath}/${jobId}/steps/${stepId}/`, stepData);
+  }
+
+  /**
+   * Replace a single job step (complete replacement)
+   * @param jobId The job ID the step belongs to
+   * @param stepId The ID of the step to replace
+   * @param stepData Full step data to replace with
+   * @returns Promise resolving to the updated job
+   */
+  async replaceJobStep(jobId: string, stepId: string, stepData: JobStep): Promise<ApiResponse<Job>> {
+    return this.client.put<Job>(`${this.basePath}/${jobId}/steps/${stepId}/`, stepData);
   }
 }

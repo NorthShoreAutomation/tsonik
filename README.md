@@ -26,7 +26,7 @@ import { IconikClient } from "tsonik";
 
 const client = new IconikClient({
   apiKey: "your-api-key",
-  baseUrl: "https://api.iconik.io/v1", // optional
+  baseUrl: "https://app.iconik.io/v1", // optional
   debug: true, // optional
 });
 

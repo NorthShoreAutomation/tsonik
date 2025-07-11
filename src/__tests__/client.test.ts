@@ -6,7 +6,7 @@ describe('IconikClient', () => {
   const config: IconikConfig = {
     appId: 'test-app-id',
     authToken: 'test-auth-token',
-    baseUrl: 'https://api.iconik.io/v1',
+    baseUrl: 'https://app.iconik.io/v1',
     debug: true,
   };
 

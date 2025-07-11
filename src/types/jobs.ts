@@ -14,6 +14,10 @@ export type JobStatus =
   | 'SKIPPED'
   | 'PAUSED';
 
+/**
+ * Job types supported by the Iconik API
+ * Note: All job types listed here are creatable via the API (verified through testing)
+ */
 export type JobType = 
   | 'MEDIAINFO'
   | 'TRANSCODE'
@@ -122,6 +126,7 @@ export interface Job {
   action_context?: ActionContext;
   related_objects?: RelatedObject[];
   steps?: JobStep[];
+  storage_id?: string; // Added field from API spec
 }
 
 export interface JobCreate {
@@ -131,6 +136,7 @@ export interface JobCreate {
   custom_type?: string;
   message?: string;
   error_message?: string;
+  priority?: number;
   object_id?: string;
   object_type?: string;
   parent_id?: string;
@@ -151,10 +157,22 @@ export interface JobCreate {
 export interface JobUpdate {
   title?: string;
   status?: JobStatus;
+  type?: JobType;
+  custom_type?: string;
   message?: string;
   error_message?: string;
+  object_id?: string;
+  object_type?: string;
+  parent_id?: string;
+  started_at?: string;
+  completed_at?: string;
+  has_children?: boolean;
+  progress_processed?: number;
+  progress_total?: number;
   job_context?: Record<string, any>;
   metadata?: Record<string, any>;
+  action_context?: ActionContext;
+  related_objects?: RelatedObject[];
 }
 
 export interface JobsQuery {
@@ -174,7 +192,7 @@ export interface JobsQuery {
   date_created?: string;
   date_modified?: string;
   query?: string;
-  ids?: string[];
+  ids?: string; // Comma separated list of IDs per API spec
   'metadata.automation_id'?: string;
   _missing_?: string[];
   _exists_?: string[];
@@ -183,6 +201,10 @@ export interface JobsQuery {
 export interface JobsPriorityUpdate {
   job_ids: string[];
   priority: number;
+}
+
+export interface JobsBulkDeleteRequest {
+  job_ids: string[];
 }
 
 export interface JobsStateUpdate {
@@ -201,5 +223,31 @@ export interface JobStepsUpdate {
 }
 
 export interface BulkJobResult {
+  job_id: string;
+}
+
+/**
+ * Query parameters for bulk edit jobs endpoint (PATCH /v1/jobs/)
+ * Extends JobsQuery with additional merge_metadata parameter
+ */
+export interface JobsBulkEditQuery extends Omit<JobsQuery, 'page' | 'per_page' | 'scroll' | 'scroll_id' | 'sort' | 'facets' | 'aggregations'> {
+  merge_metadata?: string;
+}
+
+/**
+ * Request body for bulk edit jobs endpoint (PATCH /v1/jobs/)
+ */
+export interface JobsBulkEditRequest {
+  error_message?: string;
+  job_context?: Record<string, any>;
+  message?: string;
+  metadata?: Record<string, any>;
+  status?: JobStatus;
+}
+
+/**
+ * Response from bulk edit jobs endpoint (PATCH /v1/jobs/)
+ */
+export interface JobsBulkEditResponse {
   job_id: string;
 }
