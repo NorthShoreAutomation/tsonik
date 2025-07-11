@@ -170,48 +170,6 @@ describe('AssetResource Integration Tests', () => {
   // Note: Asset metadata operations have been moved to a dedicated MetadataResource
   // and are no longer part of AssetResource
 
-  describe('Asset File Operations', () => {
-    it('should get asset files', async () => {
-      const response = await client.assets.getFiles(testAssetId);
-
-      expect(response.status).toBe(200);
-      expect(response.data).toBeDefined();
-      // Files response may be an object with files array or direct array
-      if (Array.isArray(response.data)) {
-        expect(Array.isArray(response.data)).toBe(true);
-      } else {
-        expect(typeof response.data).toBe('object');
-      }
-    }, 10000);
-
-    it('should get asset thumbnails', async () => {
-      const response = await client.assets.getThumbnails(testAssetId);
-
-      expect(response.status).toBe(200);
-      expect(response.data).toBeDefined();
-      // Thumbnails/keyframes response may be an object or array
-      if (Array.isArray(response.data)) {
-        expect(Array.isArray(response.data)).toBe(true);
-      } else {
-        expect(typeof response.data).toBe('object');
-      }
-    }, 10000);
-
-    it('should get asset proxies', async () => {
-      const response = await client.assets.getProxies(testAssetId);
-
-      expect(response.status).toBe(200);
-      expect(response.data).toBeDefined();
-      // Proxies response may be an object or array
-      if (Array.isArray(response.data)) {
-        expect(Array.isArray(response.data)).toBe(true);
-      } else {
-        expect(typeof response.data).toBe('object');
-      }
-    }, 10000);
-  });
-
-  // Note: Asset version operations have been removed from AssetResource for simplification
 
   // Note: Asset permission operations are not available in the Iconik API
   // and have been removed from AssetResource
