@@ -19,6 +19,7 @@
     "test:integration:jobs": "jest --config jest.integration.config.js --testPathPattern=jobs.integration",
     "test:integration:assets": "jest --config jest.integration.config.js --testPathPattern=assets.integration",
     "test:integration:collections": "jest --config jest.integration.config.js --testPathPattern=collections.integration",
+    "test:integration:filesets": "jest --config jest.integration.config.js --testPathPattern=filesets.integration",
     "test:all": "npm run test && npm run test:integration",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",

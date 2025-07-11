@@ -16,6 +16,7 @@ import {
   JobUpdate
 } from '../types';
 import { CollectionListParams, CreateCollectionRequest, DeleteCollectionResponse, UpdateCollectionRequest, UpdateCollectionOptions, ReplaceCollectionRequest, ReplaceCollectionOptions } from '../types/collections';
+import { FileSet, AssetFileSetsListParams, CreateFileSetRequest, DeleteFileSetOptions } from '../types/filesets';
 
 // Create mock Axios instance with proper interceptors setup
 const mockAxiosInstance = {
@@ -1490,6 +1491,859 @@ describe('IconikClient Resources', () => {
       await expect(client.collections.replaceCollection('   ', replaceData))
         .rejects
         .toThrow('Collection ID is required');
+    });
+  });
+
+  describe('FileSetResource', () => {
+    it('should get asset filesets with no parameters', async () => {
+      // Setup mock paginated response matching API spec
+      const mockFilesets = {
+        objects: [
+          {
+            id: 'fileset-1',
+            asset_id: 'asset-123',
+            name: 'Original',
+            status: 'ACTIVE',
+            storage_id: 'storage-1',
+            format_id: 'format-1',
+            file_count: 5,
+            date_created: '2023-01-01T00:00:00Z'
+          },
+          {
+            id: 'fileset-2',
+            asset_id: 'asset-123',
+            name: 'Proxy',
+            status: 'ACTIVE',
+            storage_id: 'storage-2',
+            format_id: 'format-2',
+            is_archive: false,
+            file_count: 3,
+            date_created: '2023-01-02T00:00:00Z'
+          }
+        ],
+        total: 2,
+        page: 1,
+        pages: 1,
+        per_page: 50,
+        first_url: '/API/files/v1/assets/asset-123/file_sets/?page=1',
+        last_url: '/API/files/v1/assets/asset-123/file_sets/?page=1'
+      };
+
+      mockAxiosInstance.get.mockResolvedValueOnce({
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        data: mockFilesets
+      });
+
+      // Call the method
+      const result = await client.filesets.getAssetFilesets('asset-123');
+
+      // Assertions
+      expect(mockAxiosInstance.get).toHaveBeenCalledWith(
+        '/API/files/v1/assets/asset-123/file_sets/',
+        undefined
+      );
+      expect(result.data).toEqual(mockFilesets);
+      expect(result.status).toBe(200);
+      expect(result.data.objects).toHaveLength(2);
+    });
+
+    it('should get asset filesets with pagination parameters', async () => {
+      // Setup mock response with pagination
+      const mockFilesets = {
+        objects: [
+          {
+            id: 'fileset-3',
+            asset_id: 'asset-456',
+            name: 'Transcoded',
+            status: 'ACTIVE',
+            storage_id: 'storage-3',
+            format_id: 'format-3',
+            file_count: 10,
+            date_created: '2023-01-03T00:00:00Z'
+          }
+        ],
+        total: 5,
+        page: 2,
+        pages: 3,
+        per_page: 2,
+        next_url: '/API/files/v1/assets/asset-456/file_sets/?per_page=2&last_id=fileset-4',
+        prev_url: '/API/files/v1/assets/asset-456/file_sets/?per_page=2&last_id=fileset-1'
+      };
+
+      mockAxiosInstance.get.mockResolvedValueOnce({
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        data: mockFilesets
+      });
+
+      const params: AssetFileSetsListParams = {
+        per_page: 2,
+        last_id: 'fileset-2'
+      };
+
+      // Call the method
+      const result = await client.filesets.getAssetFilesets('asset-456', params);
+
+      // Assertions
+      expect(mockAxiosInstance.get).toHaveBeenCalledWith(
+        '/API/files/v1/assets/asset-456/file_sets/',
+        { params: { per_page: 2, last_id: 'fileset-2' } }
+      );
+      expect(result.data).toEqual(mockFilesets);
+      expect(result.status).toBe(200);
+    });
+
+    it('should get asset filesets with file_count parameter', async () => {
+      // Setup mock response with file count enabled
+      const mockFilesets = {
+        objects: [
+          {
+            id: 'fileset-4',
+            asset_id: 'asset-789',
+            name: 'Archive',
+            status: 'ACTIVE',
+            storage_id: 'storage-4',
+            format_id: 'format-4',
+            is_archive: true,
+            file_count: 25,
+            date_created: '2023-01-04T00:00:00Z'
+          }
+        ],
+        total: 1,
+        page: 1,
+        pages: 1,
+        per_page: 50
+      };
+
+      mockAxiosInstance.get.mockResolvedValueOnce({
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        data: mockFilesets
+      });
+
+      const params: AssetFileSetsListParams = {
+        file_count: true
+      };
+
+      // Call the method
+      const result = await client.filesets.getAssetFilesets('asset-789', params);
+
+      // Assertions
+      expect(mockAxiosInstance.get).toHaveBeenCalledWith(
+        '/API/files/v1/assets/asset-789/file_sets/',
+        { params: { file_count: true } }
+      );
+      expect(result.data).toEqual(mockFilesets);
+      expect(result.status).toBe(200);
+      expect(result.data.objects[0].file_count).toBe(25);
+    });
+
+    it('should get asset filesets with all parameters', async () => {
+      // Setup mock response
+      const mockFilesets = {
+        objects: [
+          {
+            id: 'fileset-5',
+            asset_id: 'asset-100',
+            name: 'Optimized',
+            status: 'ACTIVE',
+            storage_id: 'storage-5',
+            base_dir: '/media/assets/asset-100',
+            component_ids: ['comp-1', 'comp-2'],
+            version_id: 'version-1',
+            file_count: 8,
+            date_created: '2023-01-05T00:00:00Z',
+            date_modified: '2023-01-05T12:00:00Z'
+          }
+        ],
+        total: 3,
+        page: 1,
+        pages: 2,
+        per_page: 1
+      };
+
+      mockAxiosInstance.get.mockResolvedValueOnce({
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        data: mockFilesets
+      });
+
+      const params: AssetFileSetsListParams = {
+        per_page: 1,
+        last_id: 'fileset-4',
+        file_count: true
+      };
+
+      // Call the method
+      const result = await client.filesets.getAssetFilesets('asset-100', params);
+
+      // Assertions
+      expect(mockAxiosInstance.get).toHaveBeenCalledWith(
+        '/API/files/v1/assets/asset-100/file_sets/',
+        { params: { per_page: 1, last_id: 'fileset-4', file_count: true } }
+      );
+      expect(result.data).toEqual(mockFilesets);
+      expect(result.status).toBe(200);
+    });
+
+    it('should handle empty filesets list', async () => {
+      // Setup mock response for empty list
+      const mockEmptyFilesets = {
+        objects: [],
+        total: 0,
+        page: 1,
+        pages: 0,
+        per_page: 50
+      };
+
+      mockAxiosInstance.get.mockResolvedValueOnce({
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        data: mockEmptyFilesets
+      });
+
+      // Call the method
+      const result = await client.filesets.getAssetFilesets('asset-empty');
+
+      // Assertions
+      expect(mockAxiosInstance.get).toHaveBeenCalledWith(
+        '/API/files/v1/assets/asset-empty/file_sets/',
+        undefined
+      );
+      expect(result.data).toEqual(mockEmptyFilesets);
+      expect(result.status).toBe(200);
+      expect(result.data.objects).toHaveLength(0);
+    });
+
+    it('should validate asset ID is required', async () => {
+      await expect(client.filesets.getAssetFilesets(''))
+        .rejects
+        .toThrow('Asset ID is required');
+    });
+
+    it('should validate asset ID is not just whitespace', async () => {
+      await expect(client.filesets.getAssetFilesets('   '))
+        .rejects
+        .toThrow('Asset ID is required');
+    });
+
+    it('should handle filesets with archive information', async () => {
+      // Setup mock response with archive filesets
+      const mockArchiveFilesets = {
+        objects: [
+          {
+            id: 'fileset-archive-1',
+            asset_id: 'asset-archive',
+            name: 'Archived Original',
+            status: 'ARCHIVED',
+            storage_id: 'archive-storage',
+            archive_file_set_id: 'archive-ref-1',
+            original_storage_id: 'original-storage-1',
+            is_archive: true,
+            file_count: 15,
+            date_created: '2023-01-01T00:00:00Z',
+            date_deleted: '2023-01-15T00:00:00Z',
+            deleted_by_user: 'user-123'
+          }
+        ],
+        total: 1,
+        page: 1,
+        pages: 1,
+        per_page: 50
+      };
+
+      mockAxiosInstance.get.mockResolvedValueOnce({
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        data: mockArchiveFilesets
+      });
+
+      // Call the method
+      const result = await client.filesets.getAssetFilesets('asset-archive');
+
+      // Assertions
+      expect(result.data.objects[0].is_archive).toBe(true);
+      expect(result.data.objects[0].status).toBe('ARCHIVED');
+      expect(result.data.objects[0].archive_file_set_id).toBe('archive-ref-1');
+      expect(result.data.objects[0].original_storage_id).toBe('original-storage-1');
+    });
+
+    it('should get a specific fileset by ID', async () => {
+      // Setup mock response for single fileset
+      const mockFileset: FileSet = {
+        id: 'fileset-123',
+        asset_id: 'asset-456',
+        name: 'High Resolution',
+        status: 'ACTIVE',
+        storage_id: 'storage-789',
+        format_id: 'format-456',
+        base_dir: '/media/assets/asset-456/fileset-123',
+        component_ids: ['comp-1', 'comp-2', 'comp-3'],
+        version_id: 'version-1',
+        file_count: 12,
+        is_archive: false,
+        date_created: '2023-01-01T00:00:00Z',
+        date_modified: '2023-01-01T12:00:00Z'
+      };
+
+      mockAxiosInstance.get.mockResolvedValueOnce({
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        data: mockFileset
+      });
+
+      // Call the method
+      const result = await client.filesets.getAssetFileset('asset-456', 'fileset-123');
+
+      // Assertions
+      expect(mockAxiosInstance.get).toHaveBeenCalledWith(
+        '/API/files/v1/assets/asset-456/file_sets/fileset-123/',
+        undefined
+      );
+      expect(result.data).toEqual(mockFileset);
+      expect(result.status).toBe(200);
+      expect(result.data.id).toBe('fileset-123');
+      expect(result.data.asset_id).toBe('asset-456');
+      expect(result.data.name).toBe('High Resolution');
+      expect(result.data.file_count).toBe(12);
+    });
+
+    it('should get fileset with minimal data', async () => {
+      // Setup mock response for minimal fileset
+      const mockMinimalFileset: FileSet = {
+        id: 'fileset-minimal',
+        asset_id: 'asset-minimal',
+        storage_id: 'storage-minimal'
+      };
+
+      mockAxiosInstance.get.mockResolvedValueOnce({
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        data: mockMinimalFileset
+      });
+
+      // Call the method
+      const result = await client.filesets.getAssetFileset('asset-minimal', 'fileset-minimal');
+
+      // Assertions
+      expect(mockAxiosInstance.get).toHaveBeenCalledWith(
+        '/API/files/v1/assets/asset-minimal/file_sets/fileset-minimal/',
+        undefined
+      );
+      expect(result.data).toEqual(mockMinimalFileset);
+      expect(result.status).toBe(200);
+      expect(result.data.id).toBe('fileset-minimal');
+    });
+
+    it('should get archived fileset with archive information', async () => {
+      // Setup mock response for archived fileset
+      const mockArchivedFileset: FileSet = {
+        id: 'fileset-archived',
+        asset_id: 'asset-archived',
+        name: 'Archived Version',
+        status: 'ARCHIVED',
+        storage_id: 'archive-storage',
+        archive_file_set_id: 'archive-original',
+        original_storage_id: 'original-storage',
+        is_archive: true,
+        file_count: 25,
+        date_created: '2023-01-01T00:00:00Z',
+        date_deleted: '2023-02-01T00:00:00Z',
+        deleted_by_user: 'admin-user'
+      };
+
+      mockAxiosInstance.get.mockResolvedValueOnce({
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        data: mockArchivedFileset
+      });
+
+      // Call the method
+      const result = await client.filesets.getAssetFileset('asset-archived', 'fileset-archived');
+
+      // Assertions
+      expect(result.data.status).toBe('ARCHIVED');
+      expect(result.data.is_archive).toBe(true);
+      expect(result.data.archive_file_set_id).toBe('archive-original');
+      expect(result.data.original_storage_id).toBe('original-storage');
+      expect(result.data.deleted_by_user).toBe('admin-user');
+    });
+
+    it('should validate asset ID is required for getAssetFileset', async () => {
+      await expect(client.filesets.getAssetFileset('', 'fileset-123'))
+        .rejects
+        .toThrow('Asset ID is required');
+    });
+
+    it('should validate asset ID is not just whitespace for getAssetFileset', async () => {
+      await expect(client.filesets.getAssetFileset('   ', 'fileset-123'))
+        .rejects
+        .toThrow('Asset ID is required');
+    });
+
+    it('should validate file set ID is required for getAssetFileset', async () => {
+      await expect(client.filesets.getAssetFileset('asset-123', ''))
+        .rejects
+        .toThrow('File set ID is required');
+    });
+
+    it('should validate file set ID is not just whitespace for getAssetFileset', async () => {
+      await expect(client.filesets.getAssetFileset('asset-123', '   '))
+        .rejects
+        .toThrow('File set ID is required');
+    });
+
+    it('should create a new fileset for an asset', async () => {
+      // Setup mock response for created fileset
+      const createData: CreateFileSetRequest = {
+        name: 'New Fileset',
+        storage_id: 'storage-new',
+        format_id: 'format-new',
+        status: 'ACTIVE',
+        is_archive: false,
+        base_dir: '/media/new',
+        component_ids: ['comp-new-1', 'comp-new-2']
+      };
+
+      const mockCreatedFileset: FileSet = {
+        id: 'fileset-new-123',
+        asset_id: 'asset-new',
+        name: 'New Fileset',
+        storage_id: 'storage-new',
+        format_id: 'format-new',
+        status: 'ACTIVE',
+        is_archive: false,
+        base_dir: '/media/new',
+        component_ids: ['comp-new-1', 'comp-new-2'],
+        file_count: 0,
+        date_created: '2023-01-01T00:00:00Z',
+        date_modified: '2023-01-01T00:00:00Z'
+      };
+
+      mockAxiosInstance.post.mockResolvedValueOnce({
+        status: 201,
+        statusText: 'Created',
+        headers: {},
+        data: mockCreatedFileset
+      });
+
+      // Call the method
+      const result = await client.filesets.createAssetFileset('asset-new', createData);
+
+      // Assertions
+      expect(mockAxiosInstance.post).toHaveBeenCalledWith(
+        '/API/files/v1/assets/asset-new/file_sets/',
+        createData,
+        undefined
+      );
+      expect(result.data).toEqual(mockCreatedFileset);
+      expect(result.status).toBe(201);
+      expect(result.data.id).toBe('fileset-new-123');
+      expect(result.data.asset_id).toBe('asset-new');
+      expect(result.data.name).toBe('New Fileset');
+    });
+
+    it('should create a minimal fileset', async () => {
+      // Setup mock response for minimal fileset creation
+      const createData: CreateFileSetRequest = {
+        storage_id: 'storage-minimal'
+      };
+
+      const mockMinimalFileset: FileSet = {
+        id: 'fileset-minimal-456',
+        asset_id: 'asset-minimal',
+        storage_id: 'storage-minimal',
+        date_created: '2023-01-01T00:00:00Z'
+      };
+
+      mockAxiosInstance.post.mockResolvedValueOnce({
+        status: 201,
+        statusText: 'Created',
+        headers: {},
+        data: mockMinimalFileset
+      });
+
+      // Call the method
+      const result = await client.filesets.createAssetFileset('asset-minimal', createData);
+
+      // Assertions
+      expect(mockAxiosInstance.post).toHaveBeenCalledWith(
+        '/API/files/v1/assets/asset-minimal/file_sets/',
+        createData,
+        undefined
+      );
+      expect(result.data).toEqual(mockMinimalFileset);
+      expect(result.status).toBe(201);
+      expect(result.data.id).toBe('fileset-minimal-456');
+    });
+
+    it('should create an archive fileset', async () => {
+      // Setup mock response for archive fileset creation
+      const createData: CreateFileSetRequest = {
+        name: 'Archive Fileset',
+        storage_id: 'archive-storage',
+        is_archive: true,
+        archive_file_set_id: 'original-fileset-123',
+        original_storage_id: 'original-storage'
+      };
+
+      const mockArchiveFileset: FileSet = {
+        id: 'fileset-archive-789',
+        asset_id: 'asset-archive',
+        name: 'Archive Fileset',
+        storage_id: 'archive-storage',
+        is_archive: true,
+        archive_file_set_id: 'original-fileset-123',
+        original_storage_id: 'original-storage',
+        status: 'ACTIVE',
+        date_created: '2023-01-01T00:00:00Z'
+      };
+
+      mockAxiosInstance.post.mockResolvedValueOnce({
+        status: 201,
+        statusText: 'Created',
+        headers: {},
+        data: mockArchiveFileset
+      });
+
+      // Call the method
+      const result = await client.filesets.createAssetFileset('asset-archive', createData);
+
+      // Assertions
+      expect(result.data.is_archive).toBe(true);
+      expect(result.data.archive_file_set_id).toBe('original-fileset-123');
+      expect(result.data.original_storage_id).toBe('original-storage');
+    });
+
+    it('should validate asset ID is required for createAssetFileset', async () => {
+      const createData: CreateFileSetRequest = {
+        storage_id: 'storage-test'
+      };
+
+      await expect(client.filesets.createAssetFileset('', createData))
+        .rejects
+        .toThrow('Asset ID is required');
+    });
+
+    it('should validate asset ID is not just whitespace for createAssetFileset', async () => {
+      const createData: CreateFileSetRequest = {
+        storage_id: 'storage-test'
+      };
+
+      await expect(client.filesets.createAssetFileset('   ', createData))
+        .rejects
+        .toThrow('Asset ID is required');
+    });
+
+    it('should delete a fileset with default options', async () => {
+      // Setup mock response for deleted fileset (soft delete - returns 200 with fileset data)
+      const mockDeletedFileset: FileSet = {
+        id: 'fileset-delete-123',
+        asset_id: 'asset-delete',
+        name: 'Deleted Fileset',
+        storage_id: 'storage-delete',
+        status: 'DELETED',
+        date_created: '2023-01-01T00:00:00Z',
+        date_deleted: '2023-01-01T12:00:00Z',
+        deleted_by_user: 'test-user'
+      };
+
+      mockAxiosInstance.delete.mockResolvedValueOnce({
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        data: mockDeletedFileset
+      });
+
+      // Call the method
+      const result = await client.filesets.deleteAssetFileset('asset-delete', 'fileset-delete-123');
+
+      // Assertions
+      expect(mockAxiosInstance.delete).toHaveBeenCalledWith(
+        '/API/files/v1/assets/asset-delete/file_sets/fileset-delete-123/',
+        undefined
+      );
+      expect(result.data).toEqual(mockDeletedFileset);
+      expect(result.status).toBe(200);
+      if (result.data && typeof result.data === 'object' && 'status' in result.data) {
+        expect(result.data.status).toBe('DELETED');
+      }
+    });
+
+    it('should delete a fileset immediately', async () => {
+      // Setup mock response for immediate deletion (returns 204 with no body)
+      mockAxiosInstance.delete.mockResolvedValueOnce({
+        status: 204,
+        statusText: 'No Content',
+        headers: {},
+        data: null
+      });
+
+      const options: DeleteFileSetOptions = {
+        immediately: true
+      };
+
+      // Call the method
+      const result = await client.filesets.deleteAssetFileset('asset-immediate', 'fileset-immediate-123', options);
+
+      // Assertions
+      expect(mockAxiosInstance.delete).toHaveBeenCalledWith(
+        '/API/files/v1/assets/asset-immediate/file_sets/fileset-immediate-123/',
+        { params: { immediately: true } }
+      );
+      expect(result.status).toBe(204);
+      expect(result.data).toBeNull();
+    });
+
+    it('should delete a fileset with keep_source option', async () => {
+      // Setup mock response for delete with keep_source
+      const mockDeletedFileset: FileSet = {
+        id: 'fileset-keep-source',
+        asset_id: 'asset-keep-source',
+        status: 'DELETED',
+        date_deleted: '2023-01-01T12:00:00Z'
+      };
+
+      mockAxiosInstance.delete.mockResolvedValueOnce({
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        data: mockDeletedFileset
+      });
+
+      const options: DeleteFileSetOptions = {
+        keep_source: true
+      };
+
+      // Call the method
+      const result = await client.filesets.deleteAssetFileset('asset-keep-source', 'fileset-keep-source', options);
+
+      // Assertions
+      expect(mockAxiosInstance.delete).toHaveBeenCalledWith(
+        '/API/files/v1/assets/asset-keep-source/file_sets/fileset-keep-source/',
+        { params: { keep_source: true } }
+      );
+      expect(result.status).toBe(200);
+    });
+
+    it('should delete a fileset with both options', async () => {
+      // Setup mock response for immediate delete with keep_source
+      mockAxiosInstance.delete.mockResolvedValueOnce({
+        status: 204,
+        statusText: 'No Content',
+        headers: {},
+        data: null
+      });
+
+      const options: DeleteFileSetOptions = {
+        keep_source: true,
+        immediately: true
+      };
+
+      // Call the method
+      const result = await client.filesets.deleteAssetFileset('asset-both-options', 'fileset-both-options', options);
+
+      // Assertions
+      expect(mockAxiosInstance.delete).toHaveBeenCalledWith(
+        '/API/files/v1/assets/asset-both-options/file_sets/fileset-both-options/',
+        { params: { keep_source: true, immediately: true } }
+      );
+      expect(result.status).toBe(204);
+    });
+
+    it('should validate asset ID is required for deleteAssetFileset', async () => {
+      await expect(client.filesets.deleteAssetFileset('', 'fileset-123'))
+        .rejects
+        .toThrow('Asset ID is required');
+    });
+
+    it('should validate asset ID is not just whitespace for deleteAssetFileset', async () => {
+      await expect(client.filesets.deleteAssetFileset('   ', 'fileset-123'))
+        .rejects
+        .toThrow('Asset ID is required');
+    });
+
+    it('should validate file set ID is required for deleteAssetFileset', async () => {
+      await expect(client.filesets.deleteAssetFileset('asset-123', ''))
+        .rejects
+        .toThrow('File set ID is required');
+    });
+
+    it('should validate file set ID is not just whitespace for deleteAssetFileset', async () => {
+      await expect(client.filesets.deleteAssetFileset('asset-123', '   '))
+        .rejects
+        .toThrow('File set ID is required');
+    });
+
+    // Tests for getFileSetFiles
+    it('should get files from a file set with default parameters', async () => {
+      // Setup mock paginated response matching API spec
+      const mockFiles = {
+        objects: [
+          {
+            id: 'file-123',
+            asset_id: 'asset-456',
+            file_set_id: 'fileset-789',
+            name: 'test_file.mp4',
+            status: 'UPLOADED',
+            type: 'FILE',
+            size: 1024000
+          },
+          {
+            id: 'file-456',
+            asset_id: 'asset-456',
+            file_set_id: 'fileset-789',
+            name: 'test_file2.jpg',
+            status: 'UPLOADED',
+            type: 'FILE',
+            size: 102400
+          }
+        ],
+        total: 2,
+        page: 1,
+        per_page: 100
+      };
+
+      // Mock Axios to return expected response
+      mockAxiosInstance.get.mockResolvedValueOnce({
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        data: mockFiles
+      });
+
+      // Call the method
+      const result = await client.filesets.getFileSetFiles('asset-456', 'fileset-789');
+
+      // Assertions
+      expect(mockAxiosInstance.get).toHaveBeenCalledWith(
+        '/API/files/v1/assets/asset-456/file_sets/fileset-789/files/',
+        undefined
+      );
+      expect(result.data).toEqual(mockFiles);
+      expect(result.status).toBe(200);
+      expect(result.data.objects.length).toBe(2);
+      expect(result.data.objects[0].id).toBe('file-123');
+      expect(result.data.objects[0].file_set_id).toBe('fileset-789');
+      expect(result.data.objects[0].type).toBe('FILE');
+    });
+
+    it('should get files from a file set with all parameters', async () => {
+      // Setup options
+      const options = {
+        per_page: 10,
+        last_id: 'file-last-id',
+        generate_signed_url: true,
+        file_count: true
+      };
+
+      // Setup mock response
+      const mockFiles = {
+        objects: [
+          {
+            id: 'file-123',
+            asset_id: 'asset-456',
+            file_set_id: 'fileset-789',
+            name: 'test_file.mp4',
+            status: 'UPLOADED',
+            type: 'FILE',
+            size: 1024000,
+            url: 'https://example.com/signed-url/test_file.mp4'
+          }
+        ],
+        total: 1,
+        page: 1,
+        per_page: 10,
+        next_url: null,
+        prev_url: null
+      };
+
+      // Mock Axios to return expected response
+      mockAxiosInstance.get.mockResolvedValueOnce({
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        data: mockFiles
+      });
+
+      // Call the method
+      const result = await client.filesets.getFileSetFiles('asset-456', 'fileset-789', options);
+
+      // Assertions
+      expect(mockAxiosInstance.get).toHaveBeenCalledWith(
+        '/API/files/v1/assets/asset-456/file_sets/fileset-789/files/',
+        {
+          params: {
+            per_page: 10,
+            last_id: 'file-last-id',
+            generate_signed_url: true,
+            file_count: true
+          }
+        }
+      );
+      expect(result.data).toEqual(mockFiles);
+      expect(result.status).toBe(200);
+      expect(result.data.objects[0].url).toBe('https://example.com/signed-url/test_file.mp4');
+    });
+
+    it('should handle empty file list', async () => {
+      // Setup mock response for empty list
+      const mockEmptyFiles = {
+        objects: [],
+        total: 0,
+        page: 1,
+        per_page: 100
+      };
+
+      // Mock Axios to return expected response
+      mockAxiosInstance.get.mockResolvedValueOnce({
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        data: mockEmptyFiles
+      });
+
+      // Call the method
+      const result = await client.filesets.getFileSetFiles('asset-456', 'fileset-789');
+
+      // Assertions
+      expect(result.data).toEqual(mockEmptyFiles);
+      expect(result.status).toBe(200);
+      expect(result.data.objects.length).toBe(0);
+    });
+
+    it('should validate asset ID is required for getFileSetFiles', async () => {
+      await expect(client.filesets.getFileSetFiles('', 'fileset-123'))
+        .rejects
+        .toThrow('Asset ID is required');
+    });
+
+    it('should validate asset ID cannot be whitespace for getFileSetFiles', async () => {
+      await expect(client.filesets.getFileSetFiles('   ', 'fileset-123'))
+        .rejects
+        .toThrow('Asset ID is required');
+    });
+
+    it('should validate file set ID is required for getFileSetFiles', async () => {
+      await expect(client.filesets.getFileSetFiles('asset-123', ''))
+        .rejects
+        .toThrow('File set ID is required');
+    });
+
+    it('should validate file set ID cannot be whitespace for getFileSetFiles', async () => {
+      await expect(client.filesets.getFileSetFiles('asset-123', '   '))
+        .rejects
+        .toThrow('File set ID is required');
     });
   });
 });
