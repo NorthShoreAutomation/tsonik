@@ -1,0 +1,51 @@
+name: Unit Tests with Coverage
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: Run Unit Tests with Coverage
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+        cache: 'npm'
+    
+    - name: Install Dependencies
+      run: npm ci
+    
+    - name: Run Unit Tests with Coverage
+      run: npm run test:unit -- --coverage
+      env:
+        ICONIK_APP_ID: ${{ secrets.ICONIK_APP_ID }}
+        ICONIK_AUTH_TOKEN: ${{ secrets.ICONIK_AUTH_TOKEN }}
+        ICONIK_BASE_URL: ${{ secrets.ICONIK_BASE_URL }}
+    
+    - name: Verify resource files coverage
+      run: |
+        echo "Checking resource files coverage..."
+        coverage_output=$(npx istanbul report text-summary)
+        resources_coverage=$(npx istanbul report --include=coverage/coverage-final.json text-summary src/resources/* | grep 'Statements' | awk '{print $3}')
+        resources_coverage_num=$(echo $resources_coverage | sed 's/%//')
+        
+        if [[ $resources_coverage_num -lt 90 ]]; then
+          echo "❌ Resource files coverage is below 90%: $resources_coverage"
+          exit 1
+        else
+          echo "✅ Resource files coverage is $resources_coverage"
+        fi
+    
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        directory: ./coverage/
+        fail_ci_if_error: true

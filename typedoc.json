@@ -1,0 +1,12 @@
+{
+  "entryPoints": ["src/index.ts"],
+  "out": "docs",
+  "name": "Tsonik API Documentation",
+  "excludePrivate": true,
+  "excludeExternals": true,
+  "hideGenerator": true,
+  "readme": "README.md",
+  "categorizeByGroup": true,
+  "searchInComments": true,
+  "plugin": ["typedoc-plugin-markdown"]
+}

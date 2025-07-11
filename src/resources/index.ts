@@ -8,3 +8,4 @@ export { JobResource } from './jobs';
 export { CollectionResource } from './collections';
 export { FileSetResource } from './filesets';
 export { FileResource } from './files';
+export { FormatResource } from './formats';

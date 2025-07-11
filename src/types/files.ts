@@ -43,3 +43,34 @@ export interface AssetFilesListParams {
   content_disposition?: string;
   last_id?: string;
 }
+
+/**
+ * Parameters for retrieving a single file from an asset
+ */
+export interface AssetFileParams {
+  generate_signed_post_url?: boolean;
+  content_disposition?: string;
+  bypass_url_cache?: boolean;
+}
+
+/**
+ * Request body for creating a new file for an asset
+ */
+export interface CreateFileRequest {
+  asset_id?: string;
+  checksum?: string;
+  directory_path?: string;
+  file_date_created?: string;
+  file_date_modified?: string;
+  file_set_id?: string;
+  format_id?: string;
+  name?: string;
+  original_name?: string;
+  parent_id?: string;
+  size?: number;
+  status?: FileStatus;
+  storage_id?: string;
+  type?: FileType;
+  user_id?: string;
+  version_id?: string;
+}

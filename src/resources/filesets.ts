@@ -48,7 +48,7 @@ export class FileSetResource extends BaseResource {
       throw new Error('Asset ID is required');
     }
     if (!fileSetId || fileSetId.trim() === '') {
-      throw new Error('File set ID is required');
+      throw new Error('FileSet ID is required');
     }
     
     return this.client.get<FileSet>(`${this.basePath}/assets/${assetId}/file_sets/${fileSetId}/`);
@@ -73,7 +73,7 @@ export class FileSetResource extends BaseResource {
       throw new Error('Asset ID is required');
     }
     if (!fileSetId || fileSetId.trim() === '') {
-      throw new Error('File set ID is required');
+      throw new Error('FileSet ID is required');
     }
     
     // Build query parameters if options are provided
@@ -104,7 +104,7 @@ export class FileSetResource extends BaseResource {
       throw new Error('Asset ID is required');
     }
     if (!fileSetId || fileSetId.trim() === '') {
-      throw new Error('File set ID is required');
+      throw new Error('FileSet ID is required');
     }
     
     // Build query parameters if options are provided

@@ -5,8 +5,14 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "rimraf dist && tsc",
     "dev": "tsc --watch",
+    "prepublishOnly": "npm run lint && npm test && npm run build",
+    "size": "size-limit",
+    "analyze": "size-limit --why",
+    "docs": "typedoc --out docs src/index.ts",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "security": "npm audit --audit-level=high",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
@@ -21,6 +27,7 @@
     "test:integration:collections": "jest --config jest.integration.config.js --testPathPattern=collections.integration",
     "test:integration:filesets": "jest --config jest.integration.config.js --testPathPattern=filesets.integration",
     "test:integration:files": "jest --config jest.integration.config.js --testPathPattern=files.integration",
+    "test:integration:formats": "jest --config jest.integration.config.js --testPathPattern=formats.integration",
     "test:all": "npm run test && npm run test:integration",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",
@@ -35,21 +42,37 @@
     "media",
     "asset-management"
   ],
-  "author": "Your Name <your.email@example.com>",
+  "author": "Brant Goddard",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/tsonik.git"
+    "url": "https://github.com/brantg/tsonik.git"
+  },
+  "bugs": {
+    "url": "https://github.com/brantg/tsonik/issues"
+  },
+  "homepage": "https://github.com/brantg/tsonik#readme",
+  "engines": {
+    "node": ">=14.0.0"
   },
   "files": [
     "dist/**/*",
     "README.md",
     "LICENSE"
   ],
+  "size-limit": [
+    {
+      "path": "dist/index.js",
+      "limit": "100 KB"
+    }
+  ],
   "dependencies": {
     "axios": "^1.6.2"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@size-limit/preset-small-lib": "^10.0.1",
     "@types/jest": "^29.5.8",
     "@types/node": "^20.9.0",
     "@typescript-eslint/eslint-plugin": "^6.12.0",
@@ -57,7 +80,11 @@
     "dotenv": "^17.1.0",
     "eslint": "^8.54.0",
     "jest": "^29.7.0",
+    "rimraf": "^5.0.5",
+    "semantic-release": "^22.0.8",
+    "size-limit": "^10.0.1",
     "ts-jest": "^29.1.1",
+    "typedoc": "^0.25.4",
     "typescript": "^5.3.2"
   }
 }

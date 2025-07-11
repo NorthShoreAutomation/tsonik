@@ -20,6 +20,7 @@ export interface FileSet {
   format_id?: string;
   id: string;
   is_archive?: boolean;
+  metadata?: Record<string, any>[];
   name?: string;
   original_storage_id?: string;
   status?: FileSetStatus;
@@ -38,8 +39,10 @@ export interface CreateFileSetRequest {
   base_dir?: string;
   component_ids?: string[];
   date_deleted?: string;
+  file_dir?: string;
   format_id?: string;
   is_archive?: boolean;
+  metadata?: Record<string, any>[];
   name?: string;
   original_storage_id?: string;
   status?: FileSetStatus;
