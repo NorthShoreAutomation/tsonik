@@ -9,11 +9,13 @@ Tsonik is a TypeScript client library for the Iconik API, providing a modern, ty
 ## Development Commands
 
 ### Build and Development
+
 - `npm run build` - Compile TypeScript to JavaScript in dist/ directory
 - `npm run dev` - Run TypeScript compiler in watch mode for development
 - `npm run prepare` - Build the project (runs automatically on npm install)
 
 ### Testing
+
 - `npm test` - Run unit tests with Jest
 - `npm run test:watch` - Run unit tests in watch mode
 - `npm run test:integration` - Run integration tests (requires environment variables)
@@ -21,14 +23,17 @@ Tsonik is a TypeScript client library for the Iconik API, providing a modern, ty
 - `npm run test:all` - Run both unit and integration tests
 
 ### Linting
+
 - `npm run lint` - Run ESLint on TypeScript files
 - `npm run lint:fix` - Run ESLint and auto-fix issues
 
 ### Integration Test Setup
+
 Integration tests require environment variables:
+
 - `ICONIK_APP_ID` - Your Iconik App ID
-- `ICONIK_AUTH_TOKEN` - Your Iconik Auth Token  
-- `ICONIK_BASE_URL` - Optional base URL (defaults to https://api.iconik.io)
+- `ICONIK_AUTH_TOKEN` - Your Iconik Auth Token
+- `ICONIK_BASE_URL` - Optional base URL (defaults to https://app.iconik.io)
 
 Copy `.env.example` to `.env` and fill in credentials when running integration tests.
 
@@ -39,12 +44,14 @@ Copy `.env.example` to `.env` and fill in credentials when running integration t
 **Client Architecture**: The main `Tsonik` class (exported as `IconikClient`) serves as the central HTTP client, built on Axios with comprehensive error handling and request/response interceptors.
 
 **Resource Pattern**: The library implements an ORM-like pattern with resource classes:
+
 - `BaseResource` - Abstract base class providing common CRUD operations
 - `AssetResource` - Asset management operations
-- `CollectionResource` - Collection management operations  
+- `CollectionResource` - Collection management operations
 - `JobResource` - Job management operations
 
 **Type System**: Comprehensive TypeScript types are organized by domain:
+
 - `types/common.ts` - Shared types and API response structures
 - `types/assets.ts` - Asset-specific types
 - `types/collections.ts` - Collection-specific types
@@ -52,6 +59,7 @@ Copy `.env.example` to `.env` and fill in credentials when running integration t
 - `types/http.ts` - HTTP request/response types
 
 **Error Handling**: Custom error classes extend base `IconikError`:
+
 - `IconikAuthError` - Authentication failures (401)
 - `IconikAPIError` - API errors (4xx/5xx with detailed context)
 
