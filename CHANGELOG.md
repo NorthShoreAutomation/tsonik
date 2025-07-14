@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/NorthShoreAutomation/tsonik/compare/v1.0.0...v1.1.0) (2025-07-14)
+
+
+### Features
+
+* add iconik env vars to semantic release workflow and update docs ([46f3395](https://github.com/NorthShoreAutomation/tsonik/commit/46f3395bb974e5994c9af288837c04e96de00f90))
+
 # 1.0.0 (2025-07-14)
 
 
