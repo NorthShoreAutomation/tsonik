@@ -50,8 +50,12 @@ jobs:
           echo "✅ Resource files coverage is ${resources_coverage}% - meets requirement!"
         fi
     
-    - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        directory: ./coverage/
-        fail_ci_if_error: true
+    # Codecov upload disabled to avoid rate limits
+    # Uncomment and add CODECOV_TOKEN secret if you want external coverage tracking
+    # - name: Upload coverage reports to Codecov
+    #   uses: codecov/codecov-action@v3
+    #   with:
+    #     directory: ./coverage/
+    #     fail_ci_if_error: false
+    #     token: ${{ secrets.CODECOV_TOKEN }}
+    #   continue-on-error: true
