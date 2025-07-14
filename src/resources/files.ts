@@ -1,6 +1,7 @@
 import { BaseResource } from './base';
 import { ApiResponse, PaginatedResponse } from '../types';
 import { AssetFile, AssetFilesListParams, AssetFileParams, CreateFileRequest } from '../types/files';
+import { cleanParams } from '../utils';
 
 /**
  * File resource for managing files in Iconik
@@ -21,22 +22,7 @@ export class FileResource extends BaseResource {
       throw new Error('Asset ID is required');
     }
     
-    // Build query parameters if options are provided
-    const queryParams: Record<string, string | number | boolean> = {};
-    if (options?.per_page !== undefined) {
-      queryParams.per_page = options.per_page;
-    }
-    if (options?.generate_signed_url !== undefined) {
-      queryParams.generate_signed_url = options.generate_signed_url;
-    }
-    if (options?.content_disposition !== undefined) {
-      queryParams.content_disposition = options.content_disposition;
-    }
-    if (options?.last_id !== undefined) {
-      queryParams.last_id = options.last_id;
-    }
-    
-    const config = Object.keys(queryParams).length > 0 ? { params: queryParams } : undefined;
+    const config = Object.keys(cleanParams(options)).length > 0 ? { params: cleanParams(options) } : undefined;
     
     return this.client.get<PaginatedResponse<AssetFile>>(
       `${this.basePath}/assets/${assetId}/files/`,
@@ -61,19 +47,7 @@ export class FileResource extends BaseResource {
       throw new Error('File ID is required');
     }
     
-    // Build query parameters if options are provided
-    const queryParams: Record<string, string | number | boolean> = {};
-    if (options?.generate_signed_post_url !== undefined) {
-      queryParams.generate_signed_post_url = options.generate_signed_post_url;
-    }
-    if (options?.content_disposition !== undefined) {
-      queryParams.content_disposition = options.content_disposition;
-    }
-    if (options?.bypass_url_cache !== undefined) {
-      queryParams.bypass_url_cache = options.bypass_url_cache;
-    }
-    
-    const config = Object.keys(queryParams).length > 0 ? { params: queryParams } : undefined;
+    const config = Object.keys(cleanParams(options)).length > 0 ? { params: cleanParams(options) } : undefined;
     
     return this.client.get<AssetFile>(
       `${this.basePath}/assets/${assetId}/files/${fileId}/`,

@@ -1,5 +1,6 @@
 import { Tsonik } from '../client';
 import { ApiResponse, PaginatedResponse } from '../types';
+import { cleanParams } from '../utils';
 
 /**
  * Base class for all Iconik API resources
@@ -26,12 +27,7 @@ export abstract class BaseResource {
    */
   // Using unknown here instead of strict Record type to allow interfaces without index signatures
   async list<T = unknown>(params?: unknown): Promise<ApiResponse<PaginatedResponse<T>>> {
-    // Filter out undefined/null values and let axios handle query parameter encoding
-    const cleanParams = params ? Object.fromEntries(
-      Object.entries(params).filter(([_, value]) => value !== undefined && value !== null)
-    ) : {};
-    
-    return this.client.get<PaginatedResponse<T>>(`${this.basePath}/`, { params: cleanParams });
+    return this.client.get<PaginatedResponse<T>>(`${this.basePath}/`, { params: cleanParams(params) });
   }
 
   /**

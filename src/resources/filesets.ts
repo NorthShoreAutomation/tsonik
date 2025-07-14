@@ -9,6 +9,7 @@ import {
   FileSetFilesListParams,
   FileSetFile
 } from '../types/filesets';
+import { cleanParams } from '../utils';
 
 /**
  * FileSet resource for managing file sets in Iconik
@@ -26,18 +27,7 @@ export class FileSetResource extends BaseResource {
       throw new Error('Asset ID is required');
     }
     
-    const queryParams: Record<string, string | number | boolean> = {};
-    if (params?.per_page) {
-      queryParams.per_page = params.per_page;
-    }
-    if (params?.last_id) {
-      queryParams.last_id = params.last_id;
-    }
-    if (params?.file_count !== undefined) {
-      queryParams.file_count = params.file_count;
-    }
-    
-    const config = Object.keys(queryParams).length > 0 ? { params: queryParams } : undefined;
+    const config = Object.keys(cleanParams(params)).length > 0 ? { params: cleanParams(params) } : undefined;
     return this.client.get<PaginatedResponse<FileSet>>(`${this.basePath}/assets/${assetId}/file_sets/`, config);
   }
 
@@ -77,16 +67,7 @@ export class FileSetResource extends BaseResource {
       throw new Error('FileSet ID is required');
     }
     
-    // Build query parameters if options are provided
-    const queryParams: Record<string, string | number | boolean> = {};
-    if (options?.keep_source !== undefined) {
-      queryParams.keep_source = options.keep_source;
-    }
-    if (options?.immediately !== undefined) {
-      queryParams.immediately = options.immediately;
-    }
-    
-    const config = Object.keys(queryParams).length > 0 ? { params: queryParams } : undefined;
+    const config = Object.keys(cleanParams(options)).length > 0 ? { params: cleanParams(options) } : undefined;
     
     // Return type depends on options - if immediately=true, returns void (204), otherwise returns FileSet (200)
     return this.client.delete<FileSet | void>(`${this.basePath}/assets/${assetId}/file_sets/${fileSetId}/`, config);
@@ -108,22 +89,7 @@ export class FileSetResource extends BaseResource {
       throw new Error('FileSet ID is required');
     }
     
-    // Build query parameters if options are provided
-    const queryParams: Record<string, string | number | boolean> = {};
-    if (options?.per_page !== undefined) {
-      queryParams.per_page = options.per_page;
-    }
-    if (options?.last_id !== undefined) {
-      queryParams.last_id = options.last_id;
-    }
-    if (options?.generate_signed_url !== undefined) {
-      queryParams.generate_signed_url = options.generate_signed_url;
-    }
-    if (options?.file_count !== undefined) {
-      queryParams.file_count = options.file_count;
-    }
-    
-    const config = Object.keys(queryParams).length > 0 ? { params: queryParams } : undefined;
+    const config = Object.keys(cleanParams(options)).length > 0 ? { params: cleanParams(options) } : undefined;
     
     return this.client.get<PaginatedResponse<FileSetFile>>(
       `${this.basePath}/assets/${assetId}/file_sets/${fileSetId}/files/`,

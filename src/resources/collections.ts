@@ -2,6 +2,7 @@ import { BaseResource } from './base';
 import { Tsonik } from '../client';
 import { ApiResponse, PaginatedResponse } from '../types';
 import { Collection, CollectionListParams, CreateCollectionRequest, DeleteCollectionResponse, UpdateCollectionRequest, UpdateCollectionOptions, ReplaceCollectionRequest, ReplaceCollectionOptions } from '../types/collections';
+import { cleanParams } from '../utils';
 
 /**
  * Collection resource for managing collections in Iconik
@@ -46,14 +47,7 @@ export class CollectionResource extends BaseResource {
       throw new Error('Collection ID is required');
     }
     
-    // Build query parameters if options are provided
-    const queryParams: Record<string, string> = {};
-    if (options?.change_parent_mode) {
-      queryParams.change_parent_mode = options.change_parent_mode;
-    }
-    
-    // Use the existing patch method with query parameters
-    const config = Object.keys(queryParams).length > 0 ? { params: queryParams } : undefined;
+    const config = Object.keys(cleanParams(options)).length > 0 ? { params: cleanParams(options) } : undefined;
     return this.client.patch<Collection>(`${this.basePath}/${id}`, updateData, config);
   }
 
@@ -65,14 +59,7 @@ export class CollectionResource extends BaseResource {
       throw new Error('Collection ID is required');
     }
     
-    // Build query parameters if options are provided
-    const queryParams: Record<string, string> = {};
-    if (options?.change_parent_mode) {
-      queryParams.change_parent_mode = options.change_parent_mode;
-    }
-    
-    // Use the existing put method with query parameters
-    const config = Object.keys(queryParams).length > 0 ? { params: queryParams } : undefined;
+    const config = Object.keys(cleanParams(options)).length > 0 ? { params: cleanParams(options) } : undefined;
     return this.client.put<Collection>(`${this.basePath}/${id}`, replaceData, config);
   }
 

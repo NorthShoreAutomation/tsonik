@@ -2,6 +2,7 @@ import { BaseResource } from './base';
 import { Tsonik } from '../client';
 import { ApiResponse, PaginatedResponse } from '../types';
 import { Format, AssetFormatsListParams, CreateFormatRequest, UpdateFormatRequest, ReplaceFormatRequest } from '../types/formats';
+import { cleanParams } from '../utils';
 
 /**
  * Format resource for managing formats in Iconik
@@ -23,19 +24,7 @@ export class FormatResource extends BaseResource {
       throw new Error('Asset ID is required');
     }
     
-    // Build query parameters if options are provided
-    const queryParams: Record<string, string | number | boolean> = {};
-    if (params?.per_page !== undefined) {
-      queryParams.per_page = params.per_page;
-    }
-    if (params?.last_id !== undefined) {
-      queryParams.last_id = params.last_id;
-    }
-    if (params?.include_all_versions !== undefined) {
-      queryParams.include_all_versions = params.include_all_versions;
-    }
-    
-    const config = Object.keys(queryParams).length > 0 ? { params: queryParams } : undefined;
+    const config = Object.keys(cleanParams(params)).length > 0 ? { params: cleanParams(params) } : undefined;
     
     return this.client.get<PaginatedResponse<Format>>(
       `${this.basePath}/assets/${assetId}/formats/`,

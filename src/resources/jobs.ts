@@ -17,6 +17,7 @@ import {
   PaginatedResponse,
   JobStep
 } from '../types';
+import { cleanParams } from '../utils';
 
 /**
  * Job resource for interacting with Iconik Jobs API
@@ -73,7 +74,7 @@ export class JobResource extends BaseResource {
    */
   async replaceJob(jobId: string, jobData: JobUpdate, options?: { merge_metadata?: string }): Promise<ApiResponse<Job>> {
     return this.client.put<Job>(`${this.basePath}/${jobId}`, jobData, {
-      params: options
+      params: cleanParams(options)
     });
   }
 
@@ -114,7 +115,7 @@ export class JobResource extends BaseResource {
    */
   async bulkEditJobs(query: JobsBulkEditQuery, editData: JobsBulkEditRequest): Promise<ApiResponse<JobsBulkEditResponse>> {
     return this.client.patch<JobsBulkEditResponse>(`${this.basePath}/`, editData, {
-      params: query
+      params: cleanParams(query)
     });
   }
 
