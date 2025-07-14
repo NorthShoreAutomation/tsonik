@@ -123,8 +123,3 @@ export interface UpdateAssetRequest {
   collection_ids?: string[];
   custom_metadata?: MetadataRecord;
 }
-
-
-export interface BulkDeleteRequest {
-  asset_ids: string[];
-}

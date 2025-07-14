@@ -10,3 +10,4 @@ export * from './search';
 export * from './jobs';
 export * from './http';
 export * from './filesets';
+export * from './metadata';

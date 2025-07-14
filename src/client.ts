@@ -2,7 +2,7 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { IconikConfig } from './config';
 import { IconikError, IconikAuthError, IconikAPIError } from './errors';
 import { ApiResponse } from './types';
-import { AssetResource, JobResource, CollectionResource, FileSetResource, FileResource, FormatResource } from './resources';
+import { AssetResource, JobResource, CollectionResource, FileSetResource, FileResource, FormatResource, MetadataResource } from './resources';
 
 /**
  * Main client class for interacting with the Iconik API
@@ -18,6 +18,7 @@ export class Tsonik {
   public readonly filesets: FileSetResource;
   public readonly files: FileResource;
   public readonly formats: FormatResource;
+  public readonly metadata: MetadataResource;
 
   constructor(config: IconikConfig) {
     this.config = config;
@@ -95,6 +96,7 @@ export class Tsonik {
     this.filesets = new FileSetResource(this);
     this.files = new FileResource(this);
     this.formats = new FormatResource(this);
+    this.metadata = new MetadataResource(this);
   }
 
   /**

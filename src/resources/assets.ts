@@ -1,7 +1,7 @@
 import { BaseResource } from './base';
 import { Tsonik } from '../client';
 import { ApiResponse, PaginatedResponse, Asset, ListParams } from '../types';
-import { CreateAssetRequest, UpdateAssetRequest, BulkDeleteRequest } from '../types/assets';
+import { CreateAssetRequest, UpdateAssetRequest } from '../types/assets';
 
 /**
  * Asset resource class for managing Iconik assets
@@ -49,38 +49,6 @@ export class AssetResource extends BaseResource {
     return super.delete(id);
   }
 
-  /**
-   * Bulk delete assets (Note: This endpoint may not be available in all Iconik instances)
-   * As an alternative, you can delete assets individually using deleteAsset()
-   */
-  async bulkDeleteAssets(assetIds: string[]): Promise<ApiResponse<void>> {
-    if (!assetIds || assetIds.length === 0) {
-      throw new Error('Asset IDs array cannot be empty');
-    }
-    if (assetIds.length > 500) {
-      throw new Error('Cannot delete more than 500 assets at once');
-    }
-    
-    // Try the bulk delete endpoint first
-    try {
-      const requestData: BulkDeleteRequest = { asset_ids: assetIds };
-      return await this.client.post(`${this.basePath}/bulk_delete`, requestData);
-    } catch (error: unknown) {
-      // If bulk delete is not supported, fall back to individual deletes
-      const typedError = error as { statusCode?: number; status?: number };
-      if (typedError.statusCode === 404 || typedError.status === 404) {
-        // Fallback to individual deletes when bulk endpoint is unavailable
-        const deletePromises = assetIds.map(id => this.deleteAsset(id));
-        await Promise.all(deletePromises);
-        return {
-          data: undefined as void,
-          status: 200,
-          headers: {}
-        };
-      }
-      throw error;
-    }
-  }
 
 
 }

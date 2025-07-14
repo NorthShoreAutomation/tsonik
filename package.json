@@ -28,6 +28,7 @@
     "test:integration:filesets": "jest --config jest.integration.config.js --testPathPattern=filesets.integration",
     "test:integration:files": "jest --config jest.integration.config.js --testPathPattern=files.integration",
     "test:integration:formats": "jest --config jest.integration.config.js --testPathPattern=formats.integration",
+    "test:integration:metadata": "jest --config jest.integration.config.js --testPathPattern=metadata.integration",
     "test:all": "npm run test && npm run test:integration",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",
