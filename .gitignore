@@ -71,6 +71,7 @@ htmlcov/
 .cache
 coverage.xml
 *.cover
+coverage/
 
 # Documentation
 /docs/_build/

@@ -33,15 +33,21 @@ jobs:
     - name: Verify resource files coverage
       run: |
         echo "Checking resource files coverage..."
-        coverage_output=$(npx istanbul report text-summary)
-        resources_coverage=$(npx istanbul report --include=coverage/coverage-final.json text-summary src/resources/* | grep 'Statements' | awk '{print $3}')
-        resources_coverage_num=$(echo $resources_coverage | sed 's/%//')
+        # Run tests with coverage and capture output  
+        coverage_output=$(npx jest --coverage --testPathIgnorePatterns=".*integration.*" 2>/dev/null)
         
-        if [[ $resources_coverage_num -lt 90 ]]; then
-          echo "❌ Resource files coverage is below 90%: $resources_coverage"
+        # Extract resource files coverage from the detailed table (field 3 for statements)
+        resources_coverage=$(echo "$coverage_output" | grep "src/resources" | head -1 | awk '{print $3}')
+        
+        echo "Full coverage output:"
+        echo "$coverage_output"
+        echo "Extracted resources coverage: ${resources_coverage}%"
+        
+        if [[ -z "$resources_coverage" ]] || [[ $resources_coverage -lt 90 ]]; then
+          echo "❌ Resource files coverage is below 90% or could not be determined"
           exit 1
         else
-          echo "✅ Resource files coverage is $resources_coverage"
+          echo "✅ Resource files coverage is ${resources_coverage}% - meets requirement!"
         fi
     
     - name: Upload coverage reports to Codecov

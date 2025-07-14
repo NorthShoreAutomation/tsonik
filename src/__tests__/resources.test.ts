@@ -8,12 +8,31 @@ import {
   JobStepStatus,
   JobsQuery,
   JobStepsUpdate,
-  JobUpdate
+  JobUpdate,
 } from '../types';
-import { CollectionListParams, CreateCollectionRequest, DeleteCollectionResponse, UpdateCollectionRequest, UpdateCollectionOptions, ReplaceCollectionRequest, ReplaceCollectionOptions } from '../types/collections';
-import { FileSet, AssetFileSetsListParams, CreateFileSetRequest, DeleteFileSetOptions } from '../types/filesets';
+import {
+  CollectionListParams,
+  CreateCollectionRequest,
+  DeleteCollectionResponse,
+  UpdateCollectionRequest,
+  UpdateCollectionOptions,
+  ReplaceCollectionRequest,
+  ReplaceCollectionOptions,
+} from '../types/collections';
+import {
+  FileSet,
+  AssetFileSetsListParams,
+  CreateFileSetRequest,
+  DeleteFileSetOptions,
+} from '../types/filesets';
 import { CreateFileRequest } from '../types/files';
-import { Format, AssetFormatsListParams, CreateFormatRequest, UpdateFormatRequest, ReplaceFormatRequest } from '../types/formats';
+import {
+  Format,
+  AssetFormatsListParams,
+  CreateFormatRequest,
+  UpdateFormatRequest,
+  ReplaceFormatRequest,
+} from '../types/formats';
 
 // Create mock Axios instance with proper interceptors setup
 const mockAxiosInstance = {
@@ -25,9 +44,9 @@ const mockAxiosInstance = {
   delete: jest.fn(),
   interceptors: {
     request: { use: jest.fn() },
-    response: { use: jest.fn() }
+    response: { use: jest.fn() },
   },
-  defaults: {}
+  defaults: {},
 };
 
 // Mock axios with create returning our mock instance
@@ -46,27 +65,84 @@ describe('IconikClient Resources', () => {
     mockAxiosInstance.put.mockReset();
     mockAxiosInstance.patch.mockReset();
     mockAxiosInstance.delete.mockReset();
-    
+
     // Default response for all methods
     const defaultResponse = {
       status: 200,
       statusText: 'OK',
       headers: {},
-      data: {}
+      data: {},
     };
-    
+
     mockAxiosInstance.request.mockResolvedValue(defaultResponse);
     mockAxiosInstance.get.mockResolvedValue(defaultResponse);
     mockAxiosInstance.post.mockResolvedValue(defaultResponse);
     mockAxiosInstance.put.mockResolvedValue(defaultResponse);
     mockAxiosInstance.patch.mockResolvedValue(defaultResponse);
     mockAxiosInstance.delete.mockResolvedValue(defaultResponse);
-    
+
     // Create a fresh client before each test
     client = new IconikClient({
       appId: 'test-app-id',
       authToken: 'test-auth-token',
-      baseUrl: 'https://app.iconik.io/v1'
+      baseUrl: 'https://app.iconik.io/v1',
+    });
+  });
+
+  describe('BaseResource', () => {
+    it('should call update method', async () => {
+      const updateData = { title: 'Updated' };
+      const updatedItem = { id: 'item-123', title: 'Updated' };
+
+      mockAxiosInstance.put.mockResolvedValueOnce({
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        data: updatedItem,
+      });
+
+      // Access BaseResource methods through AssetResource since BaseResource is abstract
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+      const result = await (client.assets as any).update(
+        'item-123',
+        updateData
+      );
+
+      expect(mockAxiosInstance.put).toHaveBeenCalledWith(
+        '/API/assets/v1/assets/item-123',
+        updateData,
+        undefined
+      );
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      expect(result.data).toEqual(updatedItem);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      expect(result.status).toBe(200);
+    });
+
+    it('should call patch method', async () => {
+      const patchData = { title: 'Patched' };
+      const patchedItem = { id: 'item-123', title: 'Patched' };
+
+      mockAxiosInstance.patch.mockResolvedValueOnce({
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        data: patchedItem,
+      });
+
+      // Access BaseResource methods through AssetResource since BaseResource is abstract
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+      const result = await (client.assets as any).patch('item-123', patchData);
+
+      expect(mockAxiosInstance.patch).toHaveBeenCalledWith(
+        '/API/assets/v1/assets/item-123',
+        patchData,
+        undefined
+      );
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      expect(result.data).toEqual(patchedItem);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      expect(result.status).toBe(200);
     });
   });
 
@@ -87,7 +163,7 @@ describe('IconikClient Resources', () => {
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockAsset
+        data: mockAsset,
       });
 
       // Call the method
@@ -110,37 +186,49 @@ describe('IconikClient Resources', () => {
           { id: 'asset-2', title: 'Asset 2' },
         ],
         page_token: 'next-page-token',
-        total_count: 2
+        total_count: 2,
       };
 
       mockAxiosInstance.get.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockAssetList
+        data: mockAssetList,
       });
 
       // Call the method with filters
-      const listAssetsParams = { limit: 10, sort: 'created_date', filter: { status: 'active' } };
+      const listAssetsParams = {
+        limit: 10,
+        sort: 'created_date',
+        filter: { status: 'active' },
+      };
       const result = await client.assets.listAssets(listAssetsParams);
 
       // Assertions
       expect(mockAxiosInstance.get).toHaveBeenCalledWith(
         '/API/assets/v1/assets/',
-        { params: { limit: 10, sort: 'created_date', filter: { status: 'active' } } }
+        {
+          params: {
+            limit: 10,
+            sort: 'created_date',
+            filter: { status: 'active' },
+          },
+        }
       );
-      
+
       // Check that URL contains our parameters
       // Add type guard for mock calls
       const mockCalls = mockAxiosInstance.get.mock.calls;
       expect(mockCalls.length).toBeGreaterThan(0);
-      
+
       // Type-safe access to the first call's first argument with explicit typing
       // Use type assertion to avoid unsafe member access warning
-      const url: string | undefined = Array.isArray(mockCalls[0]) ? mockCalls[0][0] as string : undefined;
+      const url: string | undefined = Array.isArray(mockCalls[0])
+        ? (mockCalls[0][0] as string)
+        : undefined;
       // url is the first parameter to the get method
       expect(url).toBe('/API/assets/v1/assets/');
-      
+
       expect(result.data).toEqual(mockAssetList);
       expect(result.status).toBe(200);
       expect(result.data.objects).toHaveLength(2);
@@ -150,9 +238,9 @@ describe('IconikClient Resources', () => {
       // Setup mock response for asset creation
       const newAsset = {
         title: 'New Asset',
-        description: 'Created through API'
+        description: 'Created through API',
       };
-      
+
       const createdAsset = {
         id: 'new-asset-id',
         title: 'New Asset',
@@ -167,7 +255,7 @@ describe('IconikClient Resources', () => {
         status: 201,
         statusText: 'Created',
         headers: {},
-        data: createdAsset
+        data: createdAsset,
       });
 
       // Call the method
@@ -183,17 +271,16 @@ describe('IconikClient Resources', () => {
       expect(result.status).toBe(201);
     });
 
-
     it('should delete an asset', async () => {
       mockAxiosInstance.delete.mockResolvedValueOnce({
         status: 204,
         statusText: 'No Content',
         headers: {},
-        data: undefined
+        data: undefined,
       });
 
       const result = await client.assets.deleteAsset('asset-123');
-      
+
       expect(mockAxiosInstance.delete).toHaveBeenCalledWith(
         '/API/assets/v1/assets/asset-123',
         undefined
@@ -201,7 +288,73 @@ describe('IconikClient Resources', () => {
       expect(result.status).toBe(204);
     });
 
+    it('should throw error when creating asset without title', async () => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const assetWithoutTitle = {
+        description: 'Asset without title',
+      } as any;
 
+      await expect(
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        client.assets.createAsset(assetWithoutTitle)
+      ).rejects.toThrow('Asset title is required');
+    });
+
+    it('should throw error when creating asset with empty title', async () => {
+      const assetWithEmptyTitle = {
+        title: '',
+        description: 'Asset with empty title',
+      };
+
+      await expect(
+        client.assets.createAsset(assetWithEmptyTitle)
+      ).rejects.toThrow('Asset title is required');
+    });
+
+    it('should throw error when creating asset with whitespace title', async () => {
+      const assetWithWhitespaceTitle = {
+        title: '   ',
+        description: 'Asset with whitespace title',
+      };
+
+      await expect(
+        client.assets.createAsset(assetWithWhitespaceTitle)
+      ).rejects.toThrow('Asset title is required');
+    });
+
+    it('should update an asset', async () => {
+      const updateData = {
+        title: 'Updated Asset',
+        description: 'Updated description',
+      };
+
+      const updatedAsset = {
+        id: 'asset-123',
+        title: 'Updated Asset',
+        description: 'Updated description',
+        created_date: '2025-06-30T13:51:20-05:00',
+        modified_date: '2025-06-30T13:51:20-05:00',
+        status: 'ACTIVE',
+        type: 'ASSET',
+      };
+
+      mockAxiosInstance.put.mockResolvedValueOnce({
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        data: updatedAsset,
+      });
+
+      const result = await client.assets.updateAsset('asset-123', updateData);
+
+      expect(mockAxiosInstance.put).toHaveBeenCalledWith(
+        '/API/assets/v1/assets/asset-123',
+        updateData,
+        undefined
+      );
+      expect(result.data).toEqual(updatedAsset);
+      expect(result.status).toBe(200);
+    });
   });
 
   describe('JobResource', () => {
@@ -216,21 +369,24 @@ describe('IconikClient Resources', () => {
         progress: 75,
         object_id: 'asset-456',
         object_type: 'assets',
-        date_created: '2023-01-01T00:00:00Z'
+        date_created: '2023-01-01T00:00:00Z',
       };
 
       mockAxiosInstance.get.mockResolvedValue({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockJob
+        data: mockJob,
       });
 
       // Execute test
       const result = await client.jobs.getJob('job-123');
 
       // Verify call and response
-      expect(mockAxiosInstance.get).toHaveBeenCalledWith('/API/jobs/v1/jobs/job-123', undefined);
+      expect(mockAxiosInstance.get).toHaveBeenCalledWith(
+        '/API/jobs/v1/jobs/job-123',
+        undefined
+      );
       expect(result.data).toEqual(mockJob);
       expect(result.status).toBe(200);
     });
@@ -243,37 +399,39 @@ describe('IconikClient Resources', () => {
             id: 'job-1',
             title: 'Job 1',
             type: 'TRANSCODE',
-            status: 'FINISHED'
+            status: 'FINISHED',
           },
           {
             id: 'job-2',
             title: 'Job 2',
             type: 'MEDIAINFO',
-            status: 'STARTED'
-          }
+            status: 'STARTED',
+          },
         ],
-        total_count: 2
+        total_count: 2,
       };
 
       mockAxiosInstance.get.mockResolvedValue({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockJobs
+        data: mockJobs,
       });
 
       const query: JobsQuery = {
         page: 1,
         per_page: 10,
         status: 'STARTED',
-        type: 'TRANSCODE'
+        type: 'TRANSCODE',
       };
 
       // Execute test
       const result = await client.jobs.listJobs(query);
 
       // Verify call and response
-      expect(mockAxiosInstance.get).toHaveBeenCalledWith('/API/jobs/v1/jobs/', { params: query });
+      expect(mockAxiosInstance.get).toHaveBeenCalledWith('/API/jobs/v1/jobs/', {
+        params: query,
+      });
       expect(result.data).toEqual(mockJobs);
       expect(result.status).toBe(200);
     });
@@ -287,8 +445,8 @@ describe('IconikClient Resources', () => {
         object_id: 'asset-789',
         object_type: 'assets',
         job_context: {
-          profile_id: 'profile-123'
-        }
+          profile_id: 'profile-123',
+        },
       };
 
       // Create a properly typed Job object with correct metadata type
@@ -297,21 +455,25 @@ describe('IconikClient Resources', () => {
         ...jobCreateData,
         date_created: '2023-01-01T00:00:00Z',
         // Ensure metadata is properly typed as JobMetadataRecord instead of an array
-        metadata: undefined // Set to undefined since it's not used in this test
+        metadata: undefined, // Set to undefined since it's not used in this test
       };
 
       mockAxiosInstance.post.mockResolvedValue({
         status: 201,
         statusText: 'Created',
         headers: {},
-        data: mockCreatedJob
+        data: mockCreatedJob,
       });
 
       // Execute test
       const result = await client.jobs.createJob(jobCreateData);
 
       // Verify call and response
-      expect(mockAxiosInstance.post).toHaveBeenCalledWith('/API/jobs/v1/jobs/', jobCreateData, undefined);
+      expect(mockAxiosInstance.post).toHaveBeenCalledWith(
+        '/API/jobs/v1/jobs/',
+        jobCreateData,
+        undefined
+      );
       expect(result.data).toEqual(mockCreatedJob);
       expect(result.status).toBe(201);
     });
@@ -322,8 +484,8 @@ describe('IconikClient Resources', () => {
         title: 'Updated Job Title',
         status: 'PAUSED',
         metadata: {
-          custom_field: 'updated_value'
-        }
+          custom_field: 'updated_value',
+        },
       };
 
       const mockUpdatedJob: Job = {
@@ -332,21 +494,25 @@ describe('IconikClient Resources', () => {
         type: 'TRANSCODE',
         status: 'PAUSED',
         date_created: '2023-01-01T00:00:00Z',
-        date_modified: '2023-01-02T00:00:00Z'
+        date_modified: '2023-01-02T00:00:00Z',
       };
 
       mockAxiosInstance.patch.mockResolvedValue({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockUpdatedJob
+        data: mockUpdatedJob,
       });
 
       // Execute test
       const result = await client.jobs.updateJob('job-123', jobUpdate);
 
       // Verify call and response
-      expect(mockAxiosInstance.patch).toHaveBeenCalledWith('/API/jobs/v1/jobs/job-123', jobUpdate, undefined);
+      expect(mockAxiosInstance.patch).toHaveBeenCalledWith(
+        '/API/jobs/v1/jobs/job-123',
+        jobUpdate,
+        undefined
+      );
       expect(result.data).toEqual(mockUpdatedJob);
       expect(result.status).toBe(200);
     });
@@ -368,24 +534,24 @@ describe('IconikClient Resources', () => {
         progress_total: 100,
         job_context: {
           workflow_id: 'workflow-123',
-          step: 'processing'
+          step: 'processing',
         },
         metadata: {
           priority: 'high',
-          department: 'video'
+          department: 'video',
         },
         action_context: {
           PAUSE: {
             bulk: true,
-            url: '/jobs/bulk/pause'
-          }
+            url: '/jobs/bulk/pause',
+          },
         },
         related_objects: [
           {
             object_id: 'asset-456',
-            object_type: 'assets'
-          }
-        ]
+            object_type: 'assets',
+          },
+        ],
       };
 
       const mockUpdatedJob: Job = {
@@ -399,21 +565,28 @@ describe('IconikClient Resources', () => {
         object_id: 'asset-456',
         object_type: 'assets',
         progress_processed: 25,
-        progress_total: 100
+        progress_total: 100,
       };
 
       mockAxiosInstance.patch.mockResolvedValue({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockUpdatedJob
+        data: mockUpdatedJob,
       });
 
       // Execute test
-      const result = await client.jobs.updateJob('job-123', comprehensiveJobUpdate);
+      const result = await client.jobs.updateJob(
+        'job-123',
+        comprehensiveJobUpdate
+      );
 
       // Verify call and response
-      expect(mockAxiosInstance.patch).toHaveBeenCalledWith('/API/jobs/v1/jobs/job-123', comprehensiveJobUpdate, undefined);
+      expect(mockAxiosInstance.patch).toHaveBeenCalledWith(
+        '/API/jobs/v1/jobs/job-123',
+        comprehensiveJobUpdate,
+        undefined
+      );
       expect(result.data).toEqual(mockUpdatedJob);
       expect(result.status).toBe(200);
     });
@@ -423,14 +596,17 @@ describe('IconikClient Resources', () => {
         status: 204,
         statusText: 'No Content',
         headers: {},
-        data: null
+        data: null,
       });
 
       // Execute test
       const result = await client.jobs.deleteJob('job-123');
 
       // Verify call and response
-      expect(mockAxiosInstance.delete).toHaveBeenCalledWith('/API/jobs/v1/jobs/job-123', undefined);
+      expect(mockAxiosInstance.delete).toHaveBeenCalledWith(
+        '/API/jobs/v1/jobs/job-123',
+        undefined
+      );
       expect(result.status).toBe(204);
     });
 
@@ -442,10 +618,10 @@ describe('IconikClient Resources', () => {
         status: 'READY',
         custom_type: 'full_replace_test',
         metadata: {
-          test_key: 'test_value'
+          test_key: 'test_value',
         },
         progress_processed: 0,
-        progress_total: 100
+        progress_total: 100,
       };
 
       // Setup mock response
@@ -456,28 +632,30 @@ describe('IconikClient Resources', () => {
         status: 'READY',
         custom_type: 'full_replace_test',
         metadata: {
-          test_key: 'test_value'
+          test_key: 'test_value',
         },
         progress_processed: 0,
         progress_total: 100,
         date_created: '2023-01-01T00:00:00Z',
-        date_modified: '2023-01-01T00:01:00Z'
+        date_modified: '2023-01-01T00:01:00Z',
       };
 
       mockAxiosInstance.put.mockResolvedValue({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockReplacedJob
+        data: mockReplacedJob,
       });
 
       // Execute test with merge_metadata option
-      const result = await client.jobs.replaceJob('job-123', jobReplacement, { merge_metadata: 'true' });
+      const result = await client.jobs.replaceJob('job-123', jobReplacement, {
+        merge_metadata: 'true',
+      });
 
       // Verify call and response
       expect(mockAxiosInstance.put).toHaveBeenCalledWith(
-        '/API/jobs/v1/jobs/job-123', 
-        jobReplacement, 
+        '/API/jobs/v1/jobs/job-123',
+        jobReplacement,
         { params: { merge_metadata: 'true' } }
       );
       expect(result.data).toEqual(mockReplacedJob);
@@ -492,21 +670,25 @@ describe('IconikClient Resources', () => {
         type: 'TRANSCODE',
         status: 'STARTED',
         priority: 10,
-        date_created: '2023-01-01T00:00:00Z'
+        date_created: '2023-01-01T00:00:00Z',
       };
 
       mockAxiosInstance.patch.mockResolvedValue({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockUpdatedJob
+        data: mockUpdatedJob,
       });
 
       // Execute test
       const result = await client.jobs.updatePriority('job-123', 10);
 
       // Verify call and response
-      expect(mockAxiosInstance.patch).toHaveBeenCalledWith('/API/jobs/v1/jobs/job-123/', { priority: 10 }, undefined);
+      expect(mockAxiosInstance.patch).toHaveBeenCalledWith(
+        '/API/jobs/v1/jobs/job-123/',
+        { priority: 10 },
+        undefined
+      );
       expect(result.data).toEqual(mockUpdatedJob);
       expect(result.status).toBe(200);
     });
@@ -516,44 +698,55 @@ describe('IconikClient Resources', () => {
         status: 204,
         statusText: 'No Content',
         headers: {},
-        data: undefined
+        data: undefined,
       });
 
       // Execute test
       const result = await client.jobs.bulkDelete(['job-1', 'job-2']);
 
       // Verify call and response match API spec
-      expect(mockAxiosInstance.delete).toHaveBeenCalledWith('/API/jobs/v1/jobs/', {
-        data: { job_ids: ['job-1', 'job-2'] }
-      });
+      expect(mockAxiosInstance.delete).toHaveBeenCalledWith(
+        '/API/jobs/v1/jobs/',
+        {
+          data: { job_ids: ['job-1', 'job-2'] },
+        }
+      );
       expect(result.status).toBe(204);
     });
-    
+
     it('should reindex a job', async () => {
       mockAxiosInstance.post.mockResolvedValue({
         status: 202,
         statusText: 'Accepted',
         headers: {},
-        data: null
+        data: null,
       });
 
       // Execute test with sync option
-      const result = await client.jobs.reindexJob('job-123', { sync_to_another_dc: true });
+      const result = await client.jobs.reindexJob('job-123', {
+        sync_to_another_dc: true,
+      });
 
       // Verify call and response
       const postMockCalls = mockAxiosInstance.post.mock.calls;
       expect(postMockCalls.length).toBeGreaterThan(0);
-      
+
       // Type-safe access to mock call arguments with explicit typing
       // Use type guard to avoid unsafe member access warning
-      const firstCallUrl: string | undefined = Array.isArray(postMockCalls[0]) ? postMockCalls[0][0] as string : undefined;
-      const firstCallData: Record<string, unknown> | undefined = Array.isArray(postMockCalls[0]) ? postMockCalls[0][1] as Record<string, unknown> : undefined;
-      
+      const firstCallUrl: string | undefined = Array.isArray(postMockCalls[0])
+        ? (postMockCalls[0][0] as string)
+        : undefined;
+      const firstCallData: Record<string, unknown> | undefined = Array.isArray(
+        postMockCalls[0]
+      )
+        ? (postMockCalls[0][1] as Record<string, unknown>)
+        : undefined;
+
       expect(firstCallUrl).toBe('/API/jobs/v1/jobs/job-123/reindex');
       expect(firstCallData).toEqual({ sync_to_another_dc: true });
       expect(result.status).toBe(202);
     });
-    
+
     it('should update job steps', async () => {
       // Mock job with updated steps
       const mockUpdatedJob: Job = {
@@ -567,18 +760,18 @@ describe('IconikClient Resources', () => {
             label: 'Preprocessing',
             status: 'DONE',
             message: 'Preprocessing completed',
-            date_updated: '2025-07-10T18:24:22.811Z'
+            date_updated: '2025-07-10T18:24:22.811Z',
           },
           {
             id: 'step-2',
             label: 'Transcoding',
             status: 'IN_PROGRESS',
             message: 'Transcoding in progress',
-            date_updated: '2025-07-10T18:24:22.811Z'
-          }
-        ]
+            date_updated: '2025-07-10T18:24:22.811Z',
+          },
+        ],
       };
-      
+
       // Setup request body
       const stepsUpdateData: JobStepsUpdate = {
         steps: [
@@ -586,42 +779,51 @@ describe('IconikClient Resources', () => {
             id: 'step-1',
             label: 'Preprocessing',
             status: 'DONE',
-            message: 'Preprocessing completed'
+            message: 'Preprocessing completed',
           },
           {
             id: 'step-2',
             label: 'Transcoding',
             status: 'IN_PROGRESS',
-            message: 'Transcoding in progress'
-          }
-        ]
+            message: 'Transcoding in progress',
+          },
+        ],
       };
-      
+
       mockAxiosInstance.patch.mockResolvedValue({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockUpdatedJob
+        data: mockUpdatedJob,
       });
 
       // Execute test
-      const result = await client.jobs.updateJobSteps('job-123', stepsUpdateData);
+      const result = await client.jobs.updateJobSteps(
+        'job-123',
+        stepsUpdateData
+      );
 
       // Verify call and response
       const patchMockCalls = mockAxiosInstance.patch.mock.calls;
       expect(patchMockCalls.length).toBeGreaterThan(0);
-      
+
       // Type-safe access to mock call arguments with explicit typing
       // Use type guard to avoid unsafe member access warning
-      const patchUrl: string | undefined = Array.isArray(patchMockCalls[0]) ? patchMockCalls[0][0] as string : undefined;
-      const patchData: Record<string, unknown> | undefined = Array.isArray(patchMockCalls[0]) ? patchMockCalls[0][1] as Record<string, unknown> : undefined;
-      
+      const patchUrl: string | undefined = Array.isArray(patchMockCalls[0])
+        ? (patchMockCalls[0][0] as string)
+        : undefined;
+      const patchData: Record<string, unknown> | undefined = Array.isArray(
+        patchMockCalls[0]
+      )
+        ? (patchMockCalls[0][1] as Record<string, unknown>)
+        : undefined;
+
       expect(patchUrl).toBe('/API/jobs/v1/jobs/job-123/steps/');
       expect(patchData).toEqual(stepsUpdateData);
       expect(result.data).toEqual(mockUpdatedJob);
       expect(result.status).toBe(200);
     });
-    
+
     it('should replace job steps using PUT', async () => {
       // Mock job with replaced steps
       const mockUpdatedJob: Job = {
@@ -635,18 +837,18 @@ describe('IconikClient Resources', () => {
             label: 'New Step 1',
             status: 'DONE',
             message: 'Step replaced',
-            date_updated: '2025-07-10T18:31:34.099Z'
+            date_updated: '2025-07-10T18:31:34.099Z',
           },
           {
             id: 'step-2',
             label: 'New Step 2',
             status: 'WAITING',
             message: 'Waiting to start',
-            date_updated: '2025-07-10T18:31:34.099Z'
-          }
-        ]
+            date_updated: '2025-07-10T18:31:34.099Z',
+          },
+        ],
       };
-      
+
       // Setup request body
       const stepsReplaceData: JobStepsUpdate = {
         steps: [
@@ -654,37 +856,40 @@ describe('IconikClient Resources', () => {
             id: 'step-1',
             label: 'New Step 1',
             status: 'DONE',
-            message: 'Step replaced'
+            message: 'Step replaced',
           },
           {
             id: 'step-2',
             label: 'New Step 2',
             status: 'WAITING',
-            message: 'Waiting to start'
-          }
-        ]
+            message: 'Waiting to start',
+          },
+        ],
       };
-      
+
       mockAxiosInstance.put.mockResolvedValue({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockUpdatedJob
+        data: mockUpdatedJob,
       });
 
       // Execute test
-      const result = await client.jobs.replaceJobSteps('job-123', stepsReplaceData);
+      const result = await client.jobs.replaceJobSteps(
+        'job-123',
+        stepsReplaceData
+      );
 
       // Verify call and response
       expect(mockAxiosInstance.put).toHaveBeenCalledWith(
-        '/API/jobs/v1/jobs/job-123/steps/', 
+        '/API/jobs/v1/jobs/job-123/steps/',
         stepsReplaceData,
         undefined // Include the undefined options parameter that axios client is passing
       );
       expect(result.data).toEqual(mockUpdatedJob);
       expect(result.status).toBe(200);
     });
-    
+
     it('should update a single job step', async () => {
       // Mock job with updated single step
       const mockUpdatedJob: Job = {
@@ -698,36 +903,40 @@ describe('IconikClient Resources', () => {
             label: 'Processing',
             status: 'IN_PROGRESS',
             message: 'Processing at 75%',
-            date_updated: '2025-07-10T18:42:25.668Z'
+            date_updated: '2025-07-10T18:42:25.668Z',
           },
           {
             id: 'step-2',
             label: 'Finalization',
             status: 'WAITING',
-            date_updated: '2025-07-10T18:31:34.099Z'
-          }
-        ]
+            date_updated: '2025-07-10T18:31:34.099Z',
+          },
+        ],
       };
-      
+
       // Setup request body for single step update
       const stepUpdateData = {
         status: 'IN_PROGRESS' as JobStepStatus,
-        message: 'Processing at 75%'
+        message: 'Processing at 75%',
       };
-      
+
       mockAxiosInstance.patch.mockResolvedValue({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockUpdatedJob
+        data: mockUpdatedJob,
       });
 
       // Execute test
-      const result = await client.jobs.updateJobStep('job-123', 'step-1', stepUpdateData);
+      const result = await client.jobs.updateJobStep(
+        'job-123',
+        'step-1',
+        stepUpdateData
+      );
 
       // Verify call and response
       expect(mockAxiosInstance.patch).toHaveBeenCalledWith(
-        '/API/jobs/v1/jobs/job-123/steps/step-1/', 
+        '/API/jobs/v1/jobs/job-123/steps/step-1/',
         stepUpdateData,
         undefined
       );
@@ -749,39 +958,43 @@ describe('IconikClient Resources', () => {
             status: 'DONE',
             message: 'Step fully replaced',
             error_message: '',
-            date_updated: '2025-07-11T13:15:22.123Z'
+            date_updated: '2025-07-11T13:15:22.123Z',
           },
           {
             id: 'step-2',
             label: 'Finalization',
             status: 'WAITING',
-            date_updated: '2025-07-10T18:31:34.099Z'
-          }
-        ]
+            date_updated: '2025-07-10T18:31:34.099Z',
+          },
+        ],
       };
-      
+
       // Setup request body for single step replacement
       const stepReplaceData: JobStep = {
         id: 'step-1',
         label: 'Completely Replaced Step',
         status: 'DONE' as JobStepStatus,
         message: 'Step fully replaced',
-        error_message: ''
+        error_message: '',
       };
-      
+
       mockAxiosInstance.put.mockResolvedValue({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockUpdatedJob
+        data: mockUpdatedJob,
       });
 
       // Execute test
-      const result = await client.jobs.replaceJobStep('job-123', 'step-1', stepReplaceData);
+      const result = await client.jobs.replaceJobStep(
+        'job-123',
+        'step-1',
+        stepReplaceData
+      );
 
       // Verify call and response
       expect(mockAxiosInstance.put).toHaveBeenCalledWith(
-        '/API/jobs/v1/jobs/job-123/steps/step-1/', 
+        '/API/jobs/v1/jobs/job-123/steps/step-1/',
         stepReplaceData,
         undefined
       );
@@ -789,7 +1002,140 @@ describe('IconikClient Resources', () => {
       expect(result.status).toBe(200);
     });
 
+    it('should update job steps', async () => {
+      const stepsData = {
+        steps: [
+          {
+            id: 'step-1',
+            label: 'Step 1',
+            status: 'DONE' as const,
+            message: 'Step completed successfully',
+          },
+          {
+            id: 'step-2',
+            label: 'Step 2',
+            status: 'IN_PROGRESS' as const,
+            message: 'Processing...',
+          },
+        ],
+      };
 
+      const updatedJob = {
+        id: 'job-123',
+        title: 'Test Job',
+        type: 'TRANSCODE',
+        status: 'RUNNING',
+        priority: 5,
+        progress: 50,
+        object_id: 'asset-456',
+        object_type: 'assets',
+        date_created: '2023-01-01T00:00:00Z',
+        steps: stepsData.steps,
+      };
+
+      mockAxiosInstance.patch.mockResolvedValueOnce({
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        data: updatedJob,
+      });
+
+      const result = await client.jobs.updateSteps('job-123', stepsData);
+
+      expect(mockAxiosInstance.patch).toHaveBeenCalledWith(
+        '/API/jobs/v1/jobs/job-123/steps/',
+        stepsData,
+        undefined
+      );
+      expect(result.data).toEqual(updatedJob);
+      expect(result.status).toBe(200);
+    });
+
+    it('should bulk edit jobs', async () => {
+      const query = { status: 'WAITING' as const, type: 'TRANSCODE' as const };
+      const editData = { priority: 10, status: 'STARTED' as const };
+
+      const bulkEditResponse = {
+        updated_count: 5,
+        jobs: ['job-1', 'job-2', 'job-3', 'job-4', 'job-5'],
+      };
+
+      mockAxiosInstance.patch.mockResolvedValueOnce({
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        data: bulkEditResponse,
+      });
+
+      const result = await client.jobs.bulkEditJobs(query, editData);
+
+      expect(mockAxiosInstance.patch).toHaveBeenCalledWith(
+        '/API/jobs/v1/jobs/',
+        editData,
+        { params: { status: 'WAITING', type: 'TRANSCODE' } }
+      );
+      expect(result.data).toEqual(bulkEditResponse);
+      expect(result.status).toBe(200);
+    });
+
+    it('should bulk update job priorities', async () => {
+      const priorityData = {
+        job_ids: ['job-1', 'job-2', 'job-3'],
+        priority: 8,
+      };
+
+      const bulkResults = [
+        { id: 'job-1', status: 'success' },
+        { id: 'job-2', status: 'success' },
+        { id: 'job-3', status: 'success' },
+      ];
+
+      mockAxiosInstance.put.mockResolvedValueOnce({
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        data: bulkResults,
+      });
+
+      const result = await client.jobs.bulkUpdatePriority(priorityData);
+
+      expect(mockAxiosInstance.put).toHaveBeenCalledWith(
+        '/API/jobs/v1/jobs/priority/',
+        priorityData,
+        undefined
+      );
+      expect(result.data).toEqual(bulkResults);
+      expect(result.status).toBe(200);
+    });
+
+    it('should bulk update job states', async () => {
+      const stateData = {
+        job_ids: ['job-1', 'job-2'],
+        action: 'ABORT' as const,
+      };
+
+      const bulkResults = [
+        { id: 'job-1', status: 'success' },
+        { id: 'job-2', status: 'success' },
+      ];
+
+      mockAxiosInstance.put.mockResolvedValueOnce({
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        data: bulkResults,
+      });
+
+      const result = await client.jobs.bulkUpdateState(stateData);
+
+      expect(mockAxiosInstance.put).toHaveBeenCalledWith(
+        '/API/jobs/v1/jobs/state/',
+        stateData,
+        undefined
+      );
+      expect(result.data).toEqual(bulkResults);
+      expect(result.status).toBe(200);
+    });
   });
 
   describe('CollectionResource', () => {
@@ -802,7 +1148,7 @@ describe('IconikClient Resources', () => {
             title: 'Test Collection 1',
             status: 'ACTIVE',
             is_root: true,
-            date_created: '2023-01-01T00:00:00Z'
+            date_created: '2023-01-01T00:00:00Z',
           },
           {
             id: 'collection-2',
@@ -810,20 +1156,20 @@ describe('IconikClient Resources', () => {
             status: 'ACTIVE',
             is_root: false,
             parent_id: 'collection-1',
-            date_created: '2023-01-02T00:00:00Z'
-          }
+            date_created: '2023-01-02T00:00:00Z',
+          },
         ],
         total: 2,
         page: 1,
         pages: 1,
-        per_page: 50
+        per_page: 50,
       };
 
       mockAxiosInstance.get.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockCollections
+        data: mockCollections,
       });
 
       // Call the method
@@ -849,28 +1195,28 @@ describe('IconikClient Resources', () => {
             status: 'ACTIVE',
             is_root: false,
             category: 'media',
-            date_created: '2023-01-03T00:00:00Z'
-          }
+            date_created: '2023-01-03T00:00:00Z',
+          },
         ],
         total: 10,
         page: 2,
         pages: 2,
         per_page: 5,
         next_url: '/v1/collections/?page=3&per_page=5',
-        prev_url: '/v1/collections/?page=1&per_page=5'
+        prev_url: '/v1/collections/?page=1&per_page=5',
       };
 
       mockAxiosInstance.get.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockCollections
+        data: mockCollections,
       });
 
       const params: CollectionListParams = {
         page: 2,
         per_page: 5,
-        sort: 'title,asc'
+        sort: 'title,asc',
       };
 
       // Call the method
@@ -894,25 +1240,25 @@ describe('IconikClient Resources', () => {
             title: 'Root Collection',
             status: 'ACTIVE',
             is_root: true,
-            date_created: '2023-01-01T00:00:00Z'
-          }
+            date_created: '2023-01-01T00:00:00Z',
+          },
         ],
         total: 1,
         page: 1,
         pages: 1,
-        per_page: 50
+        per_page: 50,
       };
 
       mockAxiosInstance.get.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockCollections
+        data: mockCollections,
       });
 
       const params: CollectionListParams = {
         is_root: 'true',
-        status: 'ACTIVE'
+        status: 'ACTIVE',
       };
 
       // Call the method
@@ -936,23 +1282,23 @@ describe('IconikClient Resources', () => {
             title: 'Scroll Collection 1',
             status: 'ACTIVE',
             metadata: { category: 'videos' },
-            date_created: '2023-01-01T00:00:00Z'
-          }
+            date_created: '2023-01-01T00:00:00Z',
+          },
         ],
         scroll_id: 'scroll-token-123',
-        total: 100
+        total: 100,
       };
 
       mockAxiosInstance.get.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockCollections
+        data: mockCollections,
       });
 
       const params: CollectionListParams = {
         scroll: true,
-        scroll_id: 'existing-scroll-token'
+        scroll_id: 'existing-scroll-token',
       };
 
       // Call the method
@@ -974,14 +1320,14 @@ describe('IconikClient Resources', () => {
         total: 0,
         page: 1,
         pages: 0,
-        per_page: 50
+        per_page: 50,
       };
 
       mockAxiosInstance.get.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockEmptyCollections
+        data: mockEmptyCollections,
       });
 
       // Call the method
@@ -1005,14 +1351,14 @@ describe('IconikClient Resources', () => {
         date_modified: '2023-01-01T00:00:00Z',
         object_type: 'collections',
         metadata: { test: 'value' },
-        position: 0
+        position: 0,
       };
 
       mockAxiosInstance.get.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockCollection
+        data: mockCollection,
       });
 
       // Call the method
@@ -1030,15 +1376,15 @@ describe('IconikClient Resources', () => {
     });
 
     it('should validate collection ID is required for get', async () => {
-      await expect(client.collections.getCollection(''))
-        .rejects
-        .toThrow('Collection ID is required');
+      await expect(client.collections.getCollection('')).rejects.toThrow(
+        'Collection ID is required'
+      );
     });
 
     it('should validate collection ID is not just whitespace for get', async () => {
-      await expect(client.collections.getCollection('   '))
-        .rejects
-        .toThrow('Collection ID is required');
+      await expect(client.collections.getCollection('   ')).rejects.toThrow(
+        'Collection ID is required'
+      );
     });
 
     it('should create a new collection', async () => {
@@ -1048,9 +1394,9 @@ describe('IconikClient Resources', () => {
         category: 'test',
         is_root: true,
         status: 'ACTIVE',
-        metadata: { project: 'test-project' }
+        metadata: { project: 'test-project' },
       };
-      
+
       const createdCollection: Collection = {
         id: 'new-collection-id',
         title: 'New Test Collection',
@@ -1060,18 +1406,20 @@ describe('IconikClient Resources', () => {
         metadata: { project: 'test-project' },
         date_created: '2023-01-01T00:00:00Z',
         date_modified: '2023-01-01T00:00:00Z',
-        object_type: 'collections'
+        object_type: 'collections',
       };
 
       mockAxiosInstance.post.mockResolvedValueOnce({
         status: 201,
         statusText: 'Created',
         headers: {},
-        data: createdCollection
+        data: createdCollection,
       });
 
       // Call the method
-      const result = await client.collections.createCollection(newCollectionData);
+      const result = await client.collections.createCollection(
+        newCollectionData
+      );
 
       // Assertions
       expect(mockAxiosInstance.post).toHaveBeenCalledWith(
@@ -1086,26 +1434,28 @@ describe('IconikClient Resources', () => {
     it('should create a collection with minimal data', async () => {
       // Setup mock response for minimal collection
       const minimalCollectionData: CreateCollectionRequest = {
-        title: 'Minimal Collection'
+        title: 'Minimal Collection',
       };
-      
+
       const createdCollection: Collection = {
         id: 'minimal-collection-id',
         title: 'Minimal Collection',
         date_created: '2023-01-01T00:00:00Z',
         date_modified: '2023-01-01T00:00:00Z',
-        object_type: 'collections'
+        object_type: 'collections',
       };
 
       mockAxiosInstance.post.mockResolvedValueOnce({
         status: 201,
         statusText: 'Created',
         headers: {},
-        data: createdCollection
+        data: createdCollection,
       });
 
       // Call the method
-      const result = await client.collections.createCollection(minimalCollectionData);
+      const result = await client.collections.createCollection(
+        minimalCollectionData
+      );
 
       // Assertions
       expect(mockAxiosInstance.post).toHaveBeenCalledWith(
@@ -1123,9 +1473,9 @@ describe('IconikClient Resources', () => {
         title: 'Sub Collection',
         parent_id: 'parent-collection-id',
         is_root: false,
-        position: 1
+        position: 1,
       };
-      
+
       const createdCollection: Collection = {
         id: 'sub-collection-id',
         title: 'Sub Collection',
@@ -1135,18 +1485,20 @@ describe('IconikClient Resources', () => {
         parents: ['parent-collection-id'],
         date_created: '2023-01-01T00:00:00Z',
         date_modified: '2023-01-01T00:00:00Z',
-        object_type: 'collections'
+        object_type: 'collections',
       };
 
       mockAxiosInstance.post.mockResolvedValueOnce({
         status: 201,
         statusText: 'Created',
         headers: {},
-        data: createdCollection
+        data: createdCollection,
       });
 
       // Call the method
-      const result = await client.collections.createCollection(subCollectionData);
+      const result = await client.collections.createCollection(
+        subCollectionData
+      );
 
       // Assertions
       expect(result.data).toEqual(createdCollection);
@@ -1158,40 +1510,42 @@ describe('IconikClient Resources', () => {
     it('should validate collection title is required', async () => {
       // Test empty title
       const invalidCollectionData: CreateCollectionRequest = {
-        title: ''
+        title: '',
       };
 
-      await expect(client.collections.createCollection(invalidCollectionData))
-        .rejects
-        .toThrow('Collection title is required');
+      await expect(
+        client.collections.createCollection(invalidCollectionData)
+      ).rejects.toThrow('Collection title is required');
     });
 
     it('should validate collection title is not just whitespace', async () => {
       // Test whitespace-only title
       const invalidCollectionData: CreateCollectionRequest = {
-        title: '   '
+        title: '   ',
       };
 
-      await expect(client.collections.createCollection(invalidCollectionData))
-        .rejects
-        .toThrow('Collection title is required');
+      await expect(
+        client.collections.createCollection(invalidCollectionData)
+      ).rejects.toThrow('Collection title is required');
     });
 
     it('should delete a collection by ID', async () => {
       const mockDeleteResponse: DeleteCollectionResponse = {
         job_id: 'job-123',
-        status: 'PENDING'
+        status: 'PENDING',
       };
 
       mockAxiosInstance.delete.mockResolvedValueOnce({
         status: 202,
         statusText: 'Accepted',
         headers: {},
-        data: mockDeleteResponse
+        data: mockDeleteResponse,
       });
 
-      const result = await client.collections.deleteCollection('collection-123');
-      
+      const result = await client.collections.deleteCollection(
+        'collection-123'
+      );
+
       expect(mockAxiosInstance.delete).toHaveBeenCalledWith(
         '/API/assets/v1/collections/collection-123',
         undefined
@@ -1203,22 +1557,22 @@ describe('IconikClient Resources', () => {
     });
 
     it('should validate collection ID is required for deletion', async () => {
-      await expect(client.collections.deleteCollection(''))
-        .rejects
-        .toThrow('Collection ID is required');
+      await expect(client.collections.deleteCollection('')).rejects.toThrow(
+        'Collection ID is required'
+      );
     });
 
     it('should validate collection ID is not just whitespace for deletion', async () => {
-      await expect(client.collections.deleteCollection('   '))
-        .rejects
-        .toThrow('Collection ID is required');
+      await expect(client.collections.deleteCollection('   ')).rejects.toThrow(
+        'Collection ID is required'
+      );
     });
 
     it('should update a collection by ID', async () => {
       const updateData: UpdateCollectionRequest = {
         title: 'Updated Collection Title',
         category: 'updated-category',
-        status: 'ACTIVE'
+        status: 'ACTIVE',
       };
 
       const updatedCollection: Collection = {
@@ -1228,17 +1582,20 @@ describe('IconikClient Resources', () => {
         status: 'ACTIVE',
         date_created: '2023-01-01T00:00:00Z',
         date_modified: '2023-01-02T00:00:00Z',
-        object_type: 'collections'
+        object_type: 'collections',
       };
 
       mockAxiosInstance.patch.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: updatedCollection
+        data: updatedCollection,
       });
 
-      const result = await client.collections.updateCollection('collection-123', updateData);
+      const result = await client.collections.updateCollection(
+        'collection-123',
+        updateData
+      );
 
       expect(mockAxiosInstance.patch).toHaveBeenCalledWith(
         '/API/assets/v1/collections/collection-123',
@@ -1252,11 +1609,11 @@ describe('IconikClient Resources', () => {
     it('should update a collection with options', async () => {
       const updateData: UpdateCollectionRequest = {
         parent_id: 'new-parent-id',
-        title: 'Moved Collection'
+        title: 'Moved Collection',
       };
 
       const options: UpdateCollectionOptions = {
-        change_parent_mode: 'move'
+        change_parent_mode: 'move',
       };
 
       const updatedCollection: Collection = {
@@ -1265,17 +1622,21 @@ describe('IconikClient Resources', () => {
         parent_id: 'new-parent-id',
         date_created: '2023-01-01T00:00:00Z',
         date_modified: '2023-01-02T00:00:00Z',
-        object_type: 'collections'
+        object_type: 'collections',
       };
 
       mockAxiosInstance.patch.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: updatedCollection
+        data: updatedCollection,
       });
 
-      const result = await client.collections.updateCollection('collection-123', updateData, options);
+      const result = await client.collections.updateCollection(
+        'collection-123',
+        updateData,
+        options
+      );
 
       expect(mockAxiosInstance.patch).toHaveBeenCalledWith(
         '/API/assets/v1/collections/collection-123',
@@ -1288,7 +1649,7 @@ describe('IconikClient Resources', () => {
 
     it('should update a collection with partial data', async () => {
       const updateData: UpdateCollectionRequest = {
-        title: 'Just Title Update'
+        title: 'Just Title Update',
       };
 
       const updatedCollection: Collection = {
@@ -1297,17 +1658,20 @@ describe('IconikClient Resources', () => {
         category: 'original-category',
         date_created: '2023-01-01T00:00:00Z',
         date_modified: '2023-01-02T00:00:00Z',
-        object_type: 'collections'
+        object_type: 'collections',
       };
 
       mockAxiosInstance.patch.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: updatedCollection
+        data: updatedCollection,
       });
 
-      const result = await client.collections.updateCollection('collection-123', updateData);
+      const result = await client.collections.updateCollection(
+        'collection-123',
+        updateData
+      );
 
       expect(mockAxiosInstance.patch).toHaveBeenCalledWith(
         '/API/assets/v1/collections/collection-123',
@@ -1320,22 +1684,22 @@ describe('IconikClient Resources', () => {
 
     it('should validate collection ID is required for update', async () => {
       const updateData: UpdateCollectionRequest = {
-        title: 'Updated Title'
+        title: 'Updated Title',
       };
 
-      await expect(client.collections.updateCollection('', updateData))
-        .rejects
-        .toThrow('Collection ID is required');
+      await expect(
+        client.collections.updateCollection('', updateData)
+      ).rejects.toThrow('Collection ID is required');
     });
 
     it('should validate collection ID is not just whitespace for update', async () => {
       const updateData: UpdateCollectionRequest = {
-        title: 'Updated Title'
+        title: 'Updated Title',
       };
 
-      await expect(client.collections.updateCollection('   ', updateData))
-        .rejects
-        .toThrow('Collection ID is required');
+      await expect(
+        client.collections.updateCollection('   ', updateData)
+      ).rejects.toThrow('Collection ID is required');
     });
 
     it('should replace a collection with basic data', async () => {
@@ -1344,7 +1708,7 @@ describe('IconikClient Resources', () => {
         category: 'new-category',
         status: 'ACTIVE',
         is_root: false,
-        parent_id: 'new-parent-123'
+        parent_id: 'new-parent-123',
       };
 
       const mockReplacedCollection: Collection = {
@@ -1355,17 +1719,20 @@ describe('IconikClient Resources', () => {
         is_root: false,
         parent_id: 'new-parent-123',
         date_created: '2023-01-01T00:00:00Z',
-        date_modified: '2023-01-01T12:00:00Z'
+        date_modified: '2023-01-01T12:00:00Z',
       };
 
       mockAxiosInstance.put.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockReplacedCollection
+        data: mockReplacedCollection,
       });
 
-      const result = await client.collections.replaceCollection('collection-123', replaceData);
+      const result = await client.collections.replaceCollection(
+        'collection-123',
+        replaceData
+      );
 
       expect(mockAxiosInstance.put).toHaveBeenCalledWith(
         '/API/assets/v1/collections/collection-123',
@@ -1380,11 +1747,11 @@ describe('IconikClient Resources', () => {
       const replaceData: ReplaceCollectionRequest = {
         title: 'Collection with New Parent',
         parent_id: 'new-parent-456',
-        category: 'moved-category'
+        category: 'moved-category',
       };
 
       const options: ReplaceCollectionOptions = {
-        change_parent_mode: 'move'
+        change_parent_mode: 'move',
       };
 
       const mockReplacedCollection: Collection = {
@@ -1393,17 +1760,21 @@ describe('IconikClient Resources', () => {
         parent_id: 'new-parent-456',
         category: 'moved-category',
         date_created: '2023-01-01T00:00:00Z',
-        date_modified: '2023-01-01T12:00:00Z'
+        date_modified: '2023-01-01T12:00:00Z',
       };
 
       mockAxiosInstance.put.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockReplacedCollection
+        data: mockReplacedCollection,
       });
 
-      const result = await client.collections.replaceCollection('collection-123', replaceData, options);
+      const result = await client.collections.replaceCollection(
+        'collection-123',
+        replaceData,
+        options
+      );
 
       expect(mockAxiosInstance.put).toHaveBeenCalledWith(
         '/API/assets/v1/collections/collection-123',
@@ -1426,7 +1797,7 @@ describe('IconikClient Resources', () => {
         keyframe_asset_ids: ['asset-1', 'asset-2'],
         parent_id: null,
         status: 'ACTIVE',
-        storage_id: 'storage-123'
+        storage_id: 'storage-123',
       };
 
       const mockReplacedCollection: Collection = {
@@ -1441,17 +1812,20 @@ describe('IconikClient Resources', () => {
         keyframe_asset_ids: ['asset-1', 'asset-2'],
         status: 'ACTIVE',
         storage_id: 'storage-123',
-        date_modified: '2023-01-01T12:00:00Z'
+        date_modified: '2023-01-01T12:00:00Z',
       };
 
       mockAxiosInstance.put.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockReplacedCollection
+        data: mockReplacedCollection,
       });
 
-      const result = await client.collections.replaceCollection('collection-123', replaceData);
+      const result = await client.collections.replaceCollection(
+        'collection-123',
+        replaceData
+      );
 
       expect(mockAxiosInstance.put).toHaveBeenCalledWith(
         '/API/assets/v1/collections/collection-123',
@@ -1464,22 +1838,22 @@ describe('IconikClient Resources', () => {
 
     it('should validate collection ID is required for replace', async () => {
       const replaceData: ReplaceCollectionRequest = {
-        title: 'Valid Title'
+        title: 'Valid Title',
       };
 
-      await expect(client.collections.replaceCollection('', replaceData))
-        .rejects
-        .toThrow('Collection ID is required');
+      await expect(
+        client.collections.replaceCollection('', replaceData)
+      ).rejects.toThrow('Collection ID is required');
     });
 
     it('should validate collection ID is not just whitespace for replace', async () => {
       const replaceData: ReplaceCollectionRequest = {
-        title: 'Valid Title'
+        title: 'Valid Title',
       };
 
-      await expect(client.collections.replaceCollection('   ', replaceData))
-        .rejects
-        .toThrow('Collection ID is required');
+      await expect(
+        client.collections.replaceCollection('   ', replaceData)
+      ).rejects.toThrow('Collection ID is required');
     });
   });
 
@@ -1496,7 +1870,7 @@ describe('IconikClient Resources', () => {
             storage_id: 'storage-1',
             format_id: 'format-1',
             file_count: 5,
-            date_created: '2023-01-01T00:00:00Z'
+            date_created: '2023-01-01T00:00:00Z',
           },
           {
             id: 'fileset-2',
@@ -1507,22 +1881,22 @@ describe('IconikClient Resources', () => {
             format_id: 'format-2',
             is_archive: false,
             file_count: 3,
-            date_created: '2023-01-02T00:00:00Z'
-          }
+            date_created: '2023-01-02T00:00:00Z',
+          },
         ],
         total: 2,
         page: 1,
         pages: 1,
         per_page: 50,
         first_url: '/API/files/v1/assets/asset-123/file_sets/?page=1',
-        last_url: '/API/files/v1/assets/asset-123/file_sets/?page=1'
+        last_url: '/API/files/v1/assets/asset-123/file_sets/?page=1',
       };
 
       mockAxiosInstance.get.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockFilesets
+        data: mockFilesets,
       });
 
       // Call the method
@@ -1550,31 +1924,36 @@ describe('IconikClient Resources', () => {
             storage_id: 'storage-3',
             format_id: 'format-3',
             file_count: 10,
-            date_created: '2023-01-03T00:00:00Z'
-          }
+            date_created: '2023-01-03T00:00:00Z',
+          },
         ],
         total: 5,
         page: 2,
         pages: 3,
         per_page: 2,
-        next_url: '/API/files/v1/assets/asset-456/file_sets/?per_page=2&last_id=fileset-4',
-        prev_url: '/API/files/v1/assets/asset-456/file_sets/?per_page=2&last_id=fileset-1'
+        next_url:
+          '/API/files/v1/assets/asset-456/file_sets/?per_page=2&last_id=fileset-4',
+        prev_url:
+          '/API/files/v1/assets/asset-456/file_sets/?per_page=2&last_id=fileset-1',
       };
 
       mockAxiosInstance.get.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockFilesets
+        data: mockFilesets,
       });
 
       const params: AssetFileSetsListParams = {
         per_page: 2,
-        last_id: 'fileset-2'
+        last_id: 'fileset-2',
       };
 
       // Call the method
-      const result = await client.filesets.getAssetFilesets('asset-456', params);
+      const result = await client.filesets.getAssetFilesets(
+        'asset-456',
+        params
+      );
 
       // Assertions
       expect(mockAxiosInstance.get).toHaveBeenCalledWith(
@@ -1598,28 +1977,31 @@ describe('IconikClient Resources', () => {
             format_id: 'format-4',
             is_archive: true,
             file_count: 25,
-            date_created: '2023-01-04T00:00:00Z'
-          }
+            date_created: '2023-01-04T00:00:00Z',
+          },
         ],
         total: 1,
         page: 1,
         pages: 1,
-        per_page: 50
+        per_page: 50,
       };
 
       mockAxiosInstance.get.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockFilesets
+        data: mockFilesets,
       });
 
       const params: AssetFileSetsListParams = {
-        file_count: true
+        file_count: true,
       };
 
       // Call the method
-      const result = await client.filesets.getAssetFilesets('asset-789', params);
+      const result = await client.filesets.getAssetFilesets(
+        'asset-789',
+        params
+      );
 
       // Assertions
       expect(mockAxiosInstance.get).toHaveBeenCalledWith(
@@ -1646,30 +2028,33 @@ describe('IconikClient Resources', () => {
             version_id: 'version-1',
             file_count: 8,
             date_created: '2023-01-05T00:00:00Z',
-            date_modified: '2023-01-05T12:00:00Z'
-          }
+            date_modified: '2023-01-05T12:00:00Z',
+          },
         ],
         total: 3,
         page: 1,
         pages: 2,
-        per_page: 1
+        per_page: 1,
       };
 
       mockAxiosInstance.get.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockFilesets
+        data: mockFilesets,
       });
 
       const params: AssetFileSetsListParams = {
         per_page: 1,
         last_id: 'fileset-4',
-        file_count: true
+        file_count: true,
       };
 
       // Call the method
-      const result = await client.filesets.getAssetFilesets('asset-100', params);
+      const result = await client.filesets.getAssetFilesets(
+        'asset-100',
+        params
+      );
 
       // Assertions
       expect(mockAxiosInstance.get).toHaveBeenCalledWith(
@@ -1687,14 +2072,14 @@ describe('IconikClient Resources', () => {
         total: 0,
         page: 1,
         pages: 0,
-        per_page: 50
+        per_page: 50,
       };
 
       mockAxiosInstance.get.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockEmptyFilesets
+        data: mockEmptyFilesets,
       });
 
       // Call the method
@@ -1711,15 +2096,15 @@ describe('IconikClient Resources', () => {
     });
 
     it('should validate asset ID is required', async () => {
-      await expect(client.filesets.getAssetFilesets(''))
-        .rejects
-        .toThrow('Asset ID is required');
+      await expect(client.filesets.getAssetFilesets('')).rejects.toThrow(
+        'Asset ID is required'
+      );
     });
 
     it('should validate asset ID is not just whitespace', async () => {
-      await expect(client.filesets.getAssetFilesets('   '))
-        .rejects
-        .toThrow('Asset ID is required');
+      await expect(client.filesets.getAssetFilesets('   ')).rejects.toThrow(
+        'Asset ID is required'
+      );
     });
 
     it('should handle filesets with archive information', async () => {
@@ -1738,20 +2123,20 @@ describe('IconikClient Resources', () => {
             file_count: 15,
             date_created: '2023-01-01T00:00:00Z',
             date_deleted: '2023-01-15T00:00:00Z',
-            deleted_by_user: 'user-123'
-          }
+            deleted_by_user: 'user-123',
+          },
         ],
         total: 1,
         page: 1,
         pages: 1,
-        per_page: 50
+        per_page: 50,
       };
 
       mockAxiosInstance.get.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockArchiveFilesets
+        data: mockArchiveFilesets,
       });
 
       // Call the method
@@ -1761,7 +2146,9 @@ describe('IconikClient Resources', () => {
       expect(result.data.objects[0].is_archive).toBe(true);
       expect(result.data.objects[0].status).toBe('ARCHIVED');
       expect(result.data.objects[0].archive_file_set_id).toBe('archive-ref-1');
-      expect(result.data.objects[0].original_storage_id).toBe('original-storage-1');
+      expect(result.data.objects[0].original_storage_id).toBe(
+        'original-storage-1'
+      );
     });
 
     it('should get a specific fileset by ID', async () => {
@@ -1779,18 +2166,21 @@ describe('IconikClient Resources', () => {
         file_count: 12,
         is_archive: false,
         date_created: '2023-01-01T00:00:00Z',
-        date_modified: '2023-01-01T12:00:00Z'
+        date_modified: '2023-01-01T12:00:00Z',
       };
 
       mockAxiosInstance.get.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockFileset
+        data: mockFileset,
       });
 
       // Call the method
-      const result = await client.filesets.getAssetFileset('asset-456', 'fileset-123');
+      const result = await client.filesets.getAssetFileset(
+        'asset-456',
+        'fileset-123'
+      );
 
       // Assertions
       expect(mockAxiosInstance.get).toHaveBeenCalledWith(
@@ -1810,18 +2200,21 @@ describe('IconikClient Resources', () => {
       const mockMinimalFileset: FileSet = {
         id: 'fileset-minimal',
         asset_id: 'asset-minimal',
-        storage_id: 'storage-minimal'
+        storage_id: 'storage-minimal',
       };
 
       mockAxiosInstance.get.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockMinimalFileset
+        data: mockMinimalFileset,
       });
 
       // Call the method
-      const result = await client.filesets.getAssetFileset('asset-minimal', 'fileset-minimal');
+      const result = await client.filesets.getAssetFileset(
+        'asset-minimal',
+        'fileset-minimal'
+      );
 
       // Assertions
       expect(mockAxiosInstance.get).toHaveBeenCalledWith(
@@ -1847,18 +2240,21 @@ describe('IconikClient Resources', () => {
         file_count: 25,
         date_created: '2023-01-01T00:00:00Z',
         date_deleted: '2023-02-01T00:00:00Z',
-        deleted_by_user: 'admin-user'
+        deleted_by_user: 'admin-user',
       };
 
       mockAxiosInstance.get.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockArchivedFileset
+        data: mockArchivedFileset,
       });
 
       // Call the method
-      const result = await client.filesets.getAssetFileset('asset-archived', 'fileset-archived');
+      const result = await client.filesets.getAssetFileset(
+        'asset-archived',
+        'fileset-archived'
+      );
 
       // Assertions
       expect(result.data.status).toBe('ARCHIVED');
@@ -1869,27 +2265,27 @@ describe('IconikClient Resources', () => {
     });
 
     it('should validate asset ID is required for getAssetFileset', async () => {
-      await expect(client.filesets.getAssetFileset('', 'fileset-123'))
-        .rejects
-        .toThrow('Asset ID is required');
+      await expect(
+        client.filesets.getAssetFileset('', 'fileset-123')
+      ).rejects.toThrow('Asset ID is required');
     });
 
     it('should validate asset ID is not just whitespace for getAssetFileset', async () => {
-      await expect(client.filesets.getAssetFileset('   ', 'fileset-123'))
-        .rejects
-        .toThrow('Asset ID is required');
+      await expect(
+        client.filesets.getAssetFileset('   ', 'fileset-123')
+      ).rejects.toThrow('Asset ID is required');
     });
 
     it('should validate file set ID is required for getAssetFileset', async () => {
-      await expect(client.filesets.getAssetFileset('asset-123', ''))
-        .rejects
-        .toThrow('FileSet ID is required');
+      await expect(
+        client.filesets.getAssetFileset('asset-123', '')
+      ).rejects.toThrow('FileSet ID is required');
     });
 
     it('should validate file set ID is not just whitespace for getAssetFileset', async () => {
-      await expect(client.filesets.getAssetFileset('asset-123', '   '))
-        .rejects
-        .toThrow('FileSet ID is required');
+      await expect(
+        client.filesets.getAssetFileset('asset-123', '   ')
+      ).rejects.toThrow('FileSet ID is required');
     });
 
     it('should create a new fileset for an asset', async () => {
@@ -1901,7 +2297,7 @@ describe('IconikClient Resources', () => {
         status: 'ACTIVE',
         is_archive: false,
         base_dir: '/media/new',
-        component_ids: ['comp-new-1', 'comp-new-2']
+        component_ids: ['comp-new-1', 'comp-new-2'],
       };
 
       const mockCreatedFileset: FileSet = {
@@ -1916,18 +2312,21 @@ describe('IconikClient Resources', () => {
         component_ids: ['comp-new-1', 'comp-new-2'],
         file_count: 0,
         date_created: '2023-01-01T00:00:00Z',
-        date_modified: '2023-01-01T00:00:00Z'
+        date_modified: '2023-01-01T00:00:00Z',
       };
 
       mockAxiosInstance.post.mockResolvedValueOnce({
         status: 201,
         statusText: 'Created',
         headers: {},
-        data: mockCreatedFileset
+        data: mockCreatedFileset,
       });
 
       // Call the method
-      const result = await client.filesets.createAssetFileset('asset-new', createData);
+      const result = await client.filesets.createAssetFileset(
+        'asset-new',
+        createData
+      );
 
       // Assertions
       expect(mockAxiosInstance.post).toHaveBeenCalledWith(
@@ -1945,25 +2344,28 @@ describe('IconikClient Resources', () => {
     it('should create a minimal fileset', async () => {
       // Setup mock response for minimal fileset creation
       const createData: CreateFileSetRequest = {
-        storage_id: 'storage-minimal'
+        storage_id: 'storage-minimal',
       };
 
       const mockMinimalFileset: FileSet = {
         id: 'fileset-minimal-456',
         asset_id: 'asset-minimal',
         storage_id: 'storage-minimal',
-        date_created: '2023-01-01T00:00:00Z'
+        date_created: '2023-01-01T00:00:00Z',
       };
 
       mockAxiosInstance.post.mockResolvedValueOnce({
         status: 201,
         statusText: 'Created',
         headers: {},
-        data: mockMinimalFileset
+        data: mockMinimalFileset,
       });
 
       // Call the method
-      const result = await client.filesets.createAssetFileset('asset-minimal', createData);
+      const result = await client.filesets.createAssetFileset(
+        'asset-minimal',
+        createData
+      );
 
       // Assertions
       expect(mockAxiosInstance.post).toHaveBeenCalledWith(
@@ -1983,7 +2385,7 @@ describe('IconikClient Resources', () => {
         storage_id: 'archive-storage',
         is_archive: true,
         archive_file_set_id: 'original-fileset-123',
-        original_storage_id: 'original-storage'
+        original_storage_id: 'original-storage',
       };
 
       const mockArchiveFileset: FileSet = {
@@ -1995,18 +2397,21 @@ describe('IconikClient Resources', () => {
         archive_file_set_id: 'original-fileset-123',
         original_storage_id: 'original-storage',
         status: 'ACTIVE',
-        date_created: '2023-01-01T00:00:00Z'
+        date_created: '2023-01-01T00:00:00Z',
       };
 
       mockAxiosInstance.post.mockResolvedValueOnce({
         status: 201,
         statusText: 'Created',
         headers: {},
-        data: mockArchiveFileset
+        data: mockArchiveFileset,
       });
 
       // Call the method
-      const result = await client.filesets.createAssetFileset('asset-archive', createData);
+      const result = await client.filesets.createAssetFileset(
+        'asset-archive',
+        createData
+      );
 
       // Assertions
       expect(result.data.is_archive).toBe(true);
@@ -2016,22 +2421,22 @@ describe('IconikClient Resources', () => {
 
     it('should validate asset ID is required for createAssetFileset', async () => {
       const createData: CreateFileSetRequest = {
-        storage_id: 'storage-test'
+        storage_id: 'storage-test',
       };
 
-      await expect(client.filesets.createAssetFileset('', createData))
-        .rejects
-        .toThrow('Asset ID is required');
+      await expect(
+        client.filesets.createAssetFileset('', createData)
+      ).rejects.toThrow('Asset ID is required');
     });
 
     it('should validate asset ID is not just whitespace for createAssetFileset', async () => {
       const createData: CreateFileSetRequest = {
-        storage_id: 'storage-test'
+        storage_id: 'storage-test',
       };
 
-      await expect(client.filesets.createAssetFileset('   ', createData))
-        .rejects
-        .toThrow('Asset ID is required');
+      await expect(
+        client.filesets.createAssetFileset('   ', createData)
+      ).rejects.toThrow('Asset ID is required');
     });
 
     it('should delete a fileset with default options', async () => {
@@ -2044,18 +2449,21 @@ describe('IconikClient Resources', () => {
         status: 'DELETED',
         date_created: '2023-01-01T00:00:00Z',
         date_deleted: '2023-01-01T12:00:00Z',
-        deleted_by_user: 'test-user'
+        deleted_by_user: 'test-user',
       };
 
       mockAxiosInstance.delete.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockDeletedFileset
+        data: mockDeletedFileset,
       });
 
       // Call the method
-      const result = await client.filesets.deleteAssetFileset('asset-delete', 'fileset-delete-123');
+      const result = await client.filesets.deleteAssetFileset(
+        'asset-delete',
+        'fileset-delete-123'
+      );
 
       // Assertions
       expect(mockAxiosInstance.delete).toHaveBeenCalledWith(
@@ -2064,7 +2472,11 @@ describe('IconikClient Resources', () => {
       );
       expect(result.data).toEqual(mockDeletedFileset);
       expect(result.status).toBe(200);
-      if (result.data && typeof result.data === 'object' && 'status' in result.data) {
+      if (
+        result.data &&
+        typeof result.data === 'object' &&
+        'status' in result.data
+      ) {
         expect(result.data.status).toBe('DELETED');
       }
     });
@@ -2075,15 +2487,19 @@ describe('IconikClient Resources', () => {
         status: 204,
         statusText: 'No Content',
         headers: {},
-        data: null
+        data: null,
       });
 
       const options: DeleteFileSetOptions = {
-        immediately: true
+        immediately: true,
       };
 
       // Call the method
-      const result = await client.filesets.deleteAssetFileset('asset-immediate', 'fileset-immediate-123', options);
+      const result = await client.filesets.deleteAssetFileset(
+        'asset-immediate',
+        'fileset-immediate-123',
+        options
+      );
 
       // Assertions
       expect(mockAxiosInstance.delete).toHaveBeenCalledWith(
@@ -2100,22 +2516,26 @@ describe('IconikClient Resources', () => {
         id: 'fileset-keep-source',
         asset_id: 'asset-keep-source',
         status: 'DELETED',
-        date_deleted: '2023-01-01T12:00:00Z'
+        date_deleted: '2023-01-01T12:00:00Z',
       };
 
       mockAxiosInstance.delete.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockDeletedFileset
+        data: mockDeletedFileset,
       });
 
       const options: DeleteFileSetOptions = {
-        keep_source: true
+        keep_source: true,
       };
 
       // Call the method
-      const result = await client.filesets.deleteAssetFileset('asset-keep-source', 'fileset-keep-source', options);
+      const result = await client.filesets.deleteAssetFileset(
+        'asset-keep-source',
+        'fileset-keep-source',
+        options
+      );
 
       // Assertions
       expect(mockAxiosInstance.delete).toHaveBeenCalledWith(
@@ -2131,16 +2551,20 @@ describe('IconikClient Resources', () => {
         status: 204,
         statusText: 'No Content',
         headers: {},
-        data: null
+        data: null,
       });
 
       const options: DeleteFileSetOptions = {
         keep_source: true,
-        immediately: true
+        immediately: true,
       };
 
       // Call the method
-      const result = await client.filesets.deleteAssetFileset('asset-both-options', 'fileset-both-options', options);
+      const result = await client.filesets.deleteAssetFileset(
+        'asset-both-options',
+        'fileset-both-options',
+        options
+      );
 
       // Assertions
       expect(mockAxiosInstance.delete).toHaveBeenCalledWith(
@@ -2151,27 +2575,27 @@ describe('IconikClient Resources', () => {
     });
 
     it('should validate asset ID is required for deleteAssetFileset', async () => {
-      await expect(client.filesets.deleteAssetFileset('', 'fileset-123'))
-        .rejects
-        .toThrow('Asset ID is required');
+      await expect(
+        client.filesets.deleteAssetFileset('', 'fileset-123')
+      ).rejects.toThrow('Asset ID is required');
     });
 
     it('should validate asset ID is not just whitespace for deleteAssetFileset', async () => {
-      await expect(client.filesets.deleteAssetFileset('   ', 'fileset-123'))
-        .rejects
-        .toThrow('Asset ID is required');
+      await expect(
+        client.filesets.deleteAssetFileset('   ', 'fileset-123')
+      ).rejects.toThrow('Asset ID is required');
     });
 
     it('should validate file set ID is required for deleteAssetFileset', async () => {
-      await expect(client.filesets.deleteAssetFileset('asset-123', ''))
-        .rejects
-        .toThrow('FileSet ID is required');
+      await expect(
+        client.filesets.deleteAssetFileset('asset-123', '')
+      ).rejects.toThrow('FileSet ID is required');
     });
 
     it('should validate file set ID is not just whitespace for deleteAssetFileset', async () => {
-      await expect(client.filesets.deleteAssetFileset('asset-123', '   '))
-        .rejects
-        .toThrow('FileSet ID is required');
+      await expect(
+        client.filesets.deleteAssetFileset('asset-123', '   ')
+      ).rejects.toThrow('FileSet ID is required');
     });
 
     // Tests for getFileSetFiles
@@ -2186,7 +2610,7 @@ describe('IconikClient Resources', () => {
             name: 'test_file.mp4',
             status: 'UPLOADED',
             type: 'FILE',
-            size: 1024000
+            size: 1024000,
           },
           {
             id: 'file-456',
@@ -2195,12 +2619,12 @@ describe('IconikClient Resources', () => {
             name: 'test_file2.jpg',
             status: 'UPLOADED',
             type: 'FILE',
-            size: 102400
-          }
+            size: 102400,
+          },
         ],
         total: 2,
         page: 1,
-        per_page: 100
+        per_page: 100,
       };
 
       // Mock Axios to return expected response
@@ -2208,11 +2632,14 @@ describe('IconikClient Resources', () => {
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockFiles
+        data: mockFiles,
       });
 
       // Call the method
-      const result = await client.filesets.getFileSetFiles('asset-456', 'fileset-789');
+      const result = await client.filesets.getFileSetFiles(
+        'asset-456',
+        'fileset-789'
+      );
 
       // Assertions
       expect(mockAxiosInstance.get).toHaveBeenCalledWith(
@@ -2233,7 +2660,7 @@ describe('IconikClient Resources', () => {
         per_page: 10,
         last_id: 'file-last-id',
         generate_signed_url: true,
-        file_count: true
+        file_count: true,
       };
 
       // Setup mock response
@@ -2247,14 +2674,14 @@ describe('IconikClient Resources', () => {
             status: 'UPLOADED',
             type: 'FILE',
             size: 1024000,
-            url: 'https://example.com/signed-url/test_file.mp4'
-          }
+            url: 'https://example.com/signed-url/test_file.mp4',
+          },
         ],
         total: 1,
         page: 1,
         per_page: 10,
         next_url: null,
-        prev_url: null
+        prev_url: null,
       };
 
       // Mock Axios to return expected response
@@ -2262,11 +2689,15 @@ describe('IconikClient Resources', () => {
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockFiles
+        data: mockFiles,
       });
 
       // Call the method
-      const result = await client.filesets.getFileSetFiles('asset-456', 'fileset-789', options);
+      const result = await client.filesets.getFileSetFiles(
+        'asset-456',
+        'fileset-789',
+        options
+      );
 
       // Assertions
       expect(mockAxiosInstance.get).toHaveBeenCalledWith(
@@ -2276,13 +2707,15 @@ describe('IconikClient Resources', () => {
             per_page: 10,
             last_id: 'file-last-id',
             generate_signed_url: true,
-            file_count: true
-          }
+            file_count: true,
+          },
         }
       );
       expect(result.data).toEqual(mockFiles);
       expect(result.status).toBe(200);
-      expect(result.data.objects[0].url).toBe('https://example.com/signed-url/test_file.mp4');
+      expect(result.data.objects[0].url).toBe(
+        'https://example.com/signed-url/test_file.mp4'
+      );
     });
 
     it('should handle empty file list', async () => {
@@ -2291,7 +2724,7 @@ describe('IconikClient Resources', () => {
         objects: [],
         total: 0,
         page: 1,
-        per_page: 100
+        per_page: 100,
       };
 
       // Mock Axios to return expected response
@@ -2299,11 +2732,14 @@ describe('IconikClient Resources', () => {
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockEmptyFiles
+        data: mockEmptyFiles,
       });
 
       // Call the method
-      const result = await client.filesets.getFileSetFiles('asset-456', 'fileset-789');
+      const result = await client.filesets.getFileSetFiles(
+        'asset-456',
+        'fileset-789'
+      );
 
       // Assertions
       expect(result.data).toEqual(mockEmptyFiles);
@@ -2312,27 +2748,27 @@ describe('IconikClient Resources', () => {
     });
 
     it('should validate asset ID is required for getFileSetFiles', async () => {
-      await expect(client.filesets.getFileSetFiles('', 'fileset-123'))
-        .rejects
-        .toThrow('Asset ID is required');
+      await expect(
+        client.filesets.getFileSetFiles('', 'fileset-123')
+      ).rejects.toThrow('Asset ID is required');
     });
 
     it('should validate asset ID cannot be whitespace for getFileSetFiles', async () => {
-      await expect(client.filesets.getFileSetFiles('   ', 'fileset-123'))
-        .rejects
-        .toThrow('Asset ID is required');
+      await expect(
+        client.filesets.getFileSetFiles('   ', 'fileset-123')
+      ).rejects.toThrow('Asset ID is required');
     });
 
     it('should validate file set ID is required for getFileSetFiles', async () => {
-      await expect(client.filesets.getFileSetFiles('asset-123', ''))
-        .rejects
-        .toThrow('FileSet ID is required');
+      await expect(
+        client.filesets.getFileSetFiles('asset-123', '')
+      ).rejects.toThrow('FileSet ID is required');
     });
 
     it('should validate file set ID cannot be whitespace for getFileSetFiles', async () => {
-      await expect(client.filesets.getFileSetFiles('asset-123', '   '))
-        .rejects
-        .toThrow('FileSet ID is required');
+      await expect(
+        client.filesets.getFileSetFiles('asset-123', '   ')
+      ).rejects.toThrow('FileSet ID is required');
     });
   });
 
@@ -2347,7 +2783,7 @@ describe('IconikClient Resources', () => {
             name: 'example.mp4',
             type: 'FILE',
             status: 'UPLOADED',
-            size: 1024000
+            size: 1024000,
           },
           {
             id: 'file-456',
@@ -2355,13 +2791,13 @@ describe('IconikClient Resources', () => {
             name: 'thumbnail.jpg',
             type: 'FILE',
             status: 'UPLOADED',
-            size: 52000
-          }
+            size: 52000,
+          },
         ],
         total: 2,
         page: 1,
         pages: 1,
-        per_page: 100
+        per_page: 100,
       };
 
       // Mock the axios get method
@@ -2370,7 +2806,7 @@ describe('IconikClient Resources', () => {
         status: 200,
         statusText: 'OK',
         headers: {},
-        config: {}
+        config: {},
       });
 
       // Call the method
@@ -2398,13 +2834,13 @@ describe('IconikClient Resources', () => {
             type: 'FILE',
             status: 'UPLOADED',
             size: 1024000,
-            url: 'https://example.com/signed-url'
-          }
+            url: 'https://example.com/signed-url',
+          },
         ],
         total: 1,
         page: 1,
         pages: 1,
-        per_page: 10
+        per_page: 10,
       };
 
       mockAxiosInstance.get.mockResolvedValue({
@@ -2412,7 +2848,7 @@ describe('IconikClient Resources', () => {
         status: 200,
         statusText: 'OK',
         headers: {},
-        config: {}
+        config: {},
       });
 
       // Call with all parameters
@@ -2420,7 +2856,7 @@ describe('IconikClient Resources', () => {
         per_page: 10,
         generate_signed_url: true,
         content_disposition: 'attachment',
-        last_id: 'prev-file-id'
+        last_id: 'prev-file-id',
       });
 
       // Assert correct URL was called with query parameters
@@ -2431,8 +2867,8 @@ describe('IconikClient Resources', () => {
             per_page: 10,
             generate_signed_url: true,
             content_disposition: 'attachment',
-            last_id: 'prev-file-id'
-          }
+            last_id: 'prev-file-id',
+          },
         }
       );
 
@@ -2448,7 +2884,7 @@ describe('IconikClient Resources', () => {
         total: 0,
         page: 1,
         pages: 0,
-        per_page: 100
+        per_page: 100,
       };
 
       mockAxiosInstance.get.mockResolvedValue({
@@ -2456,7 +2892,7 @@ describe('IconikClient Resources', () => {
         status: 200,
         statusText: 'OK',
         headers: {},
-        config: {}
+        config: {},
       });
 
       // Call the method
@@ -2472,15 +2908,15 @@ describe('IconikClient Resources', () => {
     });
 
     it('should validate asset ID is required', async () => {
-      await expect(client.files.getAssetFiles(''))
-        .rejects
-        .toThrow('Asset ID is required');
+      await expect(client.files.getAssetFiles('')).rejects.toThrow(
+        'Asset ID is required'
+      );
     });
 
     it('should validate asset ID cannot be whitespace', async () => {
-      await expect(client.files.getAssetFiles('   '))
-        .rejects
-        .toThrow('Asset ID is required');
+      await expect(client.files.getAssetFiles('   ')).rejects.toThrow(
+        'Asset ID is required'
+      );
     });
 
     it('should get a specific file by ID', async () => {
@@ -2491,7 +2927,7 @@ describe('IconikClient Resources', () => {
         name: 'example.mp4',
         type: 'FILE',
         status: 'UPLOADED',
-        size: 1024000
+        size: 1024000,
       };
 
       // Mock the axios get method
@@ -2500,7 +2936,7 @@ describe('IconikClient Resources', () => {
         status: 200,
         statusText: 'OK',
         headers: {},
-        config: {}
+        config: {},
       });
 
       // Call the method
@@ -2526,7 +2962,7 @@ describe('IconikClient Resources', () => {
         type: 'FILE',
         status: 'UPLOADED',
         size: 1024000,
-        url: 'https://example.com/signed-url'
+        url: 'https://example.com/signed-url',
       };
 
       mockAxiosInstance.get.mockResolvedValue({
@@ -2534,14 +2970,14 @@ describe('IconikClient Resources', () => {
         status: 200,
         statusText: 'OK',
         headers: {},
-        config: {}
+        config: {},
       });
 
       // Call with all parameters
       const result = await client.files.getAssetFile('asset-456', 'file-123', {
         generate_signed_post_url: true,
         content_disposition: 'attachment',
-        bypass_url_cache: true
+        bypass_url_cache: true,
       });
 
       // Assert correct URL was called with query parameters
@@ -2551,8 +2987,8 @@ describe('IconikClient Resources', () => {
           params: {
             generate_signed_post_url: true,
             content_disposition: 'attachment',
-            bypass_url_cache: true
-          }
+            bypass_url_cache: true,
+          },
         }
       );
 
@@ -2562,27 +2998,27 @@ describe('IconikClient Resources', () => {
     });
 
     it('should validate asset ID is required for getAssetFile', async () => {
-      await expect(client.files.getAssetFile('', 'file-123'))
-        .rejects
-        .toThrow('Asset ID is required');
+      await expect(client.files.getAssetFile('', 'file-123')).rejects.toThrow(
+        'Asset ID is required'
+      );
     });
 
     it('should validate asset ID cannot be whitespace for getAssetFile', async () => {
-      await expect(client.files.getAssetFile('   ', 'file-123'))
-        .rejects
-        .toThrow('Asset ID is required');
+      await expect(
+        client.files.getAssetFile('   ', 'file-123')
+      ).rejects.toThrow('Asset ID is required');
     });
 
     it('should validate file ID is required', async () => {
-      await expect(client.files.getAssetFile('asset-123', ''))
-        .rejects
-        .toThrow('File ID is required');
+      await expect(client.files.getAssetFile('asset-123', '')).rejects.toThrow(
+        'File ID is required'
+      );
     });
 
     it('should validate file ID cannot be whitespace', async () => {
-      await expect(client.files.getAssetFile('asset-123', '   '))
-        .rejects
-        .toThrow('File ID is required');
+      await expect(
+        client.files.getAssetFile('asset-123', '   ')
+      ).rejects.toThrow('File ID is required');
     });
 
     it('should create a new file for an asset', async () => {
@@ -2597,7 +3033,7 @@ describe('IconikClient Resources', () => {
         format_id: 'format-456',
         file_set_id: 'fileset-789',
         directory_path: '/uploads',
-        checksum: 'abc123def456'
+        checksum: 'abc123def456',
       };
 
       const mockCreatedFile = {
@@ -2615,18 +3051,21 @@ describe('IconikClient Resources', () => {
         checksum: 'abc123def456',
         date_created: '2023-01-01T00:00:00Z',
         upload_url: 'https://upload.example.com/signed-url',
-        upload_method: 'PUT'
+        upload_method: 'PUT',
       };
 
       mockAxiosInstance.post.mockResolvedValueOnce({
         status: 201,
         statusText: 'Created',
         headers: {},
-        data: mockCreatedFile
+        data: mockCreatedFile,
       });
 
       // Call the method
-      const result = await client.files.createAssetFile('asset-create', createData);
+      const result = await client.files.createAssetFile(
+        'asset-create',
+        createData
+      );
 
       // Assertions
       expect(mockAxiosInstance.post).toHaveBeenCalledWith(
@@ -2639,7 +3078,9 @@ describe('IconikClient Resources', () => {
       expect(result.data.id).toBe('file-new-123');
       expect(result.data.asset_id).toBe('asset-create');
       expect(result.data.name).toBe('new_video.mp4');
-      expect(result.data.upload_url).toBe('https://upload.example.com/signed-url');
+      expect(result.data.upload_url).toBe(
+        'https://upload.example.com/signed-url'
+      );
     });
 
     it('should create a minimal file', async () => {
@@ -2647,7 +3088,7 @@ describe('IconikClient Resources', () => {
       const createData: CreateFileRequest = {
         name: 'minimal.txt',
         type: 'FILE',
-        status: 'OPEN'
+        status: 'OPEN',
       };
 
       const mockMinimalFile = {
@@ -2656,18 +3097,21 @@ describe('IconikClient Resources', () => {
         name: 'minimal.txt',
         type: 'FILE',
         status: 'OPEN',
-        date_created: '2023-01-01T00:00:00Z'
+        date_created: '2023-01-01T00:00:00Z',
       };
 
       mockAxiosInstance.post.mockResolvedValueOnce({
         status: 201,
         statusText: 'Created',
         headers: {},
-        data: mockMinimalFile
+        data: mockMinimalFile,
       });
 
       // Call the method
-      const result = await client.files.createAssetFile('asset-minimal', createData);
+      const result = await client.files.createAssetFile(
+        'asset-minimal',
+        createData
+      );
 
       // Assertions
       expect(mockAxiosInstance.post).toHaveBeenCalledWith(
@@ -2687,7 +3131,7 @@ describe('IconikClient Resources', () => {
         size: 2048000,
         type: 'FILE',
         status: 'OPEN',
-        storage_id: 'storage-456'
+        storage_id: 'storage-456',
       };
 
       const mockFileWithCredentials = {
@@ -2704,27 +3148,36 @@ describe('IconikClient Resources', () => {
         upload_credentials: {
           access_key: 'AKIAIOSFODNN7EXAMPLE',
           secret_key: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
-          session_token: 'temporary-token'
+          session_token: 'temporary-token',
         },
-        date_created: '2023-01-01T00:00:00Z'
+        date_created: '2023-01-01T00:00:00Z',
       };
 
       mockAxiosInstance.post.mockResolvedValueOnce({
         status: 201,
         statusText: 'Created',
         headers: {},
-        data: mockFileWithCredentials
+        data: mockFileWithCredentials,
       });
 
       // Call the method
-      const result = await client.files.createAssetFile('asset-upload', createData);
+      const result = await client.files.createAssetFile(
+        'asset-upload',
+        createData
+      );
 
       // Assertions
-      expect(result.data.upload_url).toBe('https://s3.amazonaws.com/bucket/upload');
+      expect(result.data.upload_url).toBe(
+        'https://s3.amazonaws.com/bucket/upload'
+      );
       expect(result.data.upload_method).toBe('POST');
-      expect(result.data.multipart_upload_url).toBe('https://s3.amazonaws.com/bucket/multipart');
+      expect(result.data.multipart_upload_url).toBe(
+        'https://s3.amazonaws.com/bucket/multipart'
+      );
       expect(result.data.upload_credentials).toBeDefined();
-      expect(result.data.upload_credentials?.access_key).toBe('AKIAIOSFODNN7EXAMPLE');
+      expect(result.data.upload_credentials?.access_key).toBe(
+        'AKIAIOSFODNN7EXAMPLE'
+      );
     });
 
     it('should create a directory type file', async () => {
@@ -2733,7 +3186,7 @@ describe('IconikClient Resources', () => {
         name: 'uploads',
         type: 'DIRECTORY',
         status: 'OPEN',
-        directory_path: '/media'
+        directory_path: '/media',
       };
 
       const mockDirectory = {
@@ -2743,18 +3196,21 @@ describe('IconikClient Resources', () => {
         type: 'DIRECTORY',
         status: 'OPEN',
         directory_path: '/media',
-        date_created: '2023-01-01T00:00:00Z'
+        date_created: '2023-01-01T00:00:00Z',
       };
 
       mockAxiosInstance.post.mockResolvedValueOnce({
         status: 201,
         statusText: 'Created',
         headers: {},
-        data: mockDirectory
+        data: mockDirectory,
       });
 
       // Call the method
-      const result = await client.files.createAssetFile('asset-dir', createData);
+      const result = await client.files.createAssetFile(
+        'asset-dir',
+        createData
+      );
 
       // Assertions
       expect(result.data.type).toBe('DIRECTORY');
@@ -2766,24 +3222,24 @@ describe('IconikClient Resources', () => {
       const createData: CreateFileRequest = {
         name: 'test.txt',
         type: 'FILE',
-        status: 'OPEN'
+        status: 'OPEN',
       };
 
-      await expect(client.files.createAssetFile('', createData))
-        .rejects
-        .toThrow('Asset ID is required');
+      await expect(
+        client.files.createAssetFile('', createData)
+      ).rejects.toThrow('Asset ID is required');
     });
 
     it('should validate asset ID is not just whitespace for createAssetFile', async () => {
       const createData: CreateFileRequest = {
         name: 'test.txt',
         type: 'FILE',
-        status: 'OPEN'
+        status: 'OPEN',
       };
 
-      await expect(client.files.createAssetFile('   ', createData))
-        .rejects
-        .toThrow('Asset ID is required');
+      await expect(
+        client.files.createAssetFile('   ', createData)
+      ).rejects.toThrow('Asset ID is required');
     });
   });
 
@@ -2804,17 +3260,17 @@ describe('IconikClient Resources', () => {
                 id: 'comp-1',
                 name: 'Video Track',
                 type: 'VIDEO',
-                metadata: { bitrate: '1000000' }
+                metadata: { bitrate: '1000000' },
               },
               {
                 id: 'comp-2',
                 name: 'Audio Track',
                 type: 'AUDIO',
-                metadata: { sample_rate: '48000' }
-              }
+                metadata: { sample_rate: '48000' },
+              },
             ],
             storage_methods: ['LOCAL', 'CLOUD'],
-            date_created: '2023-01-01T00:00:00Z'
+            date_created: '2023-01-01T00:00:00Z',
           },
           {
             id: 'format-456',
@@ -2828,26 +3284,26 @@ describe('IconikClient Resources', () => {
                 id: 'comp-3',
                 name: 'Proxy Video',
                 type: 'VIDEO',
-                metadata: { bitrate: '500000' }
-              }
+                metadata: { bitrate: '500000' },
+              },
             ],
             storage_methods: ['LOCAL'],
-            date_created: '2023-01-02T00:00:00Z'
-          }
+            date_created: '2023-01-02T00:00:00Z',
+          },
         ],
         total: 2,
         page: 1,
         pages: 1,
         per_page: 50,
         first_url: '/v1/assets/asset-456/formats/?page=1',
-        last_url: '/v1/assets/asset-456/formats/?page=1'
+        last_url: '/v1/assets/asset-456/formats/?page=1',
       };
 
       mockAxiosInstance.get.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockFormats
+        data: mockFormats,
       });
 
       // Call the method
@@ -2878,30 +3334,30 @@ describe('IconikClient Resources', () => {
               {
                 id: 'comp-4',
                 name: 'Transcoded Video',
-                type: 'VIDEO'
-              }
+                type: 'VIDEO',
+              },
             ],
-            date_created: '2023-01-03T00:00:00Z'
-          }
+            date_created: '2023-01-03T00:00:00Z',
+          },
         ],
         total: 5,
         page: 2,
         pages: 3,
         per_page: 2,
         next_url: '/v1/assets/asset-789/formats/?per_page=2&last_id=format-890',
-        prev_url: '/v1/assets/asset-789/formats/?per_page=2&last_id=format-678'
+        prev_url: '/v1/assets/asset-789/formats/?per_page=2&last_id=format-678',
       };
 
       mockAxiosInstance.get.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockFormats
+        data: mockFormats,
       });
 
       const params: AssetFormatsListParams = {
         per_page: 2,
-        last_id: 'format-678'
+        last_id: 'format-678',
       };
 
       // Call the method
@@ -2928,7 +3384,7 @@ describe('IconikClient Resources', () => {
             version_id: 'version-1',
             archive_status: 'NOT_ARCHIVED',
             is_online: true,
-            date_created: '2023-01-01T00:00:00Z'
+            date_created: '2023-01-01T00:00:00Z',
           },
           {
             id: 'format-101',
@@ -2938,24 +3394,24 @@ describe('IconikClient Resources', () => {
             version_id: 'version-2',
             archive_status: 'NOT_ARCHIVED',
             is_online: true,
-            date_created: '2023-01-02T00:00:00Z'
-          }
+            date_created: '2023-01-02T00:00:00Z',
+          },
         ],
         total: 2,
         page: 1,
         pages: 1,
-        per_page: 50
+        per_page: 50,
       };
 
       mockAxiosInstance.get.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockFormats
+        data: mockFormats,
       });
 
       const params: AssetFormatsListParams = {
-        include_all_versions: true
+        include_all_versions: true,
       };
 
       // Call the method
@@ -2992,8 +3448,8 @@ describe('IconikClient Resources', () => {
                 metadata: {
                   codec: 'h264',
                   bitrate: '2000000',
-                  resolution: '1920x1080'
-                }
+                  resolution: '1920x1080',
+                },
               },
               {
                 id: 'comp-6',
@@ -3002,39 +3458,39 @@ describe('IconikClient Resources', () => {
                 metadata: {
                   codec: 'aac',
                   bitrate: '128000',
-                  channels: '2'
-                }
-              }
+                  channels: '2',
+                },
+              },
             ],
             metadata: [
               {
                 duration: '3600',
-                file_size: '1073741824'
-              }
+                file_size: '1073741824',
+              },
             ],
             storage_methods: ['S3', 'GLACIER'],
             warnings: ['low_quality', 'incomplete_metadata'],
             date_created: '2023-01-05T00:00:00Z',
-            date_modified: '2023-01-05T12:00:00Z'
-          }
+            date_modified: '2023-01-05T12:00:00Z',
+          },
         ],
         total: 3,
         page: 1,
         pages: 2,
-        per_page: 1
+        per_page: 1,
       };
 
       mockAxiosInstance.get.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockFormats
+        data: mockFormats,
       });
 
       const params: AssetFormatsListParams = {
         per_page: 1,
         last_id: 'format-199',
-        include_all_versions: true
+        include_all_versions: true,
       };
 
       // Call the method
@@ -3043,7 +3499,13 @@ describe('IconikClient Resources', () => {
       // Assertions
       expect(mockAxiosInstance.get).toHaveBeenCalledWith(
         '/v1/assets/asset-200/formats/',
-        { params: { per_page: 1, last_id: 'format-199', include_all_versions: true } }
+        {
+          params: {
+            per_page: 1,
+            last_id: 'format-199',
+            include_all_versions: true,
+          },
+        }
       );
       expect(result.data).toEqual(mockFormats);
       expect(result.status).toBe(200);
@@ -3056,14 +3518,14 @@ describe('IconikClient Resources', () => {
         total: 0,
         page: 1,
         pages: 0,
-        per_page: 50
+        per_page: 50,
       };
 
       mockAxiosInstance.get.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockEmptyFormats
+        data: mockEmptyFormats,
       });
 
       // Call the method
@@ -3080,15 +3542,15 @@ describe('IconikClient Resources', () => {
     });
 
     it('should validate asset ID is required', async () => {
-      await expect(client.formats.getAssetFormats(''))
-        .rejects
-        .toThrow('Asset ID is required');
+      await expect(client.formats.getAssetFormats('')).rejects.toThrow(
+        'Asset ID is required'
+      );
     });
 
     it('should validate asset ID is not just whitespace', async () => {
-      await expect(client.formats.getAssetFormats('   '))
-        .rejects
-        .toThrow('Asset ID is required');
+      await expect(client.formats.getAssetFormats('   ')).rejects.toThrow(
+        'Asset ID is required'
+      );
     });
 
     it('should handle formats with complex component structures', async () => {
@@ -3111,8 +3573,8 @@ describe('IconikClient Resources', () => {
                   codec: 'h265',
                   bitrate: '5000000',
                   resolution: '3840x2160',
-                  frame_rate: '29.97'
-                }
+                  frame_rate: '29.97',
+                },
               },
               {
                 id: 'comp-audio-1',
@@ -3122,8 +3584,8 @@ describe('IconikClient Resources', () => {
                   codec: 'ac3',
                   bitrate: '320000',
                   channels: '5.1',
-                  language: 'en'
-                }
+                  language: 'en',
+                },
               },
               {
                 id: 'comp-audio-2',
@@ -3133,8 +3595,8 @@ describe('IconikClient Resources', () => {
                   codec: 'ac3',
                   bitrate: '320000',
                   channels: '5.1',
-                  language: 'es'
-                }
+                  language: 'es',
+                },
               },
               {
                 id: 'comp-subtitle-1',
@@ -3142,25 +3604,25 @@ describe('IconikClient Resources', () => {
                 type: 'SUBTITLE',
                 metadata: {
                   format: 'srt',
-                  language: 'en'
-                }
-              }
+                  language: 'en',
+                },
+              },
             ],
             storage_methods: ['LOCAL', 'S3', 'AZURE'],
-            date_created: '2023-01-06T00:00:00Z'
-          }
+            date_created: '2023-01-06T00:00:00Z',
+          },
         ],
         total: 1,
         page: 1,
         pages: 1,
-        per_page: 50
+        per_page: 50,
       };
 
       mockAxiosInstance.get.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockComplexFormats
+        data: mockComplexFormats,
       });
 
       // Call the method
@@ -3190,20 +3652,20 @@ describe('IconikClient Resources', () => {
             is_online: false,
             date_created: '2023-01-01T00:00:00Z',
             date_deleted: '2023-02-01T00:00:00Z',
-            deleted_by_user: 'admin-user'
-          }
+            deleted_by_user: 'admin-user',
+          },
         ],
         total: 1,
         page: 1,
         pages: 1,
-        per_page: 50
+        per_page: 50,
       };
 
       mockAxiosInstance.get.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockArchivedFormats
+        data: mockArchivedFormats,
       });
 
       // Call the method
@@ -3230,8 +3692,8 @@ describe('IconikClient Resources', () => {
             metadata: {
               codec: 'h264',
               bitrate: '2000000',
-              resolution: '1920x1080'
-            }
+              resolution: '1920x1080',
+            },
           },
           {
             name: 'Audio Component',
@@ -3239,12 +3701,12 @@ describe('IconikClient Resources', () => {
             metadata: {
               codec: 'aac',
               bitrate: '128000',
-              channels: '2'
-            }
-          }
+              channels: '2',
+            },
+          },
         ],
         storage_methods: ['LOCAL', 'CLOUD'],
-        version_id: 'version-1'
+        version_id: 'version-1',
       };
 
       const mockCreatedFormat: Format = {
@@ -3262,8 +3724,8 @@ describe('IconikClient Resources', () => {
             metadata: {
               codec: 'h264',
               bitrate: '2000000',
-              resolution: '1920x1080'
-            }
+              resolution: '1920x1080',
+            },
           },
           {
             id: 'comp-new-2',
@@ -3272,25 +3734,28 @@ describe('IconikClient Resources', () => {
             metadata: {
               codec: 'aac',
               bitrate: '128000',
-              channels: '2'
-            }
-          }
+              channels: '2',
+            },
+          },
         ],
         storage_methods: ['LOCAL', 'CLOUD'],
         version_id: 'version-1',
         date_created: '2023-01-01T00:00:00Z',
-        date_modified: '2023-01-01T00:00:00Z'
+        date_modified: '2023-01-01T00:00:00Z',
       };
 
       mockAxiosInstance.post.mockResolvedValueOnce({
         status: 201,
         statusText: 'Created',
         headers: {},
-        data: mockCreatedFormat
+        data: mockCreatedFormat,
       });
 
       // Call the method
-      const result = await client.formats.createAssetFormat('asset-create', createData);
+      const result = await client.formats.createAssetFormat(
+        'asset-create',
+        createData
+      );
 
       // Assertions
       expect(mockAxiosInstance.post).toHaveBeenCalledWith(
@@ -3310,7 +3775,7 @@ describe('IconikClient Resources', () => {
       // Setup mock response for minimal format creation
       const createData: CreateFormatRequest = {
         name: 'Minimal Format',
-        status: 'ACTIVE'
+        status: 'ACTIVE',
       };
 
       const mockMinimalFormat: Format = {
@@ -3318,18 +3783,21 @@ describe('IconikClient Resources', () => {
         asset_id: 'asset-minimal',
         name: 'Minimal Format',
         status: 'ACTIVE',
-        date_created: '2023-01-01T00:00:00Z'
+        date_created: '2023-01-01T00:00:00Z',
       };
 
       mockAxiosInstance.post.mockResolvedValueOnce({
         status: 201,
         statusText: 'Created',
         headers: {},
-        data: mockMinimalFormat
+        data: mockMinimalFormat,
       });
 
       // Call the method
-      const result = await client.formats.createAssetFormat('asset-minimal', createData);
+      const result = await client.formats.createAssetFormat(
+        'asset-minimal',
+        createData
+      );
 
       // Assertions
       expect(mockAxiosInstance.post).toHaveBeenCalledWith(
@@ -3357,8 +3825,8 @@ describe('IconikClient Resources', () => {
               codec: 'h265',
               bitrate: '5000000',
               resolution: '3840x2160',
-              frame_rate: '29.97'
-            }
+              frame_rate: '29.97',
+            },
           },
           {
             name: 'English Audio',
@@ -3367,8 +3835,8 @@ describe('IconikClient Resources', () => {
               codec: 'ac3',
               bitrate: '320000',
               channels: '5.1',
-              language: 'en'
-            }
+              language: 'en',
+            },
           },
           {
             name: 'Spanish Audio',
@@ -3377,25 +3845,25 @@ describe('IconikClient Resources', () => {
               codec: 'ac3',
               bitrate: '320000',
               channels: '5.1',
-              language: 'es'
-            }
+              language: 'es',
+            },
           },
           {
             name: 'English Subtitles',
             type: 'SUBTITLE',
             metadata: {
               format: 'srt',
-              language: 'en'
-            }
-          }
+              language: 'en',
+            },
+          },
         ],
         storage_methods: ['LOCAL', 'S3', 'AZURE'],
         metadata: [
           {
             duration: '7200',
-            file_size: '2147483648'
-          }
-        ]
+            file_size: '2147483648',
+          },
+        ],
       };
 
       const mockComplexFormat: Format = {
@@ -3414,8 +3882,8 @@ describe('IconikClient Resources', () => {
               codec: 'h265',
               bitrate: '5000000',
               resolution: '3840x2160',
-              frame_rate: '29.97'
-            }
+              frame_rate: '29.97',
+            },
           },
           {
             id: 'comp-audio-1',
@@ -3425,8 +3893,8 @@ describe('IconikClient Resources', () => {
               codec: 'ac3',
               bitrate: '320000',
               channels: '5.1',
-              language: 'en'
-            }
+              language: 'en',
+            },
           },
           {
             id: 'comp-audio-2',
@@ -3436,8 +3904,8 @@ describe('IconikClient Resources', () => {
               codec: 'ac3',
               bitrate: '320000',
               channels: '5.1',
-              language: 'es'
-            }
+              language: 'es',
+            },
           },
           {
             id: 'comp-subtitle-1',
@@ -3445,29 +3913,32 @@ describe('IconikClient Resources', () => {
             type: 'SUBTITLE',
             metadata: {
               format: 'srt',
-              language: 'en'
-            }
-          }
+              language: 'en',
+            },
+          },
         ],
         storage_methods: ['LOCAL', 'S3', 'AZURE'],
         metadata: [
           {
             duration: '7200',
-            file_size: '2147483648'
-          }
+            file_size: '2147483648',
+          },
         ],
-        date_created: '2023-01-01T00:00:00Z'
+        date_created: '2023-01-01T00:00:00Z',
       };
 
       mockAxiosInstance.post.mockResolvedValueOnce({
         status: 201,
         statusText: 'Created',
         headers: {},
-        data: mockComplexFormat
+        data: mockComplexFormat,
       });
 
       // Call the method
-      const result = await client.formats.createAssetFormat('asset-complex', createData);
+      const result = await client.formats.createAssetFormat(
+        'asset-complex',
+        createData
+      );
 
       // Assertions
       expect(result.data.components).toHaveLength(4);
@@ -3487,7 +3958,7 @@ describe('IconikClient Resources', () => {
         archive_status: 'ARCHIVED',
         is_online: false,
         date_deleted: '2023-02-01T00:00:00Z',
-        user_id: 'admin-user'
+        user_id: 'admin-user',
       };
 
       const mockArchivedFormat: Format = {
@@ -3499,18 +3970,21 @@ describe('IconikClient Resources', () => {
         is_online: false,
         date_created: '2023-01-01T00:00:00Z',
         date_deleted: '2023-02-01T00:00:00Z',
-        user_id: 'admin-user'
+        user_id: 'admin-user',
       };
 
       mockAxiosInstance.post.mockResolvedValueOnce({
         status: 201,
         statusText: 'Created',
         headers: {},
-        data: mockArchivedFormat
+        data: mockArchivedFormat,
       });
 
       // Call the method
-      const result = await client.formats.createAssetFormat('asset-archived', createData);
+      const result = await client.formats.createAssetFormat(
+        'asset-archived',
+        createData
+      );
 
       // Assertions
       expect(result.data.status).toBe('ARCHIVED');
@@ -3522,23 +3996,23 @@ describe('IconikClient Resources', () => {
     it('should validate asset ID is required for createAssetFormat', async () => {
       const createData: CreateFormatRequest = {
         name: 'Test Format',
-        status: 'ACTIVE'
+        status: 'ACTIVE',
       };
 
-      await expect(client.formats.createAssetFormat('', createData))
-        .rejects
-        .toThrow('Asset ID is required');
+      await expect(
+        client.formats.createAssetFormat('', createData)
+      ).rejects.toThrow('Asset ID is required');
     });
 
     it('should validate asset ID is not just whitespace for createAssetFormat', async () => {
       const createData: CreateFormatRequest = {
         name: 'Test Format',
-        status: 'ACTIVE'
+        status: 'ACTIVE',
       };
 
-      await expect(client.formats.createAssetFormat('   ', createData))
-        .rejects
-        .toThrow('Asset ID is required');
+      await expect(
+        client.formats.createAssetFormat('   ', createData)
+      ).rejects.toThrow('Asset ID is required');
     });
 
     it('should get a specific format for an asset', async () => {
@@ -3558,25 +4032,28 @@ describe('IconikClient Resources', () => {
             metadata: {
               codec: 'h264',
               bitrate: '2000000',
-              resolution: '1920x1080'
-            }
-          }
+              resolution: '1920x1080',
+            },
+          },
         ],
         storage_methods: ['LOCAL'],
         version_id: 'v1.2.3',
         date_created: '2023-01-01T00:00:00Z',
-        date_modified: '2023-01-01T12:00:00Z'
+        date_modified: '2023-01-01T12:00:00Z',
       };
 
       mockAxiosInstance.get.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockFormat
+        data: mockFormat,
       });
 
       // Call the method
-      const result = await client.formats.getAssetFormat('asset-specific', 'format-specific-123');
+      const result = await client.formats.getAssetFormat(
+        'asset-specific',
+        'format-specific-123'
+      );
 
       // Assertions
       expect(mockAxiosInstance.get).toHaveBeenCalledWith(
@@ -3610,8 +4087,8 @@ describe('IconikClient Resources', () => {
               bitrate: '10000000',
               resolution: '3840x2160',
               color_space: 'bt2020',
-              hdr: true
-            }
+              hdr: true,
+            },
           },
           {
             id: 'comp-meta-2',
@@ -3621,9 +4098,9 @@ describe('IconikClient Resources', () => {
               codec: 'flac',
               sample_rate: '96000',
               bit_depth: '24',
-              channels: '7.1'
-            }
-          }
+              channels: '7.1',
+            },
+          },
         ],
         storage_methods: ['S3', 'AZURE_BLOB'],
         metadata: [
@@ -3631,29 +4108,32 @@ describe('IconikClient Resources', () => {
             technical: {
               duration: '5400',
               file_size: '4294967296',
-              checksum: 'sha256:abc123...'
+              checksum: 'sha256:abc123...',
             },
             workflow: {
               transcode_job_id: 'job-789',
-              transcode_profile: 'uhd_hdr'
-            }
-          }
+              transcode_profile: 'uhd_hdr',
+            },
+          },
         ],
         version_id: 'v2.0.0',
         user_id: 'user-creator-123',
         date_created: '2023-01-01T00:00:00Z',
-        date_modified: '2023-01-01T18:30:00Z'
+        date_modified: '2023-01-01T18:30:00Z',
       };
 
       mockAxiosInstance.get.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockComplexFormat
+        data: mockComplexFormat,
       });
 
       // Call the method
-      const result = await client.formats.getAssetFormat('asset-complex-meta', 'format-complex-meta-456');
+      const result = await client.formats.getAssetFormat(
+        'asset-complex-meta',
+        'format-complex-meta-456'
+      );
 
       // Assertions
       expect(result.data).toEqual(mockComplexFormat);
@@ -3680,21 +4160,24 @@ describe('IconikClient Resources', () => {
             archive_info: {
               archive_date: '2023-06-15T10:30:00Z',
               archive_reason: 'Long term storage',
-              retrieval_time_estimate: '24h'
-            }
-          }
-        ]
+              retrieval_time_estimate: '24h',
+            },
+          },
+        ],
       };
 
       mockAxiosInstance.get.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockArchivedFormat
+        data: mockArchivedFormat,
       });
 
       // Call the method
-      const result = await client.formats.getAssetFormat('asset-archived', 'format-archived-789');
+      const result = await client.formats.getAssetFormat(
+        'asset-archived',
+        'format-archived-789'
+      );
 
       // Assertions
       expect(result.data.status).toBe('ARCHIVED');
@@ -3705,27 +4188,27 @@ describe('IconikClient Resources', () => {
     });
 
     it('should validate asset ID is required for getAssetFormat', async () => {
-      await expect(client.formats.getAssetFormat('', 'format-123'))
-        .rejects
-        .toThrow('Asset ID is required');
+      await expect(
+        client.formats.getAssetFormat('', 'format-123')
+      ).rejects.toThrow('Asset ID is required');
     });
 
     it('should validate asset ID is not just whitespace for getAssetFormat', async () => {
-      await expect(client.formats.getAssetFormat('   ', 'format-123'))
-        .rejects
-        .toThrow('Asset ID is required');
+      await expect(
+        client.formats.getAssetFormat('   ', 'format-123')
+      ).rejects.toThrow('Asset ID is required');
     });
 
     it('should validate format ID is required for getAssetFormat', async () => {
-      await expect(client.formats.getAssetFormat('asset-123', ''))
-        .rejects
-        .toThrow('Format ID is required');
+      await expect(
+        client.formats.getAssetFormat('asset-123', '')
+      ).rejects.toThrow('Format ID is required');
     });
 
     it('should validate format ID is not just whitespace for getAssetFormat', async () => {
-      await expect(client.formats.getAssetFormat('asset-123', '   '))
-        .rejects
-        .toThrow('Format ID is required');
+      await expect(
+        client.formats.getAssetFormat('asset-123', '   ')
+      ).rejects.toThrow('Format ID is required');
     });
 
     it('should update a format for an asset', async () => {
@@ -3742,12 +4225,12 @@ describe('IconikClient Resources', () => {
             metadata: {
               codec: 'h265',
               bitrate: '8000000',
-              resolution: '3840x2160'
-            }
-          }
+              resolution: '3840x2160',
+            },
+          },
         ],
         storage_methods: ['S3', 'LOCAL'],
-        version_id: 'v2.0.0'
+        version_id: 'v2.0.0',
       };
 
       const mockUpdatedFormat: Format = {
@@ -3765,25 +4248,29 @@ describe('IconikClient Resources', () => {
             metadata: {
               codec: 'h265',
               bitrate: '8000000',
-              resolution: '3840x2160'
-            }
-          }
+              resolution: '3840x2160',
+            },
+          },
         ],
         storage_methods: ['S3', 'LOCAL'],
         version_id: 'v2.0.0',
         date_created: '2023-01-01T00:00:00Z',
-        date_modified: '2023-01-01T15:30:00Z'
+        date_modified: '2023-01-01T15:30:00Z',
       };
 
       mockAxiosInstance.patch.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockUpdatedFormat
+        data: mockUpdatedFormat,
       });
 
       // Call the method
-      const result = await client.formats.updateAssetFormat('asset-update', 'format-update-123', updateData);
+      const result = await client.formats.updateAssetFormat(
+        'asset-update',
+        'format-update-123',
+        updateData
+      );
 
       // Assertions
       expect(mockAxiosInstance.patch).toHaveBeenCalledWith(
@@ -3809,9 +4296,9 @@ describe('IconikClient Resources', () => {
         metadata: [
           {
             archive_reason: 'Moved to long-term storage',
-            archived_by: 'system-auto-archive'
-          }
-        ]
+            archived_by: 'system-auto-archive',
+          },
+        ],
       };
 
       const mockArchivedFormat: Format = {
@@ -3827,20 +4314,24 @@ describe('IconikClient Resources', () => {
         metadata: [
           {
             archive_reason: 'Moved to long-term storage',
-            archived_by: 'system-auto-archive'
-          }
-        ]
+            archived_by: 'system-auto-archive',
+          },
+        ],
       };
 
       mockAxiosInstance.patch.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockArchivedFormat
+        data: mockArchivedFormat,
       });
 
       // Call the method
-      const result = await client.formats.updateAssetFormat('asset-archive', 'format-archive-456', updateData);
+      const result = await client.formats.updateAssetFormat(
+        'asset-archive',
+        'format-archive-456',
+        updateData
+      );
 
       // Assertions
       expect(result.data.status).toBe('ARCHIVED');
@@ -3860,8 +4351,8 @@ describe('IconikClient Resources', () => {
               codec: 'av1',
               bitrate: '15000000',
               resolution: '7680x4320',
-              hdr: true
-            }
+              hdr: true,
+            },
           },
           {
             name: 'Lossless Audio',
@@ -3870,18 +4361,18 @@ describe('IconikClient Resources', () => {
               codec: 'flac',
               sample_rate: '192000',
               bit_depth: '32',
-              channels: '7.1'
-            }
+              channels: '7.1',
+            },
           },
           {
             name: 'Multiple Language Subtitles',
             type: 'SUBTITLE',
             metadata: {
               languages: ['en', 'es', 'fr', 'de'],
-              format: 'webvtt'
-            }
-          }
-        ]
+              format: 'webvtt',
+            },
+          },
+        ],
       };
 
       const mockUpdatedFormat: Format = {
@@ -3898,8 +4389,8 @@ describe('IconikClient Resources', () => {
               codec: 'av1',
               bitrate: '15000000',
               resolution: '7680x4320',
-              hdr: true
-            }
+              hdr: true,
+            },
           },
           {
             id: 'comp-audio-updated',
@@ -3909,8 +4400,8 @@ describe('IconikClient Resources', () => {
               codec: 'flac',
               sample_rate: '192000',
               bit_depth: '32',
-              channels: '7.1'
-            }
+              channels: '7.1',
+            },
           },
           {
             id: 'comp-subtitle-updated',
@@ -3918,23 +4409,27 @@ describe('IconikClient Resources', () => {
             type: 'SUBTITLE',
             metadata: {
               languages: ['en', 'es', 'fr', 'de'],
-              format: 'webvtt'
-            }
-          }
+              format: 'webvtt',
+            },
+          },
         ],
         date_created: '2023-01-01T00:00:00Z',
-        date_modified: '2023-01-01T16:45:00Z'
+        date_modified: '2023-01-01T16:45:00Z',
       };
 
       mockAxiosInstance.patch.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockUpdatedFormat
+        data: mockUpdatedFormat,
       });
 
       // Call the method
-      const result = await client.formats.updateAssetFormat('asset-components', 'format-components-789', updateData);
+      const result = await client.formats.updateAssetFormat(
+        'asset-components',
+        'format-components-789',
+        updateData
+      );
 
       // Assertions
       expect(result.data.components).toHaveLength(3);
@@ -3946,7 +4441,7 @@ describe('IconikClient Resources', () => {
     it('should update format with minimal data', async () => {
       // Setup mock response for minimal update
       const updateData: UpdateFormatRequest = {
-        name: 'Renamed Format'
+        name: 'Renamed Format',
       };
 
       const mockMinimalUpdate: Format = {
@@ -3955,18 +4450,22 @@ describe('IconikClient Resources', () => {
         name: 'Renamed Format',
         status: 'ACTIVE',
         date_created: '2023-01-01T00:00:00Z',
-        date_modified: '2023-01-01T12:15:00Z'
+        date_modified: '2023-01-01T12:15:00Z',
       };
 
       mockAxiosInstance.patch.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockMinimalUpdate
+        data: mockMinimalUpdate,
       });
 
       // Call the method
-      const result = await client.formats.updateAssetFormat('asset-minimal-update', 'format-minimal-update-123', updateData);
+      const result = await client.formats.updateAssetFormat(
+        'asset-minimal-update',
+        'format-minimal-update-123',
+        updateData
+      );
 
       // Assertions
       expect(result.data.name).toBe('Renamed Format');
@@ -3975,42 +4474,42 @@ describe('IconikClient Resources', () => {
 
     it('should validate asset ID is required for updateAssetFormat', async () => {
       const updateData: UpdateFormatRequest = {
-        name: 'Test Update'
+        name: 'Test Update',
       };
 
-      await expect(client.formats.updateAssetFormat('', 'format-123', updateData))
-        .rejects
-        .toThrow('Asset ID is required');
+      await expect(
+        client.formats.updateAssetFormat('', 'format-123', updateData)
+      ).rejects.toThrow('Asset ID is required');
     });
 
     it('should validate asset ID is not just whitespace for updateAssetFormat', async () => {
       const updateData: UpdateFormatRequest = {
-        name: 'Test Update'
+        name: 'Test Update',
       };
 
-      await expect(client.formats.updateAssetFormat('   ', 'format-123', updateData))
-        .rejects
-        .toThrow('Asset ID is required');
+      await expect(
+        client.formats.updateAssetFormat('   ', 'format-123', updateData)
+      ).rejects.toThrow('Asset ID is required');
     });
 
     it('should validate format ID is required for updateAssetFormat', async () => {
       const updateData: UpdateFormatRequest = {
-        name: 'Test Update'
+        name: 'Test Update',
       };
 
-      await expect(client.formats.updateAssetFormat('asset-123', '', updateData))
-        .rejects
-        .toThrow('Format ID is required');
+      await expect(
+        client.formats.updateAssetFormat('asset-123', '', updateData)
+      ).rejects.toThrow('Format ID is required');
     });
 
     it('should validate format ID is not just whitespace for updateAssetFormat', async () => {
       const updateData: UpdateFormatRequest = {
-        name: 'Test Update'
+        name: 'Test Update',
       };
 
-      await expect(client.formats.updateAssetFormat('asset-123', '   ', updateData))
-        .rejects
-        .toThrow('Format ID is required');
+      await expect(
+        client.formats.updateAssetFormat('asset-123', '   ', updateData)
+      ).rejects.toThrow('Format ID is required');
     });
 
     it('should replace a format for an asset', async () => {
@@ -4028,8 +4527,8 @@ describe('IconikClient Resources', () => {
               codec: 'av1',
               bitrate: '12000000',
               resolution: '7680x4320',
-              hdr: true
-            }
+              hdr: true,
+            },
           },
           {
             name: 'New Primary Audio',
@@ -4038,9 +4537,9 @@ describe('IconikClient Resources', () => {
               codec: 'opus',
               bitrate: '512000',
               channels: '7.1',
-              sample_rate: '192000'
-            }
-          }
+              sample_rate: '192000',
+            },
+          },
         ],
         storage_methods: ['CLOUD', 'S3'],
         version_id: 'v3.0.0',
@@ -4048,10 +4547,10 @@ describe('IconikClient Resources', () => {
           {
             replacement_info: {
               replaced_at: '2023-01-01T20:00:00Z',
-              replaced_by: 'unit-test'
-            }
-          }
-        ]
+              replaced_by: 'unit-test',
+            },
+          },
+        ],
       };
 
       const mockReplacedFormat: Format = {
@@ -4070,8 +4569,8 @@ describe('IconikClient Resources', () => {
               codec: 'av1',
               bitrate: '12000000',
               resolution: '7680x4320',
-              hdr: true
-            }
+              hdr: true,
+            },
           },
           {
             id: 'comp-replaced-2',
@@ -4081,9 +4580,9 @@ describe('IconikClient Resources', () => {
               codec: 'opus',
               bitrate: '512000',
               channels: '7.1',
-              sample_rate: '192000'
-            }
-          }
+              sample_rate: '192000',
+            },
+          },
         ],
         storage_methods: ['CLOUD', 'S3'],
         version_id: 'v3.0.0',
@@ -4091,23 +4590,27 @@ describe('IconikClient Resources', () => {
           {
             replacement_info: {
               replaced_at: '2023-01-01T20:00:00Z',
-              replaced_by: 'unit-test'
-            }
-          }
+              replaced_by: 'unit-test',
+            },
+          },
         ],
         date_created: '2023-01-01T00:00:00Z',
-        date_modified: '2023-01-01T20:00:00Z'
+        date_modified: '2023-01-01T20:00:00Z',
       };
 
       mockAxiosInstance.put.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockReplacedFormat
+        data: mockReplacedFormat,
       });
 
       // Call the method
-      const result = await client.formats.replaceAssetFormat('asset-replace', 'format-replace-123', replaceData);
+      const result = await client.formats.replaceAssetFormat(
+        'asset-replace',
+        'format-replace-123',
+        replaceData
+      );
 
       // Assertions
       expect(mockAxiosInstance.put).toHaveBeenCalledWith(
@@ -4127,7 +4630,7 @@ describe('IconikClient Resources', () => {
       // Setup mock response for minimal replacement
       const replaceData: ReplaceFormatRequest = {
         name: 'Minimal Replacement',
-        status: 'ACTIVE'
+        status: 'ACTIVE',
       };
 
       const mockMinimalReplace: Format = {
@@ -4136,18 +4639,22 @@ describe('IconikClient Resources', () => {
         name: 'Minimal Replacement',
         status: 'ACTIVE',
         date_created: '2023-01-01T00:00:00Z',
-        date_modified: '2023-01-01T14:30:00Z'
+        date_modified: '2023-01-01T14:30:00Z',
       };
 
       mockAxiosInstance.put.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockMinimalReplace
+        data: mockMinimalReplace,
       });
 
       // Call the method
-      const result = await client.formats.replaceAssetFormat('asset-minimal-replace', 'format-minimal-replace-456', replaceData);
+      const result = await client.formats.replaceAssetFormat(
+        'asset-minimal-replace',
+        'format-minimal-replace-456',
+        replaceData
+      );
 
       // Assertions
       expect(result.data.name).toBe('Minimal Replacement');
@@ -4171,8 +4678,8 @@ describe('IconikClient Resources', () => {
               bitrate: '50000000',
               resolution: '7680x4320',
               frame_rate: '60',
-              color_depth: '12bit'
-            }
+              color_depth: '12bit',
+            },
           },
           {
             name: 'English Audio',
@@ -4180,8 +4687,8 @@ describe('IconikClient Resources', () => {
             metadata: {
               codec: 'flac',
               channels: '7.1',
-              language: 'en'
-            }
+              language: 'en',
+            },
           },
           {
             name: 'Spanish Audio',
@@ -4189,8 +4696,8 @@ describe('IconikClient Resources', () => {
             metadata: {
               codec: 'flac',
               channels: '7.1',
-              language: 'es'
-            }
+              language: 'es',
+            },
           },
           {
             name: 'French Audio',
@@ -4198,28 +4705,28 @@ describe('IconikClient Resources', () => {
             metadata: {
               codec: 'flac',
               channels: '7.1',
-              language: 'fr'
-            }
+              language: 'fr',
+            },
           },
           {
             name: 'English Subtitles',
             type: 'SUBTITLE',
             metadata: {
               format: 'webvtt',
-              language: 'en'
-            }
+              language: 'en',
+            },
           },
           {
             name: 'Spanish Subtitles',
             type: 'SUBTITLE',
             metadata: {
               format: 'webvtt',
-              language: 'es'
-            }
-          }
+              language: 'es',
+            },
+          },
         ],
         storage_methods: ['DISTRIBUTED', 'EDGE_CACHE'],
-        version_id: 'v4.0.0'
+        version_id: 'v4.0.0',
       };
 
       const mockCompleteFormat: Format = {
@@ -4239,8 +4746,8 @@ describe('IconikClient Resources', () => {
               bitrate: '50000000',
               resolution: '7680x4320',
               frame_rate: '60',
-              color_depth: '12bit'
-            }
+              color_depth: '12bit',
+            },
           },
           {
             id: 'comp-audio-en',
@@ -4249,8 +4756,8 @@ describe('IconikClient Resources', () => {
             metadata: {
               codec: 'flac',
               channels: '7.1',
-              language: 'en'
-            }
+              language: 'en',
+            },
           },
           {
             id: 'comp-audio-es',
@@ -4259,8 +4766,8 @@ describe('IconikClient Resources', () => {
             metadata: {
               codec: 'flac',
               channels: '7.1',
-              language: 'es'
-            }
+              language: 'es',
+            },
           },
           {
             id: 'comp-audio-fr',
@@ -4269,8 +4776,8 @@ describe('IconikClient Resources', () => {
             metadata: {
               codec: 'flac',
               channels: '7.1',
-              language: 'fr'
-            }
+              language: 'fr',
+            },
           },
           {
             id: 'comp-sub-en',
@@ -4278,8 +4785,8 @@ describe('IconikClient Resources', () => {
             type: 'SUBTITLE',
             metadata: {
               format: 'webvtt',
-              language: 'en'
-            }
+              language: 'en',
+            },
           },
           {
             id: 'comp-sub-es',
@@ -4287,32 +4794,45 @@ describe('IconikClient Resources', () => {
             type: 'SUBTITLE',
             metadata: {
               format: 'webvtt',
-              language: 'es'
-            }
-          }
+              language: 'es',
+            },
+          },
         ],
         storage_methods: ['DISTRIBUTED', 'EDGE_CACHE'],
         version_id: 'v4.0.0',
         date_created: '2023-01-01T00:00:00Z',
-        date_modified: '2023-01-01T22:15:00Z'
+        date_modified: '2023-01-01T22:15:00Z',
       };
 
       mockAxiosInstance.put.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockCompleteFormat
+        data: mockCompleteFormat,
       });
 
       // Call the method
-      const result = await client.formats.replaceAssetFormat('asset-complete', 'format-complete-789', replaceData);
+      const result = await client.formats.replaceAssetFormat(
+        'asset-complete',
+        'format-complete-789',
+        replaceData
+      );
 
       // Assertions
       expect(result.data.components).toHaveLength(6);
-      expect(result.data.components!.filter(c => c.type === 'VIDEO')).toHaveLength(1);
-      expect(result.data.components!.filter(c => c.type === 'AUDIO')).toHaveLength(3);
-      expect(result.data.components!.filter(c => c.type === 'SUBTITLE')).toHaveLength(2);
-      expect(result.data.storage_methods).toEqual(['DISTRIBUTED', 'EDGE_CACHE']);
+      expect(
+        result.data.components!.filter((c) => c.type === 'VIDEO')
+      ).toHaveLength(1);
+      expect(
+        result.data.components!.filter((c) => c.type === 'AUDIO')
+      ).toHaveLength(3);
+      expect(
+        result.data.components!.filter((c) => c.type === 'SUBTITLE')
+      ).toHaveLength(2);
+      expect(result.data.storage_methods).toEqual([
+        'DISTRIBUTED',
+        'EDGE_CACHE',
+      ]);
       expect(result.data.version_id).toBe('v4.0.0');
     });
 
@@ -4330,10 +4850,10 @@ describe('IconikClient Resources', () => {
             archive_info: {
               archive_policy: 'long_term_retention',
               retention_years: 25,
-              archive_location: 'offsite_facility_a'
-            }
-          }
-        ]
+              archive_location: 'offsite_facility_a',
+            },
+          },
+        ],
       };
 
       const mockArchivedReplace: Format = {
@@ -4352,21 +4872,25 @@ describe('IconikClient Resources', () => {
             archive_info: {
               archive_policy: 'long_term_retention',
               retention_years: 25,
-              archive_location: 'offsite_facility_a'
-            }
-          }
-        ]
+              archive_location: 'offsite_facility_a',
+            },
+          },
+        ],
       };
 
       mockAxiosInstance.put.mockResolvedValueOnce({
         status: 200,
         statusText: 'OK',
         headers: {},
-        data: mockArchivedReplace
+        data: mockArchivedReplace,
       });
 
       // Call the method
-      const result = await client.formats.replaceAssetFormat('asset-archived-replace', 'format-archived-replace-101', replaceData);
+      const result = await client.formats.replaceAssetFormat(
+        'asset-archived-replace',
+        'format-archived-replace-101',
+        replaceData
+      );
 
       // Assertions
       expect(result.data.status).toBe('ARCHIVED');
@@ -4377,42 +4901,42 @@ describe('IconikClient Resources', () => {
 
     it('should validate asset ID is required for replaceAssetFormat', async () => {
       const replaceData: ReplaceFormatRequest = {
-        name: 'Test Replace'
+        name: 'Test Replace',
       };
 
-      await expect(client.formats.replaceAssetFormat('', 'format-123', replaceData))
-        .rejects
-        .toThrow('Asset ID is required');
+      await expect(
+        client.formats.replaceAssetFormat('', 'format-123', replaceData)
+      ).rejects.toThrow('Asset ID is required');
     });
 
     it('should validate asset ID is not just whitespace for replaceAssetFormat', async () => {
       const replaceData: ReplaceFormatRequest = {
-        name: 'Test Replace'
+        name: 'Test Replace',
       };
 
-      await expect(client.formats.replaceAssetFormat('   ', 'format-123', replaceData))
-        .rejects
-        .toThrow('Asset ID is required');
+      await expect(
+        client.formats.replaceAssetFormat('   ', 'format-123', replaceData)
+      ).rejects.toThrow('Asset ID is required');
     });
 
     it('should validate format ID is required for replaceAssetFormat', async () => {
       const replaceData: ReplaceFormatRequest = {
-        name: 'Test Replace'
+        name: 'Test Replace',
       };
 
-      await expect(client.formats.replaceAssetFormat('asset-123', '', replaceData))
-        .rejects
-        .toThrow('Format ID is required');
+      await expect(
+        client.formats.replaceAssetFormat('asset-123', '', replaceData)
+      ).rejects.toThrow('Format ID is required');
     });
 
     it('should validate format ID is not just whitespace for replaceAssetFormat', async () => {
       const replaceData: ReplaceFormatRequest = {
-        name: 'Test Replace'
+        name: 'Test Replace',
       };
 
-      await expect(client.formats.replaceAssetFormat('asset-123', '   ', replaceData))
-        .rejects
-        .toThrow('Format ID is required');
+      await expect(
+        client.formats.replaceAssetFormat('asset-123', '   ', replaceData)
+      ).rejects.toThrow('Format ID is required');
     });
   });
 });
