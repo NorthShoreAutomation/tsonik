@@ -1,3 +1,5 @@
+import type { RawAxiosResponseHeaders } from 'axios';
+
 /**
  * Common API response types
  */
@@ -5,7 +7,7 @@
 // Define consistent types to replace 'any'
 export type FilterValue = string | number | boolean | object | null;
 export type FilterRecord = Record<string, FilterValue>;
-export type HttpHeaders = Record<string, string | string[] | undefined>;
+export type HttpHeaders = RawAxiosResponseHeaders;
 
 export interface ApiResponse<T = unknown> {
   data: T;

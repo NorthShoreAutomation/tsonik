@@ -444,9 +444,9 @@ describe('JobResource Integration Tests', () => {
         type: 'CUSTOM',
         status: 'READY',
         custom_type: 'replace_test',
-        metadata: [{
+        metadata: {
           original: 'value'
-        }]
+        }
       };
 
       const createResponse = await client.jobs.createJob(jobData);

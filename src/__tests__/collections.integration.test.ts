@@ -159,8 +159,8 @@ describe('CollectionResource Integration Tests', () => {
             err.response !== null;
         };
         
-        if (hasResponse(error) && (typeof error === 'object' && error !== null && 'response' in error ? error.response : undefined)?.status) {
-          expect((typeof error === 'object' && error !== null && 'response' in error ? error.response : undefined).status).toBe(404);
+        if (hasResponse(error) && error.response?.status) {
+          expect(error.response.status).toBe(404);
         } else {
           // Safe access to message if it exists
           const errorMessage = error instanceof Error ? (error instanceof Error ? error.message : 'Unknown error') : 
@@ -327,10 +327,10 @@ describe('CollectionResource Integration Tests', () => {
       expect(testCollectionId).toBeDefined();
       // If the above fails, the test will fail with a clear message
       
-      // Invalid status value
-      const invalidUpdateData: UpdateCollectionRequest = {
-        status: 'INVALID_STATUS' as unknown as string
-      };
+      // Invalid status value - using type assertion to bypass TypeScript check for testing
+      const invalidUpdateData = {
+        status: 'INVALID_STATUS'
+      } as unknown as UpdateCollectionRequest;
       
       try {
         await client.collections.updateCollection(testCollectionId, invalidUpdateData);

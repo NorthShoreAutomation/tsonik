@@ -149,7 +149,7 @@ export interface JobCreate {
   completed_at?: string;
   has_children?: boolean;
   job_context?: JobMetadataRecord;
-  metadata?: Record<string, string | number | boolean | object>[];
+  metadata?: JobMetadataRecord;
   action_context?: ActionContext;
   related_objects?: RelatedObject[];
   steps?: JobStep[];
