@@ -1,7 +1,12 @@
 import { BaseResource } from './base';
 import { Tsonik } from '../client';
 import { ApiResponse } from '../types';
-import { MetadataResponse, GetMetadataParams, UpdateMetadataRequest, PutMetadataParams } from '../types/metadata';
+import {
+  MetadataResponse,
+  GetMetadataParams,
+  UpdateMetadataRequest,
+  PutMetadataParams,
+} from '../types/metadata';
 
 /**
  * Metadata resource class for managing Iconik metadata
@@ -14,22 +19,48 @@ export class MetadataResource extends BaseResource {
   /**
    * Get metadata for a specific object
    */
-  async getMetadata(objectType: string, objectId: string, params?: GetMetadataParams): Promise<ApiResponse<MetadataResponse>> {
-    const cleanParams = params ? Object.fromEntries(
-      Object.entries(params).filter(([_, value]) => value !== undefined && value !== null)
-    ) : {};
-    
-    return this.client.get<MetadataResponse>(`${this.basePath}/${objectType}/${objectId}`, { params: cleanParams });
+  async getMetadata(
+    objectType: string,
+    objectId: string,
+    params?: GetMetadataParams
+  ): Promise<ApiResponse<MetadataResponse>> {
+    // Create a properly typed version of params to avoid unsafe argument errors
+    const cleanParams = params
+      ? Object.fromEntries(
+        Object.entries(params as Record<string, unknown>).filter(
+          ([_, value]: [string, unknown]) => value !== undefined && value !== null
+        )
+      )
+      : {};
+
+    return this.client.get<MetadataResponse>(
+      `${this.basePath}/${objectType}/${objectId}`,
+      { params: cleanParams }
+    );
   }
 
   /**
    * Update metadata for a specific object
    */
-  async putMetadata(objectType: string, objectId: string, metadataData: UpdateMetadataRequest, params?: PutMetadataParams): Promise<ApiResponse<MetadataResponse>> {
-    const cleanParams = params ? Object.fromEntries(
-      Object.entries(params).filter(([_, value]) => value !== undefined && value !== null)
-    ) : {};
-    
-    return this.client.put<MetadataResponse>(`${this.basePath}/${objectType}/${objectId}`, metadataData, { params: cleanParams });
+  async putMetadata(
+    objectType: string,
+    objectId: string,
+    metadataData: UpdateMetadataRequest,
+    params?: PutMetadataParams
+  ): Promise<ApiResponse<MetadataResponse>> {
+    // Create a properly typed version of params to avoid unsafe argument errors
+    const cleanParams = params
+      ? Object.fromEntries(
+        Object.entries(params as Record<string, unknown>).filter(
+          ([_, value]: [string, unknown]) => value !== undefined && value !== null
+        )
+      )
+      : {};
+
+    return this.client.put<MetadataResponse>(
+      `${this.basePath}/${objectType}/${objectId}`,
+      metadataData,
+      { params: cleanParams }
+    );
   }
 }
