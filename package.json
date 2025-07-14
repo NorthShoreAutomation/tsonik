@@ -47,12 +47,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/brantg/tsonik.git"
+    "url": "https://github.com/NorthShoreAutomation/tsonik.git"
   },
   "bugs": {
-    "url": "https://github.com/brantg/tsonik/issues"
+    "url": "https://github.com/NorthShoreAutomation/tsonik/issues"
   },
-  "homepage": "https://github.com/brantg/tsonik#readme",
+  "homepage": "https://github.com/NorthShoreAutomation/tsonik#readme",
   "engines": {
     "node": ">=14.0.0"
   },
