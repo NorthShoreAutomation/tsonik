@@ -1,4 +1,5 @@
 import { BaseResource } from './base';
+import { Tsonik } from '../client';
 import { ApiResponse, PaginatedResponse } from '../types';
 import { 
   FileSet, 
@@ -13,7 +14,7 @@ import {
  * FileSet resource for managing file sets in Iconik
  */
 export class FileSetResource extends BaseResource {
-  constructor(client: any) {
+  constructor(client: Tsonik) {
     super(client, '/API/files/v1');
   }
 
@@ -25,7 +26,7 @@ export class FileSetResource extends BaseResource {
       throw new Error('Asset ID is required');
     }
     
-    const queryParams: Record<string, any> = {};
+    const queryParams: Record<string, string | number | boolean> = {};
     if (params?.per_page) {
       queryParams.per_page = params.per_page;
     }
@@ -77,7 +78,7 @@ export class FileSetResource extends BaseResource {
     }
     
     // Build query parameters if options are provided
-    const queryParams: Record<string, any> = {};
+    const queryParams: Record<string, string | number | boolean> = {};
     if (options?.keep_source !== undefined) {
       queryParams.keep_source = options.keep_source;
     }
@@ -108,7 +109,7 @@ export class FileSetResource extends BaseResource {
     }
     
     // Build query parameters if options are provided
-    const queryParams: Record<string, any> = {};
+    const queryParams: Record<string, string | number | boolean> = {};
     if (options?.per_page !== undefined) {
       queryParams.per_page = options.per_page;
     }

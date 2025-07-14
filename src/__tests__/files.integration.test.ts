@@ -3,13 +3,7 @@
  * Tests real API calls using actual data from the environment
  */
 
-import { 
-  ApiResponse,
-  PaginatedResponse,
-  Asset
-} from '../types';
-import { AssetFile, AssetFilesListParams, AssetFileParams, CreateFileRequest } from '../types/files';
-import { FileSet } from '../types/filesets';
+import {  AssetFilesListParams, AssetFileParams, CreateFileRequest } from '../types/files';
 import { setupTestData, cleanupTestData, trackCreatedFile, TestData } from './test-utils';
 
 describe('FileResource Integration Tests', () => {
@@ -32,9 +26,9 @@ describe('FileResource Integration Tests', () => {
         const fileset = filesetsResponse.data.objects[0];
         realFilesetData = {
           filesetId: fileset.id,
-          formatId: fileset.format_id || '',
-          storageId: fileset.storage_id || '',
-          baseDir: fileset.base_dir || ''
+          formatId: fileset.format_id ?? '',
+          storageId: fileset.storage_id ?? '',
+          baseDir: fileset.base_dir ?? ''
         };
         console.log('Using real fileset data for tests:', realFilesetData);
       }
@@ -93,8 +87,8 @@ describe('FileResource Integration Tests', () => {
       try {
         await testData.client.files.getAssetFiles(nonExistentId);
         fail('Expected error was not thrown');
-      } catch (error: any) {
-        const statusCode = error.statusCode || error.response?.status || error.status;
+      } catch (error: unknown) {
+        const statusCode = (typeof error === 'object' && error !== null && 'statusCode' in error ? error.statusCode : undefined) || (typeof error === 'object' && error !== null && 'response' in error && typeof error.response === 'object' && error.response !== null && 'status' in error.response ? error.response.status : undefined) || (typeof error === 'object' && error !== null && 'status' in error ? error.status : undefined);
         expect(statusCode).toBeGreaterThanOrEqual(400);
       }
     }, 30000);
@@ -104,8 +98,8 @@ describe('FileResource Integration Tests', () => {
         // @ts-ignore - testing validation
         await testData.client.files.getAssetFiles('');
         fail('Expected error was not thrown');
-      } catch (error: any) {
-        expect(error.message).toMatch(/asset id/i);
+      } catch (error: unknown) {
+        expect((error instanceof Error ? error.message : 'Unknown error')).toMatch(/asset id/i);
       }
     }, 30000);
   });
@@ -165,8 +159,8 @@ describe('FileResource Integration Tests', () => {
       try {
         await testData.client.files.getAssetFile(testData.testAssetId, nonExistentFileId);
         fail('Expected error was not thrown');
-      } catch (error: any) {
-        const statusCode = error.statusCode || error.response?.status || error.status;
+      } catch (error: unknown) {
+        const statusCode = (typeof error === 'object' && error !== null && 'statusCode' in error ? error.statusCode : undefined) || (typeof error === 'object' && error !== null && 'response' in error && typeof error.response === 'object' && error.response !== null && 'status' in error.response ? error.response.status : undefined) || (typeof error === 'object' && error !== null && 'status' in error ? error.status : undefined);
         expect(statusCode).toBeGreaterThanOrEqual(400);
       }
     }, 30000);
@@ -176,23 +170,23 @@ describe('FileResource Integration Tests', () => {
         // @ts-ignore - testing validation
         await testData.client.files.getAssetFile('', 'file-id');
         fail('Expected error was not thrown');
-      } catch (error: any) {
-        expect(error.message).toMatch(/asset id/i);
+      } catch (error: unknown) {
+        expect((error instanceof Error ? error.message : 'Unknown error')).toMatch(/asset id/i);
       }
 
       try {
         // @ts-ignore - testing validation
         await testData.client.files.getAssetFile(testData.testAssetId, '');
         fail('Expected error was not thrown');
-      } catch (error: any) {
-        expect(error.message).toMatch(/file id/i);
+      } catch (error: unknown) {
+        expect((error instanceof Error ? error.message : 'Unknown error')).toMatch(/file id/i);
       }
     }, 30000);
   });
 
   describe('create asset file', () => {
     it('should create a basic file when real fileset data is available', async () => {
-      if (!realFilesetData || !realFilesetData.filesetId) {
+      if (realFilesetData?.filesetId === undefined) {
         console.warn('No real fileset data available - skipping file creation test');
         return;
       }
@@ -221,20 +215,37 @@ describe('FileResource Integration Tests', () => {
         if (response.data.id) {
           trackCreatedFile(testData, response.data.id);
         }
-      } catch (error: any) {
+      } catch (error: unknown) {
         // Log error details for debugging
-        console.error('File creation failed:', {
-          message: error.message,
-          status: error.response?.status,
-          data: error.response?.data,
+        // Create a safe object to log that avoids unsafe assignments
+        const errorDetails: {
+          message: string;
+          status?: number;
+          data?: unknown;
+          fileData: CreateFileRequest;
+        } = {
+          message: error instanceof Error ? error.message : 'Unknown error',
           fileData
-        });
+        };
+        
+        // Safely add response data if available
+        if (typeof error === 'object' && error !== null && 'response' in error && 
+            typeof error.response === 'object' && error.response !== null) {
+          if ('status' in error.response && typeof error.response.status === 'number') {
+            errorDetails.status = error.response.status;
+          }
+          if ('data' in error.response) {
+            errorDetails.data = error.response.data;
+          }
+        }
+        
+        console.error('File creation failed:', errorDetails);
         throw error;
       }
     }, 30000);
 
     it('should create a directory type file when real fileset data is available', async () => {
-      if (!realFilesetData || !realFilesetData.filesetId) {
+      if (realFilesetData?.filesetId === undefined) {
         console.warn('No real fileset data available - skipping directory creation test');
         return;
       }
@@ -262,13 +273,30 @@ describe('FileResource Integration Tests', () => {
         if (response.data.id) {
           trackCreatedFile(testData, response.data.id);
         }
-      } catch (error: any) {
-        console.error('Directory creation failed:', {
-          message: error.message,
-          status: error.response?.status,
-          data: error.response?.data,
+      } catch (error: unknown) {
+        // Create a safe object to log that avoids unsafe assignments
+        const errorDetails: {
+          message: string;
+          status?: number;
+          data?: unknown;
+          fileData: CreateFileRequest;
+        } = {
+          message: error instanceof Error ? error.message : 'Unknown error',
           fileData
-        });
+        };
+        
+        // Safely add response data if available
+        if (typeof error === 'object' && error !== null && 'response' in error && 
+            typeof error.response === 'object' && error.response !== null) {
+          if ('status' in error.response && typeof error.response.status === 'number') {
+            errorDetails.status = error.response.status;
+          }
+          if ('data' in error.response) {
+            errorDetails.data = error.response.data;
+          }
+        }
+        
+        console.error('Directory creation failed:', errorDetails);
         throw error;
       }
     }, 30000);
@@ -284,12 +312,15 @@ describe('FileResource Integration Tests', () => {
       try {
         await testData.client.files.createAssetFile(testData.testAssetId, invalidFileData);
         fail('Expected validation error was not thrown');
-      } catch (error: any) {
-        const statusCode = error.statusCode || error.response?.status || error.status;
+      } catch (error: unknown) {
+        const statusCode = (typeof error === 'object' && error !== null && 'statusCode' in error ? error.statusCode : undefined) || (typeof error === 'object' && error !== null && 'response' in error && typeof error.response === 'object' && error.response !== null && 'status' in error.response ? error.response.status : undefined) || (typeof error === 'object' && error !== null && 'status' in error ? error.status : undefined);
         expect(statusCode).toBeGreaterThanOrEqual(400);
         
         // Should have validation error details
-        if (error.response?.data?.errors) {
+        if (typeof error === 'object' && error !== null && 'response' in error && 
+            typeof error.response === 'object' && error.response !== null && 
+            'data' in error.response && typeof error.response.data === 'object' && 
+            error.response.data !== null && 'errors' in error.response.data) {
           expect(typeof error.response.data.errors).toBe('object');
         }
       }
@@ -305,8 +336,8 @@ describe('FileResource Integration Tests', () => {
         // @ts-ignore - testing validation
         await testData.client.files.createAssetFile('', fileData);
         fail('Expected error was not thrown');
-      } catch (error: any) {
-        expect(error.message).toMatch(/asset id/i);
+      } catch (error: unknown) {
+        expect((error instanceof Error ? error.message : 'Unknown error')).toMatch(/asset id/i);
       }
     }, 30000);
 
@@ -320,8 +351,8 @@ describe('FileResource Integration Tests', () => {
       try {
         await testData.client.files.createAssetFile(nonExistentAssetId, fileData);
         fail('Expected error was not thrown');
-      } catch (error: any) {
-        const statusCode = error.statusCode || error.response?.status || error.status;
+      } catch (error: unknown) {
+        const statusCode = (typeof error === 'object' && error !== null && 'statusCode' in error ? error.statusCode : undefined) || (typeof error === 'object' && error !== null && 'response' in error && typeof error.response === 'object' && error.response !== null && 'status' in error.response ? error.response.status : undefined) || (typeof error === 'object' && error !== null && 'status' in error ? error.status : undefined);
         expect(statusCode).toBeGreaterThanOrEqual(400);
       }
     }, 30000);

@@ -1,6 +1,6 @@
 import { BaseResource } from './base';
 import { Tsonik } from '../client';
-import { ApiResponse, PaginatedResponse, Asset, SearchQuery, ListParams } from '../types';
+import { ApiResponse, PaginatedResponse, Asset, ListParams } from '../types';
 import { CreateAssetRequest, UpdateAssetRequest, BulkDeleteRequest } from '../types/assets';
 
 /**
@@ -65,14 +65,15 @@ export class AssetResource extends BaseResource {
     try {
       const requestData: BulkDeleteRequest = { asset_ids: assetIds };
       return await this.client.post(`${this.basePath}/bulk_delete`, requestData);
-    } catch (error: any) {
+    } catch (error: unknown) {
       // If bulk delete is not supported, fall back to individual deletes
-      if (error.statusCode === 404 || error.status === 404) {
-        console.warn('Bulk delete endpoint not available, falling back to individual deletes');
+      const typedError = error as { statusCode?: number; status?: number };
+      if (typedError.statusCode === 404 || typedError.status === 404) {
+        // Fallback to individual deletes when bulk endpoint is unavailable
         const deletePromises = assetIds.map(id => this.deleteAsset(id));
         await Promise.all(deletePromises);
         return {
-          data: undefined as any,
+          data: undefined as void,
           status: 200,
           headers: {}
         };

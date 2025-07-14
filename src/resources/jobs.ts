@@ -4,7 +4,6 @@ import {
   ApiResponse,
   BulkJobResult,
   Job,
-  JobAction,
   JobCreate,
   JobsBulkDeleteRequest,
   JobsBulkEditQuery,
@@ -16,7 +15,6 @@ import {
   JobStepsUpdate,
   JobUpdate,
   PaginatedResponse,
-  ListParams,
   JobStep
 } from '../types';
 
@@ -158,7 +156,7 @@ export class JobResource extends BaseResource {
    * @returns Promise resolving to success confirmation
    */
   async reindexJob(jobId: string, options?: { sync_to_another_dc?: boolean }): Promise<ApiResponse<void>> {
-    return this.client.post<void>(`${this.basePath}/${jobId}/reindex`, options || {});
+    return this.client.post<void>(`${this.basePath}/${jobId}/reindex`, options ?? {});
   }
 
   /**

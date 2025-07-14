@@ -4,19 +4,11 @@
  */
 
 import { 
-  ApiResponse,
-  PaginatedResponse,
-  Asset
-} from '../types';
-import { 
   FileSet, 
   AssetFileSetsListParams, 
   CreateFileSetRequest, 
-  DeleteFileSetOptions, 
-  FileSetFilesListParams,
-  FileSetFile
 } from '../types/filesets';
-import { setupTestData, cleanupTestData, trackCreatedFileset, TestData } from './test-utils';
+import { setupTestData, cleanupTestData, TestData } from './test-utils';
 
 describe('FileSetResource Integration Tests', () => {
   let testData: TestData;
@@ -88,9 +80,32 @@ describe('FileSetResource Integration Tests', () => {
       try {
         await testData.client.filesets.getAssetFilesets(nonExistentId);
         fail('Expected error was not thrown');
-      } catch (error: any) {
-        // Can be 400 (bad request) or 404 (not found) depending on validation
-        expect([400, 404]).toContain(error.statusCode || error.response?.status || error.status);
+      } catch (error: unknown) {
+        // Type guard to safely access error properties
+        // Create a type guard for API errors
+        type ApiError = {
+          statusCode?: number;
+          response?: { status?: number };
+          status?: number;
+        };
+        
+        // Check if error has the expected API error shape
+        const isApiError = (err: unknown): err is ApiError => {
+          return typeof err === 'object' && err !== null && (
+            'statusCode' in err || 
+            ('response' in err && typeof err.response === 'object' && err.response !== null && 'status' in err.response) ||
+            'status' in err
+          );
+        };
+        
+        if (isApiError(error)) {
+          // Now TypeScript knows this is an ApiError
+          const statusCode = error.statusCode ?? error.response?.status ?? error.status;
+          // Can be 400 (bad request) or 404 (not found) depending on validation
+          expect([400, 404]).toContain(statusCode);
+        } else {
+          fail('Expected an API error with status code');
+        }
       }
     }, 30000);
 
@@ -98,8 +113,13 @@ describe('FileSetResource Integration Tests', () => {
       try {
         await testData.client.filesets.getAssetFilesets('');
         fail('Expected error was not thrown');
-      } catch (error: any) {
-        expect(error.message).toEqual('Asset ID is required');
+      } catch (error: unknown) {
+        // Type guard to safely access error properties
+        if (error instanceof Error) {
+          expect(error.message).toEqual('Asset ID is required');
+        } else {
+          fail('Caught error is not an Error instance');
+        }
       }
     }, 30000);
 
@@ -107,8 +127,13 @@ describe('FileSetResource Integration Tests', () => {
       try {
         await testData.client.filesets.getAssetFilesets('   ');
         fail('Expected error was not thrown');
-      } catch (error: any) {
-        expect(error.message).toEqual('Asset ID is required');
+      } catch (error: unknown) {
+        // Type guard to safely access error properties
+        if (error instanceof Error) {
+          expect(error.message).toEqual('Asset ID is required');
+        } else {
+          fail('Caught error is not an Error instance');
+        }
       }
     }, 30000);
   });
@@ -122,8 +147,13 @@ describe('FileSetResource Integration Tests', () => {
       try {
         await testData.client.filesets.createAssetFileset('', createData);
         fail('Expected error was not thrown');
-      } catch (error: any) {
-        expect(error.message).toEqual('Asset ID is required');
+      } catch (error: unknown) {
+        // Type guard to safely access error properties
+        if (error instanceof Error) {
+          expect(error.message).toEqual('Asset ID is required');
+        } else {
+          fail('Caught error is not an Error instance');
+        }
       }
     }, 30000);
 
@@ -135,8 +165,13 @@ describe('FileSetResource Integration Tests', () => {
       try {
         await testData.client.filesets.createAssetFileset('   ', createData);
         fail('Expected error was not thrown');
-      } catch (error: any) {
-        expect(error.message).toEqual('Asset ID is required');
+      } catch (error: unknown) {
+        // Type guard to safely access error properties
+        if (error instanceof Error) {
+          expect(error.message).toEqual('Asset ID is required');
+        } else {
+          fail('Caught error is not an Error instance');
+        }
       }
     }, 30000);
 
@@ -150,9 +185,31 @@ describe('FileSetResource Integration Tests', () => {
       try {
         await testData.client.filesets.createAssetFileset(testData.testAssetId, createData);
         fail('Expected validation error was not thrown');
-      } catch (error: any) {
-        // Should get 400 Bad Request due to invalid storage_id format
-        expect(error.statusCode || error.response?.status || error.status).toBe(400);
+      } catch (error: unknown) {
+        // Type guard to safely access error properties
+        // Create a type guard for API errors
+        type ApiError = {
+          statusCode?: number;
+          response?: { status?: number };
+          status?: number;
+        };
+        
+        // Check if error has the expected API error shape
+        const isApiError = (err: unknown): err is ApiError => {
+          return typeof err === 'object' && err !== null && (
+            'statusCode' in err || 
+            ('response' in err && typeof err.response === 'object' && err.response !== null && 'status' in err.response) ||
+            'status' in err
+          );
+        };
+        
+        if (isApiError(error)) {
+          // Now TypeScript knows this is an ApiError
+          const statusCode = error.statusCode ?? error.response?.status ?? error.status;
+          expect(statusCode).toBe(400);
+        } else {
+          fail('Expected an API error with status code');
+        }
       }
     }, 30000);
 
@@ -166,9 +223,32 @@ describe('FileSetResource Integration Tests', () => {
       try {
         await testData.client.filesets.createAssetFileset(nonExistentId, createData);
         fail('Expected error was not thrown');
-      } catch (error: any) {
-        // Can be 400 (validation) or 404 (not found) depending on API implementation
-        expect([400, 404]).toContain(error.statusCode || error.response?.status || error.status);
+      } catch (error: unknown) {
+        // Type guard to safely access error properties
+        // Create a type guard for API errors
+        type ApiError = {
+          statusCode?: number;
+          response?: { status?: number };
+          status?: number;
+        };
+        
+        // Check if error has the expected API error shape
+        const isApiError = (err: unknown): err is ApiError => {
+          return typeof err === 'object' && err !== null && (
+            'statusCode' in err || 
+            ('response' in err && typeof err.response === 'object' && err.response !== null && 'status' in err.response) ||
+            'status' in err
+          );
+        };
+        
+        if (isApiError(error)) {
+          // Now TypeScript knows this is an ApiError
+          const statusCode = error.statusCode ?? error.response?.status ?? error.status;
+          // Can be 400 (validation) or 404 (not found) depending on API implementation
+          expect([400, 404]).toContain(statusCode);
+        } else {
+          fail('Expected an API error with status code');
+        }
       }
     }, 30000);
   });
@@ -178,8 +258,13 @@ describe('FileSetResource Integration Tests', () => {
       try {
         await testData.client.filesets.deleteAssetFileset('', 'fileset-123');
         fail('Expected error was not thrown');
-      } catch (error: any) {
-        expect(error.message).toEqual('Asset ID is required');
+      } catch (error: unknown) {
+        // Type guard to safely access error properties
+        if (error instanceof Error) {
+          expect(error.message).toEqual('Asset ID is required');
+        } else {
+          fail('Caught error is not an Error instance');
+        }
       }
     }, 30000);
 
@@ -187,8 +272,13 @@ describe('FileSetResource Integration Tests', () => {
       try {
         await testData.client.filesets.deleteAssetFileset('asset-123', '');
         fail('Expected error was not thrown');
-      } catch (error: any) {
-        expect(error.message).toEqual('FileSet ID is required');
+      } catch (error: unknown) {
+        // Type guard to safely access error properties
+        if (error instanceof Error) {
+          expect(error.message).toEqual('FileSet ID is required');
+        } else {
+          fail('Caught error is not an Error instance');
+        }
       }
     }, 30000);
 
@@ -198,9 +288,32 @@ describe('FileSetResource Integration Tests', () => {
       try {
         await testData.client.filesets.deleteAssetFileset(testData.testAssetId, nonExistentId);
         fail('Expected error was not thrown');
-      } catch (error: any) {
-        // Can be 400 (bad request) or 404 (not found)
-        expect([400, 404]).toContain(error.statusCode || error.response?.status || error.status);
+      } catch (error: unknown) {
+        // Type guard to safely access error properties
+        // Create a type guard for API errors
+        type ApiError = {
+          statusCode?: number;
+          response?: { status?: number };
+          status?: number;
+        };
+        
+        // Check if error has the expected API error shape
+        const isApiError = (err: unknown): err is ApiError => {
+          return typeof err === 'object' && err !== null && (
+            'statusCode' in err || 
+            ('response' in err && typeof err.response === 'object' && err.response !== null && 'status' in err.response) ||
+            'status' in err
+          );
+        };
+        
+        if (isApiError(error)) {
+          // Now TypeScript knows this is an ApiError
+          const statusCode = error.statusCode ?? error.response?.status ?? error.status;
+          // Can be 400 (bad request) or 404 (not found)
+          expect([400, 404]).toContain(statusCode);
+        } else {
+          fail('Expected an API error with status code');
+        }
       }
     }, 30000);
   });
@@ -210,8 +323,13 @@ describe('FileSetResource Integration Tests', () => {
       try {
         await testData.client.filesets.getFileSetFiles(testData.testAssetId, '');
         fail('Expected error was not thrown');
-      } catch (error: any) {
-        expect(error.message).toEqual('FileSet ID is required');
+      } catch (error: unknown) {
+        // Type guard to safely access error properties
+        if (error instanceof Error) {
+          expect(error.message).toEqual('FileSet ID is required');
+        } else {
+          fail('Caught error is not an Error instance');
+        }
       }
     }, 30000);
 
@@ -219,8 +337,13 @@ describe('FileSetResource Integration Tests', () => {
       try {
         await testData.client.filesets.getFileSetFiles(testData.testAssetId, '   ');
         fail('Expected error was not thrown');
-      } catch (error: any) {
-        expect(error.message).toEqual('FileSet ID is required');
+      } catch (error: unknown) {
+        // Type guard to safely access error properties
+        if (error instanceof Error) {
+          expect(error.message).toEqual('FileSet ID is required');
+        } else {
+          fail('Caught error is not an Error instance');
+        }
       }
     }, 30000);
 
@@ -230,9 +353,32 @@ describe('FileSetResource Integration Tests', () => {
       try {
         await testData.client.filesets.getFileSetFiles(testData.testAssetId, nonExistentId);
         fail('Expected error was not thrown');
-      } catch (error: any) {
-        // Can be 400 (bad request) or 404 (not found)
-        expect([400, 404]).toContain(error.statusCode || error.response?.status || error.status);
+      } catch (error: unknown) {
+        // Type guard to safely access error properties
+        // Create a type guard for API errors
+        type ApiError = {
+          statusCode?: number;
+          response?: { status?: number };
+          status?: number;
+        };
+        
+        // Check if error has the expected API error shape
+        const isApiError = (err: unknown): err is ApiError => {
+          return typeof err === 'object' && err !== null && (
+            'statusCode' in err || 
+            ('response' in err && typeof err.response === 'object' && err.response !== null && 'status' in err.response) ||
+            'status' in err
+          );
+        };
+        
+        if (isApiError(error)) {
+          // Now TypeScript knows this is an ApiError
+          const statusCode = error.statusCode ?? error.response?.status ?? error.status;
+          // Can be 400 (bad request) or 404 (not found)
+          expect([400, 404]).toContain(statusCode);
+        } else {
+          fail('Expected an API error with status code');
+        }
       }
     }, 30000);
   });

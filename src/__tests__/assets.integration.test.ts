@@ -16,7 +16,7 @@ import { Asset } from '../types';
 describe('AssetResource Integration Tests', () => {
   let client: Tsonik;
   let testAssetId: string;
-  let createdAssetIds: string[] = [];
+  const createdAssetIds: string[] = [];
 
   beforeAll(async () => {
     // Skip integration tests if no credentials are provided
@@ -27,9 +27,9 @@ describe('AssetResource Integration Tests', () => {
     }
 
     const config: IconikConfig = {
-      appId: process.env.ICONIK_APP_ID!,
-      authToken: process.env.ICONIK_AUTH_TOKEN!,
-      baseUrl: process.env.ICONIK_BASE_URL || 'https://app.iconik.io',
+      appId: process.env.ICONIK_APP_ID,
+      authToken: process.env.ICONIK_AUTH_TOKEN,
+      baseUrl: process.env.ICONIK_BASE_URL ?? 'https://app.iconik.io',
       timeout: 10000,
       debug: true
     };
@@ -137,7 +137,7 @@ describe('AssetResource Integration Tests', () => {
       expect(Array.isArray(response.data.objects)).toBe(true);
       expect(response.data.objects.length).toBeLessThanOrEqual(10);
       // API may return total_count, count, or no count field
-      const responseData = response.data as any;
+      const responseData = response.data as { total_count?: number; count?: number };
       if (responseData.total_count !== undefined) {
         expect(responseData.total_count).toBeDefined();
       } else if (responseData.count !== undefined) {
@@ -179,9 +179,12 @@ describe('AssetResource Integration Tests', () => {
     it('should handle invalid asset creation', async () => {
       const invalidAssetData = {
         // Missing required fields
-      } as any;
+        type: 'ASSET'
+      };
 
-      await expect(client.assets.createAsset(invalidAssetData))
+      // Using type assertion is necessary here for testing invalid data scenarios
+      // since we're intentionally testing error handling with incomplete data
+      await expect(client.assets.createAsset(invalidAssetData as unknown as import('../types/assets').CreateAssetRequest))
         .rejects
         .toThrow();
     }, 10000);
@@ -191,7 +194,7 @@ describe('AssetResource Integration Tests', () => {
 
   describe('Performance Tests', () => {
     it('should handle concurrent asset requests', async () => {
-      const promises: Promise<any>[] = [];
+      const promises: Promise<{status: number; data: unknown}>[] = [];
       const concurrency = 3;
 
       for (let i = 0; i < concurrency; i++) {

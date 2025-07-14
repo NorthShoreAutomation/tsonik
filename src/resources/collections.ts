@@ -1,4 +1,5 @@
 import { BaseResource } from './base';
+import { Tsonik } from '../client';
 import { ApiResponse, PaginatedResponse } from '../types';
 import { Collection, CollectionListParams, CreateCollectionRequest, DeleteCollectionResponse, UpdateCollectionRequest, UpdateCollectionOptions, ReplaceCollectionRequest, ReplaceCollectionOptions } from '../types/collections';
 
@@ -6,7 +7,7 @@ import { Collection, CollectionListParams, CreateCollectionRequest, DeleteCollec
  * Collection resource for managing collections in Iconik
  */
 export class CollectionResource extends BaseResource {
-  constructor(client: any) {
+  constructor(client: Tsonik) {
     super(client, '/API/assets/v1/collections');
   }
 
@@ -14,7 +15,7 @@ export class CollectionResource extends BaseResource {
    * Get a list of collections
    */
   async listCollections(params?: CollectionListParams): Promise<ApiResponse<PaginatedResponse<Collection>>> {
-    return super.list<Collection>(params as Record<string, any>);
+    return super.list<Collection>(params as Record<string, string | number | boolean | undefined>);
   }
 
   /**
@@ -46,7 +47,7 @@ export class CollectionResource extends BaseResource {
     }
     
     // Build query parameters if options are provided
-    const queryParams: Record<string, any> = {};
+    const queryParams: Record<string, string> = {};
     if (options?.change_parent_mode) {
       queryParams.change_parent_mode = options.change_parent_mode;
     }
@@ -65,7 +66,7 @@ export class CollectionResource extends BaseResource {
     }
     
     // Build query parameters if options are provided
-    const queryParams: Record<string, any> = {};
+    const queryParams: Record<string, string> = {};
     if (options?.change_parent_mode) {
       queryParams.change_parent_mode = options.change_parent_mode;
     }

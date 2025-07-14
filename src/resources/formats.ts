@@ -1,4 +1,5 @@
 import { BaseResource } from './base';
+import { Tsonik } from '../client';
 import { ApiResponse, PaginatedResponse } from '../types';
 import { Format, AssetFormatsListParams, CreateFormatRequest, UpdateFormatRequest, ReplaceFormatRequest } from '../types/formats';
 
@@ -6,7 +7,7 @@ import { Format, AssetFormatsListParams, CreateFormatRequest, UpdateFormatReques
  * Format resource for managing formats in Iconik
  */
 export class FormatResource extends BaseResource {
-  constructor(client: any) {
+  constructor(client: Tsonik) {
     super(client, '/v1');
   }
 
@@ -23,7 +24,7 @@ export class FormatResource extends BaseResource {
     }
     
     // Build query parameters if options are provided
-    const queryParams: Record<string, any> = {};
+    const queryParams: Record<string, string | number | boolean> = {};
     if (params?.per_page !== undefined) {
       queryParams.per_page = params.per_page;
     }

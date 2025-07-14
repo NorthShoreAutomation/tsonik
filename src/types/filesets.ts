@@ -20,7 +20,7 @@ export interface FileSet {
   format_id?: string;
   id: string;
   is_archive?: boolean;
-  metadata?: Record<string, any>[];
+  metadata?: Record<string, string | number | boolean | object>[];
   name?: string;
   original_storage_id?: string;
   status?: FileSetStatus;
@@ -42,7 +42,7 @@ export interface CreateFileSetRequest {
   file_dir?: string;
   format_id?: string;
   is_archive?: boolean;
-  metadata?: Record<string, any>[];
+  metadata?: Record<string, string | number | boolean | object>[];
   name?: string;
   original_storage_id?: string;
   status?: FileSetStatus;
@@ -81,7 +81,7 @@ export interface FileSetFile {
   storage_method?: string;
   system_domain_id?: string;
   type: FileType;
-  upload_credentials?: Record<string, any>;
+  upload_credentials?: Record<string, string | number | boolean | object>;
   upload_filename?: string;
   upload_method?: string;
   upload_url?: string;

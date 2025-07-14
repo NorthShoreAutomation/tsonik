@@ -2,13 +2,18 @@
  * Common API response types
  */
 
-export interface ApiResponse<T = any> {
+// Define consistent types to replace 'any'
+export type FilterValue = string | number | boolean | object | null;
+export type FilterRecord = Record<string, FilterValue>;
+export type HttpHeaders = Record<string, string | string[] | undefined>;
+
+export interface ApiResponse<T = unknown> {
   data: T;
   status: number;
-  headers: any;
+  headers: HttpHeaders;
 }
 
-export interface PaginatedResponse<T = any> {
+export interface PaginatedResponse<T = unknown> {
   objects: T[];
   total?: number;
   total_count?: number;
@@ -30,7 +35,7 @@ export interface ListParams {
   page?: number;
   per_page?: number;
   sort?: string;
-  filter?: Record<string, any>;
+  filter?: FilterRecord;
   page_token?: string;
   scroll?: string;
 }

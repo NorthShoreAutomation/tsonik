@@ -14,7 +14,7 @@ import {
   ApiResponse,
   PaginatedResponse,
 } from '../types';
-import { Collection, CollectionListParams, CreateCollectionRequest, DeleteCollectionResponse, UpdateCollectionRequest, UpdateCollectionOptions, ReplaceCollectionRequest, ReplaceCollectionOptions } from '../types/collections';
+import { Collection, CollectionListParams, CreateCollectionRequest, UpdateCollectionRequest,  ReplaceCollectionRequest, } from '../types/collections';
 import { setupTestData, cleanupTestData, TestData, trackCreatedCollection } from './test-utils';
 
 describe('CollectionResource Integration Tests', () => {
@@ -142,13 +142,33 @@ describe('CollectionResource Integration Tests', () => {
       try {
         await client.collections.getCollection(nonExistentId);
         fail('Expected request to fail with 404');
-      } catch (error: any) {
+      } catch (error: unknown) {
         // Test passes if an error is thrown, regardless of the specific error
         // The important part is that an error occurred rather than succeeding
-        if (error.response?.status) {
-          expect(error.response.status).toBe(404);
+        
+        // Type guard for response object
+        type ErrorWithResponse = {
+          response?: { status?: number };
+          message?: string;
+        };
+        
+        const hasResponse = (err: unknown): err is ErrorWithResponse => {
+          return typeof err === 'object' && err !== null && 
+            'response' in err && 
+            typeof err.response === 'object' && 
+            err.response !== null;
+        };
+        
+        if (hasResponse(error) && (typeof error === 'object' && error !== null && 'response' in error ? error.response : undefined)?.status) {
+          expect((typeof error === 'object' && error !== null && 'response' in error ? error.response : undefined).status).toBe(404);
         } else {
-          console.warn('Error without response status:', error.message);
+          // Safe access to message if it exists
+          const errorMessage = error instanceof Error ? (error instanceof Error ? error.message : 'Unknown error') : 
+            (typeof error === 'object' && error !== null && 'message' in error && typeof (error instanceof Error ? error.message : 'Unknown error') === 'string') 
+              ? (error instanceof Error ? error.message : 'Unknown error') 
+              : 'Unknown error';
+          
+          console.warn('Error without response status:', errorMessage);
         }
       }
     }, 60000);
@@ -233,16 +253,21 @@ describe('CollectionResource Integration Tests', () => {
       try {
         await client.collections.createCollection(invalidCollection);
         fail('Expected request to fail with validation error');
-      } catch (error: any) {
+      } catch (error: unknown) {
         // Test passes if an error is thrown, regardless of the specific error
         // This could be client-side validation or API validation
-        console.log('Validation error caught as expected:', error.message);
+        // Type guard to safely access error properties
+        const errorMessage = error instanceof Error ? (error instanceof Error ? error.message : 'Unknown error') : 
+          (typeof error === 'object' && error !== null && 'message' in error && typeof (error instanceof Error ? error.message : 'Unknown error') === 'string') 
+            ? (error instanceof Error ? error.message : 'Unknown error') 
+            : 'Unknown error';
+        console.log('Validation error caught as expected:', errorMessage);
       }
     }, 60000);
   });
   
   describe('update collections', () => {
-    let testCollectionId: string;
+    let testCollectionId = '';
     
     beforeAll(async () => {
       // Create a test collection to update
@@ -304,21 +329,26 @@ describe('CollectionResource Integration Tests', () => {
       
       // Invalid status value
       const invalidUpdateData: UpdateCollectionRequest = {
-        status: 'INVALID_STATUS' as any
+        status: 'INVALID_STATUS' as unknown as string
       };
       
       try {
         await client.collections.updateCollection(testCollectionId, invalidUpdateData);
         fail('Expected request to fail with validation error');
-      } catch (error: any) {
+      } catch (error: unknown) {
         // Test passes if an error is thrown, regardless of the specific error
-        console.log('Validation error caught as expected:', error.message);
+        // Type guard to safely access error properties
+        const errorMessage = error instanceof Error ? (error instanceof Error ? error.message : 'Unknown error') : 
+          (typeof error === 'object' && error !== null && 'message' in error && typeof (error instanceof Error ? error.message : 'Unknown error') === 'string') 
+            ? (error instanceof Error ? error.message : 'Unknown error') 
+            : 'Unknown error';
+        console.log('Validation error caught as expected:', errorMessage);
       }
     }, 60000);
   });
   
   describe('replace collections', () => {
-    let testCollectionId: string;
+    let testCollectionId = '';
     
     beforeAll(async () => {
       // Create a test collection to replace
@@ -366,9 +396,14 @@ describe('CollectionResource Integration Tests', () => {
       try {
         await client.collections.replaceCollection(testCollectionId, invalidReplaceData);
         fail('Expected request to fail with validation error');
-      } catch (error: any) {
+      } catch (error: unknown) {
         // Test passes if an error is thrown, regardless of the specific error
-        console.log('Validation error caught as expected:', error.message);
+        // Type guard to safely access error properties
+        const errorMessage = error instanceof Error ? (error instanceof Error ? error.message : 'Unknown error') : 
+          (typeof error === 'object' && error !== null && 'message' in error && typeof (error instanceof Error ? error.message : 'Unknown error') === 'string') 
+            ? (error instanceof Error ? error.message : 'Unknown error') 
+            : 'Unknown error';
+        console.log('Validation error caught as expected:', errorMessage);
       }
     }, 60000);
   });
@@ -407,10 +442,15 @@ describe('CollectionResource Integration Tests', () => {
       try {
         await client.collections.deleteCollection(nonExistentId);
         fail('Expected request to fail with 404');
-      } catch (error: any) {
+      } catch (error: unknown) {
         // Test passes if an error is thrown, regardless of the specific error
         // The important part is that an error occurred rather than succeeding
-        console.log('Error caught as expected when deleting non-existent collection:', error.message);
+        // Type guard to safely access error properties
+        const errorMessage = error instanceof Error ? (error instanceof Error ? error.message : 'Unknown error') : 
+          (typeof error === 'object' && error !== null && 'message' in error && typeof (error instanceof Error ? error.message : 'Unknown error') === 'string') 
+            ? (error instanceof Error ? error.message : 'Unknown error') 
+            : 'Unknown error';
+        console.log('Error caught as expected when deleting non-existent collection:', errorMessage);
       }
     }, 60000);
   });

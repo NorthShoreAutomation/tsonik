@@ -22,7 +22,7 @@ export class FileResource extends BaseResource {
     }
     
     // Build query parameters if options are provided
-    const queryParams: Record<string, any> = {};
+    const queryParams: Record<string, string | number | boolean> = {};
     if (options?.per_page !== undefined) {
       queryParams.per_page = options.per_page;
     }
@@ -62,7 +62,7 @@ export class FileResource extends BaseResource {
     }
     
     // Build query parameters if options are provided
-    const queryParams: Record<string, any> = {};
+    const queryParams: Record<string, string | number | boolean> = {};
     if (options?.generate_signed_post_url !== undefined) {
       queryParams.generate_signed_post_url = options.generate_signed_post_url;
     }

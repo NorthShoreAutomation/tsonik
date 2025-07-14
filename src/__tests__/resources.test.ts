@@ -1,17 +1,12 @@
-import axios from 'axios';
 import { IconikClient } from '../index';
 import {
   Asset,
-  BulkJobResult,
   Collection,
   Job,
-  JobAction,
   JobCreate,
   JobStep,
   JobStepStatus,
-  JobsPriorityUpdate,
   JobsQuery,
-  JobsStateUpdate,
   JobStepsUpdate,
   JobUpdate
 } from '../types';
@@ -136,7 +131,13 @@ describe('IconikClient Resources', () => {
       );
       
       // Check that URL contains our parameters
-      const url = mockAxiosInstance.get.mock.calls[0][0];
+      // Add type guard for mock calls
+      const mockCalls = mockAxiosInstance.get.mock.calls;
+      expect(mockCalls.length).toBeGreaterThan(0);
+      
+      // Type-safe access to the first call's first argument with explicit typing
+      // Use type assertion to avoid unsafe member access warning
+      const url: string | undefined = Array.isArray(mockCalls[0]) ? mockCalls[0][0] as string : undefined;
       // url is the first parameter to the get method
       expect(url).toBe('/API/assets/v1/assets/');
       
@@ -323,10 +324,13 @@ describe('IconikClient Resources', () => {
         }
       };
 
+      // Create a properly typed Job object with correct metadata type
       const mockCreatedJob: Job = {
         id: 'job-new-123',
         ...jobCreateData,
-        date_created: '2023-01-01T00:00:00Z'
+        date_created: '2023-01-01T00:00:00Z',
+        // Ensure metadata is properly typed as JobMetadataRecord instead of an array
+        metadata: undefined // Set to undefined since it's not used in this test
       };
 
       mockAxiosInstance.post.mockResolvedValue({
@@ -570,8 +574,16 @@ describe('IconikClient Resources', () => {
       const result = await client.jobs.reindexJob('job-123', { sync_to_another_dc: true });
 
       // Verify call and response
-      expect(mockAxiosInstance.post.mock.calls[0][0]).toBe('/API/jobs/v1/jobs/job-123/reindex');
-      expect(mockAxiosInstance.post.mock.calls[0][1]).toEqual({ sync_to_another_dc: true });
+      const postMockCalls = mockAxiosInstance.post.mock.calls;
+      expect(postMockCalls.length).toBeGreaterThan(0);
+      
+      // Type-safe access to mock call arguments with explicit typing
+      // Use type guard to avoid unsafe member access warning
+      const firstCallUrl: string | undefined = Array.isArray(postMockCalls[0]) ? postMockCalls[0][0] as string : undefined;
+      const firstCallData: Record<string, unknown> | undefined = Array.isArray(postMockCalls[0]) ? postMockCalls[0][1] as Record<string, unknown> : undefined;
+      
+      expect(firstCallUrl).toBe('/API/jobs/v1/jobs/job-123/reindex');
+      expect(firstCallData).toEqual({ sync_to_another_dc: true });
       expect(result.status).toBe(202);
     });
     
@@ -629,8 +641,16 @@ describe('IconikClient Resources', () => {
       const result = await client.jobs.updateJobSteps('job-123', stepsUpdateData);
 
       // Verify call and response
-      expect(mockAxiosInstance.patch.mock.calls[0][0]).toBe('/API/jobs/v1/jobs/job-123/steps/');
-      expect(mockAxiosInstance.patch.mock.calls[0][1]).toEqual(stepsUpdateData);
+      const patchMockCalls = mockAxiosInstance.patch.mock.calls;
+      expect(patchMockCalls.length).toBeGreaterThan(0);
+      
+      // Type-safe access to mock call arguments with explicit typing
+      // Use type guard to avoid unsafe member access warning
+      const patchUrl: string | undefined = Array.isArray(patchMockCalls[0]) ? patchMockCalls[0][0] as string : undefined;
+      const patchData: Record<string, unknown> | undefined = Array.isArray(patchMockCalls[0]) ? patchMockCalls[0][1] as Record<string, unknown> : undefined;
+      
+      expect(patchUrl).toBe('/API/jobs/v1/jobs/job-123/steps/');
+      expect(patchData).toEqual(stepsUpdateData);
       expect(result.data).toEqual(mockUpdatedJob);
       expect(result.status).toBe(200);
     });

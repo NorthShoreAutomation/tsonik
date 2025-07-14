@@ -152,7 +152,8 @@ export async function validateTestEnvironment(client: Tsonik): Promise<void> {
       throw new Error(`API connection failed with status: ${response.status}`);
     }
   } catch (error) {
-    throw new Error(`Failed to validate test environment: ${error}`);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    throw new Error(`Failed to validate test environment: ${errorMessage}`);
   }
 }
 

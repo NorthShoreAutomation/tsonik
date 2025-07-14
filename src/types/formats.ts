@@ -8,7 +8,7 @@ export type ComponentType = 'VIDEO' | 'AUDIO' | 'IMAGE' | 'SUBTITLE' | 'TEXT' | 
 
 export interface FormatComponent {
   id: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, string | number | boolean | object>;
   name?: string;
   type: ComponentType;
 }
@@ -23,7 +23,7 @@ export interface Format {
   deleted_by_user?: string;
   id: string;
   is_online?: boolean;
-  metadata?: Record<string, any>[];
+  metadata?: Record<string, string | number | boolean | object>[];
   name?: string;
   status?: FormatStatus;
   storage_methods?: string[];
@@ -46,7 +46,7 @@ export interface CreateFormatRequest {
   components?: Omit<FormatComponent, 'id'>[];
   date_deleted?: string;
   is_online?: boolean;
-  metadata?: Record<string, any>[];
+  metadata?: Record<string, string | number | boolean | object>[];
   name?: string;
   status?: FormatStatus;
   storage_methods?: string[];
@@ -62,7 +62,7 @@ export interface UpdateFormatRequest {
   components?: Omit<FormatComponent, 'id'>[];
   date_deleted?: string;
   is_online?: boolean;
-  metadata?: Record<string, any>[];
+  metadata?: Record<string, string | number | boolean | object>[];
   name?: string;
   status?: FormatStatus;
   storage_methods?: string[];
@@ -78,7 +78,7 @@ export interface ReplaceFormatRequest {
   components?: Omit<FormatComponent, 'id'>[];
   date_deleted?: string;
   is_online?: boolean;
-  metadata?: Record<string, any>[];
+  metadata?: Record<string, string | number | boolean | object>[];
   name?: string;
   status?: FormatStatus;
   storage_methods?: string[];

@@ -2,6 +2,10 @@
  * Collection-related type definitions
  */
 
+// Define a consistent metadata type to replace 'any'
+export type CollectionValue = string | number | boolean | object | null;
+export type CollectionMetadata = Record<string, CollectionValue>;
+
 export type CollectionCustomOrderStatus = 
   | 'DISABLED'
   | 'ENABLING'
@@ -28,8 +32,8 @@ export interface Collection {
   in_collections?: string[];
   is_root?: boolean;
   keyframe_asset_ids?: string[];
-  keyframes?: any[];
-  metadata?: Record<string, any>;
+  keyframes?: CollectionValue[];
+  metadata?: CollectionMetadata;
   object_type?: string;
   parent_id?: string;
   parents?: string[];
@@ -62,7 +66,7 @@ export interface CreateCollectionRequest {
   in_collections?: string[];
   is_root?: boolean;
   keyframe_asset_ids?: string[];
-  metadata?: Record<string, any>;
+  metadata?: CollectionMetadata;
   object_type?: string;
   parent_id?: string;
   parents?: string[];

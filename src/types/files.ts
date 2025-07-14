@@ -28,7 +28,7 @@ export interface AssetFile {
   storage_method?: string;
   system_domain_id?: string;
   type: FileType;
-  upload_credentials?: Record<string, any>;
+  upload_credentials?: Record<string, string | number | boolean | object>;
   upload_filename?: string;
   upload_method?: string;
   upload_url?: string;
