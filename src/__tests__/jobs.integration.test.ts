@@ -700,7 +700,7 @@ describe('JobResource Integration Tests', () => {
           if (error && typeof error === 'object' && 'statusCode' in error) {
             expect(error.statusCode).toBe(404);
           } else {
-            fail('Expected error with statusCode property');
+            throw new Error('Expected error with statusCode property');
           }
         }
       }
