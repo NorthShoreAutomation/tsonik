@@ -4,7 +4,7 @@
 
 export interface SearchQuery {
   query?: string;
-  filters?: Record<string, any>;
+  filters?: Record<string, string | number | boolean | object>[];
   sort?: string;
   limit?: number;
   offset?: number;

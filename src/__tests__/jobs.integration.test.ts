@@ -5,16 +5,12 @@
 
 import { Tsonik } from '../client';
 import { 
-  ApiResponse,
   Job,
-  JobAction,
   JobCreate,
   JobStep,
-  JobsQuery,
   JobStepStatus,
-  JobStepsUpdate,
   JobUpdate,
-  PaginatedResponse,
+  // Remove unused imports to satisfy linter
 } from '../types';
 
 describe('JobResource Integration Tests', () => {
@@ -30,9 +26,9 @@ describe('JobResource Integration Tests', () => {
     }
 
     client = new Tsonik({
-      appId: process.env.ICONIK_APP_ID!,
-      authToken: process.env.ICONIK_AUTH_TOKEN!,
-      baseUrl: process.env.ICONIK_BASE_URL || 'https://app.iconik.io'
+      appId: process.env.ICONIK_APP_ID,
+      authToken: process.env.ICONIK_AUTH_TOKEN,
+      baseUrl: process.env.ICONIK_BASE_URL ?? 'https://app.iconik.io'
     });
   });
 
@@ -211,7 +207,7 @@ describe('JobResource Integration Tests', () => {
           
           // Verify steps were updated
           const updatedJob = await client.jobs.getJob(jobId);
-          const updatedSteps = updatedJob.data.steps || [];
+          const updatedSteps = updatedJob.data.steps ?? [];
           console.log('Job steps after update:', updatedSteps);
           
           // Find the updated step
@@ -279,7 +275,7 @@ describe('JobResource Integration Tests', () => {
           
           // Verify steps were replaced
           const updatedJob = await client.jobs.getJob(jobId);
-          const updatedSteps = updatedJob.data.steps || [];
+          const updatedSteps = updatedJob.data.steps ?? [];
           console.log('Job steps after PUT:', updatedSteps);
           
           // Find the updated step
@@ -345,7 +341,7 @@ describe('JobResource Integration Tests', () => {
             
             // Verify step was updated
             const updatedJob = await client.jobs.getJob(jobId);
-            const updatedSteps = updatedJob.data.steps || [];
+            const updatedSteps = updatedJob.data.steps ?? [];
             console.log('Job steps after single step update:', updatedSteps);
             
             // Find the updated step
@@ -417,7 +413,7 @@ describe('JobResource Integration Tests', () => {
             
             // Verify step was replaced
             const updatedJob = await client.jobs.getJob(jobId);
-            const updatedSteps = updatedJob.data.steps || [];
+            const updatedSteps = updatedJob.data.steps ?? [];
             console.log('Job steps after single step replacement:', updatedSteps);
             
             // Find the updated step
@@ -572,9 +568,10 @@ describe('JobResource Integration Tests', () => {
     }, 10000);
 
     it('should handle invalid job creation', async () => {
+      // Create an intentionally invalid job data object to test error handling
       const invalidJobData = {
-        // Missing required fields
-      } as any;
+        // Missing required fields like title, type, and status
+      } as unknown as JobCreate; // Using a safer two-step type assertion
 
       await expect(client.jobs.createJob(invalidJobData))
         .rejects
@@ -689,7 +686,7 @@ describe('JobResource Integration Tests', () => {
       
       expect(response.status).toBe(204);
       // 204 responses may return empty string or undefined
-      expect(response.data === undefined || response.data === "").toBe(true);
+      expect(response.data === undefined || response.data === '').toBe(true);
       
       // Verify jobs are deleted by trying to fetch them
       for (const jobId of jobsToDelete) {
@@ -697,9 +694,14 @@ describe('JobResource Integration Tests', () => {
           await client.jobs.getJob(jobId);
           // If we get here, the job wasn't deleted
           fail(`Job ${jobId} should have been deleted`);
-        } catch (error: any) {
+        } catch (error) {
           // Expect 404 for deleted jobs
-          expect(error.statusCode).toBe(404);
+          // Type guard to ensure error has statusCode property
+          if (error && typeof error === 'object' && 'statusCode' in error) {
+            expect(error.statusCode).toBe(404);
+          } else {
+            fail('Expected error with statusCode property');
+          }
         }
       }
     }, 15000);

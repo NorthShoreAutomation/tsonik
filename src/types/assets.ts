@@ -2,6 +2,10 @@
  * Asset-related type definitions
  */
 
+// Define a consistent metadata type to replace 'any'
+export type MetadataValue = string | number | boolean | object | null;
+export type MetadataRecord = Record<string, MetadataValue>;
+
 export type AssetType = 
   | 'ASSET'
   | 'SEQUENCE'
@@ -28,6 +32,34 @@ export type ArchiveStatus =
   | 'FAILED_TO_ARCHIVE'
   | 'ARCHIVED';
 
+export type ApprovalStatus = 
+  | 'N/A'
+  | 'REQUESTED'
+  | 'APPROVED'
+  | 'NOT_APPROVED'
+  | 'MIXED';
+
+export type FaceRecognitionStatus = 
+  | 'N/A'
+  | 'REQUESTED'
+  | 'IN_PROGRESS'
+  | 'FAILED'
+  | 'DONE';
+
+export type TranscriptionStatus = 
+  | 'N/A'
+  | 'REQUESTED'
+  | 'IN_PROGRESS'
+  | 'FAILED'
+  | 'DONE';
+
+export type AssetVersionStatus = 
+  | 'ACTIVE'
+  | 'IN_PROGRESS'
+  | 'FAILED'
+  | 'DELETING'
+  | 'DELETED';
+
 export type MediaType = 
   | 'video'
   | 'audio'
@@ -53,10 +85,10 @@ export interface Asset {
   is_original?: boolean;
   analyze_status?: AnalyzeStatus;
   archive_status?: ArchiveStatus;
-  metadata?: Record<string, any>;
+  metadata?: MetadataRecord;
   tags?: string[];
   collection_ids?: string[];
-  custom_metadata?: Record<string, any>;
+  custom_metadata?: MetadataRecord;
   creator_id?: string;
   creator_name?: string;
   duration?: number;
@@ -75,10 +107,10 @@ export interface CreateAssetRequest {
   external_id?: string;
   type?: AssetType;
   description?: string;
-  metadata?: Record<string, any>;
+  metadata?: MetadataRecord;
   tags?: string[];
   collection_ids?: string[];
-  custom_metadata?: Record<string, any>;
+  custom_metadata?: MetadataRecord;
 }
 
 export interface UpdateAssetRequest {
@@ -86,13 +118,8 @@ export interface UpdateAssetRequest {
   category?: string;
   status?: AssetStatus;
   description?: string;
-  metadata?: Record<string, any>;
+  metadata?: MetadataRecord;
   tags?: string[];
   collection_ids?: string[];
-  custom_metadata?: Record<string, any>;
-}
-
-
-export interface BulkDeleteRequest {
-  asset_ids: string[];
+  custom_metadata?: MetadataRecord;
 }

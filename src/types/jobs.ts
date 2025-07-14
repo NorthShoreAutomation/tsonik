@@ -2,6 +2,10 @@
  * Job-related type definitions for Iconik API
  */
 
+// Define consistent types to replace 'any'
+export type JobContextValue = string | number | boolean | object | null;
+export type JobMetadataRecord = Record<string, JobContextValue>;
+
 export type JobStatus = 
   | 'READY'
   | 'STARTED' 
@@ -121,8 +125,8 @@ export interface Job {
   completed_at?: string;
   has_children?: boolean;
   children_progress?: Record<string, JobChildProgress>;
-  job_context?: Record<string, any>;
-  metadata?: Record<string, any>;
+  job_context?: JobMetadataRecord;
+  metadata?: JobMetadataRecord;
   action_context?: ActionContext;
   related_objects?: RelatedObject[];
   steps?: JobStep[];
@@ -144,8 +148,8 @@ export interface JobCreate {
   started_at?: string;
   completed_at?: string;
   has_children?: boolean;
-  job_context?: Record<string, any>;
-  metadata?: Record<string, any>;
+  job_context?: JobMetadataRecord;
+  metadata?: JobMetadataRecord;
   action_context?: ActionContext;
   related_objects?: RelatedObject[];
   steps?: JobStep[];
@@ -169,8 +173,8 @@ export interface JobUpdate {
   has_children?: boolean;
   progress_processed?: number;
   progress_total?: number;
-  job_context?: Record<string, any>;
-  metadata?: Record<string, any>;
+  job_context?: JobMetadataRecord;
+  metadata?: JobMetadataRecord;
   action_context?: ActionContext;
   related_objects?: RelatedObject[];
 }
@@ -239,9 +243,9 @@ export interface JobsBulkEditQuery extends Omit<JobsQuery, 'page' | 'per_page' |
  */
 export interface JobsBulkEditRequest {
   error_message?: string;
-  job_context?: Record<string, any>;
+  job_context?: JobMetadataRecord;
   message?: string;
-  metadata?: Record<string, any>;
+  metadata?: JobMetadataRecord;
   status?: JobStatus;
 }
 

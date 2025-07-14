@@ -1,6 +1,5 @@
 import { IconikClient } from '../index';
 import { IconikConfig } from '../config';
-import { IconikAuthError, IconikAPIError } from '../errors';
 
 describe('IconikClient', () => {
   const config: IconikConfig = {

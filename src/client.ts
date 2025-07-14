@@ -2,7 +2,7 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { IconikConfig } from './config';
 import { IconikError, IconikAuthError, IconikAPIError } from './errors';
 import { ApiResponse } from './types';
-import { AssetResource, CollectionResource, JobResource } from './resources';
+import { AssetResource, JobResource, CollectionResource, FileSetResource, FileResource, FormatResource, MetadataResource } from './resources';
 
 /**
  * Main client class for interacting with the Iconik API
@@ -13,8 +13,12 @@ export class Tsonik {
   
   // ORM-like resource properties
   public readonly assets: AssetResource;
-  public readonly collections: CollectionResource;
   public readonly jobs: JobResource;
+  public readonly collections: CollectionResource;
+  public readonly filesets: FileSetResource;
+  public readonly files: FileResource;
+  public readonly formats: FormatResource;
+  public readonly metadata: MetadataResource;
 
   constructor(config: IconikConfig) {
     this.config = config;
@@ -52,10 +56,18 @@ export class Tsonik {
           statusText: error.response?.statusText,
           url: error.config?.url,
           method: error.config?.method,
-          headers: error.config?.headers,
-          data: error.response?.data,
+          requestData: error.config?.data,
+          responseData: error.response?.data,
           message: error.message
         });
+        
+        // Log specific validation errors if available
+        if (error.response?.data?.errors) {
+          console.error('API Validation Errors:', error.response.data.errors);
+        }
+        if (error.response?.data?.error_description) {
+          console.error('API Error Description:', error.response.data.error_description);
+        }
         
         if (error.response?.status === 401) {
           throw new IconikAuthError('Invalid API key or unauthorized access');
@@ -79,8 +91,12 @@ export class Tsonik {
     
     // Initialize ORM-like resources
     this.assets = new AssetResource(this);
-    this.collections = new CollectionResource(this);
     this.jobs = new JobResource(this);
+    this.collections = new CollectionResource(this);
+    this.filesets = new FileSetResource(this);
+    this.files = new FileResource(this);
+    this.formats = new FormatResource(this);
+    this.metadata = new MetadataResource(this);
   }
 
   /**

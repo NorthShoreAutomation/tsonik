@@ -4,7 +4,6 @@ import {
   ApiResponse,
   BulkJobResult,
   Job,
-  JobAction,
   JobCreate,
   JobsBulkDeleteRequest,
   JobsBulkEditQuery,
@@ -16,9 +15,9 @@ import {
   JobStepsUpdate,
   JobUpdate,
   PaginatedResponse,
-  ListParams,
   JobStep
 } from '../types';
+import { cleanParams } from '../utils';
 
 /**
  * Job resource for interacting with Iconik Jobs API
@@ -75,7 +74,7 @@ export class JobResource extends BaseResource {
    */
   async replaceJob(jobId: string, jobData: JobUpdate, options?: { merge_metadata?: string }): Promise<ApiResponse<Job>> {
     return this.client.put<Job>(`${this.basePath}/${jobId}`, jobData, {
-      params: options
+      params: cleanParams(options)
     });
   }
 
@@ -116,7 +115,7 @@ export class JobResource extends BaseResource {
    */
   async bulkEditJobs(query: JobsBulkEditQuery, editData: JobsBulkEditRequest): Promise<ApiResponse<JobsBulkEditResponse>> {
     return this.client.patch<JobsBulkEditResponse>(`${this.basePath}/`, editData, {
-      params: query
+      params: cleanParams(query)
     });
   }
 
@@ -158,7 +157,7 @@ export class JobResource extends BaseResource {
    * @returns Promise resolving to success confirmation
    */
   async reindexJob(jobId: string, options?: { sync_to_another_dc?: boolean }): Promise<ApiResponse<void>> {
-    return this.client.post<void>(`${this.basePath}/${jobId}/reindex`, options || {});
+    return this.client.post<void>(`${this.basePath}/${jobId}/reindex`, options ?? {});
   }
 
   /**

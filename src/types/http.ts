@@ -6,6 +6,6 @@ import { AxiosRequestConfig } from 'axios';
 
 export type HttpMethod = 'get' | 'post' | 'put' | 'patch' | 'delete';
 
-export type QueryParams = Record<string, any>;
+export type QueryParams = Record<string, string | number | boolean | object | null>;
 
 export type HttpOptions = AxiosRequestConfig;
