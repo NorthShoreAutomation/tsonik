@@ -156,3 +156,4 @@ If needed, trigger a manual release:
 2. Click "Run workflow" and select the version type (patch/minor/major)
 
 For more detailed instructions, see [the full release guide](docs/RELEASE_GUIDE.md).
+# Pre-commit hooks configured
