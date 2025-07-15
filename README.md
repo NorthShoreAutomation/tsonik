@@ -2,8 +2,8 @@
 
 [![npm version](https://img.shields.io/npm/v/tsonik.svg)](https://www.npmjs.com/package/tsonik)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://github.com/brantg/tsonik/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/brantg/tsonik/actions/workflows/unit-tests.yml)
-[![Lint Status](https://github.com/brantg/tsonik/actions/workflows/lint.yml/badge.svg)](https://github.com/brantg/tsonik/actions/workflows/lint.yml)
+[![Build Status](https://github.com/NorthShoreAutomation/tsonik/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/NorthShoreAutomation/tsonik/actions/workflows/unit-tests.yml)
+[![Lint Status](https://github.com/NorthShoreAutomation/tsonik/actions/workflows/lint.yml/badge.svg)](https://github.com/NorthShoreAutomation/tsonik/actions/workflows/lint.yml)
 
 A TypeScript client library for the Iconik API based on its Swagger documentation. Named after the original Python `nsa-pythonik` library, this is the TypeScript version.
 
@@ -26,73 +26,71 @@ yarn add tsonik
 
 ## Usage
 
-```typescript
-import { IconikClient } from "tsonik";
+### Getting Started
 
-const client = new IconikClient({
-  apiKey: "your-api-key",
-  baseUrl: "https://app.iconik.io/v1", // optional
+First, you'll need to obtain your Iconik API credentials:
+
+1. Log in to your Iconik instance
+2. Go to Settings → API Keys
+3. Create a new API key to get your `appId` and `authToken`
+
+```typescript
+import { Tsonik } from "tsonik";
+
+const client = new Tsonik({
+  appId: "your-app-id",
+  authToken: "your-auth-token",
+  baseUrl: "https://app.iconik.io", // optional, defaults to https://app.iconik.io
   debug: true, // optional
 });
 
-// ORM-like usage with Assets
-try {
-  // Get a single asset
-  const asset = await client.assets.getAsset("asset-id");
-  console.log("Asset:", asset.data);
+// Example usage
+async function exampleUsage() {
+  try {
+    // Get a single asset
+    const asset = await client.assets.getAsset("asset-id");
+    console.log("Asset:", asset.data);
 
-  // List assets with filters
-  const assets = await client.assets.listAssets({
-    limit: 10,
-    sort: "created_date",
-    filter: { status: "active" },
-  });
-  console.log("Assets:", assets.data.objects);
+    // List assets with filters
+    const assets = await client.assets.listAssets({
+      per_page: 10,
+      sort: "date_created",
+    });
+    console.log("Assets:", assets.data);
 
-  // Create a new asset
-  const newAsset = await client.assets.createAsset({
-    title: "My New Asset",
-    description: "Asset description",
-  });
+    // Create a new asset
+    const newAsset = await client.assets.createAsset({
+      title: "My New Asset",
+      description: "Asset description",
+    });
+    console.log("New asset:", newAsset.data);
 
-  // Search assets
-  const searchResults = await client.assets.search({
-    query: "video files",
-    limit: 20,
-  });
-} catch (error) {
-  console.error("API Error:", error);
-}
+    // Get a collection
+    const collection = await client.collections.getCollection("collection-id");
+    console.log("Collection:", collection.data);
 
-// ORM-like usage with Collections
-try {
-  // Get a collection
-  const collection = await client.collections.getCollection("collection-id");
+    // List collections
+    const collections = await client.collections.listCollections({ per_page: 5 });
+    console.log("Collections:", collections.data);
 
-  // List collections
-  const collections = await client.collections.listCollections({ limit: 5 });
+    // Create a collection
+    const newCollection = await client.collections.createCollection({
+      title: "My Collection",
+      category: "project",
+    });
+    console.log("New collection:", newCollection.data);
 
-  // Create a collection
-  const newCollection = await client.collections.createCollection({
-    title: "My Collection",
-    description: "Collection of related assets",
-  });
+    // Direct HTTP methods are also available
+    const response = await client.get("/custom-endpoint");
+    console.log("Custom response:", response.data);
 
-  // Get assets in a collection
-  const collectionAssets = await client.collections.getAssets("collection-id");
+    // Get client info
+    const clientInfo = client.getClientInfo();
+    console.log("Client info:", clientInfo);
 
-  // Add assets to a collection
-  await client.collections.addAssets("collection-id", ["asset-1", "asset-2"]);
-} catch (error) {
-  console.error("Collection Error:", error);
-}
-
-// Direct HTTP methods are also available
-try {
-  const response = await client.get("/custom-endpoint");
-  console.log(response.data);
-} catch (error) {
-  console.error("API Error:", error);
+  } catch (error) {
+    console.error("API Error:", error);
+  }
 }
 ```
 
