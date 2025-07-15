@@ -10,7 +10,6 @@
     "prepublishOnly": "npm run lint && npm test && npm run build",
     "size": "size-limit",
     "analyze": "size-limit --why",
-    "docs": "typedoc --out api-docs src/index.ts",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "security": "npm audit --audit-level=high",
     "test": "jest",

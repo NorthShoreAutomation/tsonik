@@ -1,0 +1,20 @@
+title: Tsonik Documentation
+description: TypeScript client library for the Iconik API
+url: "https://northshoreautomation.github.io"
+baseurl: "/tsonik"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+theme: minima
+
+# Exclude from processing
+exclude:
+  - node_modules/
+  - dist/
+  - .env
+  - package*.json
+  - tsconfig.json
+  - jest.config.js
+  - .eslintrc.js
+  - dev-docs/

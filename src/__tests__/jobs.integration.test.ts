@@ -688,23 +688,60 @@ describe('JobResource Integration Tests', () => {
       // 204 responses may return empty string or undefined
       expect(response.data === undefined || response.data === '').toBe(true);
       
+      // Add delay to allow for eventual consistency
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
       // Verify jobs are deleted by trying to fetch them
       for (const jobId of jobsToDelete) {
-        try {
-          await client.jobs.getJob(jobId);
-          // If we get here, the job wasn't deleted
-          fail(`Job ${jobId} should have been deleted`);
-        } catch (error) {
-          // Expect 404 for deleted jobs
-          // Type guard to ensure error has statusCode property
-          if (error && typeof error === 'object' && 'statusCode' in error) {
-            expect(error.statusCode).toBe(404);
-          } else {
-            throw new Error('Expected error with statusCode property');
+        let attempts = 0;
+        const maxAttempts = 5;
+        let jobDeleted = false;
+        
+        while (attempts < maxAttempts && !jobDeleted) {
+          try {
+            await client.jobs.getJob(jobId);
+            // If we get here, the job hasn't been deleted yet
+            attempts++;
+            if (attempts < maxAttempts) {
+              await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+          } catch (error) {
+            // Check for various error properties that indicate 404
+            let isNotFound = false;
+            
+            if (error && typeof error === 'object') {
+              // Check for statusCode property
+              if ('statusCode' in error && typeof (error as { statusCode: unknown }).statusCode === 'number') {
+                isNotFound = (error as { statusCode: number }).statusCode === 404;
+              }
+              // Check for status property
+              else if ('status' in error && typeof (error as { status: unknown }).status === 'number') {
+                isNotFound = (error as { status: number }).status === 404;
+              }
+              // Check for nested response.status
+              else if ('response' in error && 
+                       typeof (error as { response: unknown }).response === 'object' &&
+                       (error as { response: unknown }).response !== null &&
+                       'status' in (error as { response: { status: unknown } }).response &&
+                       typeof (error as { response: { status: unknown } }).response.status === 'number') {
+                isNotFound = (error as { response: { status: number } }).response.status === 404;
+              }
+            }
+            
+            if (isNotFound) {
+              jobDeleted = true;
+            } else {
+              console.warn(`Unexpected error for job ${jobId}:`, error);
+              throw error;
+            }
           }
         }
+        
+        if (!jobDeleted) {
+          fail(`Job ${jobId} should have been deleted after ${maxAttempts} attempts`);
+        }
       }
-    }, 15000);
+    }, 30000);
 
   });
 });
