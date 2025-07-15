@@ -1,3 +1,17 @@
+# [1.5.0](https://github.com/NorthShoreAutomation/tsonik/compare/v1.4.1...v1.5.0) (2025-07-15)
+
+
+### Bug Fixes
+
+* correct metadata API example in README ([dbd91b4](https://github.com/NorthShoreAutomation/tsonik/commit/dbd91b43baa53e9b52a0a02d0c0bcd7bee14aa3f))
+* resolve ESLint errors with proper FormatComponent typing ([fe6452f](https://github.com/NorthShoreAutomation/tsonik/commit/fe6452f41181ef508cfc14a03c72d33e77c46f31))
+* update test files to use Tsonik instead of IconikClient ([fc5b324](https://github.com/NorthShoreAutomation/tsonik/commit/fc5b3240eff7041951aca9fecde0d8421687c77d))
+
+
+### Features
+
+* add TypeScript best practices examples and resolve type conflicts ([3e8658e](https://github.com/NorthShoreAutomation/tsonik/commit/3e8658e5e1a14a95b555abe6fd65cdc134d8bb90))
+
 ## [1.4.1](https://github.com/NorthShoreAutomation/tsonik/compare/v1.4.0...v1.4.1) (2025-07-15)
 
 
