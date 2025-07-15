@@ -1,3 +1,16 @@
+# [1.4.0](https://github.com/NorthShoreAutomation/tsonik/compare/v1.3.0...v1.4.0) (2025-07-15)
+
+
+### Bug Fixes
+
+* improve job bulk delete test reliability ([a6a5763](https://github.com/NorthShoreAutomation/tsonik/commit/a6a5763c49d67ce2d65e69b8a17239e637f5a696))
+
+
+### Features
+
+* create comprehensive GitHub Pages documentation site ([dfeb48d](https://github.com/NorthShoreAutomation/tsonik/commit/dfeb48d91f5296d6e7565bce7387803334465746))
+* merge main and resolve conflicts for GitHub Pages docs ([31f6117](https://github.com/NorthShoreAutomation/tsonik/commit/31f61174b5d196ae599814f4b7965c38c1d8910e))
+
 # [1.3.0](https://github.com/NorthShoreAutomation/tsonik/compare/v1.2.0...v1.3.0) (2025-07-15)
 
 
