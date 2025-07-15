@@ -158,4 +158,22 @@ export class Tsonik {
       headers: response.headers,
     };
   }
+
+  /**
+   * Get client information including version and configuration
+   * Useful for debugging and support purposes
+   */
+  getClientInfo(): { 
+    name: string; 
+    version: string; 
+    baseUrl: string; 
+    userAgent: string;
+  } {
+    return {
+      name: 'tsonik',
+      version: '1.1.0', // This will be updated by semantic-release
+      baseUrl: this.config.baseUrl || 'https://app.iconik.io',
+      userAgent: this.httpClient.defaults.headers.common['User-Agent'] as string || 'tsonik-client'
+    };
+  }
 }

@@ -27,5 +27,14 @@ describe('IconikClient', () => {
     expect(typeof client.patch).toBe('function');
   });
 
+  it('should return client information', () => {
+    const clientInfo = client.getClientInfo();
+    
+    expect(clientInfo.name).toBe('tsonik');
+    expect(typeof clientInfo.version).toBe('string');
+    expect(clientInfo.baseUrl).toBe(config.baseUrl);
+    expect(typeof clientInfo.userAgent).toBe('string');
+  });
+
   // Add more tests as needed for specific API endpoints
 });
