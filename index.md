@@ -34,13 +34,14 @@ const client = new Tsonik({
 });
 
 // Get all assets
-const assets = await client.assets.list();
+const assets = await client.assets.listAssets();
 console.log(`Found ${assets.data.objects.length} assets`);
 
 // Create a new asset
-const newAsset = await client.assets.create({
+const newAsset = await client.assets.createAsset({
   title: 'My Video',
-  type: 'assets'
+  type: 'ASSET',
+  description: 'A sample video file'
 });
 ```
 
