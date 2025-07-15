@@ -2,8 +2,8 @@
 
 [![npm version](https://img.shields.io/npm/v/tsonik.svg)](https://www.npmjs.com/package/tsonik)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://github.com/brantg/tsonik/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/brantg/tsonik/actions/workflows/unit-tests.yml)
-[![Lint Status](https://github.com/brantg/tsonik/actions/workflows/lint.yml/badge.svg)](https://github.com/brantg/tsonik/actions/workflows/lint.yml)
+[![Build Status](https://github.com/NorthShoreAutomation/tsonik/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/NorthShoreAutomation/tsonik/actions/workflows/unit-tests.yml)
+[![Lint Status](https://github.com/NorthShoreAutomation/tsonik/actions/workflows/lint.yml/badge.svg)](https://github.com/NorthShoreAutomation/tsonik/actions/workflows/lint.yml)
 
 A TypeScript client library for the Iconik API based on its Swagger documentation. Named after the original Python `nsa-pythonik` library, this is the TypeScript version.
 
@@ -26,12 +26,21 @@ yarn add tsonik
 
 ## Usage
 
+### Getting Started
+
+First, you'll need to obtain your Iconik API credentials:
+
+1. Log in to your Iconik instance
+2. Go to Settings → API Keys
+3. Create a new API key to get your `appId` and `authToken`
+
 ```typescript
 import { IconikClient } from "tsonik";
 
 const client = new IconikClient({
-  apiKey: "your-api-key",
-  baseUrl: "https://app.iconik.io/v1", // optional
+  appId: "your-app-id",
+  authToken: "your-auth-token",
+  baseUrl: "https://app.iconik.io", // optional, defaults to https://app.iconik.io
   debug: true, // optional
 });
 
