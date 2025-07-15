@@ -1,4 +1,4 @@
-title: Tsonik Documentation
+title: Tsonik
 description: TypeScript client library for the Iconik API
 url: "https://northshoreautomation.github.io"
 baseurl: "/tsonik"
@@ -6,7 +6,17 @@ baseurl: "/tsonik"
 # Build settings
 markdown: kramdown
 highlighter: rouge
-theme: minima
+remote_theme: pages-themes/cayman@v0.2.0
+plugins:
+- jekyll-remote-theme
+
+# Navigation order
+header_pages:
+  - index.md
+  - docs/getting-started.md
+  - docs/examples.md
+  - docs/api-reference.md
+  - docs/best-practices.md
 
 # Exclude from processing
 exclude:

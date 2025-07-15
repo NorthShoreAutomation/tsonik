@@ -1,29 +1,24 @@
 ---
 layout: default
-title: Usage Examples
+title: Usage Examples  
 ---
 
 # Usage Examples
-{: .page-title}
 
 Real-world examples of how to use Tsonik for common media asset management tasks.
-{: .lead}
 
-<div class="toc">
-  <h3>📋 Table of Contents</h3>
-  <ul>
-    <li><a href="#assets">Assets</a> - Create, read, update, delete assets</li>
-    <li><a href="#collections">Collections</a> - Organize assets into collections</li>
-    <li><a href="#jobs">Jobs</a> - Manage transcoding and processing jobs</li>
-    <li><a href="#files">Files</a> - Work with asset files</li>
-    <li><a href="#filesets">FileSets</a> - Manage file collections</li>
-    <li><a href="#formats">Formats</a> - Handle different media formats</li>
-    <li><a href="#metadata">Metadata</a> - Advanced metadata operations</li>
-    <li><a href="#typescript-best-practices">TypeScript Best Practices</a> - Type-safe development</li>
-    <li><a href="#error-handling">Error Handling</a> - Robust error management</li>
-    <li><a href="#pagination">Pagination</a> - Handle large result sets</li>
-  </ul>
-</div>
+## 📋 Table of Contents
+
+- [🎬 Assets](#assets) - Create, read, update, delete assets
+- [📁 Collections](#collections) - Organize assets into collections  
+- [⚙️ Jobs](#jobs) - Manage transcoding and processing jobs
+- [📄 Files](#files) - Work with asset files
+- [📦 FileSets](#filesets) - Manage file collections
+- [🎞️ Formats](#formats) - Handle different media formats
+- [🏷️ Metadata](#metadata) - Advanced metadata operations
+- [🎯 TypeScript Best Practices](#typescript-best-practices) - Type-safe development
+- [⚠️ Error Handling](#error-handling) - Robust error management  
+- [📄 Pagination](#pagination) - Handle large result sets
 
 ## 🎬 Assets
 
