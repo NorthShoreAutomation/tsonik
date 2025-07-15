@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/NorthShoreAutomation/tsonik/compare/v1.1.0...v1.2.0) (2025-07-15)
+
+
+### Features
+
+* add getClientInfo method for debugging and version tracking ([1210255](https://github.com/NorthShoreAutomation/tsonik/commit/12102557b24c3b10affad4eee70799f1dc23b943))
+
 # [1.1.0](https://github.com/NorthShoreAutomation/tsonik/compare/v1.0.0...v1.1.0) (2025-07-14)
 
 
