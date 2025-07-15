@@ -4,10 +4,16 @@ title: Getting Started
 ---
 
 # Getting Started with Tsonik
+{: .page-title}
 
-Tsonik is a TypeScript client library for the Iconik API that makes it easy to manage media assets, collections, jobs, and metadata.
+Tsonik is a modern TypeScript client library for the Iconik API that makes it easy to manage media assets, collections, jobs, and metadata.
+{: .lead}
 
-## Installation
+<div class="callout">
+  <strong>💡 Prerequisites:</strong> You'll need Node.js 14+ and an Iconik account with API access.
+</div>
+
+## 📦 Installation
 
 ```bash
 npm install tsonik

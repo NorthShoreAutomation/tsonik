@@ -18,3 +18,5 @@ exclude:
   - jest.config.js
   - .eslintrc.js
   - dev-docs/
+  - CLAUDE.md
+  - examples/
