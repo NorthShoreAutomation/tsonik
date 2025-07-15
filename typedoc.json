@@ -7,6 +7,5 @@
   "hideGenerator": true,
   "readme": "README.md",
   "categorizeByGroup": true,
-  "searchInComments": true,
-  "plugin": ["typedoc-plugin-markdown"]
+  "searchInComments": true
 }
