@@ -4,10 +4,28 @@ title: Usage Examples
 ---
 
 # Usage Examples
+{: .page-title}
 
-Real-world examples of how to use Tsonik for common tasks.
+Real-world examples of how to use Tsonik for common media asset management tasks.
+{: .lead}
 
-## Assets
+<div class="toc">
+  <h3>📋 Table of Contents</h3>
+  <ul>
+    <li><a href="#assets">Assets</a> - Create, read, update, delete assets</li>
+    <li><a href="#collections">Collections</a> - Organize assets into collections</li>
+    <li><a href="#jobs">Jobs</a> - Manage transcoding and processing jobs</li>
+    <li><a href="#files">Files</a> - Work with asset files</li>
+    <li><a href="#filesets">FileSets</a> - Manage file collections</li>
+    <li><a href="#formats">Formats</a> - Handle different media formats</li>
+    <li><a href="#metadata">Metadata</a> - Advanced metadata operations</li>
+    <li><a href="#typescript-best-practices">TypeScript Best Practices</a> - Type-safe development</li>
+    <li><a href="#error-handling">Error Handling</a> - Robust error management</li>
+    <li><a href="#pagination">Pagination</a> - Handle large result sets</li>
+  </ul>
+</div>
+
+## 🎬 Assets
 
 ### Creating an Asset
 
@@ -69,7 +87,7 @@ await client.assets.deleteAsset('asset-id');
 console.log('Asset deleted successfully');
 ```
 
-## Collections
+## 📁 Collections
 
 ### Creating a Collection
 
@@ -125,7 +143,7 @@ const result = await client.collections.deleteCollection('collection-id');
 console.log('Collection deleted:', result.data);
 ```
 
-## Jobs
+## ⚙️ Jobs
 
 ### Listing Jobs
 
@@ -191,7 +209,7 @@ const editResult = await client.jobs.bulkEdit({
 const deleteResult = await client.jobs.bulkDelete(['job-1', 'job-2']);
 ```
 
-## Files
+## 📄 Files
 
 ### Getting Asset Files
 
@@ -221,7 +239,7 @@ const file = await client.files.createAssetFile('asset-id', {
 console.log(`Created file: ${file.data.id}`);
 ```
 
-## FileSets
+## 📦 FileSets
 
 ### Getting Asset FileSets
 
@@ -259,7 +277,7 @@ await client.filesets.deleteAssetFileset('asset-id', 'fileset-id', {
 console.log('FileSet deleted successfully');
 ```
 
-## Formats
+## 🎞️ Formats
 
 ### Getting Asset Formats
 
@@ -318,7 +336,7 @@ await client.formats.replaceAssetFormat('asset-id', 'format-id', {
 console.log('Format replaced successfully');
 ```
 
-## Metadata
+## 🏷️ Metadata
 
 ### Getting Metadata
 
@@ -365,7 +383,7 @@ await client.metadata.putMetadata(
 );
 ```
 
-## Error Handling
+## ⚠️ Error Handling
 
 ### Basic Error Handling
 
@@ -412,7 +430,7 @@ const asset = await retryOperation(() =>
 );
 ```
 
-## TypeScript Best Practices
+## 🎯 TypeScript Best Practices
 
 ### Using Interfaces for Type Safety
 
@@ -504,7 +522,7 @@ const jobData: JobCreate = {
 const job = await client.jobs.createJob(jobData);
 ```
 
-## Pagination
+## 📄 Pagination
 
 ### Processing All Results
 
