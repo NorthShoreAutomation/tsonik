@@ -1,6 +1,6 @@
 {
   "entryPoints": ["src/index.ts"],
-  "out": "docs",
+  "out": "api-docs",
   "name": "Tsonik API Documentation",
   "excludePrivate": true,
   "excludeExternals": true,
