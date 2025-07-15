@@ -412,6 +412,98 @@ const asset = await retryOperation(() =>
 );
 ```
 
+## TypeScript Best Practices
+
+### Using Interfaces for Type Safety
+
+Instead of inline objects, use TypeScript interfaces for better type safety and maintainability:
+
+```typescript
+import { Tsonik } from 'tsonik';
+import type { 
+  CreateAssetRequest,
+  UpdateAssetRequest,
+  CreateCollectionRequest,
+  JobCreate,
+  ListParams
+} from 'tsonik';
+
+// ✅ GOOD: Using typed interfaces for complex objects
+const assetData: CreateAssetRequest = {
+  title: 'Professional Video Asset',
+  type: 'ASSET',
+  description: 'High-quality marketing video',
+  category: 'marketing',
+  tags: ['campaign', 'q4', 'video']
+};
+
+const newAsset = await client.assets.createAsset(assetData);
+
+// ✅ GOOD: Using interface for list parameters
+const listParams: ListParams = {
+  limit: 100,
+  offset: 0,
+  sort: 'date_created',
+  filter: {
+    category: 'marketing',
+    status: 'ACTIVE'
+  }
+};
+
+const assets = await client.assets.listAssets(listParams);
+```
+
+### Custom Business Logic Interfaces
+
+```typescript
+interface MarketingAssetConfig {
+  campaignName: string;
+  quarter: string;
+  targetAudience: string[];
+  budget: number;
+}
+
+async function createMarketingAsset(
+  client: Tsonik, 
+  config: MarketingAssetConfig
+): Promise<string> {
+  const assetData: CreateAssetRequest = {
+    title: `${config.campaignName} Asset`,
+    type: 'ASSET',
+    category: 'marketing',
+    description: `Marketing asset for ${config.quarter} campaign`,
+    metadata: {
+      'campaign.name': config.campaignName,
+      'campaign.quarter': config.quarter,
+      'campaign.budget': config.budget.toString(),
+      'campaign.audience': config.targetAudience.join(',')
+    }
+  };
+
+  const result = await client.assets.createAsset(assetData);
+  return result.data.id;
+}
+```
+
+### Complex Job Creation with Types
+
+```typescript
+const jobData: JobCreate = {
+  title: 'Transcode Marketing Video',
+  type: 'TRANSCODE',
+  status: 'READY',
+  custom_type: 'marketing_workflow',
+  object_id: assetId,
+  object_type: 'assets',
+  metadata: {
+    'encoding.preset': 'high_quality',
+    'workflow.priority': 'high'
+  }
+};
+
+const job = await client.jobs.createJob(jobData);
+```
+
 ## Pagination
 
 ### Processing All Results
