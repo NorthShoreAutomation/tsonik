@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/NorthShoreAutomation/tsonik/compare/v1.6.0...v1.7.0) (2025-07-15)
+
+
+### Features
+
+* implement clean markdown theme with dark mode ([c20f271](https://github.com/NorthShoreAutomation/tsonik/commit/c20f27189cfdcf1c87abbbabd48b488a4e7d793d))
+
 # [1.6.0](https://github.com/NorthShoreAutomation/tsonik/compare/v1.5.0...v1.6.0) (2025-07-15)
 
 

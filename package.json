@@ -1,6 +1,6 @@
 {
   "name": "tsonik",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "A TypeScript client library for the Iconik API based on Swagger documentation",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
