@@ -9,6 +9,7 @@ import {
   JobsQuery,
   JobStepsUpdate,
   JobUpdate,
+  FormatComponent,
 } from '../types';
 import {
   CollectionListParams,
@@ -4821,13 +4822,13 @@ describe('IconikClient Resources', () => {
       // Assertions
       expect(result.data.components).toHaveLength(6);
       expect(
-        result.data.components!.filter((c: any) => c.type === 'VIDEO')
+        result.data.components!.filter((c: FormatComponent) => c.type === 'VIDEO')
       ).toHaveLength(1);
       expect(
-        result.data.components!.filter((c: any) => c.type === 'AUDIO')
+        result.data.components!.filter((c: FormatComponent) => c.type === 'AUDIO')
       ).toHaveLength(3);
       expect(
-        result.data.components!.filter((c: any) => c.type === 'SUBTITLE')
+        result.data.components!.filter((c: FormatComponent) => c.type === 'SUBTITLE')
       ).toHaveLength(2);
       expect(result.data.storage_methods).toEqual([
         'DISTRIBUTED',
