@@ -1,4 +1,4 @@
-import { IconikClient } from '../index';
+import { Tsonik } from '../index';
 import {
   Asset,
   Collection,
@@ -9,6 +9,7 @@ import {
   JobsQuery,
   JobStepsUpdate,
   JobUpdate,
+  FormatComponent,
 } from '../types';
 import {
   CollectionListParams,
@@ -55,7 +56,7 @@ jest.mock('axios', () => ({
 }));
 
 describe('IconikClient Resources', () => {
-  let client: IconikClient;
+  let client: Tsonik;
 
   beforeEach(() => {
     // Reset mocks between tests
@@ -82,7 +83,7 @@ describe('IconikClient Resources', () => {
     mockAxiosInstance.delete.mockResolvedValue(defaultResponse);
 
     // Create a fresh client before each test
-    client = new IconikClient({
+    client = new Tsonik({
       appId: 'test-app-id',
       authToken: 'test-auth-token',
       baseUrl: 'https://app.iconik.io/v1',
@@ -4821,13 +4822,13 @@ describe('IconikClient Resources', () => {
       // Assertions
       expect(result.data.components).toHaveLength(6);
       expect(
-        result.data.components!.filter((c) => c.type === 'VIDEO')
+        result.data.components!.filter((c: FormatComponent) => c.type === 'VIDEO')
       ).toHaveLength(1);
       expect(
-        result.data.components!.filter((c) => c.type === 'AUDIO')
+        result.data.components!.filter((c: FormatComponent) => c.type === 'AUDIO')
       ).toHaveLength(3);
       expect(
-        result.data.components!.filter((c) => c.type === 'SUBTITLE')
+        result.data.components!.filter((c: FormatComponent) => c.type === 'SUBTITLE')
       ).toHaveLength(2);
       expect(result.data.storage_methods).toEqual([
         'DISTRIBUTED',

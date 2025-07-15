@@ -1,7 +1,7 @@
-import { IconikClient } from '../index';
+import { Tsonik } from '../index';
 import { IconikConfig } from '../config';
 
-describe('IconikClient', () => {
+describe('Tsonik', () => {
   const config: IconikConfig = {
     appId: 'test-app-id',
     authToken: 'test-auth-token',
@@ -9,14 +9,14 @@ describe('IconikClient', () => {
     debug: true,
   };
 
-  let client: IconikClient;
+  let client: Tsonik;
 
   beforeEach(() => {
-    client = new IconikClient(config);
+    client = new Tsonik(config);
   });
 
   it('should create a client instance', () => {
-    expect(client).toBeInstanceOf(IconikClient);
+    expect(client).toBeInstanceOf(Tsonik);
   });
 
   it('should have HTTP methods available', () => {

@@ -58,13 +58,18 @@ const collection = await client.collections.createCollection({
 });
 
 // Update metadata
-await client.metadata.putMetadata({
-  object_id: newAsset.data.id,
-  object_type: 'assets',
-  metadata: {
-    'custom.project': 'Marketing Campaign'
+await client.metadata.putMetadata(
+  'assets',
+  newAsset.data.id,
+  {
+    metadata_values: {
+      'custom.project': {
+        field_values: [{ value: 'Marketing Campaign' }],
+        mode: 'overwrite'
+      }
+    }
   }
-});
+);
 ```
 
 ## Documentation

@@ -12,7 +12,7 @@ Complete reference for all Tsonik client methods with examples.
 ### Tsonik
 
 ```typescript
-new Tsonik(config: TsonikConfig)
+new Tsonik(config: IconikConfig)
 ```
 
 **Parameters:**
@@ -52,8 +52,8 @@ interface ListParams {
 const assets = await client.assets.listAssets({
   limit: 50,
   offset: 0,
-  sort: "date_created",
-  filter: { status: "ACTIVE" }
+  sort: 'date_created',
+  filter: { status: 'ACTIVE' }
 });
 ```
 
@@ -89,10 +89,10 @@ interface CreateAssetRequest {
 **Example:**
 ```typescript
 const asset = await client.assets.createAsset({
-  title: "My New Video",
-  type: "ASSET",
-  description: "A sample video",
-  category: "video"
+  title: 'My New Video',
+  type: 'ASSET',
+  description: 'A sample video',
+  category: 'video'
 });
 ```
 
@@ -369,55 +369,87 @@ await client.filesets.deleteFileset('fileset-123', {
 
 ## Metadata (`client.metadata`)
 
-### `getMetadata(params)`
+### `getMetadata(objectType, objectId, params?)`
 
 Get metadata for an object.
 
 **Parameters:**
+- `objectType: string` - Object type ('assets', 'collections', etc.)
+- `objectId: string` - Object ID
+- `params?: GetMetadataParams` - Optional parameters
+
 ```typescript
 interface GetMetadataParams {
-  object_id: string;     // ID of the object
-  object_type: string;   // Type: 'assets', 'collections', etc.
-  view_id?: string;      // Optional metadata view
+  check_if_subclip?: boolean;
+  include_values_for_deleted_fields?: boolean;
 }
 ```
 
 **Example:**
 ```typescript
-const metadata = await client.metadata.getMetadata({
-  object_id: 'asset-123',
-  object_type: 'assets'
-});
+const metadata = await client.metadata.getMetadata(
+  'assets',
+  'asset-123',
+  {
+    check_if_subclip: false,
+    include_values_for_deleted_fields: false
+  }
+);
 
-console.log(metadata.data.metadata);
+console.log(metadata.data.metadata_values);
 ```
 
-### `putMetadata(params)`
+### `putMetadata(objectType, objectId, metadataData, params?)`
 
 Update metadata for an object.
 
 **Parameters:**
+- `objectType: string` - Object type ('assets', 'collections', etc.)
+- `objectId: string` - Object ID
+- `metadataData: UpdateMetadataRequest` - Metadata to update
+- `params?: PutMetadataParams` - Optional parameters
+
 ```typescript
-interface PutMetadataParams {
-  object_id: string;
-  object_type: string;
-  metadata: MetadataValues;
-  view_id?: string;
+interface UpdateMetadataRequest {
+  metadata_values: MetadataValuesForUpdate;
+  date_created?: string;
+  date_modified?: string;
+  job_id?: string;
+  object_id?: string;
+  object_type?: string;
+  version_id?: string;
+}
+
+interface MetadataValuesForUpdate {
+  [fieldName: string]: {
+    field_values: Array<{ [key: string]: unknown }>;
+    mode?: 'overwrite' | 'append';
+    date_created?: string;
+  };
 }
 ```
 
 **Example:**
 ```typescript
-await client.metadata.putMetadata({
-  object_id: 'asset-123',
-  object_type: 'assets',
-  metadata: {
-    title: "New Title",
-    description: "Updated description",
-    "custom.category": "Educational",
-    "custom.tags": ["training", "video"]
+await client.metadata.putMetadata(
+  'assets',
+  'asset-123',
+  {
+    metadata_values: {
+      'title': {
+        field_values: [{ value: 'New Title' }],
+        mode: 'overwrite'
+      },
+      'custom.category': {
+        field_values: [{ value: 'Educational' }],
+        mode: 'overwrite'
+      }
+    }
+  },
+  {
+    ignore_unchanged: true
   }
-});
+);
 ```
 
 ## Formats (`client.formats`)

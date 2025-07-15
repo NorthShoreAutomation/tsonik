@@ -1,4 +1,4 @@
-import { IconikClient } from '../index';
+import { Tsonik } from '../index';
 import { MetadataResponse, GetMetadataParams, UpdateMetadataRequest, PutMetadataParams } from '../types/metadata';
 
 // Create mock Axios instance with proper interceptors setup
@@ -22,7 +22,7 @@ jest.mock('axios', () => ({
 }));
 
 describe('MetadataResource', () => {
-  let client: IconikClient;
+  let client: Tsonik;
 
   beforeEach(() => {
     // Reset mocks between tests
@@ -48,7 +48,7 @@ describe('MetadataResource', () => {
     mockAxiosInstance.patch.mockResolvedValue(defaultResponse);
     mockAxiosInstance.delete.mockResolvedValue(defaultResponse);
 
-    client = new IconikClient({
+    client = new Tsonik({
       appId: 'test-app-id',
       authToken: 'test-auth-token'
     });
