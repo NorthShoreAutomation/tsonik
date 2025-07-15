@@ -37,8 +37,8 @@ console.log(`Found ${assets.data.objects.length} assets`);
 const filteredAssets = await client.assets.listAssets({
   limit: 20,
   offset: 0,
-  sort: "date_created",
-  filter: { status: "ACTIVE" }
+  sort: 'date_created',
+  filter: { status: 'ACTIVE' }
 });
 ```
 
@@ -193,66 +193,129 @@ const deleteResult = await client.jobs.bulkDelete(['job-1', 'job-2']);
 
 ## Files
 
-### Getting a File
+### Getting Asset Files
 
 ```typescript
-const file = await client.files.getFile('file-id');
+const files = await client.files.getAssetFiles('asset-id', {
+  per_page: 50,
+  page: 1
+});
+console.log(`Found ${files.data.objects.length} files`);
+```
+
+### Getting a Specific Asset File
+
+```typescript
+const file = await client.files.getAssetFile('asset-id', 'file-id');
 console.log(`File: ${file.data.name}`);
 console.log(`Size: ${file.data.size} bytes`);
 ```
 
-### Updating a File
+### Creating an Asset File
 
 ```typescript
-await client.files.updateFile('file-id', {
-  name: "updated-filename.mp4",
-  metadata: {
-    "custom.encoding": "H.264"
-  }
+const file = await client.files.createAssetFile('asset-id', {
+  name: 'video.mp4',
+  storage_id: 'storage-123'
 });
-```
-
-### Deleting a File
-
-```typescript
-await client.files.deleteFile('file-id');
-console.log('File deleted successfully');
+console.log(`Created file: ${file.data.id}`);
 ```
 
 ## FileSets
 
-### Getting a FileSet
+### Getting Asset FileSets
 
 ```typescript
-const fileset = await client.filesets.getFileset('fileset-id');
+const filesets = await client.filesets.getAssetFilesets('asset-id', {
+  per_page: 20,
+  page: 1
+});
+console.log(`Found ${filesets.data.objects.length} filesets`);
+```
+
+### Getting a Specific FileSet
+
+```typescript
+const fileset = await client.filesets.getAssetFileset('asset-id', 'fileset-id');
 console.log(`FileSet: ${fileset.data.name}`);
 ```
 
 ### Creating a FileSet
 
 ```typescript
-const fileset = await client.filesets.createFileset({
-  name: "Raw Footage",
-  asset_id: "asset-123"
+const fileset = await client.filesets.createAssetFileset('asset-id', {
+  name: 'Raw Footage',
+  storage_id: 'storage-123'
 });
-
 console.log(`Created fileset: ${fileset.data.id}`);
-```
-
-### Updating a FileSet
-
-```typescript
-await client.filesets.updateFileset('fileset-id', {
-  name: "Updated FileSet Name"
-});
 ```
 
 ### Deleting a FileSet
 
 ```typescript
-await client.filesets.deleteFileset('fileset-id', {
+await client.filesets.deleteAssetFileset('asset-id', 'fileset-id', {
   delete_files: true
 });
+console.log('FileSet deleted successfully');
+```
+
+## Formats
+
+### Getting Asset Formats
+
+```typescript
+const formats = await client.formats.getAssetFormats('asset-id', {
+  per_page: 20,
+  include_all_versions: false
+});
+console.log(`Found ${formats.data.objects.length} formats`);
+```
+
+### Getting a Specific Format
+
+```typescript
+const format = await client.formats.getAssetFormat('asset-id', 'format-id');
+console.log(`Format: ${format.data.name}`);
+console.log(`Status: ${format.data.status}`);
+console.log(`Archive Status: ${format.data.archive_status}`);
+```
+
+### Creating a Format
+
+```typescript
+const newFormat = await client.formats.createAssetFormat('asset-id', {
+  name: 'HD Version',
+  status: 'ACTIVE',
+  components: [{
+    name: 'video-component',
+    type: 'VIDEO'
+  }]
+});
+console.log(`Created format: ${newFormat.data.id}`);
+```
+
+### Updating a Format
+
+```typescript
+await client.formats.updateAssetFormat('asset-id', 'format-id', {
+  name: 'Updated Format Name',
+  status: 'ACTIVE'
+});
+console.log('Format updated successfully');
+```
+
+### Replacing a Format (PUT)
+
+```typescript
+await client.formats.replaceAssetFormat('asset-id', 'format-id', {
+  name: 'Completely New Format',
+  status: 'ACTIVE',
+  components: [{
+    name: 'new-component',
+    type: 'VIDEO'
+  }]
+});
+console.log('Format replaced successfully');
 ```
 
 ## Metadata
@@ -260,27 +323,46 @@ await client.filesets.deleteFileset('fileset-id', {
 ### Getting Metadata
 
 ```typescript
-const metadata = await client.metadata.getMetadata({
-  object_id: 'asset-123',
-  object_type: 'assets'
-});
+const metadata = await client.metadata.getMetadata(
+  'assets',  // object type
+  'asset-123', // object ID
+  {
+    check_if_subclip: false,
+    include_values_for_deleted_fields: false
+  }
+);
 
-console.log('Metadata:', metadata.data.metadata);
+console.log('Metadata:', metadata.data.metadata_values);
+console.log('Object ID:', metadata.data.object_id);
+console.log('Object Type:', metadata.data.object_type);
 ```
 
 ### Updating Metadata
 
 ```typescript
-await client.metadata.putMetadata({
-  object_id: 'asset-123',
-  object_type: 'assets',
-  metadata: {
-    title: "New Title",
-    description: "Updated description",
-    "custom.project": "My Project",
-    "custom.status": "Review"
+await client.metadata.putMetadata(
+  'assets',  // object type
+  'asset-123', // object ID
+  {
+    metadata_values: {
+      'title': {
+        field_values: [{ value: 'New Title' }],
+        mode: 'overwrite'
+      },
+      'description': {
+        field_values: [{ value: 'Updated description' }],
+        mode: 'overwrite'
+      },
+      'custom.project': {
+        field_values: [{ value: 'My Project' }],
+        mode: 'overwrite'
+      }
+    }
+  },
+  {
+    ignore_unchanged: true
   }
-});
+);
 ```
 
 ## Error Handling

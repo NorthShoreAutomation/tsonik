@@ -52,11 +52,14 @@ const client = new Tsonik({
 
 ```typescript
 // Get all assets
-const assets = await client.assets.list();
+const assets = await client.assets.listAssets({
+  limit: 50,
+  offset: 0
+});
 console.log(`Found ${assets.data.objects.length} assets`);
 
 // Get a specific asset
-const asset = await client.assets.get('asset-id-here');
+const asset = await client.assets.getAsset('asset-id-here');
 console.log(`Asset title: ${asset.data.title}`);
 ```
 
