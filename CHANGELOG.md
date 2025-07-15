@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/NorthShoreAutomation/tsonik/compare/v1.4.0...v1.4.1) (2025-07-15)
+
+
+### Bug Fixes
+
+* correct API documentation based on actual codebase ([d115c06](https://github.com/NorthShoreAutomation/tsonik/commit/d115c06012ca94c8202d4547de11a54b81862501))
+
 # [1.4.0](https://github.com/NorthShoreAutomation/tsonik/compare/v1.3.0...v1.4.0) (2025-07-15)
 
 
