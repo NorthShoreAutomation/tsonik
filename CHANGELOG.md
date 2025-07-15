@@ -1,3 +1,15 @@
+# [1.3.0](https://github.com/NorthShoreAutomation/tsonik/compare/v1.2.0...v1.3.0) (2025-07-15)
+
+
+### Bug Fixes
+
+* separate API docs from development docs ([34322e1](https://github.com/NorthShoreAutomation/tsonik/commit/34322e1bfc49c7af1df51d72feadd9ad09f7829c))
+
+
+### Features
+
+* add auto-generated API documentation with TypeDoc ([ca3a6e3](https://github.com/NorthShoreAutomation/tsonik/commit/ca3a6e3e44d5ae3f3252f09f81643024f4404a5f))
+
 # [1.2.0](https://github.com/NorthShoreAutomation/tsonik/compare/v1.1.0...v1.2.0) (2025-07-15)
 
 
