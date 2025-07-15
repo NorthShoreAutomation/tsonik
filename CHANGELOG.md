@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/NorthShoreAutomation/tsonik/compare/v1.5.0...v1.6.0) (2025-07-15)
+
+
+### Features
+
+* improve documentation styling and presentation ([5e1983a](https://github.com/NorthShoreAutomation/tsonik/commit/5e1983a481b279a232b50a05dd65ce7a7522bf8b))
+
 # [1.5.0](https://github.com/NorthShoreAutomation/tsonik/compare/v1.4.1...v1.5.0) (2025-07-15)
 
 
