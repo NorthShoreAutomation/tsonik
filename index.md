@@ -13,7 +13,7 @@ A modern TypeScript client library for the Iconik API that makes media asset man
 - **🎯 TypeScript-First** - Full type safety with comprehensive interfaces
 - **🚀 Promise-Based API** - Modern async/await support  
 - **🛡️ Error Handling** - Detailed error types with helpful context
-- **📡 Reliable HTTP** - Built on Axios with automatic retries
+- **📡 Reliable HTTP** - Built on Axios with intelligent automatic retries and exponential backoff
 - **🏗️ Resource Architecture** - Organized by domain: assets, collections, jobs, metadata
 - **📚 Comprehensive Docs** - Real-world examples and TypeScript best practices
 
@@ -63,6 +63,10 @@ const newAsset = await client.assets.createAsset({
 
 <div class="callout">
   <strong>📚 Need Reference?</strong> Browse the complete <a href="./docs/api-reference">API Reference</a> with method documentation.
+</div>
+
+<div class="callout">
+  <strong>🔄 Retry Configuration?</strong> Learn about <a href="./docs/retry-configuration">Automatic Retry</a> and how to configure it for your needs.
 </div>
 
 ## 🔗 Links
