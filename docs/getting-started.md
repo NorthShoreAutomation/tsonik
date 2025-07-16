@@ -67,6 +67,50 @@ const asset = await client.assets.getAsset('asset-id-here');
 console.log(`Asset title: ${asset.data.title}`);
 ```
 
+## Automatic Retry
+
+Tsonik automatically retries failed requests with intelligent defaults:
+
+```typescript
+const client = new Tsonik({
+  appId: 'your-app-id',
+  authToken: 'your-auth-token',
+  // Retry is enabled by default with safe settings
+  retry: {
+    attempts: 3,                    // Total attempts (1 + 2 retries)
+    retryOnMethods: ['GET', 'HEAD', 'OPTIONS'], // Safe methods only
+    retryOnStatus: [408, 429, 500, 502, 503, 504], // Server errors
+    minDelay: 100,                  // Start with 100ms delay
+    maxDelay: 30000,                // Max 30 second delay
+    factor: 2,                      // Exponential backoff
+  }
+});
+```
+
+### Customizing Retry Behavior
+
+```typescript
+// Disable retry for specific use cases
+const client = new Tsonik({
+  appId: 'your-app-id',
+  authToken: 'your-auth-token',
+  retry: {
+    enabled: false, // Disable all retries
+  }
+});
+
+// Or customize for your needs
+const client = new Tsonik({
+  appId: 'your-app-id',
+  authToken: 'your-auth-token',
+  retry: {
+    attempts: 5,                    // More attempts
+    retryOnMethods: ['GET', 'POST'], // Include POST (use with caution)
+    maxDelay: 10000,                // Shorter max delay
+  }
+});
+```
+
 ## Error Handling
 
 Tsonik provides detailed error information:
@@ -87,4 +131,5 @@ try {
 
 - [Usage Examples](./examples.html) - See real-world examples
 - [API Reference](./api-reference.html) - Complete method documentation
+- [Retry Configuration](./retry-configuration.html) - Deep dive into retry settings
 - [Best Practices](./best-practices.html) - Tips and patterns

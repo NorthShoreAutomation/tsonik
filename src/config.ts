@@ -2,6 +2,8 @@
  * Configuration interface and default settings for the Iconik API client
  */
 
+import { RetryConfig } from './retry';
+
 export interface IconikConfig {
   /** Your Iconik App ID */
   appId: string;
@@ -15,6 +17,8 @@ export interface IconikConfig {
   headers?: Record<string, string>;
   /** Enable debug logging */
   debug?: boolean;
+  /** Retry configuration for failed requests */
+  retry?: RetryConfig;
 }
 
 export const DEFAULT_CONFIG: Partial<IconikConfig> = {

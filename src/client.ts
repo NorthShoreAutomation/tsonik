@@ -3,6 +3,7 @@ import { IconikConfig } from './config';
 import { IconikError, IconikAuthError, IconikAPIError } from './errors';
 import { ApiResponse } from './types';
 import { AssetResource, JobResource, CollectionResource, FileSetResource, FileResource, FormatResource, MetadataResource } from './resources';
+import { createRetryWrapper, mergeRetryConfig, RetryConfig, DEFAULT_RETRY_CONFIG } from './retry';
 
 /**
  * Main client class for interacting with the Iconik API
@@ -10,6 +11,7 @@ import { AssetResource, JobResource, CollectionResource, FileSetResource, FileRe
 export class Tsonik {
   private httpClient: AxiosInstance;
   private config: IconikConfig;
+  private retryConfig: Required<RetryConfig>;
   
   // ORM-like resource properties
   public readonly assets: AssetResource;
@@ -22,6 +24,7 @@ export class Tsonik {
 
   constructor(config: IconikConfig) {
     this.config = config;
+    this.retryConfig = mergeRetryConfig(config.retry);
     
     this.httpClient = axios.create({
       baseURL: config.baseUrl,
@@ -103,7 +106,10 @@ export class Tsonik {
    * Make a GET request to the API
    */
   async get<T = any>(path: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    const response: AxiosResponse<T> = await this.httpClient.get(path, config);
+    const response: AxiosResponse<T> = await createRetryWrapper(
+      () => this.httpClient.get(path, config),
+      this.retryConfig
+    );
     return {
       data: response.data,
       status: response.status,
@@ -115,7 +121,10 @@ export class Tsonik {
    * Make a POST request to the API
    */
   async post<T = any>(path: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    const response: AxiosResponse<T> = await this.httpClient.post(path, data, config);
+    const response: AxiosResponse<T> = await createRetryWrapper(
+      () => this.httpClient.post(path, data, config),
+      this.retryConfig
+    );
     return {
       data: response.data,
       status: response.status,
@@ -127,7 +136,10 @@ export class Tsonik {
    * Make a PUT request to the API
    */
   async put<T = any>(path: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    const response: AxiosResponse<T> = await this.httpClient.put(path, data, config);
+    const response: AxiosResponse<T> = await createRetryWrapper(
+      () => this.httpClient.put(path, data, config),
+      this.retryConfig
+    );
     return {
       data: response.data,
       status: response.status,
@@ -139,7 +151,10 @@ export class Tsonik {
    * Make a DELETE request to the API
    */
   async delete<T = any>(path: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    const response: AxiosResponse<T> = await this.httpClient.delete(path, config);
+    const response: AxiosResponse<T> = await createRetryWrapper(
+      () => this.httpClient.delete(path, config),
+      this.retryConfig
+    );
     return {
       data: response.data,
       status: response.status,
@@ -151,7 +166,10 @@ export class Tsonik {
    * Make a PATCH request to the API
    */
   async patch<T = any>(path: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    const response: AxiosResponse<T> = await this.httpClient.patch(path, data, config);
+    const response: AxiosResponse<T> = await createRetryWrapper(
+      () => this.httpClient.patch(path, data, config),
+      this.retryConfig
+    );
     return {
       data: response.data,
       status: response.status,

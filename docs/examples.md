@@ -18,6 +18,7 @@ Real-world examples of how to use Tsonik for common media asset management tasks
 - [🏷️ Metadata](#metadata) - Advanced metadata operations
 - [🎯 TypeScript Best Practices](#typescript-best-practices) - Type-safe development
 - [⚠️ Error Handling](#error-handling) - Robust error management  
+- [🔄 Retry Configuration](#retry-configuration) - Automatic retry examples
 - [📄 Pagination](#pagination) - Handle large result sets
 
 ## 🎬 Assets
@@ -397,32 +398,23 @@ try {
 }
 ```
 
-### Retry Logic for Network Issues
+### Automatic Retry Handling
+
+Tsonik includes automatic retry functionality, but you can still customize it:
 
 ```typescript
-const retryOperation = async <T>(
-  operation: () => Promise<T>,
-  maxRetries = 3
-): Promise<T> => {
-  for (let i = 0; i < maxRetries; i++) {
-    try {
-      return await operation();
-    } catch (error) {
-      if (error instanceof IconikAPIError && error.status >= 500) {
-        if (i === maxRetries - 1) throw error;
-        await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1)));
-        continue;
-      }
-      throw error;
-    }
-  }
-  throw new Error('Max retries exceeded');
-};
+const clientWithRetry = new Tsonik({
+  appId: process.env.ICONIK_APP_ID!,
+  authToken: process.env.ICONIK_AUTH_TOKEN!,
+  retry: {
+    attempts: 5,
+    retryOnStatus: [500, 502, 503, 504], // Retry on server errors
+    maxDelay: 10000, // Max 10 second delay
+  },
+});
 
-// Usage
-const asset = await retryOperation(() => 
-  client.assets.getAsset('asset-id')
-);
+// This will automatically retry on server errors
+const asset = await clientWithRetry.assets.getAsset('asset-id');
 ```
 
 ## 🎯 TypeScript Best Practices
@@ -515,6 +507,164 @@ const jobData: JobCreate = {
 };
 
 const job = await client.jobs.createJob(jobData);
+```
+
+## 🔄 Retry Configuration
+
+Tsonik includes automatic retry functionality with intelligent defaults. The examples below show different retry configurations.
+
+### Basic Retry Configuration
+
+```typescript
+// Default retry behavior - already enabled
+const client = new Tsonik({
+  appId: process.env.ICONIK_APP_ID!,
+  authToken: process.env.ICONIK_AUTH_TOKEN!,
+  debug: true, // Enable debug logging to see retry attempts
+});
+
+// This will automatically retry on failures
+const assets = await client.assets.listAssets({ limit: 10 });
+console.log(`✅ Successfully retrieved ${assets.data.objects.length} assets`);
+```
+
+### Custom Retry Settings
+
+```typescript
+const customClient = new Tsonik({
+  appId: process.env.ICONIK_APP_ID!,
+  authToken: process.env.ICONIK_AUTH_TOKEN!,
+  retry: {
+    attempts: 5,           // More attempts
+    minDelay: 200,         // Start with 200ms delay
+    maxDelay: 10000,       // Max 10 second delay
+    factor: 1.5,           // Gentler backoff
+    randomize: 0.2,        // More jitter
+    retryOnMethods: ['GET', 'HEAD', 'OPTIONS'], // Safe methods only
+  },
+});
+
+const asset = await customClient.assets.getAsset('some-asset-id');
+console.log(`✅ Retrieved asset: ${asset.data.title}`);
+```
+
+### Using Retry Presets
+
+```typescript
+import { Tsonik, RetryPresets } from 'tsonik';
+
+// Conservative preset: 2 attempts, read-only methods
+const conservativeClient = new Tsonik({
+  appId: process.env.ICONIK_APP_ID!,
+  authToken: process.env.ICONIK_AUTH_TOKEN!,
+  retry: RetryPresets.conservative(),
+});
+
+// Aggressive preset: 5 attempts, includes write methods
+const aggressiveClient = new Tsonik({
+  appId: process.env.ICONIK_APP_ID!,
+  authToken: process.env.ICONIK_AUTH_TOKEN!,
+  retry: RetryPresets.aggressive(),
+});
+
+// Rate limit preset: Only retry on 429 responses
+const rateLimitClient = new Tsonik({
+  appId: process.env.ICONIK_APP_ID!,
+  authToken: process.env.ICONIK_AUTH_TOKEN!,
+  retry: RetryPresets.rateLimit(),
+});
+```
+
+### Disabling Retry
+
+```typescript
+// Disable retry for specific scenarios
+const noRetryClient = new Tsonik({
+  appId: process.env.ICONIK_APP_ID!,
+  authToken: process.env.ICONIK_AUTH_TOKEN!,
+  retry: {
+    enabled: false, // No retries
+  },
+});
+
+const collections = await noRetryClient.collections.listCollections();
+console.log(`✅ Got ${collections.data.objects.length} collections (no retry)`);
+```
+
+### Custom Retry Logic
+
+```typescript
+const smartRetryClient = new Tsonik({
+  appId: process.env.ICONIK_APP_ID!,
+  authToken: process.env.ICONIK_AUTH_TOKEN!,
+  retry: {
+    attempts: 3,
+    shouldRetry: (error: unknown, attemptNumber: number) => {
+      // Custom logic: only retry on specific errors
+      if (attemptNumber >= 2) return false;
+      
+      // Check if it's a rate limit error
+      if (error && typeof error === 'object' && 'response' in error) {
+        const axiosError = error as any;
+        if (axiosError.response?.status === 429) {
+          console.log('💤 Rate limited, will retry...');
+          return true;
+        }
+      }
+      
+      // Check for network errors
+      if (error && typeof error === 'object' && 'code' in error) {
+        const networkError = error as any;
+        if (networkError.code === 'ECONNRESET') {
+          console.log('🔌 Connection reset, will retry...');
+          return true;
+        }
+      }
+      
+      return false; // Don't retry other errors
+    },
+  },
+});
+
+const jobs = await smartRetryClient.jobs.listJobs();
+console.log(`✅ Got ${jobs.data.objects.length} jobs (smart retry)`);
+```
+
+### Method-Specific Retry
+
+```typescript
+// Different retry behavior for read vs write operations
+const readClient = new Tsonik({
+  appId: process.env.ICONIK_APP_ID!,
+  authToken: process.env.ICONIK_AUTH_TOKEN!,
+  retry: {
+    attempts: 5,
+    retryOnMethods: ['GET', 'HEAD', 'OPTIONS'], // Only safe methods
+    maxDelay: 30000,
+  },
+});
+
+const writeClient = new Tsonik({
+  appId: process.env.ICONIK_APP_ID!,
+  authToken: process.env.ICONIK_AUTH_TOKEN!,
+  retry: {
+    attempts: 2, // Fewer attempts for write operations
+    retryOnMethods: ['GET', 'HEAD', 'OPTIONS', 'POST', 'PUT', 'PATCH'],
+    retryOnStatus: [500, 502, 503, 504], // Only server errors
+    maxDelay: 5000, // Shorter delays
+  },
+});
+
+// Read operations with aggressive retry
+const assets = await readClient.assets.listAssets();
+console.log(`✅ Read ${assets.data.objects.length} assets with aggressive retry`);
+
+// Write operations with conservative retry
+const newAsset = await writeClient.assets.createAsset({
+  title: 'Test Asset',
+  type: 'ASSET',
+});
+console.log(`✅ Created asset: ${newAsset.data.id}`);
 ```
 
 ## 📄 Pagination
