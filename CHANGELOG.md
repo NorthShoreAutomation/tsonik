@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/NorthShoreAutomation/tsonik/compare/v1.7.0...v1.8.0) (2025-07-16)
+
+
+### Features
+
+* add comprehensive p-retry integration with intelligent defaults and documentation ([dbb1f3f](https://github.com/NorthShoreAutomation/tsonik/commit/dbb1f3f4f8b2ffb9ad54fea00f9efdd87c58cb9b))
+
 # [1.7.0](https://github.com/NorthShoreAutomation/tsonik/compare/v1.6.0...v1.7.0) (2025-07-15)
 
 
