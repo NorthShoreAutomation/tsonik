@@ -3312,7 +3312,7 @@ describe('IconikClient Resources', () => {
 
       // Assertions
       expect(mockAxiosInstance.get).toHaveBeenCalledWith(
-        '/v1/assets/asset-456/formats/',
+        '/API/files/v1/assets/asset-456/formats/',
         undefined
       );
       expect(result.data).toEqual(mockFormats);
@@ -3366,7 +3366,7 @@ describe('IconikClient Resources', () => {
 
       // Assertions
       expect(mockAxiosInstance.get).toHaveBeenCalledWith(
-        '/v1/assets/asset-789/formats/',
+        '/API/files/v1/assets/asset-789/formats/',
         { params: { per_page: 2, last_id: 'format-678' } }
       );
       expect(result.data).toEqual(mockFormats);
@@ -3420,7 +3420,7 @@ describe('IconikClient Resources', () => {
 
       // Assertions
       expect(mockAxiosInstance.get).toHaveBeenCalledWith(
-        '/v1/assets/asset-100/formats/',
+        '/API/files/v1/assets/asset-100/formats/',
         { params: { include_all_versions: true } }
       );
       expect(result.data).toEqual(mockFormats);
@@ -3499,7 +3499,7 @@ describe('IconikClient Resources', () => {
 
       // Assertions
       expect(mockAxiosInstance.get).toHaveBeenCalledWith(
-        '/v1/assets/asset-200/formats/',
+        '/API/files/v1/assets/asset-200/formats/',
         {
           params: {
             per_page: 1,
@@ -3534,7 +3534,7 @@ describe('IconikClient Resources', () => {
 
       // Assertions
       expect(mockAxiosInstance.get).toHaveBeenCalledWith(
-        '/v1/assets/asset-empty/formats/',
+        '/API/files/v1/assets/asset-empty/formats/',
         undefined
       );
       expect(result.data).toEqual(mockEmptyFormats);
@@ -3760,7 +3760,7 @@ describe('IconikClient Resources', () => {
 
       // Assertions
       expect(mockAxiosInstance.post).toHaveBeenCalledWith(
-        '/v1/assets/asset-create/formats/',
+        '/API/files/v1/assets/asset-create/formats/',
         createData,
         undefined
       );
@@ -3802,7 +3802,7 @@ describe('IconikClient Resources', () => {
 
       // Assertions
       expect(mockAxiosInstance.post).toHaveBeenCalledWith(
-        '/v1/assets/asset-minimal/formats/',
+        '/API/files/v1/assets/asset-minimal/formats/',
         createData,
         undefined
       );
@@ -4058,7 +4058,7 @@ describe('IconikClient Resources', () => {
 
       // Assertions
       expect(mockAxiosInstance.get).toHaveBeenCalledWith(
-        '/v1/assets/asset-specific/formats/format-specific-123/',
+        '/API/files/v1/assets/asset-specific/formats/format-specific-123/',
         undefined
       );
       expect(result.data).toEqual(mockFormat);
@@ -4275,7 +4275,7 @@ describe('IconikClient Resources', () => {
 
       // Assertions
       expect(mockAxiosInstance.patch).toHaveBeenCalledWith(
-        '/v1/assets/asset-update/formats/format-update-123/',
+        '/API/files/v1/assets/asset-update/formats/format-update-123/',
         updateData,
         undefined
       );
@@ -4615,7 +4615,7 @@ describe('IconikClient Resources', () => {
 
       // Assertions
       expect(mockAxiosInstance.put).toHaveBeenCalledWith(
-        '/v1/assets/asset-replace/formats/format-replace-123/',
+        '/API/files/v1/assets/asset-replace/formats/format-replace-123/',
         replaceData,
         undefined
       );
