@@ -10,211 +10,92 @@ import { setupTestData, cleanupTestData,  TestData } from './test-utils';
 describe('FormatResource Integration Tests', () => {
   let testData: TestData;
 
-  // Setup test environment with real test data
+  // Setup test environment with existing asset data
   beforeAll(async () => {
     testData = await setupTestData('Format Integration Test Asset');
   }, 30000);
 
   afterAll(async () => {
-    await cleanupTestData(testData);
+    if (testData) {
+      await cleanupTestData(testData);
+    }
   });
 
   describe('get asset formats', () => {
     it('should handle API response for getting asset formats', async () => {
-      try {
-        // Call the API to get formats
-        const response = await testData.client.formats.getAssetFormats(testData.testAssetId);
+      // Call the API to get formats
+      const response = await testData.client.formats.getAssetFormats(testData.testAssetId);
+      
+      // Verify structure of response
+      expect(response.status).toBe(200);
+      expect(response.data).toHaveProperty('objects');
+      expect(Array.isArray(response.data.objects)).toBe(true);
+      
+      // Even if there are no formats, the API should return an empty array
+      if (response.data.objects.length > 0) {
+        const firstFormat = response.data.objects[0];
+        expect(firstFormat).toHaveProperty('id');
+        expect(firstFormat).toHaveProperty('asset_id');
+        expect(firstFormat.asset_id).toBe(testData.testAssetId);
         
-        // If API endpoint is available, verify structure of response
-        expect(response.status).toEqual(200);
-        expect(response.data).toHaveProperty('objects');
-        expect(Array.isArray(response.data.objects)).toBe(true);
-        
-        // Even if there are no formats, the API should return an empty array
-        if (response.data.objects.length > 0) {
-          const firstFormat = response.data.objects[0];
-          expect(firstFormat).toHaveProperty('id');
-          expect(firstFormat).toHaveProperty('asset_id');
-          expect(firstFormat.asset_id).toBe(testData.testAssetId);
-          
-          // Verify format structure
-          expect(typeof firstFormat.id).toBe('string');
-          if (firstFormat.name) expect(typeof firstFormat.name).toBe('string');
-          if (firstFormat.status) expect(['ACTIVE', 'DELETED', 'ARCHIVED']).toContain(firstFormat.status);
-          if (firstFormat.archive_status) expect(['NOT_ARCHIVED', 'ARCHIVED', 'ARCHIVING', 'RESTORING']).toContain(firstFormat.archive_status);
-          if (firstFormat.is_online !== undefined) expect(typeof firstFormat.is_online).toBe('boolean');
-          if (firstFormat.components) expect(Array.isArray(firstFormat.components)).toBe(true);
-          if (firstFormat.storage_methods) expect(Array.isArray(firstFormat.storage_methods)).toBe(true);
-        }
-      } catch (error: unknown) {
-        // If API endpoint is not available, we should get an error (HTML response indicates wrong endpoint)
-        // Type guard to safely access error properties
-        // Create a type guard for API errors
-        type ApiError = {
-          statusCode?: number;
-          response?: { status?: number };
-          status?: number;
-        };
-        
-        // Check if error has the expected API error shape
-        const isApiError = (err: unknown): err is ApiError => {
-          return typeof err === 'object' && err !== null && (
-            'statusCode' in err || 
-            ('response' in err && typeof err.response === 'object' && err.response !== null && 'status' in err.response) ||
-            'status' in err
-          );
-        };
-        
-        if (isApiError(error)) {
-          // Now TypeScript knows this is an ApiError
-          const statusCode = error.statusCode ?? error.response?.status ?? error.status;
-          // If we get an error without a status code, it's still a valid error (e.g., parsing error from HTML response)
-          expect(statusCode ?? 500).toBeGreaterThanOrEqual(400);
-        } else {
-          // If it's not an API error, it's still a valid test case (e.g., parsing error)
-          expect(true).toBe(true); // Test passes
-        }
+        // Verify format structure
+        expect(typeof firstFormat.id).toBe('string');
+        if (firstFormat.name) expect(typeof firstFormat.name).toBe('string');
+        if (firstFormat.status) expect(['ACTIVE', 'DELETED', 'ARCHIVED']).toContain(firstFormat.status);
+        if (firstFormat.archive_status) expect(['NOT_ARCHIVED', 'ARCHIVED', 'ARCHIVING', 'RESTORING']).toContain(firstFormat.archive_status);
+        if (firstFormat.is_online !== undefined) expect(typeof firstFormat.is_online).toBe('boolean');
+        if (firstFormat.components) expect(Array.isArray(firstFormat.components)).toBe(true);
+        if (firstFormat.storage_methods) expect(Array.isArray(firstFormat.storage_methods)).toBe(true);
       }
     }, 30000);
 
     it('should handle API response for getting formats with pagination', async () => {
-      try {
-        // Call the API with pagination parameters
-        const response = await testData.client.formats.getAssetFormats(testData.testAssetId, {
-          per_page: 5
-        });
-        
-        // If API endpoint is available, verify structure of response
-        expect(response.status).toEqual(200);
-        expect(response.data).toHaveProperty('objects');
-        // Note: per_page may not be returned if no pagination is needed
-        if (response.data.per_page !== undefined) {
-          expect(response.data.per_page).toEqual(5);
-        }
-      } catch (error: unknown) {
-        // If API endpoint is not available, we should get an error
-        // Type guard to safely access error properties
-        // Create a type guard for API errors
-        type ApiError = {
-          statusCode?: number;
-          response?: { status?: number };
-          status?: number;
-        };
-        
-        // Check if error has the expected API error shape
-        const isApiError = (err: unknown): err is ApiError => {
-          return typeof err === 'object' && err !== null && (
-            'statusCode' in err || 
-            ('response' in err && typeof err.response === 'object' && err.response !== null && 'status' in err.response) ||
-            'status' in err
-          );
-        };
-        
-        if (isApiError(error)) {
-          // Now TypeScript knows this is an ApiError
-          const statusCode = error.statusCode ?? error.response?.status ?? error.status;
-          // If we get an error without a status code, it's still a valid error (e.g., parsing error from HTML response)
-          expect(statusCode ?? 500).toBeGreaterThanOrEqual(400);
-        } else {
-          // If it's not an API error, it's still a valid test case (e.g., parsing error)
-          expect(true).toBe(true); // Test passes
-        }
+      // Call the API with pagination parameters
+      const response = await testData.client.formats.getAssetFormats(testData.testAssetId, {
+        per_page: 5
+      });
+      
+      // Verify structure of response
+      expect(response.status).toEqual(200);
+      expect(response.data).toHaveProperty('objects');
+      // Note: per_page may not be returned if no pagination is needed
+      if (response.data.per_page !== undefined) {
+        expect(response.data.per_page).toEqual(5);
       }
     }, 30000);
     
     it('should handle API response for getting formats with include_all_versions', async () => {
-      try {
-        // Call the API with include_all_versions parameter
-        const response = await testData.client.formats.getAssetFormats(testData.testAssetId, {
-          include_all_versions: true
-        });
-        
-        // If API endpoint is available, verify structure of response
-        expect(response.status).toEqual(200);
-        expect(response.data).toHaveProperty('objects');
-        
-        // Check if version information is included
-        if (response.data.objects.length > 0) {
-          const formatWithVersion = response.data.objects.find(format => format.version_id);
-          if (formatWithVersion) {
-            expect(formatWithVersion.version_id).toBeTruthy();
-            expect(typeof formatWithVersion.version_id).toBe('string');
-          }
-        }
-      } catch (error: unknown) {
-        // If API endpoint is not available, we should get an error
-        // Type guard to safely access error properties
-        // Create a type guard for API errors
-        type ApiError = {
-          statusCode?: number;
-          response?: { status?: number };
-          status?: number;
-        };
-        
-        // Check if error has the expected API error shape
-        const isApiError = (err: unknown): err is ApiError => {
-          return typeof err === 'object' && err !== null && (
-            'statusCode' in err || 
-            ('response' in err && typeof err.response === 'object' && err.response !== null && 'status' in err.response) ||
-            'status' in err
-          );
-        };
-        
-        if (isApiError(error)) {
-          // Now TypeScript knows this is an ApiError
-          const statusCode = error.statusCode ?? error.response?.status ?? error.status;
-          // If we get an error without a status code, it's still a valid error (e.g., parsing error from HTML response)
-          expect(statusCode ?? 500).toBeGreaterThanOrEqual(400);
-        } else {
-          // If it's not an API error, it's still a valid test case (e.g., parsing error)
-          expect(true).toBe(true); // Test passes
+      // Call the API with include_all_versions parameter
+      const response = await testData.client.formats.getAssetFormats(testData.testAssetId, {
+        include_all_versions: true
+      });
+      
+      // Verify structure of response
+      expect(response.status).toEqual(200);
+      expect(response.data).toHaveProperty('objects');
+      // Check if version information is included
+      if (response.data.objects.length > 0) {
+        const formatWithVersion = response.data.objects.find(format => format.version_id);
+        if (formatWithVersion) {
+          expect(formatWithVersion.version_id).toBeTruthy();
+          expect(typeof formatWithVersion.version_id).toBe('string');
         }
       }
     }, 30000);
 
     it('should handle API response for getting formats with all parameters', async () => {
-      try {
-        // Call the API with all parameters
-        const response = await testData.client.formats.getAssetFormats(testData.testAssetId, {
-          per_page: 3,
-          include_all_versions: true
-        });
-        
-        // If API endpoint is available, verify structure of response
-        expect(response.status).toEqual(200);
-        expect(response.data).toHaveProperty('objects');
-        // Note: per_page may not be returned if no pagination is needed
-        if (response.data.per_page !== undefined) {
-          expect(response.data.per_page).toEqual(3);
-        }
-      } catch (error: unknown) {
-        // If API endpoint is not available, we should get an error
-        // Type guard to safely access error properties
-        // Create a type guard for API errors
-        type ApiError = {
-          statusCode?: number;
-          response?: { status?: number };
-          status?: number;
-        };
-        
-        // Check if error has the expected API error shape
-        const isApiError = (err: unknown): err is ApiError => {
-          return typeof err === 'object' && err !== null && (
-            'statusCode' in err || 
-            ('response' in err && typeof err.response === 'object' && err.response !== null && 'status' in err.response) ||
-            'status' in err
-          );
-        };
-        
-        if (isApiError(error)) {
-          // Now TypeScript knows this is an ApiError
-          const statusCode = error.statusCode ?? error.response?.status ?? error.status;
-          // If we get an error without a status code, it's still a valid error (e.g., parsing error from HTML response)
-          expect(statusCode ?? 500).toBeGreaterThanOrEqual(400);
-        } else {
-          // If it's not an API error, it's still a valid test case (e.g., parsing error)
-          expect(true).toBe(true); // Test passes
-        }
+      // Call the API with all parameters
+      const response = await testData.client.formats.getAssetFormats(testData.testAssetId, {
+        per_page: 3,
+        include_all_versions: true
+      });
+      
+      // Verify structure of response
+      expect(response.status).toEqual(200);
+      expect(response.data).toHaveProperty('objects');
+      // Note: per_page may not be returned if no pagination is needed
+      if (response.data.per_page !== undefined) {
+        expect(response.data.per_page).toEqual(3);
       }
     }, 30000);
 
@@ -227,32 +108,8 @@ describe('FormatResource Integration Tests', () => {
         fail('Expected error was not thrown');
       } catch (error: unknown) {
         // Can be 400 (bad request), 404 (not found), or any error depending on validation
-        // Type guard to safely access error properties
-        // Create a type guard for API errors
-        type ApiError = {
-          statusCode?: number;
-          response?: { status?: number };
-          status?: number;
-        };
-        
-        // Check if error has the expected API error shape
-        const isApiError = (err: unknown): err is ApiError => {
-          return typeof err === 'object' && err !== null && (
-            'statusCode' in err || 
-            ('response' in err && typeof err.response === 'object' && err.response !== null && 'status' in err.response) ||
-            'status' in err
-          );
-        };
-        
-        if (isApiError(error)) {
-          // Now TypeScript knows this is an ApiError
-          const statusCode = error.statusCode ?? error.response?.status ?? error.status;
-          // If we get an error without a status code, it's still a valid error
-          expect(statusCode ?? 500).toBeGreaterThanOrEqual(400);
-        } else {
-          // If it's not an API error, it's still a valid test case (e.g., parsing error)
-          expect(true).toBe(true); // Test passes
-        }
+        const statusCode = (typeof error === 'object' && error !== null && 'statusCode' in error ? error.statusCode : undefined) || (typeof error === 'object' && error !== null && 'response' in error && typeof error.response === 'object' && error.response !== null && 'status' in error.response ? error.response.status : undefined) || (typeof error === 'object' && error !== null && 'status' in error ? error.status : undefined);
+        expect(statusCode).toBeGreaterThanOrEqual(400);
       }
     }, 30000);
 
@@ -339,32 +196,8 @@ describe('FormatResource Integration Tests', () => {
         // Note: This test may succeed or fail depending on API availability
       } catch (error: unknown) {
         // Should get an API error - could be 405 (method not allowed) or other
-        // Type guard to safely access error properties
-        // Create a type guard for API errors
-        type ApiError = {
-          statusCode?: number;
-          response?: { status?: number };
-          status?: number;
-        };
-        
-        // Check if error has the expected API error shape
-        const isApiError = (err: unknown): err is ApiError => {
-          return typeof err === 'object' && err !== null && (
-            'statusCode' in err || 
-            ('response' in err && typeof err.response === 'object' && err.response !== null && 'status' in err.response) ||
-            'status' in err
-          );
-        };
-        
-        if (isApiError(error)) {
-          // Now TypeScript knows this is an ApiError
-          const statusCode = error.statusCode ?? error.response?.status ?? error.status;
-          // If we get an error without a status code, it's still a valid error (e.g., parsing error from HTML response)
-          expect(statusCode ?? 500).toBeGreaterThanOrEqual(400);
-        } else {
-          // If it's not an API error, it's still a valid test case (e.g., parsing error)
-          expect(true).toBe(true); // Test passes
-        }
+        const statusCode = (typeof error === 'object' && error !== null && 'statusCode' in error ? error.statusCode : undefined) || (typeof error === 'object' && error !== null && 'response' in error && typeof error.response === 'object' && error.response !== null && 'status' in error.response ? error.response.status : undefined) || (typeof error === 'object' && error !== null && 'status' in error ? error.status : undefined);
+        expect(statusCode).toBeGreaterThanOrEqual(400);
       }
     }, 30000);
 
@@ -380,30 +213,8 @@ describe('FormatResource Integration Tests', () => {
         fail('Expected error was not thrown');
       } catch (error: unknown) {
         // Can be 400 (validation), 404 (not found), or 405 (method not allowed)
-        // Type guard to safely access error properties
-        // Create a type guard for API errors
-        type ApiError = {
-          statusCode?: number;
-          response?: { status?: number };
-          status?: number;
-        };
-        
-        // Check if error has the expected API error shape
-        const isApiError = (err: unknown): err is ApiError => {
-          return typeof err === 'object' && err !== null && (
-            'statusCode' in err || 
-            ('response' in err && typeof err.response === 'object' && err.response !== null && 'status' in err.response) ||
-            'status' in err
-          );
-        };
-        
-        if (isApiError(error)) {
-          // Now TypeScript knows this is an ApiError
-          const statusCode = error.statusCode ?? error.response?.status ?? error.status;
-          expect([400, 404, 405]).toContain(statusCode);
-        } else {
-          fail('Expected an API error with status code');
-        }
+        const statusCode = (typeof error === 'object' && error !== null && 'statusCode' in error ? error.statusCode : undefined) || (typeof error === 'object' && error !== null && 'response' in error && typeof error.response === 'object' && error.response !== null && 'status' in error.response ? error.response.status : undefined) || (typeof error === 'object' && error !== null && 'status' in error ? error.status : undefined);
+        expect([400, 404, 405]).toContain(statusCode);
       }
     }, 30000);
   });
@@ -473,32 +284,8 @@ describe('FormatResource Integration Tests', () => {
         fail('Expected error was not thrown');
       } catch (error: unknown) {
         // Can be 400 (bad request), 404 (not found), 405 (method not allowed), or any 4xx/5xx error
-        // Type guard to safely access error properties
-        // Create a type guard for API errors
-        type ApiError = {
-          statusCode?: number;
-          response?: { status?: number };
-          status?: number;
-        };
-        
-        // Check if error has the expected API error shape
-        const isApiError = (err: unknown): err is ApiError => {
-          return typeof err === 'object' && err !== null && (
-            'statusCode' in err || 
-            ('response' in err && typeof err.response === 'object' && err.response !== null && 'status' in err.response) ||
-            'status' in err
-          );
-        };
-        
-        if (isApiError(error)) {
-          // Now TypeScript knows this is an ApiError
-          const statusCode = error.statusCode ?? error.response?.status ?? error.status;
-          // If we get an error without a status code, it's still a valid error (e.g., parsing error from HTML response)
-          expect(statusCode ?? 500).toBeGreaterThanOrEqual(400);
-        } else {
-          // If it's not an API error, it's still a valid test case (e.g., parsing error)
-          expect(true).toBe(true); // Test passes
-        }
+        const statusCode = (typeof error === 'object' && error !== null && 'statusCode' in error ? error.statusCode : undefined) || (typeof error === 'object' && error !== null && 'response' in error && typeof error.response === 'object' && error.response !== null && 'status' in error.response ? error.response.status : undefined) || (typeof error === 'object' && error !== null && 'status' in error ? error.status : undefined);
+        expect(statusCode).toBeGreaterThanOrEqual(400);
       }
     }, 30000);
 
@@ -511,32 +298,8 @@ describe('FormatResource Integration Tests', () => {
         fail('Expected error was not thrown');
       } catch (error: unknown) {
         // Can be 400 (bad request), 404 (not found), 405 (method not allowed), or any 4xx/5xx error
-        // Type guard to safely access error properties
-        // Create a type guard for API errors
-        type ApiError = {
-          statusCode?: number;
-          response?: { status?: number };
-          status?: number;
-        };
-        
-        // Check if error has the expected API error shape
-        const isApiError = (err: unknown): err is ApiError => {
-          return typeof err === 'object' && err !== null && (
-            'statusCode' in err || 
-            ('response' in err && typeof err.response === 'object' && err.response !== null && 'status' in err.response) ||
-            'status' in err
-          );
-        };
-        
-        if (isApiError(error)) {
-          // Now TypeScript knows this is an ApiError
-          const statusCode = error.statusCode ?? error.response?.status ?? error.status;
-          // If we get an error without a status code, it's still a valid error (e.g., parsing error from HTML response)
-          expect(statusCode ?? 500).toBeGreaterThanOrEqual(400);
-        } else {
-          // If it's not an API error, it's still a valid test case (e.g., parsing error)
-          expect(true).toBe(true); // Test passes
-        }
+        const statusCode = (typeof error === 'object' && error !== null && 'statusCode' in error ? error.statusCode : undefined) || (typeof error === 'object' && error !== null && 'response' in error && typeof error.response === 'object' && error.response !== null && 'status' in error.response ? error.response.status : undefined) || (typeof error === 'object' && error !== null && 'status' in error ? error.status : undefined);
+        expect(statusCode).toBeGreaterThanOrEqual(400);
       }
     }, 30000);
   });
@@ -625,30 +388,8 @@ describe('FormatResource Integration Tests', () => {
         fail('Expected error was not thrown');
       } catch (error: unknown) {
         // Can be 400 (bad request), 404 (not found), or 405 (method not allowed)
-        // Type guard to safely access error properties
-        // Create a type guard for API errors
-        type ApiError = {
-          statusCode?: number;
-          response?: { status?: number };
-          status?: number;
-        };
-        
-        // Check if error has the expected API error shape
-        const isApiError = (err: unknown): err is ApiError => {
-          return typeof err === 'object' && err !== null && (
-            'statusCode' in err || 
-            ('response' in err && typeof err.response === 'object' && err.response !== null && 'status' in err.response) ||
-            'status' in err
-          );
-        };
-        
-        if (isApiError(error)) {
-          // Now TypeScript knows this is an ApiError
-          const statusCode = error.statusCode ?? error.response?.status ?? error.status;
-          expect([400, 404, 405]).toContain(statusCode);
-        } else {
-          fail('Expected an API error with status code');
-        }
+        const statusCode = (typeof error === 'object' && error !== null && 'statusCode' in error ? error.statusCode : undefined) || (typeof error === 'object' && error !== null && 'response' in error && typeof error.response === 'object' && error.response !== null && 'status' in error.response ? error.response.status : undefined) || (typeof error === 'object' && error !== null && 'status' in error ? error.status : undefined);
+        expect([400, 404, 405]).toContain(statusCode);
       }
     }, 30000);
 
@@ -663,30 +404,8 @@ describe('FormatResource Integration Tests', () => {
         fail('Expected error was not thrown');
       } catch (error: unknown) {
         // Can be 400 (bad request), 404 (not found), or 405 (method not allowed)
-        // Type guard to safely access error properties
-        // Create a type guard for API errors
-        type ApiError = {
-          statusCode?: number;
-          response?: { status?: number };
-          status?: number;
-        };
-        
-        // Check if error has the expected API error shape
-        const isApiError = (err: unknown): err is ApiError => {
-          return typeof err === 'object' && err !== null && (
-            'statusCode' in err || 
-            ('response' in err && typeof err.response === 'object' && err.response !== null && 'status' in err.response) ||
-            'status' in err
-          );
-        };
-        
-        if (isApiError(error)) {
-          // Now TypeScript knows this is an ApiError
-          const statusCode = error.statusCode ?? error.response?.status ?? error.status;
-          expect([400, 404, 405]).toContain(statusCode);
-        } else {
-          fail('Expected an API error with status code');
-        }
+        const statusCode = (typeof error === 'object' && error !== null && 'statusCode' in error ? error.statusCode : undefined) || (typeof error === 'object' && error !== null && 'response' in error && typeof error.response === 'object' && error.response !== null && 'status' in error.response ? error.response.status : undefined) || (typeof error === 'object' && error !== null && 'status' in error ? error.status : undefined);
+        expect([400, 404, 405]).toContain(statusCode);
       }
     }, 30000);
   });
@@ -775,30 +494,8 @@ describe('FormatResource Integration Tests', () => {
         fail('Expected error was not thrown');
       } catch (error: unknown) {
         // Can be 400 (bad request), 404 (not found), or 405 (method not allowed)
-        // Type guard to safely access error properties
-        // Create a type guard for API errors
-        type ApiError = {
-          statusCode?: number;
-          response?: { status?: number };
-          status?: number;
-        };
-        
-        // Check if error has the expected API error shape
-        const isApiError = (err: unknown): err is ApiError => {
-          return typeof err === 'object' && err !== null && (
-            'statusCode' in err || 
-            ('response' in err && typeof err.response === 'object' && err.response !== null && 'status' in err.response) ||
-            'status' in err
-          );
-        };
-        
-        if (isApiError(error)) {
-          // Now TypeScript knows this is an ApiError
-          const statusCode = error.statusCode ?? error.response?.status ?? error.status;
-          expect([400, 404, 405]).toContain(statusCode);
-        } else {
-          fail('Expected an API error with status code');
-        }
+        const statusCode = (typeof error === 'object' && error !== null && 'statusCode' in error ? error.statusCode : undefined) || (typeof error === 'object' && error !== null && 'response' in error && typeof error.response === 'object' && error.response !== null && 'status' in error.response ? error.response.status : undefined) || (typeof error === 'object' && error !== null && 'status' in error ? error.status : undefined);
+        expect([400, 404, 405]).toContain(statusCode);
       }
     }, 30000);
 
@@ -813,30 +510,8 @@ describe('FormatResource Integration Tests', () => {
         fail('Expected error was not thrown');
       } catch (error: unknown) {
         // Can be 400 (bad request), 404 (not found), or 405 (method not allowed)
-        // Type guard to safely access error properties
-        // Create a type guard for API errors
-        type ApiError = {
-          statusCode?: number;
-          response?: { status?: number };
-          status?: number;
-        };
-        
-        // Check if error has the expected API error shape
-        const isApiError = (err: unknown): err is ApiError => {
-          return typeof err === 'object' && err !== null && (
-            'statusCode' in err || 
-            ('response' in err && typeof err.response === 'object' && err.response !== null && 'status' in err.response) ||
-            'status' in err
-          );
-        };
-        
-        if (isApiError(error)) {
-          // Now TypeScript knows this is an ApiError
-          const statusCode = error.statusCode ?? error.response?.status ?? error.status;
-          expect([400, 404, 405]).toContain(statusCode);
-        } else {
-          fail('Expected an API error with status code');
-        }
+        const statusCode = (typeof error === 'object' && error !== null && 'statusCode' in error ? error.statusCode : undefined) || (typeof error === 'object' && error !== null && 'response' in error && typeof error.response === 'object' && error.response !== null && 'status' in error.response ? error.response.status : undefined) || (typeof error === 'object' && error !== null && 'status' in error ? error.status : undefined);
+        expect([400, 404, 405]).toContain(statusCode);
       }
     }, 30000);
   });
@@ -852,41 +527,11 @@ describe('FormatResource Integration Tests', () => {
     });
 
     it('should handle basic HTTP method calls correctly', async () => {
-      try {
-        // Test that the resource can make basic API calls without errors
-        const response = await testData.client.formats.getAssetFormats(testData.testAssetId);
-        expect(response).toHaveProperty('status');
-        expect(response).toHaveProperty('data');
-        expect(response.status).toBe(200);
-      } catch (error: unknown) {
-        // If API endpoint is not available, we should get an error response
-        // Type guard to safely access error properties
-        // Create a type guard for API errors
-        type ApiError = {
-          statusCode?: number;
-          response?: { status?: number };
-          status?: number;
-        };
-        
-        // Check if error has the expected API error shape
-        const isApiError = (err: unknown): err is ApiError => {
-          return typeof err === 'object' && err !== null && (
-            'statusCode' in err || 
-            ('response' in err && typeof err.response === 'object' && err.response !== null && 'status' in err.response) ||
-            'status' in err
-          );
-        };
-        
-        if (isApiError(error)) {
-          // Now TypeScript knows this is an ApiError
-          const statusCode = error.statusCode ?? error.response?.status ?? error.status;
-          // If we get an error without a status code, it's still a valid error (e.g., parsing error from HTML response)
-          expect(statusCode ?? 500).toBeGreaterThanOrEqual(400);
-        } else {
-          // If it's not an API error, it's still a valid test case (e.g., parsing error)
-          expect(true).toBe(true); // Test passes
-        }
-      }
+      // Test that the resource can make basic API calls without errors
+      const response = await testData.client.formats.getAssetFormats(testData.testAssetId);
+      expect(response).toHaveProperty('status');
+      expect(response).toHaveProperty('data');
+      expect(response.status).toBe(200);
     }, 30000);
   });
 });
