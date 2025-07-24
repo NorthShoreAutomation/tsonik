@@ -9,7 +9,7 @@ import { cleanParams } from '../utils';
  */
 export class FormatResource extends BaseResource {
   constructor(client: Tsonik) {
-    super(client, '/v1');
+    super(client, '/API/files/v1/');
   }
 
   /**
