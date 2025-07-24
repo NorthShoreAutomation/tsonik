@@ -1,3 +1,10 @@
+## [1.8.1](https://github.com/NorthShoreAutomation/tsonik/compare/v1.8.0...v1.8.1) (2025-07-24)
+
+
+### Bug Fixes
+
+* format resource url, formats.integration.test.ts ([ef778f0](https://github.com/NorthShoreAutomation/tsonik/commit/ef778f0e6978399c02bac859d8a65ddea1a38aa6))
+
 # [1.8.0](https://github.com/NorthShoreAutomation/tsonik/compare/v1.7.0...v1.8.0) (2025-07-16)
 
 
