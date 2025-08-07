@@ -35,15 +35,15 @@ export interface AssetFileSetsListParams {
 }
 
 export interface CreateFileSetRequest {
+  base_dir: string;
+  component_ids: string[];
+  format_id: string;
+  name: string;
   archive_file_set_id?: string;
-  base_dir?: string;
-  component_ids?: string[];
   date_deleted?: string;
   file_dir?: string;
-  format_id?: string;
   is_archive?: boolean;
   metadata?: Record<string, string | number | boolean | object>[];
-  name?: string;
   original_storage_id?: string;
   status?: FileSetStatus;
   storage_id?: string;

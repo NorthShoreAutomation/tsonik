@@ -1,6 +1,6 @@
 import { Tsonik } from '../client';
 import { IconikConfig } from '../config';
-import { Asset } from '../types';
+import { Asset, ArchiveStatus } from '../types';
 
 /**
  * Integration tests for AssetResource
@@ -123,6 +123,17 @@ describe('AssetResource Integration Tests', () => {
       expect(response.data).toBeDefined();
       expect(response.data.id).toBe(testAssetId);
       expect(response.data.title).toBe(updateData.title);
+    }, 10000);
+
+    it('should patch an asset', async () => {
+      const patchData = {
+        archive_status: 'ARCHIVED' as ArchiveStatus
+      };
+      const response = await client.assets.patchAsset(testAssetId, patchData);
+      expect(response.status).toBe(200);
+      expect(response.data).toBeDefined();
+      expect(response.data.id).toBe(testAssetId);
+      expect(response.data.archive_status).toBe(patchData.archive_status);
     }, 10000);
 
     it('should list assets with pagination', async () => {

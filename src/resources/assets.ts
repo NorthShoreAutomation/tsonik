@@ -43,6 +43,13 @@ export class AssetResource extends BaseResource {
   }
 
   /**
+   * Patch an asset with partial data
+   */
+  async patchAsset(id: string, assetData: Partial<Asset>): Promise<ApiResponse<Asset>> {
+    return super.patch<Asset>(id, assetData);
+  }
+
+  /**
    * Delete an asset
    */
   async deleteAsset(id: string): Promise<ApiResponse<void>> {

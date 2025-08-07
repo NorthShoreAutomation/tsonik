@@ -2346,6 +2346,10 @@ describe('IconikClient Resources', () => {
       // Setup mock response for minimal fileset creation
       const createData: CreateFileSetRequest = {
         storage_id: 'storage-minimal',
+        base_dir: '/test/files',
+        component_ids: ['component-1'],
+        format_id: 'format-1',
+        name: 'Minimal Fileset'
       };
 
       const mockMinimalFileset: FileSet = {
@@ -2387,6 +2391,9 @@ describe('IconikClient Resources', () => {
         is_archive: true,
         archive_file_set_id: 'original-fileset-123',
         original_storage_id: 'original-storage',
+        base_dir: '/test/archive',
+        component_ids: ['component-1'],
+        format_id: 'format-1'
       };
 
       const mockArchiveFileset: FileSet = {
@@ -2423,6 +2430,10 @@ describe('IconikClient Resources', () => {
     it('should validate asset ID is required for createAssetFileset', async () => {
       const createData: CreateFileSetRequest = {
         storage_id: 'storage-test',
+        base_dir: '/test/files',
+        component_ids: ['component-1'],
+        format_id: 'format-1',
+        name: 'Test Fileset'
       };
 
       await expect(
@@ -2433,6 +2444,10 @@ describe('IconikClient Resources', () => {
     it('should validate asset ID is not just whitespace for createAssetFileset', async () => {
       const createData: CreateFileSetRequest = {
         storage_id: 'storage-test',
+        base_dir: '/test/files',
+        component_ids: ['component-1'],
+        format_id: 'format-1',
+        name: 'Test Fileset'
       };
 
       await expect(
@@ -3090,6 +3105,9 @@ describe('IconikClient Resources', () => {
         name: 'minimal.txt',
         type: 'FILE',
         status: 'OPEN',
+        original_name: 'minimal.txt',
+        directory_path: '/test/files',
+        file_set_id: 'fileset-123'
       };
 
       const mockMinimalFile = {
@@ -3133,6 +3151,9 @@ describe('IconikClient Resources', () => {
         type: 'FILE',
         status: 'OPEN',
         storage_id: 'storage-456',
+        original_name: 'upload_file.mp4',
+        directory_path: '/test/uploads',
+        file_set_id: 'fileset-456'
       };
 
       const mockFileWithCredentials = {
@@ -3188,6 +3209,8 @@ describe('IconikClient Resources', () => {
         type: 'DIRECTORY',
         status: 'OPEN',
         directory_path: '/media',
+        original_name: 'uploads',
+        file_set_id: 'fileset-123'
       };
 
       const mockDirectory = {
@@ -3224,6 +3247,9 @@ describe('IconikClient Resources', () => {
         name: 'test.txt',
         type: 'FILE',
         status: 'OPEN',
+        original_name: 'test.txt',
+        directory_path: '/test/files',
+        file_set_id: 'fileset-123'
       };
 
       await expect(
@@ -3236,6 +3262,9 @@ describe('IconikClient Resources', () => {
         name: 'test.txt',
         type: 'FILE',
         status: 'OPEN',
+        original_name: 'test.txt',
+        directory_path: '/test/files',
+        file_set_id: 'fileset-123'
       };
 
       await expect(
