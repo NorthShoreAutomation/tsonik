@@ -198,7 +198,8 @@ describe('FileResource Integration Tests', () => {
         file_set_id: realFilesetData.filesetId,
         format_id: realFilesetData.formatId,
         storage_id: realFilesetData.storageId,
-        size: 1024
+        size: 1024,
+        directory_path: `test/files/${Date.now()}`
       };
       
       try {
@@ -306,7 +307,9 @@ describe('FileResource Integration Tests', () => {
       const invalidFileData: CreateFileRequest = {
         name: `Invalid File ${Date.now()}`,
         type: 'FILE',
-        file_set_id: '00000000-0000-0000-0000-000000000000' // Invalid fileset ID
+        file_set_id: '00000000-0000-0000-0000-000000000000', // Invalid fileset ID
+        original_name: `invalid_file_${Date.now()}.txt`,
+        directory_path: `test/invalid/${Date.now()}`
       };
       
       try {
@@ -329,7 +332,10 @@ describe('FileResource Integration Tests', () => {
     it('should validate asset ID is required for creation', async () => {
       const fileData: CreateFileRequest = {
         name: 'Test File',
-        type: 'FILE'
+        type: 'FILE',
+        original_name: 'test_file.txt',
+        directory_path: 'test/files',
+        file_set_id: '00000000-0000-0000-0000-000000000000' // Invalid fileset ID for testing
       };
       
       try {
@@ -345,7 +351,10 @@ describe('FileResource Integration Tests', () => {
       const nonExistentAssetId = '00000000-0000-0000-0000-000000000000';
       const fileData: CreateFileRequest = {
         name: 'Test File',
-        type: 'FILE'
+        type: 'FILE',
+        original_name: 'test_file.txt',
+        directory_path: 'test/files',
+        file_set_id: '00000000-0000-0000-0000-000000000000' // Invalid fileset ID for testing
       };
       
       try {

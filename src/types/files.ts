@@ -57,20 +57,20 @@ export interface AssetFileParams {
  * Request body for creating a new file for an asset
  */
 export interface CreateFileRequest {
+  directory_path: string;
+  file_set_id: string;
+  original_name: string;
+  type: FileType;
   asset_id?: string;
   checksum?: string;
-  directory_path?: string;
   file_date_created?: string;
   file_date_modified?: string;
-  file_set_id?: string;
   format_id?: string;
   name?: string;
-  original_name?: string;
   parent_id?: string;
   size?: number;
   status?: FileStatus;
   storage_id?: string;
-  type?: FileType;
   user_id?: string;
   version_id?: string;
 }
