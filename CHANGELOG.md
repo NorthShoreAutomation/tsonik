@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/NorthShoreAutomation/tsonik/compare/v1.8.1...v1.9.0) (2025-08-07)
+
+
+### Features
+
+* Adds patch to assets ([3eca23f](https://github.com/NorthShoreAutomation/tsonik/commit/3eca23ff0519e3c5452b5281de461af34308eda4))
+
 ## [1.8.1](https://github.com/NorthShoreAutomation/tsonik/compare/v1.8.0...v1.8.1) (2025-07-24)
 
 
