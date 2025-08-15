@@ -70,6 +70,18 @@ await client.metadata.putMetadata(
     }
   }
 );
+
+// Search for assets
+const searchResults = await client.search.search({
+  query: 'marketing video',
+  size: 10,
+  filter: {
+    terms: {
+      object_type: ['assets']
+    }
+  }
+});
+console.log(`Found ${searchResults.data.hits?.total?.value || 0} matching assets`);
 ```
 
 ## Documentation
@@ -121,13 +133,14 @@ try {
 
 ## Available Resources
 
-- **`client.assets`** - Asset management (create, read, update, delete, search)
+- **`client.assets`** - Asset management (create, read, update, delete)
 - **`client.collections`** - Collection management and asset organization
 - **`client.jobs`** - Job monitoring and management (transcoding, analysis, etc.)
 - **`client.files`** - File operations and metadata
 - **`client.filesets`** - Fileset management
 - **`client.metadata`** - Metadata operations for any object type
 - **`client.formats`** - Format information and management
+- **`client.search`** - Search across assets, collections, and other objects
 
 ## Development
 

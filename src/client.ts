@@ -2,7 +2,7 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { IconikConfig } from './config';
 import { IconikError, IconikAuthError, IconikAPIError } from './errors';
 import { ApiResponse } from './types';
-import { AssetResource, JobResource, CollectionResource, FileSetResource, FileResource, FormatResource, MetadataResource } from './resources';
+import { AssetResource, JobResource, CollectionResource, FileSetResource, FileResource, FormatResource, MetadataResource, SearchResource } from './resources';
 import { createRetryWrapper, mergeRetryConfig, RetryConfig, DEFAULT_RETRY_CONFIG } from './retry';
 
 /**
@@ -21,6 +21,7 @@ export class Tsonik {
   public readonly files: FileResource;
   public readonly formats: FormatResource;
   public readonly metadata: MetadataResource;
+  public readonly search: SearchResource;
 
   constructor(config: IconikConfig) {
     this.config = config;
@@ -100,6 +101,7 @@ export class Tsonik {
     this.files = new FileResource(this);
     this.formats = new FormatResource(this);
     this.metadata = new MetadataResource(this);
+    this.search = new SearchResource(this);
   }
 
   /**
