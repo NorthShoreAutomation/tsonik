@@ -10,3 +10,4 @@ export { FileSetResource } from './filesets';
 export { FileResource } from './files';
 export { FormatResource } from './formats';
 export { MetadataResource } from './metadata';
+export { SearchResource } from './search';

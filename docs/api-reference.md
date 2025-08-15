@@ -458,6 +458,196 @@ await client.metadata.putMetadata(
 
 The formats resource provides access to format information and management.
 
+## Search (`client.search`)
+
+### `search(request)`
+
+Perform a comprehensive search across assets, collections, and other objects using Elasticsearch-powered queries.
+
+**Parameters:**
+```typescript
+interface SearchRequest {
+  query?: SearchQuery | string;     // Search query (string or complex object)
+  size?: number;                    // Number of results to return (default: 10)
+  from?: number;                    // Starting offset for pagination (default: 0)
+  sort?: SortClause[];             // Sort criteria
+  filter?: FilterClause;           // Pre-filter results before query
+  post_filter?: FilterClause;      // Post-filter results after query
+  aggs?: AggregationsClause;       // Aggregations for analytics
+  highlight?: HighlightClause;     // Highlight matching terms
+  _source?: string[] | boolean;    // Fields to include in results
+}
+
+interface SearchQuery {
+  match?: { [field: string]: string | MatchQuery };
+  multi_match?: MultiMatchQuery;
+  term?: { [field: string]: string | number | boolean };
+  terms?: { [field: string]: (string | number | boolean)[] };
+  range?: { [field: string]: RangeQuery };
+  bool?: BoolQuery;
+  query_string?: QueryStringQuery;
+  match_all?: {};
+  exists?: { field: string };
+}
+
+interface SearchResponse {
+  took: number;
+  timed_out: boolean;
+  _shards: {
+    total: number;
+    successful: number;
+    skipped: number;
+    failed: number;
+  };
+  hits: {
+    total: {
+      value: number;
+      relation: string;
+    };
+    max_score?: number;
+    hits: SearchHit[];
+  };
+  aggregations?: AggregationResults;
+}
+
+interface SearchHit {
+  _index: string;
+  _type: string;
+  _id: string;
+  _score?: number;
+  _source?: any;
+  highlight?: { [field: string]: string[] };
+}
+```
+
+**Basic Examples:**
+
+```typescript
+// Simple text search
+const textSearch = await client.search.search({
+  query: "marketing video",
+  size: 20
+});
+
+// Search with filters
+const filteredSearch = await client.search.search({
+  query: "*",
+  size: 50,
+  filter: {
+    terms: {
+      object_type: ["assets"]
+    }
+  }
+});
+
+// Complex boolean search
+const complexSearch = await client.search.search({
+  query: {
+    bool: {
+      must: [
+        {
+          match: {
+            title: "product demo"
+          }
+        }
+      ],
+      filter: [
+        {
+          term: {
+            object_type: "assets"
+          }
+        },
+        {
+          range: {
+            date_created: {
+              gte: "2023-01-01"
+            }
+          }
+        }
+      ]
+    }
+  },
+  size: 25
+});
+
+// Search with aggregations
+const searchWithAggs = await client.search.search({
+  query: "marketing",
+  size: 0,
+  aggs: {
+    object_types: {
+      terms: {
+        field: "object_type",
+        size: 10
+      }
+    }
+  }
+});
+
+// Search with highlighting
+const highlightSearch = await client.search.search({
+  query: {
+    multi_match: {
+      query: "marketing campaign",
+      fields: ["title^2", "description"]
+    }
+  },
+  highlight: {
+    fields: {
+      title: {},
+      description: {}
+    },
+    pre_tags: ["<mark>"],
+    post_tags: ["</mark>"]
+  }
+});
+```
+
+**Advanced Query Types:**
+
+- **Match Query**: Full-text search on a specific field
+- **Multi-Match Query**: Search across multiple fields with field boosting
+- **Term Query**: Exact match on a field value
+- **Range Query**: Search within value ranges (dates, numbers)
+- **Bool Query**: Combine queries with boolean logic (must, should, filter, must_not)
+- **Query String Query**: Lucene-style query syntax
+- **Exists Query**: Find documents where a field exists
+
+**Pagination:**
+
+Use `from` and `size` parameters for pagination:
+
+```typescript
+// Get results 21-40
+const page2 = await client.search.search({
+  query: "video",
+  from: 20,
+  size: 20
+});
+```
+
+**Sorting:**
+
+Sort results by one or more fields:
+
+```typescript
+const sortedResults = await client.search.search({
+  query: "*",
+  sort: [
+    {
+      date_created: {
+        order: "desc"
+      }
+    },
+    {
+      title: {
+        order: "asc"
+      }
+    }
+  ]
+});
+```
+
 ## Low-Level HTTP Methods
 
 The client also provides direct HTTP methods for custom API calls:

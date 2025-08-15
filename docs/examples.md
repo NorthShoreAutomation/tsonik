@@ -12,6 +12,7 @@ Real-world examples of how to use Tsonik for common media asset management tasks
 - [🎬 Assets](#assets) - Create, read, update, delete assets
 - [📁 Collections](#collections) - Organize assets into collections  
 - [⚙️ Jobs](#jobs) - Manage transcoding and processing jobs
+- [🔍 Search](#search) - Search across assets, collections, and other objects
 - [📄 Files](#files) - Work with asset files
 - [📦 FileSets](#filesets) - Manage file collections
 - [🎞️ Formats](#formats) - Handle different media formats
@@ -203,6 +204,245 @@ const editResult = await client.jobs.bulkEdit({
 
 // Bulk delete jobs
 const deleteResult = await client.jobs.bulkDelete(['job-1', 'job-2']);
+```
+
+## 🔍 Search
+
+### Basic Text Search
+
+Search across assets, collections, and other objects using text queries:
+
+```typescript
+const searchResult = await client.search.search({
+  query: "marketing video",
+  size: 20,
+  from: 0
+});
+
+console.log(`Found ${searchResult.data.hits?.total?.value || 0} results`);
+
+// Access search results
+if (searchResult.data.hits?.hits) {
+  for (const hit of searchResult.data.hits.hits) {
+    console.log(`- ${hit._source?.title} (${hit._source?.object_type})`);
+  }
+}
+```
+
+### Search with Filters
+
+Use filters to narrow down search results:
+
+```typescript
+const filteredSearch = await client.search.search({
+  query: "*", // Search all documents
+  size: 50,
+  from: 0,
+  filter: {
+    terms: {
+      object_type: ["assets"]
+    }
+  },
+  post_filter: {
+    range: {
+      date_created: {
+        gte: "2023-01-01",
+        lte: "2023-12-31"
+      }
+    }
+  }
+});
+
+console.log(`Found ${filteredSearch.data.hits?.total?.value || 0} assets from 2023`);
+```
+
+### Search with Aggregations
+
+Use aggregations to get insights about your search results:
+
+```typescript
+const searchWithAggs = await client.search.search({
+  query: "marketing",
+  size: 0, // Only get aggregation results
+  aggs: {
+    object_types: {
+      terms: {
+        field: "object_type",
+        size: 10
+      }
+    },
+    categories: {
+      terms: {
+        field: "category",
+        size: 20
+      }
+    }
+  }
+});
+
+// Access aggregation results
+const objectTypesBuckets = searchWithAggs.data.aggregations?.object_types?.buckets;
+if (objectTypesBuckets) {
+  console.log('Object types in results:');
+  for (const bucket of objectTypesBuckets) {
+    console.log(`- ${bucket.key}: ${bucket.doc_count} items`);
+  }
+}
+```
+
+### Advanced Search with Boolean Queries
+
+Combine multiple search criteria using boolean logic:
+
+```typescript
+const advancedSearch = await client.search.search({
+  query: {
+    bool: {
+      must: [
+        {
+          match: {
+            title: "marketing"
+          }
+        }
+      ],
+      filter: [
+        {
+          term: {
+            object_type: "assets"
+          }
+        },
+        {
+          range: {
+            date_created: {
+              gte: "2023-01-01"
+            }
+          }
+        }
+      ],
+      should: [
+        {
+          match: {
+            description: "campaign"
+          }
+        }
+      ],
+      minimum_should_match: 1
+    }
+  },
+  size: 25
+});
+
+console.log(`Advanced search found ${advancedSearch.data.hits?.total?.value || 0} results`);
+```
+
+### Search with Sorting
+
+Sort search results by specific fields:
+
+```typescript
+const sortedSearch = await client.search.search({
+  query: "video",
+  size: 20,
+  sort: [
+    {
+      date_created: {
+        order: "desc"
+      }
+    },
+    {
+      title: {
+        order: "asc"
+      }
+    }
+  ]
+});
+
+console.log(`Found ${sortedSearch.data.hits?.total?.value || 0} videos, sorted by creation date`);
+```
+
+### Search with Highlighting
+
+Highlight matching terms in search results:
+
+```typescript
+const highlightSearch = await client.search.search({
+  query: {
+    multi_match: {
+      query: "marketing campaign",
+      fields: ["title^2", "description", "tags"]
+    }
+  },
+  size: 10,
+  highlight: {
+    fields: {
+      title: {},
+      description: {},
+      tags: {}
+    },
+    pre_tags: ["<mark>"],
+    post_tags: ["</mark>"]
+  }
+});
+
+// Access highlighted results
+if (highlightSearch.data.hits?.hits) {
+  for (const hit of highlightSearch.data.hits.hits) {
+    console.log(`Title: ${hit._source?.title}`);
+    if (hit.highlight?.title) {
+      console.log(`Highlighted title: ${hit.highlight.title[0]}`);
+    }
+    if (hit.highlight?.description) {
+      console.log(`Highlighted description: ${hit.highlight.description[0]}`);
+    }
+  }
+}
+```
+
+### TypeScript Search Examples
+
+Using typed interfaces for better type safety:
+
+```typescript
+import type { SearchRequest, SearchResponse } from 'tsonik';
+
+// Define search parameters with types
+const searchParams: SearchRequest = {
+  query: {
+    bool: {
+      must: [
+        {
+          match: {
+            title: "product demo"
+          }
+        }
+      ],
+      filter: [
+        {
+          term: {
+            object_type: "assets"
+          }
+        },
+        {
+          terms: {
+            status: ["ACTIVE", "READY"]
+          }
+        }
+      ]
+    }
+  },
+  size: 30,
+  from: 0,
+  sort: [
+    {
+      relevance_score: {
+        order: "desc"
+      }
+    }
+  ]
+};
+
+const results: SearchResponse = await client.search.search(searchParams);
+console.log(`TypeScript search found ${results.data.hits?.total?.value || 0} results`);
 ```
 
 ## 📄 Files
