@@ -460,63 +460,82 @@ The formats resource provides access to format information and management.
 
 ## Search (`client.search`)
 
-### `search(request)`
+### `search(searchCriteria, params?)`
 
-Perform a comprehensive search across assets, collections, and other objects using Elasticsearch-powered queries.
+Perform a comprehensive search across assets, collections, segments, and other objects using Iconik's native search API.
 
 **Parameters:**
 ```typescript
-interface SearchRequest {
-  query?: SearchQuery | string;     // Search query (string or complex object)
-  size?: number;                    // Number of results to return (default: 10)
-  from?: number;                    // Starting offset for pagination (default: 0)
-  sort?: SortClause[];             // Sort criteria
-  filter?: FilterClause;           // Pre-filter results before query
-  post_filter?: FilterClause;      // Post-filter results after query
-  aggs?: AggregationsClause;       // Aggregations for analytics
-  highlight?: HighlightClause;     // Highlight matching terms
-  _source?: string[] | boolean;    // Fields to include in results
+interface SearchCriteria {
+  doc_types?: DocType[];                    // Types of documents to search
+  exclude_fields?: string[];                // Fields to exclude from results
+  facets?: string[];                        // Fields to generate facets for
+  facets_filters?: FacetFilter[];           // Faceted search filters
+  filter?: CriteriaFilter;                  // Complex filtering criteria
+  include_fields?: string[];                // Fields to include in results
+  metadata_view_id?: string;                // Metadata view ID for field mapping
+  query?: string;                           // Text search query
+  search_after?: (string | number | boolean | null)[]; // Pagination cursor
+  search_fields?: string[];                 // Fields to search within
+  sort?: CriteriaSort[];                    // Sort criteria
 }
 
-interface SearchQuery {
-  match?: { [field: string]: string | MatchQuery };
-  multi_match?: MultiMatchQuery;
-  term?: { [field: string]: string | number | boolean };
-  terms?: { [field: string]: (string | number | boolean)[] };
-  range?: { [field: string]: RangeQuery };
-  bool?: BoolQuery;
-  query_string?: QueryStringQuery;
-  match_all?: {};
-  exists?: { field: string };
+interface CriteriaFilter {
+  filters?: CriteriaFilter[];               // Nested filters
+  operator: string;                         // Logical operator ("AND", "OR")
+  terms?: CriteriaTerm[];                   // Search terms
 }
 
-interface SearchResponse {
-  took: number;
-  timed_out: boolean;
-  _shards: {
-    total: number;
-    successful: number;
-    skipped: number;
-    failed: number;
-  };
-  hits: {
-    total: {
-      value: number;
-      relation: string;
-    };
-    max_score?: number;
-    hits: SearchHit[];
-  };
-  aggregations?: AggregationResults;
+interface CriteriaTerm {
+  exists?: boolean;                         // Check if field exists
+  missing?: boolean;                        // Check if field is missing
+  name: string;                            // Field name
+  range?: CriteriaRangeFilter;             // Range filter
+  value?: string;                          // Exact value match
+  value_in?: string[];                     // Match any of these values
 }
 
-interface SearchHit {
-  _index: string;
-  _type: string;
-  _id: string;
-  _score?: number;
-  _source?: any;
-  highlight?: { [field: string]: string[] };
+interface CriteriaRangeFilter {
+  max?: string;                            // Maximum value
+  min?: string;                            // Minimum value
+  timezone?: string;                       // Timezone for date ranges
+}
+
+interface CriteriaSort {
+  name: string;                            // Field name to sort by
+  order?: string;                          // Sort order ("asc", "desc")
+}
+
+type DocType = 'assets' | 'collections' | 'segments' | 'saved_searches' | 'saved_search_groups';
+
+interface SearchQueryParams {
+  page?: number;                           // Page number (default: 1)
+  per_page?: number;                       // Results per page (default: 10)
+  generate_signed_url?: boolean;           // Generate signed URLs
+  generate_signed_download_url?: boolean;  // Generate signed download URLs
+  generate_signed_proxy_url?: boolean;     // Generate signed proxy URLs
+  save_search_history?: boolean;           // Save search to history
+}
+
+interface SearchDocuments {
+  facets?: object;                         // Facet results
+  objects?: SearchDocument[];              // Search results
+  page?: number;                          // Current page
+  pages?: number;                         // Total pages
+  per_page?: number;                      // Results per page
+  total?: number;                         // Total result count
+  next_url?: string;                      // Next page URL
+  prev_url?: string;                      // Previous page URL
+}
+
+interface SearchDocument {
+  id?: string;                            // Document ID
+  object_type: string;                    // Type of object
+  title: string;                          // Document title
+  description?: string;                   // Document description
+  date_created?: string;                  // Creation date
+  date_modified?: string;                 // Last modified date
+  metadata?: object;                      // Document metadata
 }
 ```
 
@@ -526,104 +545,154 @@ interface SearchHit {
 // Simple text search
 const textSearch = await client.search.search({
   query: "marketing video",
-  size: 20
+  doc_types: ['assets']
+}, {
+  per_page: 20,
+  page: 1
 });
 
-// Search with filters
-const filteredSearch = await client.search.search({
-  query: "*",
-  size: 50,
-  filter: {
-    terms: {
-      object_type: ["assets"]
-    }
-  }
+// Search specific document types
+const assetSearch = await client.search.search({
+  query: "product demo",
+  doc_types: ['assets', 'collections']
 });
 
-// Complex boolean search
-const complexSearch = await client.search.search({
-  query: {
-    bool: {
-      must: [
-        {
-          match: {
-            title: "product demo"
-          }
-        }
-      ],
-      filter: [
-        {
-          term: {
-            object_type: "assets"
-          }
-        },
-        {
-          range: {
-            date_created: {
-              gte: "2023-01-01"
-            }
-          }
-        }
-      ]
-    }
-  },
-  size: 25
-});
-
-// Search with aggregations
-const searchWithAggs = await client.search.search({
+// Search with field filtering
+const fieldSearch = await client.search.search({
   query: "marketing",
-  size: 0,
-  aggs: {
-    object_types: {
-      terms: {
-        field: "object_type",
-        size: 10
+  search_fields: ['title', 'description'],
+  include_fields: ['id', 'title', 'date_created']
+});
+```
+
+**Advanced Filtering:**
+
+```typescript
+// Search with complex filters
+const filteredSearch = await client.search.search({
+  query: "campaign",
+  doc_types: ['assets'],
+  filter: {
+    operator: "AND",
+    terms: [
+      {
+        name: "status",
+        value: "ACTIVE"
+      },
+      {
+        name: "category",
+        value_in: ["video", "image"]
       }
-    }
+    ]
   }
 });
 
-// Search with highlighting
-const highlightSearch = await client.search.search({
-  query: {
-    multi_match: {
-      query: "marketing campaign",
-      fields: ["title^2", "description"]
-    }
-  },
-  highlight: {
-    fields: {
-      title: {},
-      description: {}
-    },
-    pre_tags: ["<mark>"],
-    post_tags: ["</mark>"]
+// Search with date range filter
+const dateRangeSearch = await client.search.search({
+  query: "*",
+  doc_types: ['assets'],
+  filter: {
+    operator: "AND",
+    terms: [
+      {
+        name: "date_created",
+        range: {
+          min: "2023-01-01T00:00:00Z",
+          max: "2023-12-31T23:59:59Z",
+          timezone: "+00:00"
+        }
+      }
+    ]
+  }
+});
+
+// Nested filters with multiple conditions
+const nestedSearch = await client.search.search({
+  query: "marketing",
+  filter: {
+    operator: "OR",
+    filters: [
+      {
+        operator: "AND",
+        terms: [
+          {
+            name: "category",
+            value: "video"
+          },
+          {
+            name: "status",
+            value: "ACTIVE"
+          }
+        ]
+      },
+      {
+        operator: "AND",
+        terms: [
+          {
+            name: "category",
+            value: "image"
+          },
+          {
+            name: "priority",
+            value: "high"
+          }
+        ]
+      }
+    ]
   }
 });
 ```
 
-**Advanced Query Types:**
+**Faceted Search:**
 
-- **Match Query**: Full-text search on a specific field
-- **Multi-Match Query**: Search across multiple fields with field boosting
-- **Term Query**: Exact match on a field value
-- **Range Query**: Search within value ranges (dates, numbers)
-- **Bool Query**: Combine queries with boolean logic (must, should, filter, must_not)
-- **Query String Query**: Lucene-style query syntax
-- **Exists Query**: Find documents where a field exists
+```typescript
+// Search with facets
+const facetedSearch = await client.search.search({
+  query: "marketing",
+  facets: ['category', 'status', 'object_type'],
+  facets_filters: [
+    {
+      name: "category",
+      value_in: ["video", "image"]
+    }
+  ]
+});
+
+// Access facet results
+if (facetedSearch.data.facets) {
+  console.log('Available facets:', facetedSearch.data.facets);
+}
+```
 
 **Pagination:**
 
-Use `from` and `size` parameters for pagination:
+Use page-based or cursor-based pagination:
 
 ```typescript
-// Get results 21-40
+// Page-based pagination
 const page2 = await client.search.search({
   query: "video",
-  from: 20,
-  size: 20
+  doc_types: ['assets']
+}, {
+  page: 2,
+  per_page: 20
 });
+
+// Cursor-based pagination (for large result sets)
+const firstPage = await client.search.search({
+  query: "marketing",
+  sort: [{ name: "date_created", order: "desc" }]
+});
+
+// Get next page using search_after
+if (firstPage.data.objects && firstPage.data.objects.length > 0) {
+  const lastItem = firstPage.data.objects[firstPage.data.objects.length - 1];
+  const nextPage = await client.search.search({
+    query: "marketing",
+    search_after: [lastItem.date_created, lastItem.id],
+    sort: [{ name: "date_created", order: "desc" }]
+  });
+}
 ```
 
 **Sorting:**
@@ -633,16 +702,15 @@ Sort results by one or more fields:
 ```typescript
 const sortedResults = await client.search.search({
   query: "*",
+  doc_types: ['assets'],
   sort: [
     {
-      date_created: {
-        order: "desc"
-      }
+      name: "date_created",
+      order: "desc"
     },
     {
-      title: {
-        order: "asc"
-      }
+      name: "title",
+      order: "asc"
     }
   ]
 });
