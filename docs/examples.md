@@ -240,11 +240,16 @@ console.log(`Created file: ${file.data.id}`);
 ### Getting Asset FileSets
 
 ```typescript
-const filesets = await client.filesets.getAssetFilesets('asset-id', {
-  per_page: 20,
-  page: 1
-});
+// Basic listing
+const filesets = await client.filesets.getAssetFilesets('asset-id');
 console.log(`Found ${filesets.data.objects.length} filesets`);
+
+// With pagination and options
+const paginatedFilesets = await client.filesets.getAssetFilesets('asset-id', {
+  per_page: 20,
+  file_count: true
+});
+console.log(`Found ${paginatedFilesets.data.objects.length} filesets with file counts`);
 ```
 
 ### Getting a Specific FileSet
@@ -252,6 +257,8 @@ console.log(`Found ${filesets.data.objects.length} filesets`);
 ```typescript
 const fileset = await client.filesets.getAssetFileset('asset-id', 'fileset-id');
 console.log(`FileSet: ${fileset.data.name}`);
+console.log(`Status: ${fileset.data.status}`);
+console.log(`File Count: ${fileset.data.file_count}`);
 ```
 
 ### Creating a FileSet
@@ -259,18 +266,69 @@ console.log(`FileSet: ${fileset.data.name}`);
 ```typescript
 const fileset = await client.filesets.createAssetFileset('asset-id', {
   name: 'Raw Footage',
-  storage_id: 'storage-123'
+  base_dir: '/media/raw',
+  component_ids: ['comp-1', 'comp-2'],
+  format_id: 'format-123',
+  storage_id: 'storage-456',
+  status: 'ACTIVE'
 });
 console.log(`Created fileset: ${fileset.data.id}`);
+
+// Creating an archive fileset
+const archiveFileset = await client.filesets.createAssetFileset('asset-id', {
+  name: 'Archived Raw Footage',
+  base_dir: '/archive/raw',
+  component_ids: ['comp-1'],
+  format_id: 'format-123',
+  storage_id: 'archive-storage',
+  is_archive: true,
+  archive_file_set_id: 'original-fileset-id',
+  original_storage_id: 'original-storage'
+});
+```
+
+### Getting Files from a FileSet
+
+```typescript
+// Get files from a fileset
+const files = await client.filesets.getFileSetFiles('asset-id', 'fileset-id', {
+  per_page: 50,
+  generate_signed_url: true
+});
+
+console.log(`Found ${files.data.objects.length} files in fileset`);
+files.data.objects.forEach(file => {
+  console.log(`File: ${file.name} (${file.size} bytes)`);
+  if (file.url) {
+    console.log(`Download URL: ${file.url}`);
+  }
+});
 ```
 
 ### Deleting a FileSet
 
 ```typescript
+// Soft delete (default - returns fileset with DELETED status)
+await client.filesets.deleteAssetFileset('asset-id', 'fileset-id');
+console.log('FileSet soft deleted successfully');
+
+// Delete immediately (returns 204 No Content)
 await client.filesets.deleteAssetFileset('asset-id', 'fileset-id', {
-  delete_files: true
+  immediately: true
 });
-console.log('FileSet deleted successfully');
+console.log('FileSet deleted immediately');
+
+// Delete but keep source files
+await client.filesets.deleteAssetFileset('asset-id', 'fileset-id', {
+  keep_source: true
+});
+console.log('FileSet deleted, source files preserved');
+
+// Combine options
+await client.filesets.deleteAssetFileset('asset-id', 'fileset-id', {
+  keep_source: true,
+  immediately: true
+});
 ```
 
 ## 🎞️ Formats
