@@ -287,24 +287,6 @@ const archiveFileset = await client.filesets.createAssetFileset('asset-id', {
 });
 ```
 
-### Getting Files from a FileSet
-
-```typescript
-// Get files from a fileset
-const files = await client.filesets.getFileSetFiles('asset-id', 'fileset-id', {
-  per_page: 50,
-  generate_signed_url: true
-});
-
-console.log(`Found ${files.data.objects.length} files in fileset`);
-files.data.objects.forEach(file => {
-  console.log(`File: ${file.name} (${file.size} bytes)`);
-  if (file.url) {
-    console.log(`Download URL: ${file.url}`);
-  }
-});
-```
-
 ### Deleting a FileSet
 
 ```typescript
@@ -328,6 +310,24 @@ console.log('FileSet deleted, source files preserved');
 await client.filesets.deleteAssetFileset('asset-id', 'fileset-id', {
   keep_source: true,
   immediately: true
+});
+```
+
+### Getting Files from a FileSet
+
+```typescript
+// Get files from a fileset
+const files = await client.filesets.getFileSetFiles('asset-id', 'fileset-id', {
+  per_page: 50,
+  generate_signed_url: true
+});
+
+console.log(`Found ${files.data.objects.length} files in fileset`);
+files.data.objects.forEach(file => {
+  console.log(`File: ${file.name} (${file.size} bytes)`);
+  if (file.url) {
+    console.log(`Download URL: ${file.url}`);
+  }
 });
 ```
 
