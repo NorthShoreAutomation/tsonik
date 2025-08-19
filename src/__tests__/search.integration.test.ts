@@ -355,7 +355,7 @@ describe('SearchResource.search() Integration Tests', () => {
         
         // Note: The actual _sort key structure depends on the API response
         // This test verifies the parameter can be passed, even if no _sort is available
-        const sortValue = (lastObject as SearchDocument & { _sort?: (string | number | boolean | null)[] })._sort ?? [lastObject.id || ''];
+        const sortValue = (lastObject as SearchDocument & { _sort?: (string | number | boolean | null)[] })._sort ?? [lastObject.id ?? ''];
         const searchAfterCriteria: SearchCriteria = {
           ...searchCriteria,
           search_after: sortValue
@@ -368,6 +368,156 @@ describe('SearchResource.search() Integration Tests', () => {
 
         expect(secondResponse.status).toBe(200);
         expect(secondResponse.data.objects).toBeDefined();
+      }
+    }, 15000);
+
+    it('should return equal first_url and last_url when per_page equals total count', async () => {
+      const searchCriteria: SearchCriteria = {
+        doc_types: ['assets'],
+        sort: [{ name: 'date_created', order: 'desc' }]
+      };
+
+      // First, get the total count with a small per_page
+      const countResponse = await client.search.search(searchCriteria, {
+        per_page: 1,
+        save_search_history: false
+      });
+
+      expect(countResponse.status).toBe(200);
+      const totalCount = countResponse.data.total;
+
+      if (totalCount && totalCount > 0 && totalCount <= 10) {
+        // Now search with per_page equal to total count
+        const response = await client.search.search(searchCriteria, {
+          per_page: totalCount,
+          save_search_history: false
+        });
+
+        expect(response.status).toBe(200);
+        expect(response.data.first_url).toBeDefined();
+        expect(response.data.last_url).toBeDefined();
+        expect(response.data.first_url).toBe(response.data.last_url);
+        expect(response.data.next_url).toBeNull();
+      }
+    }, 15000);
+
+    it('should return different first_url and last_url when per_page is less than total count', async () => {
+      const searchCriteria: SearchCriteria = {
+        doc_types: ['assets'],
+        sort: [{ name: 'date_created', order: 'desc' }]
+      };
+
+      const response = await client.search.search(searchCriteria, {
+        per_page: 2,
+        save_search_history: false
+      });
+
+      expect(response.status).toBe(200);
+      
+      // Only test if we have more results than per_page
+      if (response.data.total && response.data.total > 2) {
+        expect(response.data.first_url).toBeDefined();
+        expect(response.data.last_url).toBeDefined();
+        expect(response.data.first_url).not.toBe(response.data.last_url);
+        expect(response.data.next_url).not.toBeNull();
+      }
+    }, 15000);
+
+    it('should handle pagination URLs correctly with small per_page', async () => {
+      const searchCriteria: SearchCriteria = {
+        doc_types: ['assets'],
+        sort: [{ name: 'date_created', order: 'desc' }]
+      };
+
+      const response = await client.search.search(searchCriteria, {
+        per_page: 3,
+        save_search_history: false
+      });
+
+      expect(response.status).toBe(200);
+      expect(response.data.first_url).toBeDefined();
+      
+      // Verify URL structure contains the per_page parameter
+      expect(response.data.first_url).toContain('per_page=3');
+      
+      if (response.data.total && response.data.total > 3) {
+        expect(response.data.next_url).not.toBeNull();
+        expect(response.data.last_url).toBeDefined();
+        expect(response.data.next_url).toContain('per_page=3');
+        expect(response.data.last_url).toContain('per_page=3');
+      }
+    }, 15000);
+
+    it('should return null next_url on last page', async () => {
+      // Use specific search criteria that returns a small, known set of results (8 items)
+      const searchCriteria: SearchCriteria = {
+        doc_types: ['assets'],
+        sort: [{ name: 'custom_order', order: 'asc' }],
+        query: '',
+        filter: {
+          operator: 'AND',
+          terms: [
+            {
+              name: 'ancestor_collections',
+              value_in: ['886c9044-37db-11ef-a953-8eba9f4c4629']
+            },
+            { 
+              name: 'status', 
+              value_in: ['ACTIVE'] 
+            },
+            {
+              name: 'files.storage_id',
+              value_in: ['a4ecf268-61ce-11f0-9650-2e6ac712035a']
+            }
+          ]
+        },
+        facets_filters: [
+          { 
+            name: 'archive_status', 
+            value_in: ['NOT_ARCHIVED'] 
+          }
+        ]
+      };
+
+      // Use small per_page to create multiple pages from the 8 items
+      const perPageSize = 2;
+      
+      const firstResponse = await client.search.search(searchCriteria, {
+        per_page: perPageSize,
+        save_search_history: false
+      });
+
+      expect(firstResponse.status).toBe(200);
+      
+      // Check if we have pagination (more results than per_page)
+      if (firstResponse.data.total && firstResponse.data.total > perPageSize && firstResponse.data.last_url) {
+        // Extract page number from the API-provided last_url
+        const lastUrlMatch = firstResponse.data.last_url.match(/page=(\d+)/);
+        if (!lastUrlMatch) {
+          return;
+        }
+        
+        const lastPageNumber = parseInt(lastUrlMatch[1], 10);
+        
+        const lastPageResponse = await client.search.search(searchCriteria, {
+          page: lastPageNumber,
+          per_page: perPageSize,
+          save_search_history: false
+        });
+        
+        expect(lastPageResponse.status).toBe(200);
+        expect(lastPageResponse.data.next_url).toBeNull();
+        expect(lastPageResponse.data.first_url).toBeDefined();
+        expect(lastPageResponse.data.last_url).toBeDefined();
+        expect(lastPageResponse.data.prev_url).not.toBeNull();
+        
+      } else if (firstResponse.data.total && firstResponse.data.total <= perPageSize) {
+        // All results fit in one page
+        expect(firstResponse.data.next_url).toBeNull();
+        expect(firstResponse.data.prev_url).toBeNull();
+        expect(firstResponse.data.first_url).toBeDefined();
+        expect(firstResponse.data.last_url).toBeDefined();
+        expect(firstResponse.data.first_url).toBe(firstResponse.data.last_url);
       }
     }, 15000);
   });
