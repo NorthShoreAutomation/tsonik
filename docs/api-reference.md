@@ -324,46 +324,127 @@ await client.files.deleteFile('file-123');
 
 ## FileSets (`client.filesets`)
 
-### `getFileset(id)`
+### `getAssetFilesets(assetId, params?)`
 
-Get fileset details.
+Get all file sets for a specific asset.
 
-**Example:**
+**Parameters:**
 ```typescript
-const fileset = await client.filesets.getFileset('fileset-123');
+interface AssetFileSetsListParams {
+  per_page?: number;     // Items per page
+  last_id?: string;      // Last item ID for pagination
+  file_count?: boolean;  // Include file count in response
+}
 ```
 
-### `createFileset(data)`
+**Example:**
+```typescript
+const filesets = await client.filesets.getAssetFilesets('asset-123', {
+  per_page: 10,
+  file_count: true
+});
+console.log(`Found ${filesets.data.objects.length} filesets`);
+```
 
-Create a new fileset.
+### `getAssetFileset(assetId, fileSetId)`
+
+Get a specific file set for an asset by ID.
 
 **Example:**
 ```typescript
-const fileset = await client.filesets.createFileset({
+const fileset = await client.filesets.getAssetFileset('asset-123', 'fileset-456');
+console.log(`Fileset: ${fileset.data.name}`);
+```
+
+### `createAssetFileset(assetId, filesetData)`
+
+Create a new file set for an asset.
+
+**Parameters:**
+```typescript
+interface CreateFileSetRequest {
+  base_dir: string;
+  component_ids: string[];
+  format_id: string;
+  name: string;
+  archive_file_set_id?: string;
+  date_deleted?: string;
+  file_dir?: string;
+  is_archive?: boolean;
+  metadata?: Record<string, string | number | boolean | object>[];
+  original_storage_id?: string;
+  status?: 'ACTIVE' | 'DELETED' | 'ARCHIVED';
+  storage_id?: string;
+  version_id?: string;
+}
+```
+
+**Example:**
+```typescript
+const fileset = await client.filesets.createAssetFileset('asset-123', {
   name: "Raw Footage",
-  asset_id: "asset-123"
+  base_dir: "/media/raw",
+  component_ids: ["comp-1", "comp-2"],
+  format_id: "format-123",
+  storage_id: "storage-456",
+  status: "ACTIVE"
 });
 ```
 
-### `updateFileset(id, data)`
+### `deleteAssetFileset(assetId, fileSetId, options?)`
 
-Update a fileset.
+Delete a file set for an asset.
+
+**Parameters:**
+```typescript
+interface DeleteFileSetOptions {
+  keep_source?: boolean;   // Keep source files when deleting
+  immediately?: boolean;   // Delete immediately (returns 204) vs soft delete (returns 200)
+}
+```
 
 **Example:**
 ```typescript
-await client.filesets.updateFileset('fileset-123', {
-  name: "Updated FileSet Name"
+// Soft delete (default)
+await client.filesets.deleteAssetFileset('asset-123', 'fileset-456');
+
+// Delete immediately
+await client.filesets.deleteAssetFileset('asset-123', 'fileset-456', {
+  immediately: true
+});
+
+// Keep source files
+await client.filesets.deleteAssetFileset('asset-123', 'fileset-456', {
+  keep_source: true
 });
 ```
 
-### `deleteFileset(id, options?)`
+### `getFileSetFiles(assetId, fileSetId, options?)`
 
-Delete a fileset.
+Get files from a file set.
+
+**Parameters:**
+```typescript
+interface FileSetFilesListParams {
+  per_page?: number;              // Items per page
+  last_id?: string;               // Last item ID for pagination
+  generate_signed_url?: boolean;  // Generate signed URLs for file access
+  file_count?: boolean;           // Include file count in response
+}
+```
 
 **Example:**
 ```typescript
-await client.filesets.deleteFileset('fileset-123', {
-  delete_files: true
+const files = await client.filesets.getFileSetFiles('asset-123', 'fileset-456', {
+  per_page: 20,
+  generate_signed_url: true
+});
+
+files.data.objects.forEach(file => {
+  console.log(`File: ${file.name} (${file.size} bytes)`);
+  if (file.url) {
+    console.log(`Download URL: ${file.url}`);
+  }
 });
 ```
 
