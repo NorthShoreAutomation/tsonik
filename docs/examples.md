@@ -12,6 +12,7 @@ Real-world examples of how to use Tsonik for common media asset management tasks
 - [🎬 Assets](#assets) - Create, read, update, delete assets
 - [📁 Collections](#collections) - Organize assets into collections  
 - [⚙️ Jobs](#jobs) - Manage transcoding and processing jobs
+- [🔍 Search](#search) - Search across assets, collections, and other objects
 - [📄 Files](#files) - Work with asset files
 - [📦 FileSets](#filesets) - Manage file collections
 - [🎞️ Formats](#formats) - Handle different media formats
@@ -203,6 +204,345 @@ const editResult = await client.jobs.bulkEdit({
 
 // Bulk delete jobs
 const deleteResult = await client.jobs.bulkDelete(['job-1', 'job-2']);
+```
+
+## 🔍 Search
+
+### Basic Text Search
+
+Search across assets, collections, segments, and other objects using Iconik's native search API:
+
+```typescript
+const searchResult = await client.search.search({
+  query: "marketing video",
+  doc_types: ['assets', 'collections']
+}, {
+  per_page: 20,
+  page: 1
+});
+
+console.log(`Found ${searchResult.data.total || 0} results`);
+
+// Access search results
+if (searchResult.data.objects) {
+  for (const doc of searchResult.data.objects) {
+    console.log(`- ${doc.title} (${doc.object_type})`);
+  }
+}
+```
+
+### Search with Document Type Filtering
+
+Search specific types of documents:
+
+```typescript
+// Search only assets
+const assetSearch = await client.search.search({
+  query: "product demo",
+  doc_types: ['assets']
+});
+
+// Search assets and collections
+const multiTypeSearch = await client.search.search({
+  query: "marketing campaign",
+  doc_types: ['assets', 'collections']
+});
+
+// Search with field restrictions
+const fieldSearch = await client.search.search({
+  query: "marketing",
+  doc_types: ['assets'],
+  search_fields: ['title', 'description'],
+  include_fields: ['id', 'title', 'date_created', 'object_type']
+});
+```
+
+### Search with Filters
+
+Use filters to narrow down search results:
+
+```typescript
+// Search with simple term filter
+const filteredSearch = await client.search.search({
+  query: "campaign",
+  doc_types: ['assets'],
+  filter: {
+    operator: "AND",
+    terms: [
+      {
+        name: "status",
+        value: "ACTIVE"
+      },
+      {
+        name: "category",
+        value_in: ["video", "image"]
+      }
+    ]
+  }
+});
+
+console.log(`Found ${filteredSearch.data.total || 0} active assets`);
+
+// Search with date range filter
+const dateRangeSearch = await client.search.search({
+  query: "*",
+  doc_types: ['assets'],
+  filter: {
+    operator: "AND",
+    terms: [
+      {
+        name: "date_created",
+        range: {
+          min: "2023-01-01T00:00:00Z",
+          max: "2023-12-31T23:59:59Z",
+          timezone: "+00:00"
+        }
+      }
+    ]
+  }
+});
+
+console.log(`Found ${dateRangeSearch.data.total || 0} assets from 2023`);
+```
+
+### Faceted Search
+
+Use facets to get category breakdowns and filter results:
+
+```typescript
+const facetedSearch = await client.search.search({
+  query: "marketing",
+  doc_types: ['assets'],
+  facets: ['category', 'status', 'tags'],
+  facets_filters: [
+    {
+      name: "category",
+      value_in: ["video", "image"]
+    }
+  ]
+});
+
+// Access facet results
+if (facetedSearch.data.facets) {
+  console.log('Available facets:', facetedSearch.data.facets);
+}
+
+console.log(`Faceted search found ${facetedSearch.data.total || 0} results`);
+```
+
+### Advanced Search with Complex Filters
+
+Combine multiple search criteria using nested filters:
+
+```typescript
+const complexSearch = await client.search.search({
+  query: "marketing",
+  doc_types: ['assets'],
+  filter: {
+    operator: "OR",
+    filters: [
+      {
+        operator: "AND",
+        terms: [
+          {
+            name: "category",
+            value: "video"
+          },
+          {
+            name: "status",
+            value: "ACTIVE"
+          }
+        ]
+      },
+      {
+        operator: "AND",
+        terms: [
+          {
+            name: "category",
+            value: "image"
+          },
+          {
+            name: "priority",
+            value: "high"
+          }
+        ]
+      }
+    ]
+  }
+});
+
+console.log(`Complex search found ${complexSearch.data.total || 0} results`);
+```
+
+### Search with Sorting
+
+Sort search results by specific fields:
+
+```typescript
+const sortedSearch = await client.search.search({
+  query: "video",
+  doc_types: ['assets'],
+  sort: [
+    {
+      name: "date_created",
+      order: "desc"
+    },
+    {
+      name: "title",
+      order: "asc"
+    }
+  ]
+}, {
+  per_page: 20
+});
+
+console.log(`Found ${sortedSearch.data.total || 0} videos, sorted by creation date`);
+```
+
+### Advanced Pagination
+
+Handle large result sets with cursor-based pagination:
+
+```typescript
+// First page with sorting
+const firstPage = await client.search.search({
+  query: "marketing",
+  doc_types: ['assets'],
+  sort: [
+    {
+      name: "date_created",
+      order: "desc"
+    }
+  ]
+}, {
+  per_page: 50
+});
+
+console.log(`First page: ${firstPage.data.objects?.length || 0} results`);
+
+// Get next page using search_after cursor
+if (firstPage.data.objects && firstPage.data.objects.length > 0) {
+  const lastItem = firstPage.data.objects[firstPage.data.objects.length - 1];
+  
+  const nextPage = await client.search.search({
+    query: "marketing",
+    doc_types: ['assets'],
+    search_after: [lastItem.date_created, lastItem.id],
+    sort: [
+      {
+        name: "date_created",
+        order: "desc"
+      }
+    ]
+  });
+  
+  console.log(`Next page: ${nextPage.data.objects?.length || 0} results`);
+}
+```
+
+### Field Existence and Missing Value Searches
+
+Search for documents based on field presence:
+
+```typescript
+// Find assets that have a description
+const withDescription = await client.search.search({
+  query: "*",
+  doc_types: ['assets'],
+  filter: {
+    operator: "AND",
+    terms: [
+      {
+        name: "description",
+        exists: true
+      }
+    ]
+  }
+});
+
+// Find assets missing a category
+const missingCategory = await client.search.search({
+  query: "*",
+  doc_types: ['assets'],
+  filter: {
+    operator: "AND",
+    terms: [
+      {
+        name: "category",
+        missing: true
+      }
+    ]
+  }
+});
+```
+
+### TypeScript Search Examples
+
+Using typed interfaces for better type safety:
+
+```typescript
+import type { SearchCriteria, SearchQueryParams, SearchDocuments } from 'tsonik';
+
+// Define search parameters with types
+const searchCriteria: SearchCriteria = {
+  query: "product demo",
+  doc_types: ['assets'],
+  filter: {
+    operator: "AND",
+    terms: [
+      {
+        name: "status",
+        value: "ACTIVE"
+      },
+      {
+        name: "category",
+        value_in: ["video", "image"]
+      }
+    ]
+  },
+  sort: [
+    {
+      name: "date_created",
+      order: "desc"
+    }
+  ],
+  include_fields: ['id', 'title', 'description', 'date_created']
+};
+
+const searchParams: SearchQueryParams = {
+  per_page: 30,
+  page: 1,
+  generate_signed_url: true
+};
+
+const results = await client.search.search(searchCriteria, searchParams);
+console.log(`TypeScript search found ${results.data.total || 0} results`);
+
+// Type-safe access to results
+if (results.data.objects) {
+  results.data.objects.forEach((doc) => {
+    console.log(`${doc.title} - ${doc.object_type}`);
+    if (doc.description) {
+      console.log(`  Description: ${doc.description}`);
+    }
+  });
+}
+```
+
+### Search with Metadata Views
+
+Use metadata views to control field mapping:
+
+```typescript
+const metadataSearch = await client.search.search({
+  query: "marketing campaign",
+  doc_types: ['assets'],
+  metadata_view_id: 'your-metadata-view-id',
+  search_fields: ['custom.project_name', 'custom.campaign_type'],
+  facets: ['custom.project_name', 'custom.campaign_type']
+});
+
+console.log(`Metadata search found ${metadataSearch.data.total || 0} results`);
 ```
 
 ## 📄 Files
