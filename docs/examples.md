@@ -777,6 +777,140 @@ await client.metadata.putMetadata(
 );
 ```
 
+### Getting Metadata Field Definitions
+
+```typescript
+// Get a specific metadata field definition
+const fieldDefinition = await client.metadata.getMetadataField('XenDataTapeID');
+
+console.log('Field name:', fieldDefinition.data.name);
+console.log('Field type:', fieldDefinition.data.field_type);
+console.log('Field label:', fieldDefinition.data.label);
+console.log('Read only:', fieldDefinition.data.read_only);
+console.log('Use as facet:', fieldDefinition.data.use_as_facet);
+```
+
+### Creating Custom Metadata Fields
+
+```typescript
+// Create a new text metadata field
+const newTextField = await client.metadata.createMetadataField({
+  name: 'ProjectCode',
+  label: 'Project Code',
+  field_type: 'text',
+  read_only: false,
+  use_as_facet: true,
+  description: 'Unique identifier for the project'
+});
+
+console.log('Created field:', newTextField.data.name);
+console.log('Field ID:', newTextField.data.name);
+
+// Create a tag cloud field
+const tagCloudField = await client.metadata.createMetadataField({
+  name: 'KeywordTags',
+  label: 'Keyword Tags',
+  field_type: 'tag_cloud',
+  read_only: false,
+  use_as_facet: true,
+  description: 'Keywords for content discovery'
+});
+
+// Create a boolean field
+const booleanField = await client.metadata.createMetadataField({
+  name: 'IsApproved',
+  label: 'Content Approved',
+  field_type: 'boolean',
+  read_only: false,
+  use_as_facet: false,
+  description: 'Whether content has been approved for publication'
+});
+
+// Create a number field
+const numberField = await client.metadata.createMetadataField({
+  name: 'Duration',
+  label: 'Duration (seconds)',
+  field_type: 'number',
+  read_only: true,
+  use_as_facet: false,
+  description: 'Video duration in seconds'
+});
+```
+
+### Updating Metadata Field Definitions
+
+```typescript
+// Update field label and description
+const updatedField = await client.metadata.patchMetadataField('ProjectCode', {
+  label: 'Updated Project Code',
+  description: 'Updated description for project identifier',
+  use_as_facet: false
+});
+
+console.log('Updated field:', updatedField.data.label);
+
+// Make a field read-only
+await client.metadata.patchMetadataField('KeywordTags', {
+  read_only: true
+});
+
+// Update multiple properties
+await client.metadata.patchMetadataField('IsApproved', {
+  label: 'Publication Ready',
+  description: 'Indicates if content is ready for publication',
+  read_only: false,
+  use_as_facet: true
+});
+```
+
+### Complete Metadata Field Workflow
+
+```typescript
+// 1. Create a custom metadata field for tracking campaign data
+const campaignField = await client.metadata.createMetadataField({
+  name: 'CampaignID',
+  label: 'Campaign ID',
+  field_type: 'text',
+  read_only: false,
+  use_as_facet: true,
+  description: 'Unique identifier for marketing campaign'
+});
+
+console.log('Created campaign field:', campaignField.data.name);
+
+// 2. Get the field definition to verify it was created correctly
+const fieldCheck = await client.metadata.getMetadataField('CampaignID');
+console.log('Field verification:', {
+  name: fieldCheck.data.name,
+  type: fieldCheck.data.field_type,
+  label: fieldCheck.data.label
+});
+
+// 3. Update the field after business requirements change
+const updatedCampaignField = await client.metadata.patchMetadataField('CampaignID', {
+  label: 'Marketing Campaign',
+  description: 'Marketing campaign identifier with enhanced tracking',
+  use_as_facet: true
+});
+
+// 4. Use the field to set metadata on an asset
+const assetId = 'your-asset-id';
+await client.metadata.putMetadata(
+  'assets',
+  assetId,
+  {
+    metadata_values: {
+      'CampaignID': {
+        field_values: [{ value: 'CAMP-2024-Q4-001' }],
+        mode: 'overwrite'
+      }
+    }
+  }
+);
+
+console.log('Applied campaign metadata to asset');
+```
+
 ## ⚠️ Error Handling
 
 ### Basic Error Handling

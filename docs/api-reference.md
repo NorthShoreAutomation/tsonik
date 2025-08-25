@@ -533,6 +533,173 @@ await client.metadata.putMetadata(
 );
 ```
 
+### `getMetadataField(fieldName)`
+
+Get metadata field definition by field name.
+
+**Parameters:**
+- `fieldName: string` - The name of the metadata field to retrieve
+
+**Returns:** `Promise<ApiResponse<MetadataFieldDefinition>>`
+
+```typescript
+interface MetadataFieldDefinition {
+  auto_set: boolean;
+  date_created: string;
+  date_modified: string;
+  description: string | null;
+  external_id: string | null;
+  field_type: MetadataFieldType;
+  hide_if_not_set: boolean;
+  is_block_field: boolean;
+  is_warning_field: boolean;
+  label: string;
+  mapped_field_name: string | null;
+  max_value: number | null;
+  min_value: number | null;
+  multi: boolean;
+  name: string;
+  options: unknown[];
+  read_only: boolean;
+  representative: boolean;
+  required: boolean;
+  sortable: boolean;
+  source_url: string | null;
+  use_as_facet: boolean;
+  system_domain_id?: string;
+  user_id?: string;
+}
+
+type MetadataFieldType = 
+  | 'tag_cloud'
+  | 'text'
+  | 'textarea'
+  | 'number'
+  | 'date'
+  | 'boolean'
+  | 'select'
+  | 'multi_select'
+  | 'user'
+  | 'asset';
+```
+
+**Example:**
+```typescript
+const fieldDefinition = await client.metadata.getMetadataField('XenDataTapeID');
+
+console.log('Field name:', fieldDefinition.data.name);
+console.log('Field type:', fieldDefinition.data.field_type);
+console.log('Field label:', fieldDefinition.data.label);
+console.log('Read only:', fieldDefinition.data.read_only);
+console.log('Use as facet:', fieldDefinition.data.use_as_facet);
+```
+
+### `createMetadataField(fieldData)`
+
+Create a new metadata field.
+
+**Parameters:**
+```typescript
+interface CreateMetadataFieldRequest {
+  field_type: MetadataFieldType;
+  label: string;
+  name: string;
+  read_only: boolean;
+  use_as_facet: boolean;
+  description?: string;
+  is_required?: boolean;
+}
+```
+
+**Returns:** `Promise<ApiResponse<MetadataFieldDefinition>>`
+
+**Examples:**
+```typescript
+// Create a text field
+const textField = await client.metadata.createMetadataField({
+  name: 'ProjectCode',
+  label: 'Project Code',
+  field_type: 'text',
+  read_only: false,
+  use_as_facet: true,
+  description: 'Unique identifier for the project'
+});
+
+// Create a tag cloud field
+const tagField = await client.metadata.createMetadataField({
+  name: 'KeywordTags',
+  label: 'Keyword Tags',
+  field_type: 'tag_cloud',
+  read_only: false,
+  use_as_facet: true,
+  description: 'Keywords for content discovery'
+});
+
+// Create a boolean field
+const boolField = await client.metadata.createMetadataField({
+  name: 'IsApproved',
+  label: 'Content Approved',
+  field_type: 'boolean',
+  read_only: false,
+  use_as_facet: false,
+  description: 'Whether content has been approved for publication'
+});
+
+// Create a number field
+const numberField = await client.metadata.createMetadataField({
+  name: 'Duration',
+  label: 'Duration (seconds)',
+  field_type: 'number',
+  read_only: true,
+  use_as_facet: false,
+  description: 'Video duration in seconds'
+});
+```
+
+### `patchMetadataField(fieldName, patchData)`
+
+Update an existing metadata field definition.
+
+**Parameters:**
+- `fieldName: string` - The name of the metadata field to update
+- `patchData: PatchMetadataFieldRequest` - The metadata field data to update
+
+```typescript
+interface PatchMetadataFieldRequest {
+  field_type?: MetadataFieldType;
+  label?: string;
+  read_only?: boolean;
+  use_as_facet?: boolean;
+  description?: string;
+  is_required?: boolean;
+}
+```
+
+**Returns:** `Promise<ApiResponse<MetadataFieldDefinition>>`
+
+**Examples:**
+```typescript
+// Update field label and description
+const updatedField = await client.metadata.patchMetadataField('ProjectCode', {
+  label: 'Updated Project Code',
+  description: 'Updated description for project identifier',
+  use_as_facet: false
+});
+
+// Make a field read-only
+await client.metadata.patchMetadataField('KeywordTags', {
+  read_only: true
+});
+
+// Update multiple properties
+await client.metadata.patchMetadataField('IsApproved', {
+  label: 'Publication Ready',
+  description: 'Indicates if content is ready for publication',
+  read_only: false,
+  use_as_facet: true
+});
+```
+
 ## Formats (`client.formats`)
 
 ### Format-related operations
