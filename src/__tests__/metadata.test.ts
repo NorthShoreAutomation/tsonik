@@ -1,5 +1,5 @@
 import { Tsonik } from '../index';
-import { MetadataResponse, GetMetadataParams, UpdateMetadataRequest, PutMetadataParams } from '../types/metadata';
+import { MetadataResponse, GetMetadataParams, UpdateMetadataRequest, PutMetadataParams, MetadataFieldDefinition, PatchMetadataFieldRequest, CreateMetadataFieldRequest, MetadataFieldType } from '../types/metadata';
 
 // Create mock Axios instance with proper interceptors setup
 const mockAxiosInstance = {
@@ -427,6 +427,273 @@ describe('MetadataResource', () => {
 
       expect(mockAxiosInstance.put).toHaveBeenCalledWith('/API/metadata/v1/assets/asset-123', updateRequest, { params: {} });
       expect(result.data).toEqual(mockUpdatedMetadata);
+    });
+  });
+
+  describe('getMetadataField', () => {
+    it('should get metadata field definition by field name', async () => {
+      const mockFieldDefinition: MetadataFieldDefinition = {
+        auto_set: false,
+        date_created: '2025-08-22T19:19:05.182000+00:00',
+        date_modified: '2025-08-22T19:23:20.159000+00:00',
+        description: null,
+        external_id: null,
+        field_type: 'tag_cloud',
+        hide_if_not_set: false,
+        is_block_field: false,
+        is_warning_field: false,
+        label: 'XenData Tape ID',
+        mapped_field_name: null,
+        max_value: null,
+        min_value: null,
+        multi: false,
+        name: 'XenDataTapeID',
+        options: [],
+        read_only: false,
+        representative: false,
+        required: false,
+        sortable: false,
+        source_url: null,
+        use_as_facet: true
+      };
+
+      mockAxiosInstance.get.mockResolvedValue({
+        data: mockFieldDefinition,
+        status: 200,
+        headers: {},
+        config: {},
+        statusText: 'OK'
+      });
+
+      const result = await client.metadata.getMetadataField('XenDataTapeID');
+
+      expect(mockAxiosInstance.get).toHaveBeenCalledWith('/API/metadata/v1/fields/XenDataTapeID/', undefined);
+      expect(result.data).toEqual(mockFieldDefinition);
+      expect(result.status).toBe(200);
+    });
+
+    it('should throw error when field name is empty or missing', async () => {
+      // Test with empty string
+      await expect(client.metadata.getMetadataField('')).rejects.toThrow('Field name is required');
+      
+      // Test with whitespace only
+      await expect(client.metadata.getMetadataField('   ')).rejects.toThrow('Field name is required');
+      
+      // Ensure no HTTP call was made when validation fails
+      expect(mockAxiosInstance.get).not.toHaveBeenCalled();
+    });
+
+    it('should propagate errors from HTTP client', async () => {
+      const error = new Error('Field not found');
+      mockAxiosInstance.get.mockRejectedValue(error);
+
+      await expect(client.metadata.getMetadataField('NonExistentField')).rejects.toThrow('Field not found');
+      
+      expect(mockAxiosInstance.get).toHaveBeenCalledWith('/API/metadata/v1/fields/NonExistentField/', undefined);
+    });
+  });
+
+  describe('createMetadataField', () => {
+    it('should create a new metadata field successfully', async () => {
+      const fieldData = {
+        name: 'TestField',
+        label: 'Test Field Label',
+        field_type: 'text' as const,
+        read_only: false,
+        use_as_facet: true,
+        description: 'A test metadata field'
+      };
+
+      const mockCreatedField: MetadataFieldDefinition = {
+        auto_set: false,
+        date_created: '2025-08-25T16:02:53.000Z',
+        date_modified: '2025-08-25T16:02:53.000Z',
+        description: 'A test metadata field',
+        external_id: null,
+        field_type: 'text',
+        hide_if_not_set: false,
+        is_block_field: false,
+        is_warning_field: false,
+        label: 'Test Field Label',
+        mapped_field_name: null,
+        max_value: null,
+        min_value: null,
+        multi: false,
+        name: 'TestField',
+        options: [],
+        read_only: false,
+        representative: false,
+        required: false,
+        sortable: true,
+        source_url: null,
+        use_as_facet: true
+      };
+
+      mockAxiosInstance.post.mockResolvedValue({
+        data: mockCreatedField,
+        status: 201,
+        headers: {},
+        config: {},
+        statusText: 'Created'
+      });
+
+      const result = await client.metadata.createMetadataField(fieldData);
+
+      expect(mockAxiosInstance.post).toHaveBeenCalledWith('/API/metadata/v1/fields/', fieldData, undefined);
+      expect(result.data).toEqual(mockCreatedField);
+      expect(result.status).toBe(201);
+    });
+
+    it('should validate required fields and throw appropriate errors', async () => {
+      // Test with missing field data
+      await expect(client.metadata.createMetadataField(null as unknown as CreateMetadataFieldRequest)).rejects.toThrow('Field data is required');
+      
+      // Test with empty name
+      await expect(client.metadata.createMetadataField({
+        name: '',
+        label: 'Test Label',
+        field_type: 'text',
+        read_only: false,
+        use_as_facet: true
+      })).rejects.toThrow('Field name is required');
+      
+      // Test with whitespace-only name
+      await expect(client.metadata.createMetadataField({
+        name: '   ',
+        label: 'Test Label',
+        field_type: 'text',
+        read_only: false,
+        use_as_facet: true
+      })).rejects.toThrow('Field name is required');
+      
+      // Test with empty label
+      await expect(client.metadata.createMetadataField({
+        name: 'TestField',
+        label: '',
+        field_type: 'text',
+        read_only: false,
+        use_as_facet: true
+      })).rejects.toThrow('Field label is required');
+      
+      // Test with whitespace-only label
+      await expect(client.metadata.createMetadataField({
+        name: 'TestField',
+        label: '   ',
+        field_type: 'text',
+        read_only: false,
+        use_as_facet: true
+      })).rejects.toThrow('Field label is required');
+      
+      // Test with missing field_type
+      await expect(client.metadata.createMetadataField({
+        name: 'TestField',
+        label: 'Test Label',
+        field_type: undefined as unknown as MetadataFieldType,
+        read_only: false,
+        use_as_facet: true
+      })).rejects.toThrow('Field type is required');
+      
+      // Ensure no HTTP call was made when validation fails
+      expect(mockAxiosInstance.post).not.toHaveBeenCalled();
+    });
+
+    it('should propagate errors from HTTP client', async () => {
+      const fieldData = {
+        name: 'TestField',
+        label: 'Test Field Label',
+        field_type: 'text' as const,
+        read_only: false,
+        use_as_facet: true
+      };
+
+      const error = new Error('Field name already exists');
+      mockAxiosInstance.post.mockRejectedValue(error);
+
+      await expect(client.metadata.createMetadataField(fieldData)).rejects.toThrow('Field name already exists');
+      
+      expect(mockAxiosInstance.post).toHaveBeenCalledWith('/API/metadata/v1/fields/', fieldData, undefined);
+    });
+  });
+
+  describe('patchMetadataField', () => {
+    it('should patch a metadata field successfully', async () => {
+      const patchData: PatchMetadataFieldRequest = {
+        label: 'Updated Field Label',
+        description: 'Updated field description',
+        read_only: true,
+        use_as_facet: false
+      };
+
+      const mockPatchedField: MetadataFieldDefinition = {
+        auto_set: false,
+        date_created: '2025-08-22T19:19:05.182000+00:00',
+        date_modified: '2025-08-25T16:16:33.000Z',
+        description: 'Updated field description',
+        external_id: null,
+        field_type: 'tag_cloud',
+        hide_if_not_set: false,
+        is_block_field: false,
+        is_warning_field: false,
+        label: 'Updated Field Label',
+        mapped_field_name: null,
+        max_value: null,
+        min_value: null,
+        multi: false,
+        name: 'XenDataTapeID',
+        options: [],
+        read_only: true,
+        representative: false,
+        required: false,
+        sortable: false,
+        source_url: null,
+        use_as_facet: false
+      };
+
+      mockAxiosInstance.patch.mockResolvedValue({
+        data: mockPatchedField,
+        status: 200,
+        headers: {},
+        config: {},
+        statusText: 'OK'
+      });
+
+      const result = await client.metadata.patchMetadataField('XenDataTapeID', patchData);
+
+      expect(mockAxiosInstance.patch).toHaveBeenCalledWith('/API/metadata/v1/fields/XenDataTapeID/', patchData, undefined);
+      expect(result.data).toEqual(mockPatchedField);
+      expect(result.status).toBe(200);
+    });
+
+    it('should validate required parameters and throw appropriate errors', async () => {
+      const patchData: PatchMetadataFieldRequest = {
+        label: 'Updated Label'
+      };
+
+      // Test with empty field name
+      await expect(client.metadata.patchMetadataField('', patchData)).rejects.toThrow('Field name is required');
+      
+      // Test with whitespace-only field name
+      await expect(client.metadata.patchMetadataField('   ', patchData)).rejects.toThrow('Field name is required');
+      
+      // Test with missing patch data
+      await expect(client.metadata.patchMetadataField('TestField', null as unknown as PatchMetadataFieldRequest)).rejects.toThrow('Patch data is required');
+      
+      // Ensure no HTTP call was made when validation fails
+      expect(mockAxiosInstance.patch).not.toHaveBeenCalled();
+    });
+
+    it('should propagate errors from HTTP client', async () => {
+      const patchData: PatchMetadataFieldRequest = {
+        label: 'Updated Label',
+        read_only: false
+      };
+
+      const error = new Error('Field not found');
+      mockAxiosInstance.patch.mockRejectedValue(error);
+
+      await expect(client.metadata.patchMetadataField('NonExistentField', patchData)).rejects.toThrow('Field not found');
+      
+      expect(mockAxiosInstance.patch).toHaveBeenCalledWith('/API/metadata/v1/fields/NonExistentField/', patchData, undefined);
     });
   });
 });
