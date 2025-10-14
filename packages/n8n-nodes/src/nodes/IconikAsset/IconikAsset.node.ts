@@ -5,148 +5,149 @@ import {
   INodeTypeDescription,
   NodeOperationError,
   NodeConnectionType,
-} from 'n8n-workflow';
+} from "n8n-workflow";
 
-import { Tsonik, IconikAuthError, IconikAPIError } from 'tsonik';
+import { Tsonik, IconikAuthError, IconikAPIError } from "tsonik";
+import { validateNodeLicense } from "../../utils/licenseValidation";
 
 export class IconikAsset implements INodeType {
   description: INodeTypeDescription = {
-    displayName: 'Iconik Asset',
-    name: 'asset',
-    icon: 'file:iconik.svg',
-    group: ['transform'],
-    version: 1,
+    displayName: "Iconik Asset",
+    name: "asset",
+    icon: "file:iconik.svg",
+    group: ["transform"],
+    version: 4,
     subtitle: '={{$parameter["operation"]}}',
-    description: 'Manage Iconik asset',
+    description: "Manage Iconik asset",
     defaults: {
-      name: 'Iconik Asset',
+      name: "Iconik Asset",
     },
     inputs: [NodeConnectionType.Main],
     outputs: [NodeConnectionType.Main],
     credentials: [
       {
-        name: 'iconikApi',
+        name: "iconikApi",
         required: true,
       },
     ],
     properties: [
       {
-        displayName: 'Operation',
-        name: 'operation',
-        type: 'options',
+        displayName: "Operation",
+        name: "operation",
+        type: "options",
         noDataExpression: true,
         options: [
           {
-            name: 'Get Asset',
-            value: 'getAsset',
-            description: 'Get a single asset by ID',
-            action: 'Get a single asset by ID',
+            name: "Get Asset",
+            value: "getAsset",
+            description: "Get a single asset by ID",
+            action: "Get a single asset by ID",
           },
-        {
-            name: 'List Assets',
-            value: 'listAssets',
-            description: 'List assets with optional filters',
-            action: 'List assets with optional filters',
+          {
+            name: "List Assets",
+            value: "listAssets",
+            description: "List assets with optional filters",
+            action: "List assets with optional filters",
           },
-        {
-            name: 'Create Asset',
-            value: 'createAsset',
-            description: 'Create a new asset',
-            action: 'Create a new asset',
+          {
+            name: "Create Asset",
+            value: "createAsset",
+            description: "Create a new asset",
+            action: "Create a new asset",
           },
-        {
-            name: 'Update Asset',
-            value: 'updateAsset',
-            description: 'Update an asset',
-            action: 'Update an asset',
+          {
+            name: "Update Asset",
+            value: "updateAsset",
+            description: "Update an asset",
+            action: "Update an asset",
           },
-        {
-            name: 'Delete Asset',
-            value: 'deleteAsset',
-            description: 'Delete an asset',
-            action: 'Delete an asset',
-          }
+          {
+            name: "Delete Asset",
+            value: "deleteAsset",
+            description: "Delete an asset",
+            action: "Delete an asset",
+          },
         ],
-        default: 'getAsset',
+        default: "getAsset",
       },
       {
-        displayName: 'Id',
-        name: 'id',
-        type: 'string',
+        displayName: "Id",
+        name: "id",
+        type: "string",
         required: true,
         displayOptions: {
           show: {
-            operation: ['getAsset'],
+            operation: ["getAsset"],
           },
         },
-        default: '',
-        description: 'Id',
+        default: "",
+        description: "Id",
       },
       {
-        displayName: 'Params',
-        name: 'params',
-        type: 'string',
+        displayName: "Params",
+        name: "params",
+        type: "string",
         required: false,
         displayOptions: {
           show: {
-            operation: ['listAssets'],
+            operation: ["listAssets"],
           },
         },
-        default: '',
-        description: 'Params',
+        default: "",
+        description: "Params",
       },
       {
-        displayName: 'Asset Data',
-        name: 'assetData',
-        type: 'string',
+        displayName: "Asset Data",
+        name: "assetData",
+        type: "string",
         required: true,
         displayOptions: {
           show: {
-            operation: ['createAsset'],
+            operation: ["createAsset"],
           },
         },
-        default: '',
-        description: 'Asset Data',
+        default: "",
+        description: "Asset Data",
       },
       {
-        displayName: 'Id',
-        name: 'id',
-        type: 'string',
+        displayName: "Id",
+        name: "id",
+        type: "string",
         required: true,
         displayOptions: {
           show: {
-            operation: ['updateAsset'],
+            operation: ["updateAsset"],
           },
         },
-        default: '',
-        description: 'Id',
+        default: "",
+        description: "Id",
       },
       {
-        displayName: 'Asset Data',
-        name: 'assetData',
-        type: 'string',
+        displayName: "Asset Data",
+        name: "assetData",
+        type: "string",
         required: true,
         displayOptions: {
           show: {
-            operation: ['updateAsset'],
+            operation: ["updateAsset"],
           },
         },
-        default: '',
-        description: 'Asset Data',
+        default: "",
+        description: "Asset Data",
       },
       {
-        displayName: 'Id',
-        name: 'id',
-        type: 'string',
+        displayName: "Id",
+        name: "id",
+        type: "string",
         required: true,
         displayOptions: {
           show: {
-            operation: ['deleteAsset'],
+            operation: ["deleteAsset"],
           },
         },
-        default: '',
-        description: 'Id',
-      }
+        default: "",
+        description: "Id",
+      },
     ],
   };
 
@@ -154,11 +155,11 @@ export class IconikAsset implements INodeType {
     const items = this.getInputData();
     const returnData: INodeExecutionData[] = [];
 
-    // Get credentials
-    const credentials = await this.getCredentials('iconikApi');
-    if (!credentials) {
-      throw new NodeOperationError(this.getNode(), 'No credentials provided');
-    }
+    // Validate license and get credentials
+    await validateNodeLicense(this);
+    const credentials = await this.getCredentials("iconikApi")!;
+
+    console.log(' ---- this is just a test -----')
 
     // Initialize Tsonik client
     const client = new Tsonik({
@@ -169,42 +170,54 @@ export class IconikAsset implements INodeType {
 
     // Process each input item
     for (let i = 0; i < items.length; i++) {
-      const operation = this.getNodeParameter('operation', i) as string;
+      const operation = this.getNodeParameter("operation", i) as string;
 
       try {
         let result: any;
 
         switch (operation) {
-          case 'getAsset':
-            const id_getAsset_0 = this.getNodeParameter('id', i) as string;
+          case "getAsset":
+            const id_getAsset_0 = this.getNodeParameter("id", i) as string;
             result = await client.assets.getAsset(id_getAsset_0);
             break;
 
-          case 'listAssets':
-            const params_listAssets_0 = this.getNodeParameter('params', i) as any;
+          case "listAssets":
+            const params_listAssets_0 = this.getNodeParameter(
+              "params",
+              i
+            ) as any;
             result = await client.assets.listAssets(params_listAssets_0);
             break;
 
-          case 'createAsset':
-            const assetData_createAsset_0 = this.getNodeParameter('assetData', i) as any;
+          case "createAsset":
+            const assetData_createAsset_0 = this.getNodeParameter(
+              "assetData",
+              i
+            ) as any;
             result = await client.assets.createAsset(assetData_createAsset_0);
             break;
 
-          case 'updateAsset':
-            const id_updateAsset_0 = this.getNodeParameter('id', i) as string;
-            const assetData_updateAsset_1 = this.getNodeParameter('assetData', i) as any;
-            result = await client.assets.updateAsset(id_updateAsset_0, assetData_updateAsset_1);
+          case "updateAsset":
+            const id_updateAsset_0 = this.getNodeParameter("id", i) as string;
+            const assetData_updateAsset_1 = this.getNodeParameter(
+              "assetData",
+              i
+            ) as any;
+            result = await client.assets.updateAsset(
+              id_updateAsset_0,
+              assetData_updateAsset_1
+            );
             break;
 
-          case 'deleteAsset':
-            const id_deleteAsset_0 = this.getNodeParameter('id', i) as string;
+          case "deleteAsset":
+            const id_deleteAsset_0 = this.getNodeParameter("id", i) as string;
             result = await client.assets.deleteAsset(id_deleteAsset_0);
             break;
 
           default:
             throw new NodeOperationError(
               this.getNode(),
-              `Unknown operation: ${operation}`,
+              `Unknown operation: ${operation}`
             );
         }
 
@@ -218,13 +231,12 @@ export class IconikAsset implements INodeType {
             headers: result.headers,
           },
         });
-
       } catch (error) {
         if (error instanceof IconikAuthError) {
           throw new NodeOperationError(
             this.getNode(),
-            'Authentication failed. Please check your App ID and Auth Token.',
-            { itemIndex: i },
+            "Authentication failed. Please check your App ID and Auth Token.",
+            { itemIndex: i }
           );
         }
 
@@ -232,18 +244,19 @@ export class IconikAsset implements INodeType {
           throw new NodeOperationError(
             this.getNode(),
             `Iconik API Error: ${error.message}`,
-            { 
+            {
               itemIndex: i,
-              description: 'API request failed',
-            },
+              description: "API request failed",
+            }
           );
         }
 
-        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        const errorMessage =
+          error instanceof Error ? error.message : "Unknown error";
         throw new NodeOperationError(
           this.getNode(),
           `Unexpected error: ${errorMessage}`,
-          { itemIndex: i },
+          { itemIndex: i }
         );
       }
     }

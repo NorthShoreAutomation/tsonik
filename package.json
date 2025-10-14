@@ -70,6 +70,7 @@
     }
   ],
   "dependencies": {
+    "@licensespring/node-sdk": "^1.2.0",
     "axios": "^1.6.2",
     "n8n-workflow": "^1.82.0",
     "p-retry": "^6.2.1",

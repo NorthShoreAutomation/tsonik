@@ -42,6 +42,118 @@ async function main() {
     const allFiles = [...nodes, ...credentials, packageJson];
     await generator.writeFiles(allFiles);
 
+    // Generate license validation utility
+    console.log('🔐 Generating license validation utility...');
+    const utilsDir = path.join(PACKAGES_DIR, 'src/utils');
+    await fs.mkdir(utilsDir, { recursive: true });
+    const licenseValidationContent = `import { LicenseAPI } from '@licensespring/node-sdk';
+import { ICredentialDataDecryptedObject } from 'n8n-workflow';
+
+export interface LicenseSpringConfig {
+  licenseKey: string;
+  apiKey: string;
+  sharedKey: string;
+  appName: string;
+  appVersion: string;
+}
+
+export class LicenseValidator {
+  private licenseAPI: LicenseAPI;
+  private config: LicenseSpringConfig;
+
+  constructor(credentials: ICredentialDataDecryptedObject) {
+    this.config = {
+      licenseKey: credentials.licenseKey as string,
+      apiKey: credentials.apiKey as string,
+      sharedKey: credentials.sharedKey as string,
+      appName: credentials.appName as string,
+      appVersion: credentials.appVersion as string,
+    };
+
+    // Initialize LicenseSpring API
+    this.licenseAPI = new LicenseAPI({
+      apiKey: this.config.apiKey,
+      sharedKey: this.config.sharedKey,
+      appName: this.config.appName,
+      appVersion: this.config.appVersion,
+      // Use default hardware ID method
+      hardwareIDMethod: 5,
+    });
+  }
+
+  /**
+   * Validate the license key
+   */
+  async validateLicense(): Promise<{ isValid: boolean; error?: string }> {
+    try {
+      // Check if license key is provided
+      if (!this.config.licenseKey) {
+        return { isValid: false, error: 'License key is required' };
+      }
+
+      // Attempt to activate the license
+      const result = await this.licenseAPI.activateLicense(this.config.licenseKey);
+      
+      if (result) {
+        // Check if license is active (ActivateLicenseResponse uses 'active')
+        const isActive = result.active;
+        const isExpired = result.is_expired;
+        
+        if (!isActive) {
+          return { isValid: false, error: 'License is not active' };
+        }
+        
+        if (isExpired) {
+          return { isValid: false, error: 'License has expired' };
+        }
+        
+        return { isValid: true };
+      }
+      
+      return { isValid: false, error: 'Invalid license response' };
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'License validation failed';
+      return { isValid: false, error: errorMessage };
+    }
+  }
+
+  /**
+   * Check license status without activation
+   */
+  async checkLicenseStatus(): Promise<{ isValid: boolean; error?: string }> {
+    try {
+      if (!this.config.licenseKey) {
+        return { isValid: false, error: 'License key is required' };
+      }
+
+      // Check license status
+      const result = await this.licenseAPI.checkLicense(this.config.licenseKey);
+      
+      if (result) {
+        // CheckLicenseResponse uses 'license_active' and inherits 'is_expired'
+        const isActive = result.license_active;
+        const isExpired = result.is_expired;
+        
+        if (!isActive) {
+          return { isValid: false, error: 'License is not active' };
+        }
+        
+        if (isExpired) {
+          return { isValid: false, error: 'License has expired' };
+        }
+        
+        return { isValid: true };
+      }
+      
+      return { isValid: false, error: 'License check failed' };
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'License status check failed';
+      return { isValid: false, error: errorMessage };
+    }
+  }
+}`;
+    await fs.writeFile(path.join(utilsDir, 'licenseValidation.ts'), licenseValidationContent);
+
     // Copy iconik.svg to each node directory
     console.log('🎨 Copying assets...');
     for (const resource of resources) {

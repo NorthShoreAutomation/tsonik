@@ -40,9 +40,10 @@ export class NodeGenerator {
       nodes.push(node);
     }
 
-    // Generate shared credential
-    const credential = this.generateCredentialFile();
-    credentials.push(credential);
+    // Generate shared credentials
+    const iconikCredential = this.generateIconikCredentialFile();
+    const licenseCredential = this.generateLicenseSpringCredentialFile();
+    credentials.push(iconikCredential, licenseCredential);
 
     // Generate package.json
     const packageJson = this.generatePackageJson(resources);
@@ -85,6 +86,7 @@ export class NodeGenerator {
 } from 'n8n-workflow';
 
 import { Tsonik, IconikAuthError, IconikAPIError } from 'tsonik';
+import { LicenseValidator } from '../../utils/licenseValidation';
 
 export class ${className} implements INodeType {
   description: INodeTypeDescription = {
@@ -103,6 +105,10 @@ export class ${className} implements INodeType {
     credentials: [
       {
         name: 'iconikApi',
+        required: true,
+      },
+      {
+        name: 'licenseSpring',
         required: true,
       },
     ],
@@ -125,10 +131,27 @@ export class ${className} implements INodeType {
     const items = this.getInputData();
     const returnData: INodeExecutionData[] = [];
 
-    // Get credentials
+    // Get Iconik API credentials
     const credentials = await this.getCredentials('iconikApi');
     if (!credentials) {
-      throw new NodeOperationError(this.getNode(), 'No credentials provided');
+      throw new NodeOperationError(this.getNode(), 'No Iconik API credentials provided');
+    }
+
+    // Get LicenseSpring credentials
+    const licenseCredentials = await this.getCredentials('licenseSpring');
+    if (!licenseCredentials) {
+      throw new NodeOperationError(this.getNode(), 'No LicenseSpring credentials provided');
+    }
+
+    // Validate license before proceeding
+    const licenseValidator = new LicenseValidator(licenseCredentials);
+    const licenseValidation = await licenseValidator.checkLicenseStatus();
+    
+    if (!licenseValidation.isValid) {
+      throw new NodeOperationError(
+        this.getNode(), 
+        \`License validation failed: \${licenseValidation.error || 'Invalid license'}\`
+      );
     }
 
     // Initialize Tsonik client
@@ -344,9 +367,9 @@ export class ${className} implements INodeType {
   }
 
   /**
-   * Generate credential file
+   * Generate Iconik credential file
    */
-  private generateCredentialFile(): GeneratedCredential {
+  private generateIconikCredentialFile(): GeneratedCredential {
     const content = `import {
   ICredentialType,
   INodeProperties,
@@ -395,6 +418,79 @@ export class IconikApi implements ICredentialType {
   }
 
   /**
+   * Generate LicenseSpring credential file
+   */
+  private generateLicenseSpringCredentialFile(): GeneratedCredential {
+    const content = `import {
+  ICredentialType,
+  INodeProperties,
+} from 'n8n-workflow';
+
+export class LicenseSpring implements ICredentialType {
+  name = 'licenseSpring';
+  displayName = 'LicenseSpring License';
+  documentationUrl = 'https://docs.licensespring.com/';
+  properties: INodeProperties[] = [
+    {
+      displayName: 'License Key',
+      name: 'licenseKey',
+      type: 'string',
+      typeOptions: {
+        password: true,
+      },
+      required: true,
+      default: '',
+      description: 'Your LicenseSpring license key',
+    },
+    {
+      displayName: 'API Key',
+      name: 'apiKey',
+      type: 'string',
+      typeOptions: {
+        password: true,
+      },
+      required: true,
+      default: '',
+      description: 'Your LicenseSpring API key',
+    },
+    {
+      displayName: 'Shared Key',
+      name: 'sharedKey',
+      type: 'string',
+      typeOptions: {
+        password: true,
+      },
+      required: true,
+      default: '',
+      description: 'Your LicenseSpring shared key',
+    },
+    {
+      displayName: 'App Name',
+      name: 'appName',
+      type: 'string',
+      required: true,
+      default: '',
+      description: 'Your application name in LicenseSpring',
+    },
+    {
+      displayName: 'App Version',
+      name: 'appVersion',
+      type: 'string',
+      required: true,
+      default: '1.0.0',
+      description: 'Your application version',
+    },
+  ];
+}`;
+
+    return {
+      fileName: 'LicenseSpring.credentials.ts',
+      content,
+      path: 'src/credentials/LicenseSpring.credentials.ts'
+    };
+  }
+
+  /**
    * Generate package.json
    */
   private generatePackageJson(resources: ResourceMetadata[]): GeneratedPackage {
@@ -420,13 +516,17 @@ export class IconikApi implements ICredentialType {
       files: ['dist'],
       n8n: {
         n8nNodesApiVersion: 1,
-        credentials: ['dist/src/credentials/IconikApi.credentials.js'],
+        credentials: [
+          'dist/credentials/IconikApi.credentials.js',
+          'dist/credentials/LicenseSpring.credentials.js'
+        ],
         nodes: resources.map(resource => {
           const className = `Iconik${resource.displayName.replace(/\s+/g, '')}`;
-          return `dist/src/nodes/${className}/${className}.node.js`;
+          return `dist/nodes/${className}/${className}.node.js`;
         })
       },
       dependencies: {
+        '@licensespring/node-sdk': '^1.2.0',
         'n8n-workflow': '^1.0.0',
         'tsonik': '^1.8.0'
       },

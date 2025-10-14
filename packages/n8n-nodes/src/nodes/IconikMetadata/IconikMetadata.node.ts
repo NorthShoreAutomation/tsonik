@@ -8,6 +8,7 @@ import {
 } from 'n8n-workflow';
 
 import { Tsonik, IconikAuthError, IconikAPIError } from 'tsonik';
+import { validateNodeLicense } from '../../utils/licenseValidation';
 
 export class IconikMetadata implements INodeType {
   description: INodeTypeDescription = {
@@ -149,11 +150,9 @@ export class IconikMetadata implements INodeType {
     const items = this.getInputData();
     const returnData: INodeExecutionData[] = [];
 
-    // Get credentials
-    const credentials = await this.getCredentials('iconikApi');
-    if (!credentials) {
-      throw new NodeOperationError(this.getNode(), 'No credentials provided');
-    }
+    // Validate license and get credentials
+    await validateNodeLicense(this);
+    const credentials = await this.getCredentials('iconikApi')!;
 
     // Initialize Tsonik client
     const client = new Tsonik({
