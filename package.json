@@ -1,6 +1,6 @@
 {
   "name": "tsonik",
-  "version": "1.8.0",
+  "version": "1.10.0",
   "description": "A TypeScript client library for the Iconik API based on Swagger documentation",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -28,6 +28,7 @@
     "test:integration:files": "jest --config jest.integration.config.js --testPathPattern=files.integration",
     "test:integration:formats": "jest --config jest.integration.config.js --testPathPattern=formats.integration",
     "test:integration:metadata": "jest --config jest.integration.config.js --testPathPattern=metadata.integration",
+    "test:integration:search": "jest --config jest.integration.config.js --testPathPattern=search.integration",
     "test:all": "npm run test && npm run test:integration",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",

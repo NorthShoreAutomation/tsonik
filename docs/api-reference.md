@@ -324,46 +324,127 @@ await client.files.deleteFile('file-123');
 
 ## FileSets (`client.filesets`)
 
-### `getFileset(id)`
+### `getAssetFilesets(assetId, params?)`
 
-Get fileset details.
+Get all file sets for a specific asset.
 
-**Example:**
+**Parameters:**
 ```typescript
-const fileset = await client.filesets.getFileset('fileset-123');
+interface AssetFileSetsListParams {
+  per_page?: number;     // Items per page
+  last_id?: string;      // Last item ID for pagination
+  file_count?: boolean;  // Include file count in response
+}
 ```
 
-### `createFileset(data)`
+**Example:**
+```typescript
+const filesets = await client.filesets.getAssetFilesets('asset-123', {
+  per_page: 10,
+  file_count: true
+});
+console.log(`Found ${filesets.data.objects.length} filesets`);
+```
 
-Create a new fileset.
+### `getAssetFileset(assetId, fileSetId)`
+
+Get a specific file set for an asset by ID.
 
 **Example:**
 ```typescript
-const fileset = await client.filesets.createFileset({
+const fileset = await client.filesets.getAssetFileset('asset-123', 'fileset-456');
+console.log(`Fileset: ${fileset.data.name}`);
+```
+
+### `createAssetFileset(assetId, filesetData)`
+
+Create a new file set for an asset.
+
+**Parameters:**
+```typescript
+interface CreateFileSetRequest {
+  base_dir: string;
+  component_ids: string[];
+  format_id: string;
+  name: string;
+  archive_file_set_id?: string;
+  date_deleted?: string;
+  file_dir?: string;
+  is_archive?: boolean;
+  metadata?: Record<string, string | number | boolean | object>[];
+  original_storage_id?: string;
+  status?: 'ACTIVE' | 'DELETED' | 'ARCHIVED';
+  storage_id?: string;
+  version_id?: string;
+}
+```
+
+**Example:**
+```typescript
+const fileset = await client.filesets.createAssetFileset('asset-123', {
   name: "Raw Footage",
-  asset_id: "asset-123"
+  base_dir: "/media/raw",
+  component_ids: ["comp-1", "comp-2"],
+  format_id: "format-123",
+  storage_id: "storage-456",
+  status: "ACTIVE"
 });
 ```
 
-### `updateFileset(id, data)`
+### `deleteAssetFileset(assetId, fileSetId, options?)`
 
-Update a fileset.
+Delete a file set for an asset.
+
+**Parameters:**
+```typescript
+interface DeleteFileSetOptions {
+  keep_source?: boolean;   // Keep source files when deleting
+  immediately?: boolean;   // Delete immediately (returns 204) vs soft delete (returns 200)
+}
+```
 
 **Example:**
 ```typescript
-await client.filesets.updateFileset('fileset-123', {
-  name: "Updated FileSet Name"
+// Soft delete (default)
+await client.filesets.deleteAssetFileset('asset-123', 'fileset-456');
+
+// Delete immediately
+await client.filesets.deleteAssetFileset('asset-123', 'fileset-456', {
+  immediately: true
+});
+
+// Keep source files
+await client.filesets.deleteAssetFileset('asset-123', 'fileset-456', {
+  keep_source: true
 });
 ```
 
-### `deleteFileset(id, options?)`
+### `getFileSetFiles(assetId, fileSetId, options?)`
 
-Delete a fileset.
+Get files from a file set.
+
+**Parameters:**
+```typescript
+interface FileSetFilesListParams {
+  per_page?: number;              // Items per page
+  last_id?: string;               // Last item ID for pagination
+  generate_signed_url?: boolean;  // Generate signed URLs for file access
+  file_count?: boolean;           // Include file count in response
+}
+```
 
 **Example:**
 ```typescript
-await client.filesets.deleteFileset('fileset-123', {
-  delete_files: true
+const files = await client.filesets.getFileSetFiles('asset-123', 'fileset-456', {
+  per_page: 20,
+  generate_signed_url: true
+});
+
+files.data.objects.forEach(file => {
+  console.log(`File: ${file.name} (${file.size} bytes)`);
+  if (file.url) {
+    console.log(`Download URL: ${file.url}`);
+  }
 });
 ```
 
@@ -457,6 +538,264 @@ await client.metadata.putMetadata(
 ### Format-related operations
 
 The formats resource provides access to format information and management.
+
+## Search (`client.search`)
+
+### `search(searchCriteria, params?)`
+
+Perform a comprehensive search across assets, collections, segments, and other objects using Iconik's native search API.
+
+**Parameters:**
+```typescript
+interface SearchCriteria {
+  doc_types?: DocType[];                    // Types of documents to search
+  exclude_fields?: string[];                // Fields to exclude from results
+  facets?: string[];                        // Fields to generate facets for
+  facets_filters?: FacetFilter[];           // Faceted search filters
+  filter?: CriteriaFilter;                  // Complex filtering criteria
+  include_fields?: string[];                // Fields to include in results
+  metadata_view_id?: string;                // Metadata view ID for field mapping
+  query?: string;                           // Text search query
+  search_after?: (string | number | boolean | null)[]; // Pagination cursor
+  search_fields?: string[];                 // Fields to search within
+  sort?: CriteriaSort[];                    // Sort criteria
+}
+
+interface CriteriaFilter {
+  filters?: CriteriaFilter[];               // Nested filters
+  operator: string;                         // Logical operator ("AND", "OR")
+  terms?: CriteriaTerm[];                   // Search terms
+}
+
+interface CriteriaTerm {
+  exists?: boolean;                         // Check if field exists
+  missing?: boolean;                        // Check if field is missing
+  name: string;                            // Field name
+  range?: CriteriaRangeFilter;             // Range filter
+  value?: string;                          // Exact value match
+  value_in?: string[];                     // Match any of these values
+}
+
+interface CriteriaRangeFilter {
+  max?: string;                            // Maximum value
+  min?: string;                            // Minimum value
+  timezone?: string;                       // Timezone for date ranges
+}
+
+interface CriteriaSort {
+  name: string;                            // Field name to sort by
+  order?: string;                          // Sort order ("asc", "desc")
+}
+
+type DocType = 'assets' | 'collections' | 'segments' | 'saved_searches' | 'saved_search_groups';
+
+interface SearchQueryParams {
+  page?: number;                           // Page number (default: 1)
+  per_page?: number;                       // Results per page (default: 10)
+  generate_signed_url?: boolean;           // Generate signed URLs
+  generate_signed_download_url?: boolean;  // Generate signed download URLs
+  generate_signed_proxy_url?: boolean;     // Generate signed proxy URLs
+  save_search_history?: boolean;           // Save search to history
+}
+
+interface SearchDocuments {
+  facets?: object;                         // Facet results
+  objects?: SearchDocument[];              // Search results
+  page?: number;                          // Current page
+  pages?: number;                         // Total pages
+  per_page?: number;                      // Results per page
+  total?: number;                         // Total result count
+  next_url?: string;                      // Next page URL
+  prev_url?: string;                      // Previous page URL
+}
+
+interface SearchDocument {
+  id?: string;                            // Document ID
+  object_type: string;                    // Type of object
+  title: string;                          // Document title
+  description?: string;                   // Document description
+  date_created?: string;                  // Creation date
+  date_modified?: string;                 // Last modified date
+  metadata?: object;                      // Document metadata
+}
+```
+
+**Basic Examples:**
+
+```typescript
+// Simple text search
+const textSearch = await client.search.search({
+  query: "marketing video",
+  doc_types: ['assets']
+}, {
+  per_page: 20,
+  page: 1
+});
+
+// Search specific document types
+const assetSearch = await client.search.search({
+  query: "product demo",
+  doc_types: ['assets', 'collections']
+});
+
+// Search with field filtering
+const fieldSearch = await client.search.search({
+  query: "marketing",
+  search_fields: ['title', 'description'],
+  include_fields: ['id', 'title', 'date_created']
+});
+```
+
+**Advanced Filtering:**
+
+```typescript
+// Search with complex filters
+const filteredSearch = await client.search.search({
+  query: "campaign",
+  doc_types: ['assets'],
+  filter: {
+    operator: "AND",
+    terms: [
+      {
+        name: "status",
+        value: "ACTIVE"
+      },
+      {
+        name: "category",
+        value_in: ["video", "image"]
+      }
+    ]
+  }
+});
+
+// Search with date range filter
+const dateRangeSearch = await client.search.search({
+  query: "*",
+  doc_types: ['assets'],
+  filter: {
+    operator: "AND",
+    terms: [
+      {
+        name: "date_created",
+        range: {
+          min: "2023-01-01T00:00:00Z",
+          max: "2023-12-31T23:59:59Z",
+          timezone: "+00:00"
+        }
+      }
+    ]
+  }
+});
+
+// Nested filters with multiple conditions
+const nestedSearch = await client.search.search({
+  query: "marketing",
+  filter: {
+    operator: "OR",
+    filters: [
+      {
+        operator: "AND",
+        terms: [
+          {
+            name: "category",
+            value: "video"
+          },
+          {
+            name: "status",
+            value: "ACTIVE"
+          }
+        ]
+      },
+      {
+        operator: "AND",
+        terms: [
+          {
+            name: "category",
+            value: "image"
+          },
+          {
+            name: "priority",
+            value: "high"
+          }
+        ]
+      }
+    ]
+  }
+});
+```
+
+**Faceted Search:**
+
+```typescript
+// Search with facets
+const facetedSearch = await client.search.search({
+  query: "marketing",
+  facets: ['category', 'status', 'object_type'],
+  facets_filters: [
+    {
+      name: "category",
+      value_in: ["video", "image"]
+    }
+  ]
+});
+
+// Access facet results
+if (facetedSearch.data.facets) {
+  console.log('Available facets:', facetedSearch.data.facets);
+}
+```
+
+**Pagination:**
+
+Use page-based or cursor-based pagination:
+
+```typescript
+// Page-based pagination
+const page2 = await client.search.search({
+  query: "video",
+  doc_types: ['assets']
+}, {
+  page: 2,
+  per_page: 20
+});
+
+// Cursor-based pagination (for large result sets)
+const firstPage = await client.search.search({
+  query: "marketing",
+  sort: [{ name: "date_created", order: "desc" }]
+});
+
+// Get next page using search_after
+if (firstPage.data.objects && firstPage.data.objects.length > 0) {
+  const lastItem = firstPage.data.objects[firstPage.data.objects.length - 1];
+  const nextPage = await client.search.search({
+    query: "marketing",
+    search_after: [lastItem.date_created, lastItem.id],
+    sort: [{ name: "date_created", order: "desc" }]
+  });
+}
+```
+
+**Sorting:**
+
+Sort results by one or more fields:
+
+```typescript
+const sortedResults = await client.search.search({
+  query: "*",
+  doc_types: ['assets'],
+  sort: [
+    {
+      name: "date_created",
+      order: "desc"
+    },
+    {
+      name: "title",
+      order: "asc"
+    }
+  ]
+});
+```
 
 ## Low-Level HTTP Methods
 

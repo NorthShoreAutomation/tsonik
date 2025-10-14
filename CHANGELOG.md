@@ -1,3 +1,25 @@
+# [1.10.0](https://github.com/NorthShoreAutomation/tsonik/compare/v1.9.0...v1.10.0) (2025-08-20)
+
+
+### Features
+
+* adds integration test for search pagination ([bb21b32](https://github.com/NorthShoreAutomation/tsonik/commit/bb21b321859b85f28807cffd04c30266421e08f1))
+* adds search resource with test coverage ([c68b235](https://github.com/NorthShoreAutomation/tsonik/commit/c68b2355b5add12c59b69673edc748c61b0588b9))
+
+# [1.9.0](https://github.com/NorthShoreAutomation/tsonik/compare/v1.8.1...v1.9.0) (2025-08-07)
+
+
+### Features
+
+* Adds patch to assets ([3eca23f](https://github.com/NorthShoreAutomation/tsonik/commit/3eca23ff0519e3c5452b5281de461af34308eda4))
+
+## [1.8.1](https://github.com/NorthShoreAutomation/tsonik/compare/v1.8.0...v1.8.1) (2025-07-24)
+
+
+### Bug Fixes
+
+* format resource url, formats.integration.test.ts ([ef778f0](https://github.com/NorthShoreAutomation/tsonik/commit/ef778f0e6978399c02bac859d8a65ddea1a38aa6))
+
 # [1.8.0](https://github.com/NorthShoreAutomation/tsonik/compare/v1.7.0...v1.8.0) (2025-07-16)
 
 

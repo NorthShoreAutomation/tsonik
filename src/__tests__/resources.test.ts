@@ -2346,6 +2346,10 @@ describe('IconikClient Resources', () => {
       // Setup mock response for minimal fileset creation
       const createData: CreateFileSetRequest = {
         storage_id: 'storage-minimal',
+        base_dir: '/test/files',
+        component_ids: ['component-1'],
+        format_id: 'format-1',
+        name: 'Minimal Fileset'
       };
 
       const mockMinimalFileset: FileSet = {
@@ -2387,6 +2391,9 @@ describe('IconikClient Resources', () => {
         is_archive: true,
         archive_file_set_id: 'original-fileset-123',
         original_storage_id: 'original-storage',
+        base_dir: '/test/archive',
+        component_ids: ['component-1'],
+        format_id: 'format-1'
       };
 
       const mockArchiveFileset: FileSet = {
@@ -2423,6 +2430,10 @@ describe('IconikClient Resources', () => {
     it('should validate asset ID is required for createAssetFileset', async () => {
       const createData: CreateFileSetRequest = {
         storage_id: 'storage-test',
+        base_dir: '/test/files',
+        component_ids: ['component-1'],
+        format_id: 'format-1',
+        name: 'Test Fileset'
       };
 
       await expect(
@@ -2433,6 +2444,10 @@ describe('IconikClient Resources', () => {
     it('should validate asset ID is not just whitespace for createAssetFileset', async () => {
       const createData: CreateFileSetRequest = {
         storage_id: 'storage-test',
+        base_dir: '/test/files',
+        component_ids: ['component-1'],
+        format_id: 'format-1',
+        name: 'Test Fileset'
       };
 
       await expect(
@@ -3090,6 +3105,9 @@ describe('IconikClient Resources', () => {
         name: 'minimal.txt',
         type: 'FILE',
         status: 'OPEN',
+        original_name: 'minimal.txt',
+        directory_path: '/test/files',
+        file_set_id: 'fileset-123'
       };
 
       const mockMinimalFile = {
@@ -3133,6 +3151,9 @@ describe('IconikClient Resources', () => {
         type: 'FILE',
         status: 'OPEN',
         storage_id: 'storage-456',
+        original_name: 'upload_file.mp4',
+        directory_path: '/test/uploads',
+        file_set_id: 'fileset-456'
       };
 
       const mockFileWithCredentials = {
@@ -3188,6 +3209,8 @@ describe('IconikClient Resources', () => {
         type: 'DIRECTORY',
         status: 'OPEN',
         directory_path: '/media',
+        original_name: 'uploads',
+        file_set_id: 'fileset-123'
       };
 
       const mockDirectory = {
@@ -3224,6 +3247,9 @@ describe('IconikClient Resources', () => {
         name: 'test.txt',
         type: 'FILE',
         status: 'OPEN',
+        original_name: 'test.txt',
+        directory_path: '/test/files',
+        file_set_id: 'fileset-123'
       };
 
       await expect(
@@ -3236,6 +3262,9 @@ describe('IconikClient Resources', () => {
         name: 'test.txt',
         type: 'FILE',
         status: 'OPEN',
+        original_name: 'test.txt',
+        directory_path: '/test/files',
+        file_set_id: 'fileset-123'
       };
 
       await expect(
@@ -3312,7 +3341,7 @@ describe('IconikClient Resources', () => {
 
       // Assertions
       expect(mockAxiosInstance.get).toHaveBeenCalledWith(
-        '/v1/assets/asset-456/formats/',
+        '/API/files/v1/assets/asset-456/formats/',
         undefined
       );
       expect(result.data).toEqual(mockFormats);
@@ -3366,7 +3395,7 @@ describe('IconikClient Resources', () => {
 
       // Assertions
       expect(mockAxiosInstance.get).toHaveBeenCalledWith(
-        '/v1/assets/asset-789/formats/',
+        '/API/files/v1/assets/asset-789/formats/',
         { params: { per_page: 2, last_id: 'format-678' } }
       );
       expect(result.data).toEqual(mockFormats);
@@ -3420,7 +3449,7 @@ describe('IconikClient Resources', () => {
 
       // Assertions
       expect(mockAxiosInstance.get).toHaveBeenCalledWith(
-        '/v1/assets/asset-100/formats/',
+        '/API/files/v1/assets/asset-100/formats/',
         { params: { include_all_versions: true } }
       );
       expect(result.data).toEqual(mockFormats);
@@ -3499,7 +3528,7 @@ describe('IconikClient Resources', () => {
 
       // Assertions
       expect(mockAxiosInstance.get).toHaveBeenCalledWith(
-        '/v1/assets/asset-200/formats/',
+        '/API/files/v1/assets/asset-200/formats/',
         {
           params: {
             per_page: 1,
@@ -3534,7 +3563,7 @@ describe('IconikClient Resources', () => {
 
       // Assertions
       expect(mockAxiosInstance.get).toHaveBeenCalledWith(
-        '/v1/assets/asset-empty/formats/',
+        '/API/files/v1/assets/asset-empty/formats/',
         undefined
       );
       expect(result.data).toEqual(mockEmptyFormats);
@@ -3760,7 +3789,7 @@ describe('IconikClient Resources', () => {
 
       // Assertions
       expect(mockAxiosInstance.post).toHaveBeenCalledWith(
-        '/v1/assets/asset-create/formats/',
+        '/API/files/v1/assets/asset-create/formats/',
         createData,
         undefined
       );
@@ -3802,7 +3831,7 @@ describe('IconikClient Resources', () => {
 
       // Assertions
       expect(mockAxiosInstance.post).toHaveBeenCalledWith(
-        '/v1/assets/asset-minimal/formats/',
+        '/API/files/v1/assets/asset-minimal/formats/',
         createData,
         undefined
       );
@@ -4058,7 +4087,7 @@ describe('IconikClient Resources', () => {
 
       // Assertions
       expect(mockAxiosInstance.get).toHaveBeenCalledWith(
-        '/v1/assets/asset-specific/formats/format-specific-123/',
+        '/API/files/v1/assets/asset-specific/formats/format-specific-123/',
         undefined
       );
       expect(result.data).toEqual(mockFormat);
@@ -4275,7 +4304,7 @@ describe('IconikClient Resources', () => {
 
       // Assertions
       expect(mockAxiosInstance.patch).toHaveBeenCalledWith(
-        '/v1/assets/asset-update/formats/format-update-123/',
+        '/API/files/v1/assets/asset-update/formats/format-update-123/',
         updateData,
         undefined
       );
@@ -4615,7 +4644,7 @@ describe('IconikClient Resources', () => {
 
       // Assertions
       expect(mockAxiosInstance.put).toHaveBeenCalledWith(
-        '/v1/assets/asset-replace/formats/format-replace-123/',
+        '/API/files/v1/assets/asset-replace/formats/format-replace-123/',
         replaceData,
         undefined
       );
