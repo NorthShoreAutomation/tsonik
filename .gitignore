@@ -35,6 +35,11 @@ poetry.lock
 *.swp
 *.swo
 
+# OS
+.DS_Store
+**/.DS_Store
+Thumbs.db
+
 # Environment
 .env
 .env.local

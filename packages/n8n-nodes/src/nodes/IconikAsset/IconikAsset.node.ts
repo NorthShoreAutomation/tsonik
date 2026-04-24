@@ -159,8 +159,6 @@ export class IconikAsset implements INodeType {
     await validateNodeLicense(this);
     const credentials = await this.getCredentials("iconikApi")!;
 
-    console.log(' ---- this is just a test -----')
-
     // Initialize Tsonik client
     const client = new Tsonik({
       appId: credentials.appId as string,
