@@ -1,5 +1,10 @@
 name: Integration Tests
 
+# SECURITY: This workflow uses `pull_request` (NOT `pull_request_target`).
+# `pull_request` runs in the context of the fork and does NOT expose repo
+# secrets to PRs from forks, which is the behavior we want since ICONIK_*
+# credentials are injected below. Do NOT change this to `pull_request_target` —
+# doing so would leak production credentials to anyone who opens a PR.
 on:
   push:
     branches: [ main ]
@@ -10,7 +15,10 @@ jobs:
   test:
     name: Run Integration Tests
     runs-on: ubuntu-latest
-    
+    # Skip on PRs from forks (they cannot access secrets, so the run would
+    # fail and block merges). Unit tests still run on fork PRs via unit-tests.yml.
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
+
     steps:
     - uses: actions/checkout@v3
     

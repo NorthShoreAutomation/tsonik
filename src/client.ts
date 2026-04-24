@@ -54,25 +54,26 @@ export class Tsonik {
     this.httpClient.interceptors.response.use(
       (response) => response,
       (error) => {
-        // Log detailed error information for debugging
-        console.error('Iconik API Error Details:', {
-          status: error.response?.status,
-          statusText: error.response?.statusText,
-          url: error.config?.url,
-          method: error.config?.method,
-          requestData: error.config?.data,
-          responseData: error.response?.data,
-          message: error.message
-        });
-        
-        // Log specific validation errors if available
-        if (error.response?.data?.errors) {
-          console.error('API Validation Errors:', error.response.data.errors);
+        if (this.config.debug) {
+          console.error('Iconik API Error Details:', {
+            status: error.response?.status,
+            statusText: error.response?.statusText,
+            url: error.config?.url,
+            method: error.config?.method,
+            requestData: error.config?.data,
+            responseData: error.response?.data,
+            message: error.message,
+          });
+
+          if (error.response?.data?.errors) {
+            console.error('API Validation Errors:', error.response.data.errors);
+          }
+          if (error.response?.data?.error_description) {
+            console.error('API Error Description:', error.response.data.error_description);
+          }
         }
-        if (error.response?.data?.error_description) {
-          console.error('API Error Description:', error.response.data.error_description);
-        }
-        
+
+
         if (error.response?.status === 401) {
           throw new IconikAuthError('Invalid API key or unauthorized access');
         }

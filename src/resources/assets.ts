@@ -59,7 +59,7 @@ export class AssetResource extends BaseResource {
   /**
    * Delete an asset
    */
-  // async deleteAsset(id: string): Promise<ApiResponse<void>> {
-  //   return super.delete(id);
-  // }
+  async deleteAsset(id: string): Promise<ApiResponse<void>> {
+    return super.delete(id);
+  }
 }
