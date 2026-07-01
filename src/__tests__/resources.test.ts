@@ -103,7 +103,7 @@ describe('IconikClient Resources', () => {
       });
 
       // Access BaseResource methods through AssetResource since BaseResource is abstract
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       const result = await (client.assets as any).update(
         'item-123',
         updateData
@@ -132,7 +132,7 @@ describe('IconikClient Resources', () => {
       });
 
       // Access BaseResource methods through AssetResource since BaseResource is abstract
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       const result = await (client.assets as any).patch('item-123', patchData);
 
       expect(mockAxiosInstance.patch).toHaveBeenCalledWith(
@@ -974,7 +974,7 @@ describe('IconikClient Resources', () => {
       const stepReplaceData: JobStep = {
         id: 'step-1',
         label: 'Completely Replaced Step',
-        status: 'DONE' as JobStepStatus,
+        status: 'DONE',
         message: 'Step fully replaced',
         error_message: '',
       };

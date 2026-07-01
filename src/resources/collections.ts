@@ -16,7 +16,7 @@ export class CollectionResource extends BaseResource {
    * Get a list of collections
    */
   async listCollections(params?: CollectionListParams): Promise<ApiResponse<PaginatedResponse<Collection>>> {
-    return super.list<Collection>(params as Record<string, string | number | boolean | undefined>);
+    return super.list<Collection>(params);
   }
 
   /**

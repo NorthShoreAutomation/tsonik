@@ -214,7 +214,7 @@ describe('JobResource Integration Tests', () => {
           if (updatedSteps.length > 0) {
             const updatedStep = updatedSteps.find(s => s.id === stepIds[0]);
             if (updatedStep) {
-              expect(updatedStep.status).toBe('DONE' as JobStepStatus);
+              expect(updatedStep.status).toBe('DONE');
               expect(updatedStep.message).toBe('Step completed successfully');
             }
           }
@@ -282,7 +282,7 @@ describe('JobResource Integration Tests', () => {
           if (updatedSteps.length > 0) {
             const updatedStep = updatedSteps.find(s => s.id === stepIds[0]);
             if (updatedStep) {
-              expect(updatedStep.status).toBe('WAITING' as JobStepStatus);
+              expect(updatedStep.status).toBe('WAITING');
               expect(updatedStep.message).toBe('Step replaced via PUT');
               expect(updatedStep.label).toBe('New Processing Step');
             }
@@ -398,7 +398,7 @@ describe('JobResource Integration Tests', () => {
           const stepReplaceData: JobStep = {
             id: stepId,
             label: 'Completely Replaced via PUT',
-            status: 'DONE' as JobStepStatus,
+            status: 'DONE',
             message: 'Step fully replaced via PUT',
             error_message: ''
           };
@@ -711,17 +711,17 @@ describe('JobResource Integration Tests', () => {
             
             if (error && typeof error === 'object') {
               // Check for statusCode property
-              if ('statusCode' in error && typeof (error as { statusCode: unknown }).statusCode === 'number') {
+              if ('statusCode' in error && typeof (error).statusCode === 'number') {
                 isNotFound = (error as { statusCode: number }).statusCode === 404;
               }
               // Check for status property
-              else if ('status' in error && typeof (error as { status: unknown }).status === 'number') {
+              else if ('status' in error && typeof (error).status === 'number') {
                 isNotFound = (error as { status: number }).status === 404;
               }
               // Check for nested response.status
               else if ('response' in error && 
-                       typeof (error as { response: unknown }).response === 'object' &&
-                       (error as { response: unknown }).response !== null &&
+                       typeof (error).response === 'object' &&
+                       (error).response !== null &&
                        'status' in (error as { response: { status: unknown } }).response &&
                        typeof (error as { response: { status: unknown } }).response.status === 'number') {
                 isNotFound = (error as { response: { status: number } }).response.status === 404;
