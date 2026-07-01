@@ -35,6 +35,10 @@ jobs:
         uses: actions/upload-pages-artifact@v3
 
   deploy:
+    # GitHub Pages can only be deployed from the default branch. On pull
+    # requests the deploy step always fails, so only run it on push to main.
+    # The build job still runs on PRs to validate the docs build.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
