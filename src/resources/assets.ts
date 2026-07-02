@@ -1,14 +1,14 @@
-import { BaseResource } from "./base";
-import { Tsonik } from "../client";
-import { ApiResponse, PaginatedResponse, Asset, ListParams } from "../types";
-import { CreateAssetRequest, UpdateAssetRequest } from "../types/assets";
+import { BaseResource } from './base';
+import { Tsonik } from '../client';
+import { ApiResponse, PaginatedResponse, Asset, ListParams } from '../types';
+import { CreateAssetRequest, UpdateAssetRequest } from '../types/assets';
 
 /**
  * Asset resource class for managing Iconik assets
  */
 export class AssetResource extends BaseResource {
   constructor(client: Tsonik) {
-    super(client, "/API/assets/v1/assets");
+    super(client, '/API/assets/v1/assets');
   }
 
   /**
@@ -33,8 +33,8 @@ export class AssetResource extends BaseResource {
   async createAsset(
     assetData: CreateAssetRequest
   ): Promise<ApiResponse<Asset>> {
-    if (!assetData.title || assetData.title.trim() === "") {
-      throw new Error("Asset title is required");
+    if (!assetData.title || assetData.title.trim() === '') {
+      throw new Error('Asset title is required');
     }
     return super.create<Asset>(assetData);
   }
