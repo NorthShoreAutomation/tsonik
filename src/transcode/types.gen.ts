@@ -682,11 +682,7 @@ export type PostAnalyzeAssetsByAssetIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -724,11 +720,7 @@ export type PostAnalyzeAssetsByAssetIdProfilesDefaultErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -767,11 +759,7 @@ export type PostAnalyzeAssetsByAssetIdProfilesDefaultByMediaTypeErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -810,11 +798,7 @@ export type PostAnalyzeAssetsByAssetIdProfilesByProfileIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -854,11 +838,7 @@ export type PostAnalyzeBulkErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -897,11 +877,7 @@ export type PostEdgeTranscodeJobsByJobIdAcknowledgeErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -934,11 +910,7 @@ export type GetEdgeTranscodeWorkersErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -976,11 +948,7 @@ export type PostEdgeTranscodeWorkersErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1021,11 +989,7 @@ export type DeleteEdgeTranscodeWorkersByWorkerIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1066,11 +1030,7 @@ export type GetEdgeTranscodeWorkersByWorkerIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1114,11 +1074,7 @@ export type PatchEdgeTranscodeWorkersByWorkerIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1162,11 +1118,7 @@ export type PutEdgeTranscodeWorkersByWorkerIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1206,11 +1158,7 @@ export type PostKeyframesCollectionsByCollectionIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1248,11 +1196,7 @@ export type PostKeyframesPlaylistsByPlaylistIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1299,11 +1243,7 @@ export type PostMetadataFillingAssetsByAssetIdVersionsByVersionIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1343,11 +1283,7 @@ export type PostMetadataFillingBulkErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1386,11 +1322,7 @@ export type GetMetadataFillingProposalsAssetsByAssetIdVersionsByVersionIdErrors 
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1429,11 +1361,7 @@ export type GetMetadataFillingProposalsByJobIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1479,11 +1407,7 @@ export type PostMetadataFillingProposalsByJobIdAcceptErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1529,11 +1453,7 @@ export type PostMetadataFillingProposalsByJobIdDiscardErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1580,11 +1500,7 @@ export type PostMetadataFillingProposalsByJobIdRegenerateErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1626,11 +1542,7 @@ export type DeleteStoragesByStorageIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1641,7 +1553,13 @@ export type DeleteStoragesByStorageIdResponses = {
      * Successfully scheduled operation
      */
     202: unknown;
+    /**
+     * No Content
+     */
+    204: void;
 };
+
+export type DeleteStoragesByStorageIdResponse = DeleteStoragesByStorageIdResponses[keyof DeleteStoragesByStorageIdResponses];
 
 export type GetStoragesByStorageIdEdgeTranscodeJobsData = {
     body?: never;
@@ -1670,11 +1588,7 @@ export type GetStoragesByStorageIdEdgeTranscodeJobsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1708,11 +1622,7 @@ export type DeleteStoragesByStorageIdFilesByFileIdTranscodeErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1750,11 +1660,7 @@ export type GetStoragesByStorageIdTranscodeErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1788,11 +1694,7 @@ export type DeleteStoragesByStorageIdTranscodeByRecordIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1826,11 +1728,7 @@ export type GetStoragesByStorageIdTranscodeByRecordIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1868,11 +1766,7 @@ export type PostTranscodeErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1914,11 +1808,7 @@ export type GetTranscodeQueueErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1958,11 +1848,7 @@ export type GetTranscodeQueueSystemErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1996,11 +1882,7 @@ export type GetTranscodeByObjectTypeByObjectIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2035,11 +1917,7 @@ export type GetTranscodeByObjectTypeByObjectIdVersionsByVersionIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2080,11 +1958,7 @@ export type DeleteTranscodeByTranscodeJobIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2121,11 +1995,7 @@ export type GetTranscodeByTranscodeJobIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2170,11 +2040,7 @@ export type PostTranscodeByTranscodeJobIdPositionByPositionErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2214,11 +2080,7 @@ export type PutTranscodeByTranscodeJobIdPriorityByPriorityErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2256,11 +2118,7 @@ export type PostTranscribeAssetsByAssetIdProfilesDefaultErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2296,11 +2154,7 @@ export type PostTranscribeBulkErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 

@@ -160,14 +160,10 @@ export const postBillingCreditsVerify = <ThrowOnError extends boolean = false>(o
  * - can_read_billing
  *
  */
-export const getBillingCustomer = <ThrowOnError extends boolean = false>(options: Options<GetBillingCustomerData, ThrowOnError>): RequestResult<GetBillingCustomerResponses, GetBillingCustomerErrors, ThrowOnError> => (options.client ?? client).get<GetBillingCustomerResponses, GetBillingCustomerErrors, ThrowOnError>({
+export const getBillingCustomer = <ThrowOnError extends boolean = false>(options?: Options<GetBillingCustomerData, ThrowOnError>): RequestResult<GetBillingCustomerResponses, GetBillingCustomerErrors, ThrowOnError> => (options?.client ?? client).get<GetBillingCustomerResponses, GetBillingCustomerErrors, ThrowOnError>({
     security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
     url: '/v1/billing/customer/',
-    ...options,
-    headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-    }
+    ...options
 });
 
 /**

@@ -1235,11 +1235,7 @@ export type GetAppsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1277,11 +1273,7 @@ export type PostAppsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1319,11 +1311,7 @@ export type PostAppsExternalAuthErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1360,11 +1348,7 @@ export type GetAppsExternalAuthBySecretErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1402,11 +1386,7 @@ export type PostAppsInstanceErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1443,11 +1423,7 @@ export type DeleteAppsInstanceByApprovedInstanceIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1484,11 +1460,7 @@ export type GetAppsInstanceByApprovedInstanceIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1525,11 +1497,7 @@ export type DeleteAppsByAppIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1566,11 +1534,7 @@ export type GetAppsByAppIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1610,11 +1574,7 @@ export type PatchAppsByAppIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1654,11 +1614,7 @@ export type PutAppsByAppIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1700,11 +1656,7 @@ export type PostAppsByAppIdTokenErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1740,11 +1692,7 @@ export type PostAuthAdLoginErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1779,11 +1727,7 @@ export type PostAuthCurrentOtpGenerateErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1822,11 +1766,7 @@ export type PostAuthMultidomainLoginErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1867,11 +1807,7 @@ export type PostAuthOtpGenerateErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1910,11 +1846,7 @@ export type PostAuthSamlAcsByPublicIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1925,11 +1857,7 @@ export type PostAuthSamlAcsByPublicIdResponses = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1962,11 +1890,7 @@ export type PostAuthSamlAcsBySystemDomainIdByIdentityProviderIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1977,11 +1901,7 @@ export type PostAuthSamlAcsBySystemDomainIdByIdentityProviderIdResponses = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2010,11 +1930,7 @@ export type PostAuthSamlDomainsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2055,11 +1971,7 @@ export type DeleteAuthSamlDomainsByDomainErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2104,11 +2016,7 @@ export type GetAuthSamlIdpErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2143,11 +2051,7 @@ export type PostAuthSamlIdpErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2182,11 +2086,7 @@ export type PostAuthSamlIdpConvertErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2227,11 +2127,7 @@ export type DeleteAuthSamlIdpByIdentityProviderIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2272,11 +2168,7 @@ export type GetAuthSamlIdpByIdentityProviderIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2320,11 +2212,7 @@ export type PatchAuthSamlIdpByIdentityProviderIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2368,11 +2256,7 @@ export type PutAuthSamlIdpByIdentityProviderIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2406,11 +2290,7 @@ export type PostAuthSamlLoginErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2452,11 +2332,7 @@ export type PostAuthSamlLogoutByPublicIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2498,11 +2374,7 @@ export type GetAuthSamlMetadataByPublicIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2538,11 +2410,7 @@ export type GetAuthSamlMetadataBySystemDomainIdByIdentityProviderIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2574,11 +2442,7 @@ export type PostAuthSamlMultidomainLoginErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2615,11 +2479,7 @@ export type GetAuthSamlSloByPublicIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2630,11 +2490,7 @@ export type GetAuthSamlSloByPublicIdResponses = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2663,11 +2519,7 @@ export type GetAuthSamlSloBySystemDomainIdByIdentityProviderIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2678,11 +2530,7 @@ export type GetAuthSamlSloBySystemDomainIdByIdentityProviderIdResponses = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2706,11 +2554,7 @@ export type GetAuthSamlSsoByPublicIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2721,11 +2565,7 @@ export type GetAuthSamlSsoByPublicIdResponses = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2750,11 +2590,7 @@ export type GetAuthSamlSsoBySystemDomainIdByIdentityProviderIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2765,11 +2601,7 @@ export type GetAuthSamlSsoBySystemDomainIdByIdentityProviderIdResponses = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2794,11 +2626,7 @@ export type PostAuthSimpleLoginErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2833,11 +2661,7 @@ export type DeleteAuthTokenErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2848,7 +2672,13 @@ export type DeleteAuthTokenResponses = {
      * Returns if token was revoked
      */
     200: unknown;
+    /**
+     * No Content
+     */
+    204: void;
 };
+
+export type DeleteAuthTokenResponse = DeleteAuthTokenResponses[keyof DeleteAuthTokenResponses];
 
 export type GetAuthTokenData = {
     body?: never;
@@ -2870,11 +2700,7 @@ export type GetAuthTokenErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2912,11 +2738,7 @@ export type PostAuthTokenErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2951,11 +2773,7 @@ export type PutAuthTokenErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2992,11 +2810,7 @@ export type DeleteAuthTokenByTokenIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -3007,7 +2821,13 @@ export type DeleteAuthTokenByTokenIdResponses = {
      * Returns if token was revoked
      */
     200: unknown;
+    /**
+     * No Content
+     */
+    204: void;
 };
+
+export type DeleteAuthTokenByTokenIdResponse = DeleteAuthTokenByTokenIdResponses[keyof DeleteAuthTokenByTokenIdResponses];
 
 export type GetAuthTokenByTokenIdData = {
     body?: never;
@@ -3031,11 +2851,7 @@ export type GetAuthTokenByTokenIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -3073,11 +2889,7 @@ export type GetAuthTokensErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -3119,11 +2931,7 @@ export type GetAuthByAppIdTokensErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -3163,11 +2971,7 @@ export type PutInvitationCompleteByResetHashErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -3201,11 +3005,7 @@ export type PostMarketplaceGoogleLinkErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -3237,11 +3037,7 @@ export type PostMarketplaceGoogleSignupErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -3252,11 +3048,7 @@ export type PostMarketplaceGoogleSignupResponses = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -3303,11 +3095,7 @@ export type GetOauthAuthorizeErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -3363,11 +3151,7 @@ export type PostOauthAuthorizeErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -3427,11 +3211,7 @@ export type PostOauthTokenErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -3466,11 +3246,7 @@ export type GetPasswordChecksErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -3504,11 +3280,7 @@ export type PostPasswordForgotErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -3546,11 +3318,7 @@ export type PutPasswordResetByResetHashErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -3585,11 +3353,7 @@ export type GetPasswordByResetHashChecksErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -3624,11 +3388,7 @@ export type GetReferralCodesErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -3670,11 +3430,7 @@ export type PostReferralCodesErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -3711,11 +3467,7 @@ export type DeleteReferralCodesByCodeErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -3752,11 +3504,7 @@ export type GetReferralCodesByCodeErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -3794,11 +3542,7 @@ export type PostRegistrationsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -3838,11 +3582,7 @@ export type GetRegistrationsContentErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -3877,11 +3617,7 @@ export type GetRegistrationsCountriesErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -3918,11 +3654,7 @@ export type PostRegistrationsVerifyByEmailHashErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -3962,11 +3694,7 @@ export type GetSystemDomainsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -4004,11 +3732,7 @@ export type PostSystemDomainsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -4049,11 +3773,7 @@ export type GetSystemDomainsBasicBySystemDomainIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -4093,11 +3813,7 @@ export type PostSystemDomainsReferralCodeByReferralCodeErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -4151,11 +3867,7 @@ export type GetSystemDomainsSearchErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -4186,11 +3898,7 @@ export type GetSystemDomainsTemplatesErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -4227,11 +3935,7 @@ export type DeleteSystemDomainsBySystemDomainIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -4272,11 +3976,7 @@ export type GetSystemDomainsBySystemDomainIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -4320,11 +4020,7 @@ export type PatchSystemDomainsBySystemDomainIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -4368,11 +4064,7 @@ export type PutSystemDomainsBySystemDomainIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -4409,11 +4101,7 @@ export type DeleteSystemDomainsBySystemDomainIdE2eErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -4453,11 +4141,7 @@ export type PostSystemDomainsBySystemDomainIdFeaturesErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -4498,11 +4182,7 @@ export type DeleteSystemDomainsBySystemDomainIdLogoErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -4539,11 +4219,7 @@ export type PostSystemDomainsBySystemDomainIdLogoErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -4592,11 +4268,7 @@ export type PatchSystemDomainsBySystemDomainIdProfileErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -4636,11 +4308,7 @@ export type PostSystemDomainsBySystemDomainIdReindexErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 

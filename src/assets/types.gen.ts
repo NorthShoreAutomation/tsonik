@@ -2246,7 +2246,7 @@ export type FavoritesSchema = {
     readonly first_url?: string | null;
     readonly last_url?: string | null;
     readonly next_url?: string | null;
-    objects?: AssetOrCollectionSchema | null;
+    readonly objects?: Array<AssetOrCollectionSchema> | null;
     readonly page?: number | null;
     readonly pages?: number | null;
     readonly per_page?: number | null;
@@ -2827,7 +2827,7 @@ export type ProjectMembersSchema = {
 };
 
 export type ProjectSchema = {
-    collection_id: string;
+    collection_id?: string | null;
     readonly created_by_user?: string | null;
     readonly date_created?: string | null;
     readonly date_modified?: string | null;
@@ -5280,7 +5280,7 @@ export type ProjectMemberCreateSchemaWritable = {
 };
 
 export type ProjectSchemaWritable = {
-    collection_id: string;
+    collection_id?: string | null;
     name: string;
     status?: ProjectSchemaStatus | null;
     storage_id?: string | null;
@@ -5815,11 +5815,7 @@ export type PostApprovalsBulkErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -5855,11 +5851,7 @@ export type PostApprovalsBulkRemoveErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -5929,11 +5921,7 @@ export type GetAssetsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -5971,11 +5959,7 @@ export type PatchAssetsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -6036,11 +6020,7 @@ export type PostAssetsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -6078,11 +6058,7 @@ export type PutAssetsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -6132,11 +6108,7 @@ export type GetAssetsRecentErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -6170,11 +6142,7 @@ export type PostAssetsReindexErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -6207,11 +6175,7 @@ export type GetAssetsRelationTypesErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -6249,11 +6213,7 @@ export type PostAssetsRelationTypesErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -6290,11 +6250,7 @@ export type DeleteAssetsRelationTypesByRelationTypeErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -6331,11 +6287,7 @@ export type GetAssetsRelationTypesByRelationTypeErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -6375,11 +6327,7 @@ export type PatchAssetsRelationTypesByRelationTypeErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -6419,11 +6367,7 @@ export type PutAssetsRelationTypesByRelationTypeErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -6457,11 +6401,7 @@ export type PostAssetsSegmentsReindexErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -6504,11 +6444,7 @@ export type DeleteAssetsByAssetIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -6558,11 +6494,7 @@ export type GetAssetsByAssetIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -6611,11 +6543,7 @@ export type PatchAssetsByAssetIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -6664,11 +6592,7 @@ export type PutAssetsByAssetIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -6726,11 +6650,7 @@ export type GetAssetsByAssetIdHistoryErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -6774,11 +6694,7 @@ export type PostAssetsByAssetIdHistoryErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -6816,11 +6732,7 @@ export type DeleteAssetsByAssetIdHistoryByHistoryEntityIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -6831,6 +6743,10 @@ export type DeleteAssetsByAssetIdHistoryByHistoryEntityIdResponses = {
      * Returns a created asset history entity
      */
     201: AssetHistorySchema;
+    /**
+     * No Content
+     */
+    204: void;
 };
 
 export type DeleteAssetsByAssetIdHistoryByHistoryEntityIdResponse = DeleteAssetsByAssetIdHistoryByHistoryEntityIdResponses[keyof DeleteAssetsByAssetIdHistoryByHistoryEntityIdResponses];
@@ -6858,11 +6774,7 @@ export type GetAssetsByAssetIdHistoryByHistoryEntityIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -6900,11 +6812,7 @@ export type PostAssetsByAssetIdHistoryByHistoryEntityIdReindexErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -6943,11 +6851,7 @@ export type DeleteAssetsByAssetIdPurgeErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -6987,11 +6891,7 @@ export type PostAssetsByAssetIdReindexErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -7051,11 +6951,7 @@ export type GetAssetsByAssetIdRelationsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -7095,11 +6991,7 @@ export type PostAssetsByAssetIdRelationsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -7158,11 +7050,7 @@ export type GetAssetsByAssetIdRelationsByRelationTypeErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -7201,11 +7089,7 @@ export type DeleteAssetsByAssetIdRelationsByRelationTypeByRelatedToAssetIdErrors
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -7247,11 +7131,7 @@ export type PostAssetsByAssetIdRelationsByRelationTypeByRelatedToAssetIdErrors =
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -7294,11 +7174,7 @@ export type PostAssetsByAssetIdRelationsByRelationTypeByRelatedToAssetIdReverseE
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -7339,11 +7215,7 @@ export type PutAssetsByAssetIdRestoreErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -7387,11 +7259,7 @@ export type PutAssetsByAssetIdSearchDocumentErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -7523,11 +7391,7 @@ export type GetAssetsByAssetIdSegmentsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -7573,11 +7437,7 @@ export type PostAssetsByAssetIdSegmentsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -7630,11 +7490,7 @@ export type DeleteAssetsByAssetIdSegmentsBulkErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -7674,11 +7530,7 @@ export type PostAssetsByAssetIdSegmentsBulkErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -7721,11 +7573,7 @@ export type PutAssetsByAssetIdSegmentsBulkErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -7789,11 +7637,7 @@ export type GetAssetsByAssetIdSegmentsCsvErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -7833,11 +7677,7 @@ export type PostAssetsByAssetIdSegmentsReindexErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -7905,11 +7745,7 @@ export type GetAssetsByAssetIdSegmentsSrtErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -7975,11 +7811,7 @@ export type GetAssetsByAssetIdSegmentsTextErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -8049,11 +7881,7 @@ export type GetAssetsByAssetIdSegmentsVttErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -8093,11 +7921,7 @@ export type DeleteAssetsByAssetIdSegmentsBySegmentIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -8149,11 +7973,7 @@ export type GetAssetsByAssetIdSegmentsBySegmentIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -8203,11 +8023,7 @@ export type PatchAssetsByAssetIdSegmentsBySegmentIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -8257,11 +8073,7 @@ export type PutAssetsByAssetIdSegmentsBySegmentIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -8302,11 +8114,7 @@ export type PostAssetsByAssetIdSegmentsBySegmentIdReindexErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -8345,11 +8153,7 @@ export type GetAssetsByAssetIdSharesAllErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -8390,11 +8194,7 @@ export type DeleteAssetsByAssetIdUploadsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -8438,11 +8238,7 @@ export type PostAssetsByAssetIdVersionsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -8491,11 +8287,7 @@ export type PostAssetsByAssetIdVersionsFromAssetsBySourceAssetIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -8538,11 +8330,7 @@ export type PostAssetsByAssetIdVersionsFromVersionsBySourceVersionIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -8585,11 +8373,7 @@ export type DeleteAssetsByAssetIdVersionsOldErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -8640,11 +8424,7 @@ export type DeleteAssetsByAssetIdVersionsByVersionIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -8689,11 +8469,7 @@ export type PatchAssetsByAssetIdVersionsByVersionIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -8738,11 +8514,7 @@ export type PutAssetsByAssetIdVersionsByVersionIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -8784,11 +8556,7 @@ export type PutAssetsByAssetIdVersionsByVersionIdPromoteErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -8798,7 +8566,7 @@ export type PutAssetsByAssetIdVersionsByVersionIdPromoteResponses = {
     /**
      * Without body
      */
-    204: void;
+    200: AssetVersionsSchema;
 };
 
 export type PutAssetsByAssetIdVersionsByVersionIdPromoteResponse = PutAssetsByAssetIdVersionsByVersionIdPromoteResponses[keyof PutAssetsByAssetIdVersionsByVersionIdPromoteResponses];
@@ -8830,11 +8598,7 @@ export type GetAssetsByAssetIdVersionsByVersionIdTranscriptionsPropertiesErrors 
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -8879,11 +8643,7 @@ export type PostAssetsByAssetIdVersionsByVersionIdTranscriptionsPropertiesErrors
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -8928,11 +8688,7 @@ export type PostAssetsByAssetIdVersionsByVersionIdTranscriptionsSubtitlesErrors 
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -8975,11 +8731,7 @@ export type DeleteAssetsByAssetIdVersionsByVersionIdTranscriptionsByTranscriptio
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -9022,11 +8774,7 @@ export type GetAssetsByAssetIdVersionsByVersionIdTranscriptionsByTranscriptionId
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -9072,11 +8820,7 @@ export type PatchAssetsByAssetIdVersionsByVersionIdTranscriptionsByTranscription
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -9122,11 +8866,7 @@ export type PutAssetsByAssetIdVersionsByVersionIdTranscriptionsByTranscriptionId
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -9167,11 +8907,7 @@ export type PostAssetsByAssetIdViewsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -9247,11 +8983,7 @@ export type GetCollectionsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -9306,11 +9038,7 @@ export type PostCollectionsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -9362,11 +9090,7 @@ export type GetCollectionsRecentErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -9400,11 +9124,7 @@ export type PostCollectionsReindexErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -9443,11 +9163,7 @@ export type DeleteCollectionsByCollectionIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -9458,7 +9174,13 @@ export type DeleteCollectionsByCollectionIdResponses = {
      * Deletion has been scheduled
      */
     202: unknown;
+    /**
+     * No Content
+     */
+    204: void;
 };
+
+export type DeleteCollectionsByCollectionIdResponse = DeleteCollectionsByCollectionIdResponses[keyof DeleteCollectionsByCollectionIdResponses];
 
 export type GetCollectionsByCollectionIdData = {
     body?: never;
@@ -9482,11 +9204,7 @@ export type GetCollectionsByCollectionIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -9535,11 +9253,7 @@ export type PatchCollectionsByCollectionIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -9588,11 +9302,7 @@ export type PutCollectionsByCollectionIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -9633,11 +9343,7 @@ export type GetCollectionsByCollectionIdAncestorsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -9699,11 +9405,7 @@ export type GetCollectionsByCollectionIdContentInfoErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -9774,11 +9476,7 @@ export type GetCollectionsByCollectionIdContentsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -9822,11 +9520,7 @@ export type PostCollectionsByCollectionIdContentsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -9865,11 +9559,7 @@ export type DeleteCollectionsByCollectionIdContentsOrderingCustomErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -9880,7 +9570,13 @@ export type DeleteCollectionsByCollectionIdContentsOrderingCustomResponses = {
      * Disables custom ordering for a collection's content
      */
     200: unknown;
+    /**
+     * No Content
+     */
+    204: void;
 };
+
+export type DeleteCollectionsByCollectionIdContentsOrderingCustomResponse = DeleteCollectionsByCollectionIdContentsOrderingCustomResponses[keyof DeleteCollectionsByCollectionIdContentsOrderingCustomResponses];
 
 export type PostCollectionsByCollectionIdContentsOrderingCustomData = {
     /**
@@ -9911,11 +9607,7 @@ export type PostCollectionsByCollectionIdContentsOrderingCustomErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -9956,11 +9648,7 @@ export type DeleteCollectionsByCollectionIdContentsByObjectTypeByObjectIdErrors 
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -10006,11 +9694,7 @@ export type PutCollectionsByCollectionIdContentsByObjectTypeByObjectIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -10050,11 +9734,7 @@ export type PostCollectionsByCollectionIdContentsByObjectTypeByObjectIdReindexEr
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -10098,11 +9778,7 @@ export type GetCollectionsByCollectionIdFullPathErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -10146,11 +9822,7 @@ export type PostCollectionsByCollectionIdKeyframesErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -10193,11 +9865,7 @@ export type DeleteCollectionsByCollectionIdPurgeErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -10208,7 +9876,13 @@ export type DeleteCollectionsByCollectionIdPurgeResponses = {
      * Status and job_id
      */
     202: unknown;
+    /**
+     * No Content
+     */
+    204: void;
 };
+
+export type DeleteCollectionsByCollectionIdPurgeResponse = DeleteCollectionsByCollectionIdPurgeResponses[keyof DeleteCollectionsByCollectionIdPurgeResponses];
 
 export type PostCollectionsByCollectionIdReindexData = {
     /**
@@ -10235,11 +9909,7 @@ export type PostCollectionsByCollectionIdReindexErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -10274,11 +9944,7 @@ export type PostCollectionsByCollectionIdReindexContentsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -10321,11 +9987,7 @@ export type PutCollectionsByCollectionIdRestoreErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -10335,8 +9997,13 @@ export type PutCollectionsByCollectionIdRestoreResponses = {
     /**
      * Without body
      */
-    201: unknown;
+    202: {
+        job_id?: string | null;
+        status?: string | null;
+    };
 };
+
+export type PutCollectionsByCollectionIdRestoreResponse = PutCollectionsByCollectionIdRestoreResponses[keyof PutCollectionsByCollectionIdRestoreResponses];
 
 export type PutCollectionsByCollectionIdSearchDocumentData = {
     /**
@@ -10367,11 +10034,7 @@ export type PutCollectionsByCollectionIdSearchDocumentErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -10408,11 +10071,7 @@ export type GetCollectionsByCollectionIdSharesAllErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -10462,11 +10121,7 @@ export type GetCollectionsByCollectionIdSizeErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -10519,11 +10174,7 @@ export type PostCollectionsByCollectionIdSubcollectionsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -10564,11 +10215,7 @@ export type PostCollectionsByCollectionIdViewsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -10607,11 +10254,7 @@ export type GetCustomActionsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -10656,11 +10299,7 @@ export type PostCustomActionsSharedByContextByActionIdCallbackErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -10701,11 +10340,7 @@ export type GetCustomActionsByContextErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -10745,11 +10380,7 @@ export type PostCustomActionsByContextErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -10787,11 +10418,7 @@ export type DeleteCustomActionsByContextByActionIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -10829,11 +10456,7 @@ export type GetCustomActionsByContextByActionIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -10874,11 +10497,7 @@ export type PatchCustomActionsByContextByActionIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -10919,11 +10538,7 @@ export type PutCustomActionsByContextByActionIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -10968,11 +10583,7 @@ export type PostCustomActionsByContextByActionIdCallbackErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -11010,11 +10621,7 @@ export type DeleteDeleteQueueAssetsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -11070,11 +10677,7 @@ export type GetDeleteQueueAssetsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -11112,11 +10715,7 @@ export type PostDeleteQueueAssetsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -11154,11 +10753,7 @@ export type PostDeleteQueueAssetsPurgeErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -11193,11 +10788,7 @@ export type PostDeleteQueueAssetsPurgeAllErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -11232,11 +10823,7 @@ export type PostDeleteQueueAssetsRestoreAllErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -11274,11 +10861,7 @@ export type PostDeleteQueueBulkErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -11318,11 +10901,7 @@ export type DeleteDeleteQueueCollectionsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -11333,7 +10912,13 @@ export type DeleteDeleteQueueCollectionsResponses = {
      * Without body
      */
     201: unknown;
+    /**
+     * No Content
+     */
+    204: void;
 };
+
+export type DeleteDeleteQueueCollectionsResponse = DeleteDeleteQueueCollectionsResponses[keyof DeleteDeleteQueueCollectionsResponses];
 
 export type GetDeleteQueueCollectionsData = {
     body?: never;
@@ -11376,11 +10961,7 @@ export type GetDeleteQueueCollectionsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -11422,11 +11003,7 @@ export type PostDeleteQueueCollectionsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -11466,11 +11043,7 @@ export type PostDeleteQueueCollectionsPurgeErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -11503,11 +11076,7 @@ export type PostDeleteQueueCollectionsPurgeAllErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -11542,11 +11111,7 @@ export type PostDeleteQueueCollectionsRestoreAllErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -11581,11 +11146,7 @@ export type PostDeleteQueuePurgeAllErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -11627,11 +11188,7 @@ export type DeleteFavoritesErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -11642,6 +11199,10 @@ export type DeleteFavoritesResponses = {
      * Returns a list of object IDs that were removed from favorites
      */
     200: BulkDeleteFromFavoritesSchema;
+    /**
+     * No Content
+     */
+    204: void;
 };
 
 export type DeleteFavoritesResponse = DeleteFavoritesResponses[keyof DeleteFavoritesResponses];
@@ -11683,11 +11244,7 @@ export type GetFavoritesErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -11729,11 +11286,7 @@ export type PostFavoritesErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -11772,11 +11325,7 @@ export type DeleteFavoritesAllErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -11787,7 +11336,13 @@ export type DeleteFavoritesAllResponses = {
      * A background task for deleting all from favourites was scheduled
      */
     202: unknown;
+    /**
+     * No Content
+     */
+    204: void;
 };
+
+export type DeleteFavoritesAllResponse = DeleteFavoritesAllResponses[keyof DeleteFavoritesAllResponses];
 
 export type DeleteFavouritesAllData = {
     body?: never;
@@ -11813,11 +11368,7 @@ export type DeleteFavouritesAllErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -11828,7 +11379,13 @@ export type DeleteFavouritesAllResponses = {
      * A background task for deleting all from favourites was scheduled
      */
     202: unknown;
+    /**
+     * No Content
+     */
+    204: void;
 };
+
+export type DeleteFavouritesAllResponse = DeleteFavouritesAllResponses[keyof DeleteFavouritesAllResponses];
 
 export type GetPersonsByPersonIdData = {
     body?: never;
@@ -11856,11 +11413,7 @@ export type GetPersonsByPersonIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -11928,11 +11481,7 @@ export type GetPlaylistsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -11970,11 +11519,7 @@ export type PostPlaylistsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -12015,11 +11560,7 @@ export type DeletePlaylistsByPlaylistIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -12056,11 +11597,7 @@ export type GetPlaylistsByPlaylistIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -12104,11 +11641,7 @@ export type PatchPlaylistsByPlaylistIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -12152,11 +11685,7 @@ export type PutPlaylistsByPlaylistIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -12210,11 +11739,7 @@ export type GetPlaylistsByPlaylistIdItemsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -12254,11 +11779,7 @@ export type PostPlaylistsByPlaylistIdItemsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -12300,11 +11821,7 @@ export type DeletePlaylistsByPlaylistIdItemsByItemIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -12345,11 +11862,7 @@ export type PatchPlaylistsByPlaylistIdItemsByItemIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -12359,7 +11872,7 @@ export type PatchPlaylistsByPlaylistIdItemsByItemIdResponses = {
     /**
      * Returns an updated item
      */
-    201: PlaylistItemSchema;
+    200: PlaylistItemSchema;
 };
 
 export type PatchPlaylistsByPlaylistIdItemsByItemIdResponse = PatchPlaylistsByPlaylistIdItemsByItemIdResponses[keyof PatchPlaylistsByPlaylistIdItemsByItemIdResponses];
@@ -12390,11 +11903,7 @@ export type PutPlaylistsByPlaylistIdItemsByItemIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -12404,7 +11913,7 @@ export type PutPlaylistsByPlaylistIdItemsByItemIdResponses = {
     /**
      * Returns an updated item
      */
-    201: PlaylistItemSchema;
+    200: PlaylistItemSchema;
 };
 
 export type PutPlaylistsByPlaylistIdItemsByItemIdResponse = PutPlaylistsByPlaylistIdItemsByItemIdResponses[keyof PutPlaylistsByPlaylistIdItemsByItemIdResponses];
@@ -12435,11 +11944,7 @@ export type PutPlaylistsByPlaylistIdItemsByItemIdPositionErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -12449,7 +11954,7 @@ export type PutPlaylistsByPlaylistIdItemsByItemIdPositionResponses = {
     /**
      * Returns an updated item
      */
-    201: PlaylistItemSchema;
+    200: PlaylistItemSchema;
 };
 
 export type PutPlaylistsByPlaylistIdItemsByItemIdPositionResponse = PutPlaylistsByPlaylistIdItemsByItemIdPositionResponses[keyof PutPlaylistsByPlaylistIdItemsByItemIdPositionResponses];
@@ -12483,11 +11988,7 @@ export type PostPlaylistsByPlaylistIdKeyframesErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -12529,11 +12030,7 @@ export type PostPlaylistsByPlaylistIdReindexErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -12599,11 +12096,7 @@ export type GetPortfoliosErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -12641,11 +12134,7 @@ export type PostPortfoliosErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -12686,11 +12175,7 @@ export type DeletePortfoliosByPortfolioIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -12727,11 +12212,7 @@ export type GetPortfoliosByPortfolioIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -12775,11 +12256,7 @@ export type PatchPortfoliosByPortfolioIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -12823,11 +12300,7 @@ export type PutPortfoliosByPortfolioIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -12871,11 +12344,7 @@ export type PostPortfoliosByPortfolioIdReindexErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -12937,11 +12406,7 @@ export type GetProjectsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -12979,11 +12444,7 @@ export type PostProjectsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -13024,11 +12485,7 @@ export type DeleteProjectsByProjectIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -13039,7 +12496,13 @@ export type DeleteProjectsByProjectIdResponses = {
      * Deletion has been scheduled
      */
     202: unknown;
+    /**
+     * No Content
+     */
+    204: void;
 };
+
+export type DeleteProjectsByProjectIdResponse = DeleteProjectsByProjectIdResponses[keyof DeleteProjectsByProjectIdResponses];
 
 export type GetProjectsByProjectIdData = {
     body?: never;
@@ -13068,11 +12531,7 @@ export type GetProjectsByProjectIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -13116,11 +12575,7 @@ export type PatchProjectsByProjectIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -13164,11 +12619,7 @@ export type PutProjectsByProjectIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -13209,11 +12660,7 @@ export type GetProjectsByProjectIdMembersErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -13253,11 +12700,7 @@ export type PostProjectsByProjectIdMembersErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -13299,11 +12742,7 @@ export type DeleteProjectsByProjectIdMembersByMemberIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -13341,11 +12780,7 @@ export type GetProjectsByProjectIdMembersByMemberIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -13385,11 +12820,7 @@ export type PostProjectsByProjectIdReindexErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -13429,11 +12860,7 @@ export type PostPublicationsJobsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -13470,11 +12897,7 @@ export type GetPublicationsTemplatesErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -13513,11 +12936,7 @@ export type GetPublicationsTokenErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -13555,11 +12974,7 @@ export type PostReindexBulkErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -13591,11 +13006,7 @@ export type PostSegmentsReindexErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -13657,11 +13068,7 @@ export type GetSequencesErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -13699,11 +13106,7 @@ export type PostSequencesErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -13744,11 +13147,7 @@ export type DeleteSequencesBySequenceIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -13785,11 +13184,7 @@ export type GetSequencesBySequenceIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -13833,11 +13228,7 @@ export type PatchSequencesBySequenceIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -13881,11 +13272,7 @@ export type PutSequencesBySequenceIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -13935,11 +13322,7 @@ export type GetSequencesBySequenceIdItemsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -13979,11 +13362,7 @@ export type PostSequencesBySequenceIdItemsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -14025,11 +13404,7 @@ export type DeleteSequencesBySequenceIdItemsByItemIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -14070,11 +13445,7 @@ export type PutSequencesBySequenceIdItemsByItemIdPositionErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -14084,7 +13455,7 @@ export type PutSequencesBySequenceIdItemsByItemIdPositionResponses = {
     /**
      * Returns an updated item
      */
-    201: SequenceItemSchema;
+    200: SequenceItemSchema;
 };
 
 export type PutSequencesBySequenceIdItemsByItemIdPositionResponse = PutSequencesBySequenceIdItemsByItemIdPositionResponses[keyof PutSequencesBySequenceIdItemsByItemIdPositionResponses];
@@ -14118,11 +13489,7 @@ export type PostSequencesBySequenceIdReindexErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -14164,11 +13531,7 @@ export type PostShareByObjectTypeErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -14275,11 +13638,7 @@ export type GetSharesErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -14386,11 +13745,7 @@ export type GetSharesAllErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -14421,11 +13776,7 @@ export type GetSharesAllowlistEntriesErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -14467,11 +13818,7 @@ export type PostSharesAllowlistEntriesErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -14512,11 +13859,7 @@ export type DeleteSharesAllowlistEntriesByEntryIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -14557,11 +13900,7 @@ export type GetSharesAllowlistEntriesByEntryIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -14609,11 +13948,7 @@ export type PutSharesAllowlistEntriesByEntryIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -14651,11 +13986,7 @@ export type PostSharesAuthLoginErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -14697,11 +14028,7 @@ export type GetSharesAuthTokenErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -14739,11 +14066,7 @@ export type PutSharesAuthTokenErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -14785,11 +14108,7 @@ export type DeleteSharesBulkErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -14831,11 +14150,7 @@ export type DeleteSharesBulkAllErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -14877,11 +14192,7 @@ export type PostSharesMagicLinkEnabledErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -14930,11 +14241,7 @@ export type PostSharesByShareIdMagicLinkRequestErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -14984,11 +14291,7 @@ export type PostSharesByShareIdMagicLinkValidateErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -15026,11 +14329,7 @@ export type PostSyncSessionsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -15071,11 +14370,7 @@ export type DeleteSyncSessionsBySyncSessionIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -15112,11 +14407,7 @@ export type GetSyncSessionsBySyncSessionIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -15165,11 +14456,7 @@ export type PatchSyncSessionsBySyncSessionIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -15218,11 +14505,7 @@ export type PutSyncSessionsBySyncSessionIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -15268,11 +14551,7 @@ export type DeleteByObjectTypeByObjectIdApprovalsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -15314,11 +14593,7 @@ export type GetByObjectTypeByObjectIdApprovalsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -15363,11 +14638,7 @@ export type PutByObjectTypeByObjectIdApprovalsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -15410,11 +14681,7 @@ export type DeleteByObjectTypeByObjectIdApprovalsExternalByEmailErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -15456,11 +14723,7 @@ export type DeleteByObjectTypeByObjectIdApprovalsRequestErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -15471,6 +14734,10 @@ export type DeleteByObjectTypeByObjectIdApprovalsRequestResponses = {
      * Returns a objects approval
      */
     200: ApprovalSchema;
+    /**
+     * No Content
+     */
+    204: void;
 };
 
 export type DeleteByObjectTypeByObjectIdApprovalsRequestResponse = DeleteByObjectTypeByObjectIdApprovalsRequestResponses[keyof DeleteByObjectTypeByObjectIdApprovalsRequestResponses];
@@ -15502,11 +14769,7 @@ export type GetByObjectTypeByObjectIdApprovalsRequestErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -15551,11 +14814,7 @@ export type PatchByObjectTypeByObjectIdApprovalsRequestErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -15600,11 +14859,7 @@ export type PostByObjectTypeByObjectIdApprovalsRequestErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -15653,11 +14908,7 @@ export type PutByObjectTypeByObjectIdApprovalsRequestErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -15700,11 +14951,7 @@ export type DeleteByObjectTypeByObjectIdApprovalsUserByUserIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -15752,11 +14999,7 @@ export type GetByObjectTypeByObjectIdSharesErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -15801,11 +15044,7 @@ export type PostByObjectTypeByObjectIdSharesErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -15851,11 +15090,7 @@ export type PostByObjectTypeByObjectIdSharesUrlErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -15899,11 +15134,7 @@ export type DeleteByObjectTypeByObjectIdSharesByShareIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -15946,11 +15177,7 @@ export type GetByObjectTypeByObjectIdSharesByShareIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -15996,11 +15223,7 @@ export type PutByObjectTypeByObjectIdSharesByShareIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -16042,11 +15265,7 @@ export type PostByObjectTypeByObjectIdSharesByShareIdReindexErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -16093,11 +15312,7 @@ export type GetByObjectTypeByObjectIdSharesByShareIdUsersErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -16143,11 +15358,7 @@ export type PostByObjectTypeByObjectIdSharesByShareIdUsersErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -16191,11 +15402,7 @@ export type DeleteByObjectTypeByObjectIdSharesByShareIdUsersByShareUserIdErrors 
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -16239,11 +15446,7 @@ export type GetByObjectTypeByObjectIdSharesByShareIdUsersByShareUserIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -16290,11 +15493,7 @@ export type PatchByObjectTypeByObjectIdSharesByShareIdUsersByShareUserIdErrors =
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -16341,11 +15540,7 @@ export type PutByObjectTypeByObjectIdSharesByShareIdUsersByShareUserIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -16388,11 +15583,7 @@ export type GetByObjectTypeByObjectIdVersionsByVersionIdApprovalsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -16435,11 +15626,7 @@ export type GetByObjectTypeByObjectIdVersionsByVersionIdApprovalsRequestErrors =
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 

@@ -280,11 +280,7 @@ export type GetWebhooksErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -322,11 +318,7 @@ export type PostWebhooksErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -363,11 +355,7 @@ export type DeleteWebhooksByWebhookIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -404,11 +392,7 @@ export type GetWebhooksByWebhookIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -448,11 +432,7 @@ export type PutWebhooksByWebhookIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 

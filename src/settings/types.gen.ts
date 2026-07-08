@@ -1075,11 +1075,7 @@ export type GetCorsHostsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1117,11 +1113,7 @@ export type PostCorsHostsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1158,11 +1150,7 @@ export type DeleteCorsHostsByCorsHostIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1203,11 +1191,7 @@ export type GetCorsHostsByCorsHostIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1244,11 +1228,7 @@ export type DeleteGroupByGroupIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1289,11 +1269,7 @@ export type GetGroupByGroupIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1333,11 +1309,7 @@ export type PatchGroupByGroupIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1377,11 +1349,7 @@ export type PutGroupByGroupIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1422,11 +1390,7 @@ export type GetMergedCurrentErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1469,11 +1433,7 @@ export type GetMergedByUserIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1513,11 +1473,7 @@ export type DeleteSearchViewByViewIdGroupIdsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1554,11 +1510,7 @@ export type GetSearchViewByViewIdGroupIdsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1598,11 +1550,7 @@ export type PatchSearchViewByViewIdGroupIdsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1642,11 +1590,7 @@ export type PutSearchViewByViewIdGroupIdsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1687,11 +1631,7 @@ export type GetSystemCurrentErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1729,11 +1669,7 @@ export type PatchSystemCurrentErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1771,11 +1707,7 @@ export type PutSystemCurrentErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1818,11 +1750,7 @@ export type GetSystemBySystemDomainIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1862,11 +1790,7 @@ export type PatchSystemBySystemDomainIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1906,11 +1830,7 @@ export type PutSystemBySystemDomainIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1947,11 +1867,7 @@ export type DeleteTeamByTeamIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1992,11 +1908,7 @@ export type GetTeamByTeamIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2036,11 +1948,7 @@ export type PatchTeamByTeamIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2080,11 +1988,7 @@ export type PutTeamByTeamIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2122,11 +2026,7 @@ export type DeleteUserAttributesErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2137,7 +2037,13 @@ export type DeleteUserAttributesResponses = {
      * Returns changed user settings
      */
     200: unknown;
+    /**
+     * No Content
+     */
+    204: void;
 };
+
+export type DeleteUserAttributesResponse = DeleteUserAttributesResponses[keyof DeleteUserAttributesResponses];
 
 export type DeleteUserByUserIdData = {
     body?: never;
@@ -2161,11 +2067,7 @@ export type DeleteUserByUserIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2206,11 +2108,7 @@ export type GetUserByUserIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2250,11 +2148,7 @@ export type PatchUserByUserIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2294,11 +2188,7 @@ export type PutUserByUserIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 

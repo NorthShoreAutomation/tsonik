@@ -635,11 +635,7 @@ export type DeleteJobsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -766,11 +762,7 @@ export type GetJobsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -863,11 +855,7 @@ export type PatchJobsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -905,11 +893,7 @@ export type PostJobsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -951,11 +935,7 @@ export type PutJobsPriorityErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -965,8 +945,10 @@ export type PutJobsPriorityResponses = {
     /**
      * Success
      */
-    201: unknown;
+    200: JobsPrioritySchema;
 };
+
+export type PutJobsPriorityResponse = PutJobsPriorityResponses[keyof PutJobsPriorityResponses];
 
 export type PutJobsStateData = {
     /**
@@ -991,11 +973,7 @@ export type PutJobsStateErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1005,7 +983,7 @@ export type PutJobsStateResponses = {
     /**
      * Success
      */
-    201: unknown;
+    200: unknown;
 };
 
 export type DeleteJobsByJobIdData = {
@@ -1039,11 +1017,7 @@ export type DeleteJobsByJobIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1084,11 +1058,7 @@ export type GetJobsByJobIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1130,11 +1100,7 @@ export type PatchJobsByJobIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1176,11 +1142,7 @@ export type PutJobsByJobIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1220,11 +1182,7 @@ export type PostJobsByJobIdReindexErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1262,11 +1220,7 @@ export type PatchJobsByJobIdStepsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1306,11 +1260,7 @@ export type PutJobsByJobIdStepsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1351,11 +1301,7 @@ export type PatchJobsByJobIdStepsByJobStepIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1396,11 +1342,7 @@ export type PutJobsByJobIdStepsByJobStepIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 

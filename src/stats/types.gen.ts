@@ -33,7 +33,7 @@ export type AssetUsagesSchema = {
     readonly first_url?: string | null;
     readonly last_url?: string | null;
     readonly next_url?: string | null;
-    readonly objects?: Array<AssetUsagesElasticSchema> | null;
+    readonly objects?: Array<AssetUsageSchema> | null;
     readonly page?: number | null;
     readonly pages?: number | null;
     readonly per_page?: number | null;
@@ -156,12 +156,10 @@ export type BillingStatsSchema = {
     invoice_end_of_month?: boolean | null;
     new_billing_enabled?: boolean | null;
     stripe_id?: boolean | null;
-    system_domain_status?: BillingStatsSchemaSystemDomainStatus | null;
+    system_domain_status?: string | null;
     system_domain_type: string;
-    system_domain_warning_message: string;
+    system_domain_warning_message: string | null;
 };
-
-export type BillingStatsSchemaSystemDomainStatus = 'EUR' | 'USD';
 
 export type BillingsSchema = {
     readonly first_url?: string | null;
@@ -201,7 +199,7 @@ export type CollectionUsagesSchema = {
     readonly first_url?: string | null;
     readonly last_url?: string | null;
     readonly next_url?: string | null;
-    readonly objects?: Array<CollectionUsagesElasticSchema> | null;
+    readonly objects?: Array<CollectionUsageSchema> | null;
     readonly page?: number | null;
     readonly pages?: number | null;
     readonly per_page?: number | null;
@@ -767,11 +765,7 @@ export type PostAssetsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -824,11 +818,7 @@ export type GetAssetsByByPeriodErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -838,7 +828,7 @@ export type GetAssetsByByPeriodResponses = {
     /**
      * Returns asset usage
      */
-    200: AssetUsageSchema;
+    200: AssetUsagesSchema;
 };
 
 export type GetAssetsByByPeriodResponse = GetAssetsByByPeriodResponses[keyof GetAssetsByByPeriodResponses];
@@ -876,11 +866,7 @@ export type GetAutomationsUsageByDayErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -936,11 +922,7 @@ export type GetBillingErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -982,11 +964,7 @@ export type PostBillingErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1023,11 +1001,7 @@ export type GetBillingChargesByChargeIdReceiptUrlErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1069,11 +1043,7 @@ export type PostBillingCreditsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1114,11 +1084,7 @@ export type GetBillingCreditsPriceErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1160,11 +1126,7 @@ export type PostBillingCreditsVerifyErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1180,10 +1142,7 @@ export type PostBillingCreditsVerifyResponses = {
 export type PostBillingCreditsVerifyResponse = PostBillingCreditsVerifyResponses[keyof PostBillingCreditsVerifyResponses];
 
 export type GetBillingCustomerData = {
-    /**
-     * body
-     */
-    body: BillingSchemaWritable;
+    body?: never;
     path?: never;
     query?: never;
     url: '/v1/billing/customer/';
@@ -1206,11 +1165,7 @@ export type GetBillingCustomerErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1252,11 +1207,7 @@ export type PostBillingCustomerErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1295,11 +1246,7 @@ export type DeleteBillingCustomerCardErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1310,7 +1257,13 @@ export type DeleteBillingCustomerCardResponses = {
      * Card deleted
      */
     200: unknown;
+    /**
+     * No Content
+     */
+    204: void;
 };
+
+export type DeleteBillingCustomerCardResponse = DeleteBillingCustomerCardResponses[keyof DeleteBillingCustomerCardResponses];
 
 export type PostBillingCustomerCardData = {
     /**
@@ -1339,11 +1292,7 @@ export type PostBillingCustomerCardErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1381,11 +1330,7 @@ export type GetBillingInvoicesErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1422,11 +1367,7 @@ export type GetBillingPriceListsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1468,11 +1409,7 @@ export type PutBillingPriceListsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1514,11 +1451,7 @@ export type DeleteBillingPriceListsByNameByCurrencyErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1560,11 +1493,7 @@ export type GetBillingPriceListsByNameByCurrencyErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1603,11 +1532,7 @@ export type GetBillingRecipientsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1649,11 +1574,7 @@ export type PutBillingRecipientsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1692,11 +1613,7 @@ export type GetBillingSettingsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1738,11 +1655,7 @@ export type PutBillingSettingsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1777,11 +1690,7 @@ export type GetBillingStatusErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1823,11 +1732,7 @@ export type DeleteBillingBySystemDomainIdByBillingIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1871,11 +1776,7 @@ export type GetBillingExpirationErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1917,11 +1818,7 @@ export type DeleteBillingExpirationBySystemDomainIdByBillingIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1966,11 +1863,7 @@ export type PutBillingExpirationBySystemDomainIdByBillingIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2023,11 +1916,7 @@ export type GetCollectionsByByPeriodErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2037,7 +1926,7 @@ export type GetCollectionsByByPeriodResponses = {
     /**
      * Returns Collection usage
      */
-    200: CollectionUsageSchema;
+    200: CollectionUsagesSchema;
 };
 
 export type GetCollectionsByByPeriodResponse = GetCollectionsByByPeriodResponses[keyof GetCollectionsByByPeriodResponses];
@@ -2071,11 +1960,7 @@ export type GetCurrentUsageErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2119,11 +2004,7 @@ export type GetIdByObjectIdInfoErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2177,11 +2058,7 @@ export type GetOrdwayBillingErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2220,11 +2097,7 @@ export type GetOrdwayBillingCustomerErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2268,11 +2141,7 @@ export type GetOrdwayBillingInvoicesErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2301,11 +2170,7 @@ export type GetPaygoCostsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2358,11 +2223,7 @@ export type GetStorageAccessByByPeriodErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2415,11 +2276,7 @@ export type GetStorageUsageByByPeriodErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2463,11 +2320,7 @@ export type GetSystemLogsRecipientsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2505,11 +2358,7 @@ export type PostSystemLogsRecipientsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2550,11 +2399,7 @@ export type DeleteSystemLogsRecipientsByLogsRecipientIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2591,11 +2436,7 @@ export type GetSystemLogsRecipientsByLogsRecipientIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2639,11 +2480,7 @@ export type PatchSystemLogsRecipientsByLogsRecipientIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2684,11 +2521,7 @@ export type PostSystemLogsRecipientsByLogsRecipientIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2735,11 +2568,7 @@ export type PutSystemLogsRecipientsByLogsRecipientIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2789,11 +2618,7 @@ export type GetTranscoderUsageByByPeriodErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2850,11 +2675,7 @@ export type GetUserAuditByByPeriodErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -2906,11 +2727,7 @@ export type GetUserLicensedByErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 

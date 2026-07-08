@@ -269,7 +269,7 @@ export type UserAclSchema = {
     readonly date_modified?: string | null;
     readonly object_key?: string | null;
     readonly object_type?: string | null;
-    permissions: Array<string>;
+    permissions?: Array<string> | null;
     readonly user_id?: string | null;
 };
 
@@ -429,7 +429,7 @@ export type UserAclBaseSchemaWritable = {
 };
 
 export type UserAclSchemaWritable = {
-    permissions: Array<string>;
+    permissions?: Array<string> | null;
 };
 
 export type UserIdsSchemaWritable = {
@@ -463,11 +463,7 @@ export type PostAclErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -502,11 +498,7 @@ export type GetAclTemplatesErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -544,11 +536,7 @@ export type PostAclTemplatesErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -589,11 +577,7 @@ export type DeleteAclTemplatesByTemplateIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -634,11 +618,7 @@ export type GetAclTemplatesByTemplateIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -682,11 +662,7 @@ export type PatchAclTemplatesByTemplateIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -730,11 +706,7 @@ export type PutAclTemplatesByTemplateIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -787,11 +759,7 @@ export type PostAclTemplatesByTemplateIdByObjectTypeByObjectKeyErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -829,11 +797,7 @@ export type DeleteAclByObjectTypeErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -844,7 +808,13 @@ export type DeleteAclByObjectTypeResponses = {
      * Returns the deleted objects
      */
     200: unknown;
+    /**
+     * No Content
+     */
+    204: void;
 };
+
+export type DeleteAclByObjectTypeResponse = DeleteAclByObjectTypeResponses[keyof DeleteAclByObjectTypeResponses];
 
 export type PutAclByObjectTypeData = {
     /**
@@ -871,11 +841,7 @@ export type PutAclByObjectTypeErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -915,11 +881,7 @@ export type PutAclByObjectTypeBulkErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -959,11 +921,7 @@ export type DeleteAclByObjectTypeContentErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -974,7 +932,13 @@ export type DeleteAclByObjectTypeContentResponses = {
      * Returns the deleted objects
      */
     200: unknown;
+    /**
+     * No Content
+     */
+    204: void;
 };
+
+export type DeleteAclByObjectTypeContentResponse = DeleteAclByObjectTypeContentResponses[keyof DeleteAclByObjectTypeContentResponses];
 
 export type PutAclByObjectTypeContentData = {
     /**
@@ -1005,11 +969,7 @@ export type PutAclByObjectTypeContentErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1050,11 +1010,7 @@ export type GetAclByObjectTypeByObjectKeyErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1092,11 +1048,7 @@ export type GetAclByObjectTypeByObjectKeyPermissionsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1139,11 +1091,7 @@ export type GetAclByObjectTypeByObjectKeyByPermissionErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1186,11 +1134,7 @@ export type PostAclByObjectTypeByPermissionErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1233,11 +1177,7 @@ export type DeleteGroupsByGroupIdAclByObjectTypeByObjectKeyErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1276,11 +1216,7 @@ export type GetGroupsByGroupIdAclByObjectTypeByObjectKeyErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1326,11 +1262,7 @@ export type PutGroupsByGroupIdAclByObjectTypeByObjectKeyErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1378,11 +1310,7 @@ export type GetGroupsByGroupIdAclByObjectTypeByObjectKeyByPermissionErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1418,11 +1346,7 @@ export type GetSharesByObjectTypeByObjectKeyErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1463,11 +1387,7 @@ export type PutSharesByShareIdAclByObjectTypeErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1510,11 +1430,7 @@ export type DeleteSharesByShareIdAclByObjectTypeByObjectKeyErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1553,11 +1469,7 @@ export type GetSharesByShareIdAclByObjectTypeByObjectKeyErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1599,11 +1511,7 @@ export type PostSharesByShareIdAclByObjectTypeByObjectKeyErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1649,11 +1557,7 @@ export type PutSharesByShareIdAclByObjectTypeByObjectKeyErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1697,11 +1601,7 @@ export type GetSharesByShareIdAclByObjectTypeByObjectKeyByPermissionErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1742,11 +1642,7 @@ export type DeleteUsersByUserIdAclByObjectTypeByObjectKeyErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1785,11 +1681,7 @@ export type GetUsersByUserIdAclByObjectTypeByObjectKeyErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1835,11 +1727,7 @@ export type PutUsersByUserIdAclByObjectTypeByObjectKeyErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1887,11 +1775,7 @@ export type GetUsersByUserIdAclByObjectTypeByObjectKeyByPermissionErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 

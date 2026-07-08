@@ -71,7 +71,7 @@ export type NotificationSchema = {
     readonly id?: string | null;
     message_long: string;
     message_short: string;
-    object_id: string;
+    object_id: string | null;
     object_type: string;
     recipient_id: string;
     sender_id: string;
@@ -90,7 +90,7 @@ export type NotificationSettingSchema = {
     enabled: boolean;
     readonly event_type: string;
     readonly object_type: string;
-    protocol?: NotificationSettingSchemaProtocol | null;
+    readonly protocol?: string | null;
     readonly recipient_id?: string | null;
     settings?: {
         [key: string]: unknown;
@@ -98,8 +98,6 @@ export type NotificationSettingSchema = {
     readonly sub_object_type?: string | null;
     readonly system_domain_id?: string | null;
 };
-
-export type NotificationSettingSchemaProtocol = 'email' | 'push' | 'web';
 
 export type NotificationSettingsSchema = {
     readonly first_url?: string | null;
@@ -197,7 +195,7 @@ export type NotificationSchemaWritable = {
     exclude_users?: Array<string> | null;
     message_long: string;
     message_short: string;
-    object_id: string;
+    object_id: string | null;
     object_type: string;
     recipient_id: string;
     sender_id: string;
@@ -211,7 +209,6 @@ export type NotificationSchemaWritable = {
 
 export type NotificationSettingSchemaWritable = {
     enabled: boolean;
-    protocol?: unknown;
     settings?: {
         [key: string]: unknown;
     } | null;
@@ -285,11 +282,7 @@ export type PostDeviceTokensErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -341,11 +334,7 @@ export type GetNotificationSettingsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -389,11 +378,7 @@ export type GetNotificationSettingsByObjectTypeBySubObjectTypeByEventTypeByProto
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -436,11 +421,7 @@ export type PutNotificationSettingsByObjectTypeBySubObjectTypeByEventTypeByProto
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -488,11 +469,7 @@ export type GetNotificationsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -530,11 +507,7 @@ export type PostNotificationsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -569,11 +542,7 @@ export type PutNotificationsAllReadErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -609,11 +578,7 @@ export type PostNotificationsSystemErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -654,11 +619,7 @@ export type DeleteNotificationsByNotificationIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -699,11 +660,7 @@ export type GetNotificationsByNotificationIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -744,11 +701,7 @@ export type PutNotificationsByNotificationIdReadErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -787,11 +740,7 @@ export type GetSubscriptionsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -829,11 +778,7 @@ export type PostSubscriptionsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -874,11 +819,7 @@ export type DeleteSubscriptionsBySubscriptionIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -919,11 +860,7 @@ export type GetSubscriptionsBySubscriptionIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -963,11 +900,7 @@ export type DeleteUsersByUserIdDeviceTokensErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1016,11 +949,7 @@ export type GetUsersByUserIdDeviceTokensErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1067,11 +996,7 @@ export type PostUsersByUserIdDeviceTokensErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1120,11 +1045,7 @@ export type DeleteUsersByUserIdDeviceTokensByDeviceTokenErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1173,11 +1094,7 @@ export type GetUsersByUserIdDeviceTokensByDeviceTokenErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1229,11 +1146,7 @@ export type PatchUsersByUserIdDeviceTokensByDeviceTokenErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1275,11 +1188,7 @@ export type GetByObjectTypeByObjectIdSubscriptionsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1321,11 +1230,7 @@ export type DeleteByObjectTypeByObjectIdSubscriptionsAllErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1336,6 +1241,10 @@ export type DeleteByObjectTypeByObjectIdSubscriptionsAllResponses = {
      * Returns a subscription
      */
     200: SubscriptionSchema;
+    /**
+     * No Content
+     */
+    204: void;
 };
 
 export type DeleteByObjectTypeByObjectIdSubscriptionsAllResponse = DeleteByObjectTypeByObjectIdSubscriptionsAllResponses[keyof DeleteByObjectTypeByObjectIdSubscriptionsAllResponses];

@@ -731,11 +731,7 @@ export type DeleteFaceRecognitionAssetsByAssetIdPersonsBulkErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -746,7 +742,13 @@ export type DeleteFaceRecognitionAssetsByAssetIdPersonsBulkResponses = {
      * Returns the definition of the created job of deleting persons
      */
     201: unknown;
+    /**
+     * No Content
+     */
+    204: void;
 };
+
+export type DeleteFaceRecognitionAssetsByAssetIdPersonsBulkResponse = DeleteFaceRecognitionAssetsByAssetIdPersonsBulkResponses[keyof DeleteFaceRecognitionAssetsByAssetIdPersonsBulkResponses];
 
 export type GetFaceRecognitionAssetsByAssetIdVersionsByVersionIdPersonsData = {
     body?: never;
@@ -773,11 +775,7 @@ export type GetFaceRecognitionAssetsByAssetIdVersionsByVersionIdPersonsErrors = 
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -819,11 +817,7 @@ export type PostFaceRecognitionBulkExtractErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -859,11 +853,7 @@ export type PutFaceRecognitionChangePersonJobsStateErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -895,11 +885,7 @@ export type PostFaceRecognitionEmbeddingsReindexErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -937,11 +923,7 @@ export type PostFaceRecognitionEmbeddingsByEmbeddingIdReindexErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1000,11 +982,7 @@ export type PostFaceRecognitionExtractAssetsByAssetIdVersionsByVersionIdErrors =
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1040,11 +1018,7 @@ export type PutFaceRecognitionJobsPriorityErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1080,11 +1054,7 @@ export type PutFaceRecognitionJobsStateErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1158,11 +1128,7 @@ export type GetFaceRecognitionPersonsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1200,11 +1166,7 @@ export type DeleteFaceRecognitionPersonsBulkDeleteErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1215,7 +1177,13 @@ export type DeleteFaceRecognitionPersonsBulkDeleteResponses = {
      * Returns the definition of the created job of deleting multiple persons in bulk
      */
     201: unknown;
+    /**
+     * No Content
+     */
+    204: void;
 };
+
+export type DeleteFaceRecognitionPersonsBulkDeleteResponse = DeleteFaceRecognitionPersonsBulkDeleteResponses[keyof DeleteFaceRecognitionPersonsBulkDeleteResponses];
 
 export type PostFaceRecognitionPersonsReindexData = {
     /**
@@ -1245,11 +1213,7 @@ export type PostFaceRecognitionPersonsReindexErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1288,11 +1252,7 @@ export type DeleteFaceRecognitionPersonsByPersonIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1303,7 +1263,13 @@ export type DeleteFaceRecognitionPersonsByPersonIdResponses = {
      * Returns the definition of the created job of deleting a person
      */
     201: unknown;
+    /**
+     * No Content
+     */
+    204: void;
 };
+
+export type DeleteFaceRecognitionPersonsByPersonIdResponse = DeleteFaceRecognitionPersonsByPersonIdResponses[keyof DeleteFaceRecognitionPersonsByPersonIdResponses];
 
 export type GetFaceRecognitionPersonsByPersonIdData = {
     body?: never;
@@ -1331,11 +1297,7 @@ export type GetFaceRecognitionPersonsByPersonIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1379,11 +1341,7 @@ export type PatchFaceRecognitionPersonsByPersonIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1427,11 +1385,7 @@ export type PutFaceRecognitionPersonsByPersonIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1474,11 +1428,7 @@ export type DeleteFaceRecognitionPersonsByPersonIdAssetsByAssetIdVersionsByVersi
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1524,11 +1474,7 @@ export type PostFaceRecognitionPersonsByPersonIdAssetsByAssetIdVersionsByVersion
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1576,11 +1522,7 @@ export type PostFaceRecognitionPersonsByPersonIdAssetsByAssetIdVersionsByVersion
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1624,11 +1566,7 @@ export type DeleteFaceRecognitionPersonsByPersonIdBulkErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1639,7 +1577,13 @@ export type DeleteFaceRecognitionPersonsByPersonIdBulkResponses = {
      * Returns the definition of the created job of deleting person instances
      */
     201: unknown;
+    /**
+     * No Content
+     */
+    204: void;
 };
+
+export type DeleteFaceRecognitionPersonsByPersonIdBulkResponse = DeleteFaceRecognitionPersonsByPersonIdBulkResponses[keyof DeleteFaceRecognitionPersonsByPersonIdBulkResponses];
 
 export type PostFaceRecognitionPersonsByPersonIdConfirmPersonData = {
     /**
@@ -1670,11 +1614,7 @@ export type PostFaceRecognitionPersonsByPersonIdConfirmPersonErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1714,11 +1654,7 @@ export type GetFaceRecognitionPersonsByPersonIdFacesByFaceIdImageUrlErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1760,11 +1696,7 @@ export type PostFaceRecognitionPersonsByPersonIdMergeByNewPersonIdErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1811,11 +1743,7 @@ export type PostFaceRecognitionPersonsByPersonIdReindexErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1857,11 +1785,7 @@ export type PostFaceRecognitionPersonsByPersonIdUpdateAndConfirmErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
@@ -1915,11 +1839,7 @@ export type GetFaceRecognitionPersonsByPersonIdVersionsErrors = {
      * Error response
      */
     default: {
-        errors?: Array<string>;
-    } | {
-        errors?: {
-            [key: string]: unknown;
-        };
+        [key: string]: unknown;
     };
 };
 
