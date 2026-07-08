@@ -6,9 +6,9 @@ export type ClientOptions = {
 
 export type AutomationSearchCriteriaSchema = {
     automation_ids: Array<string>;
-    doc_types?: Array<'assets' | 'collections' | 'saved_search_groups' | 'saved_searches' | 'segments'>;
-    execution_time?: string;
-    filter?: CriteriaFilter;
+    doc_types?: Array<'assets' | 'collections' | 'saved_search_groups' | 'saved_searches' | 'segments'> | null;
+    execution_time?: string | null;
+    filter?: CriteriaFilter | null;
 };
 
 export type BaseQueryParamsSchema = {
@@ -23,7 +23,7 @@ export type BaseQueryParamsSchema = {
     /**
      * A comma separated list of fieldnames with order (asc/desc)
      */
-    sort?: string;
+    sort?: string | null;
 };
 
 export type BulkAddToFavoritesSchema = {
@@ -106,82 +106,85 @@ export type BulkSavedSearchObjectsTransferSchema = {
 };
 
 export type BulkSavedSearchReindexSchema = {
-    include_assets?: boolean;
-    include_collections?: boolean;
+    include_assets?: boolean | null;
+    include_collections?: boolean | null;
     job_id: string;
     search_ids: Array<string>;
 };
 
 export type CriteriaFilter = {
-    filters?: Array<CriteriaFilter>;
+    filters?: Array<CriteriaFilter> | null;
     operator: string;
-    terms?: Array<CriteriaTerm>;
+    terms?: Array<CriteriaTerm> | null;
 };
 
 export type CriteriaFilterSchema = {
-    filters?: Array<CriteriaFilterSchema>;
+    filters?: Array<CriteriaFilterSchema> | null;
     operator: string;
-    terms?: Array<CriteriaTerm>;
+    terms?: Array<CriteriaTerm> | null;
 };
 
 export type CriteriaRangeFilter = {
-    max?: string;
-    min?: string;
+    max?: string | null;
+    min?: string | null;
     /**
      * Format: +02:00. Results returned in UTC by default
      */
-    timezone?: string;
+    timezone?: string | null;
 };
 
 export type CriteriaRangeFilterSchema = {
-    max?: string;
-    min?: string;
+    max?: string | null;
+    min?: string | null;
     /**
      * Format: +02:00. Results returned in UTC by default
      */
-    timezone?: string;
+    timezone?: string | null;
 };
 
 export type CriteriaSortSchema = {
     name: string;
-    order?: string;
+    order?: string | null;
 };
 
 export type CriteriaTerm = {
-    exists?: boolean;
-    missing?: boolean;
+    exists?: boolean | null;
+    missing?: boolean | null;
     name: string;
-    range?: CriteriaRangeFilter;
-    value?: string;
-    value_in?: Array<string>;
+    range?: CriteriaRangeFilter | null;
+    value?: string | null;
+    value_in?: Array<string> | null;
 };
 
 export type CriteriaTermSchema = {
-    exists?: boolean;
-    missing?: boolean;
+    exists?: boolean | null;
+    missing?: boolean | null;
     name: string;
-    range?: CriteriaRangeFilterSchema;
-    value?: string;
-    value_in?: Array<string>;
+    range?: CriteriaRangeFilterSchema | null;
+    value?: string | null;
+    value_in?: Array<string> | null;
 };
 
 export type DiscoveryEntitiesSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<DiscoveryEntity>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<DiscoveryEntity> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type DiscoveryEntity = {
-    date_created?: string;
-    date_modified?: string;
-    readonly id?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
+    readonly id?: string | null;
+    metadata?: {
+        [key: string]: unknown;
+    } | null;
     object_id: string;
     object_type: 'COLLECTION' | 'SAVED_SEARCH';
     title: string;
@@ -189,9 +192,12 @@ export type DiscoveryEntity = {
 };
 
 export type DiscoveryEntitySchema = {
-    date_created?: string;
-    date_modified?: string;
-    readonly id?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
+    readonly id?: string | null;
+    metadata?: {
+        [key: string]: unknown;
+    } | null;
     object_id: string;
     object_type: 'COLLECTION' | 'SAVED_SEARCH';
     title: string;
@@ -200,125 +206,125 @@ export type DiscoveryEntitySchema = {
 
 export type DiscoveryViewSettingsSchema = {
     entity_ids: Array<string>;
-    readonly id?: string;
-    readonly system_domain_id?: string;
+    readonly id?: string | null;
+    readonly system_domain_id?: string | null;
 };
 
 export type FacetFilterSchema = {
     name: string;
-    value_in?: Array<string>;
+    value_in?: Array<string> | null;
 };
 
 export type ListObjectsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type MultiSelectFilterGroupSchema = {
-    readonly items?: Array<string>;
-    readonly modifier?: 'exclude_all_of' | 'exclude_any_of' | 'include_all_of' | 'include_any_of';
+    readonly items?: Array<string> | null;
+    modifier?: 'exclude_all_of' | 'exclude_any_of' | 'include_all_of' | 'include_any_of' | null;
 };
 
 export type NltfContextSchema = {
-    displayed_filters?: NltfDisplayedFilters;
+    displayed_filters?: NltfDisplayedFilters | null;
 };
 
 export type NltfDisplayedFilters = {
     facets?: {
         [key: string]: Array<string | number>;
-    };
+    } | null;
     filters?: {
         [key: string]: Array<string | number>;
-    };
+    } | null;
 };
 
 export type NltfDisplayedFiltersSchema = {
     facets?: {
         [key: string]: Array<string | number>;
-    };
+    } | null;
     filters?: {
         [key: string]: Array<string | number>;
-    };
+    } | null;
 };
 
 export type NltfParseMetadataSchema = {
-    readonly model?: string;
-    readonly original_query?: string;
-    readonly provider?: string;
+    readonly model?: string | null;
+    readonly original_query?: string | null;
+    readonly provider?: string | null;
 };
 
 export type NltfParseRequestSchema = {
-    context?: NltfContextSchema;
+    context?: NltfContextSchema | null;
     query: string;
 };
 
 export type NltfParseResponseSchema = {
-    metadata?: NltfParseMetadataSchema;
-    result?: NltfParseResult;
+    metadata?: NltfParseMetadataSchema | null;
+    result?: NltfParseResult | null;
 };
 
 export type NltfParseResult = {
     readonly facets_filters?: {
         [key: string]: Array<string>;
-    };
+    } | null;
     readonly field_types?: {
         [key: string]: string;
-    };
+    } | null;
     readonly filter?: {
         [key: string]: string | Array<string> | Array<MultiSelectFilterGroupSchema> | CriteriaRangeFilterSchema;
-    };
+    } | null;
     readonly filter_options?: {
         [key: string]: Array<string | number>;
-    };
-    readonly query?: string;
+    } | null;
+    readonly query?: string | null;
     readonly query_mapping?: {
         [key: string]: string;
-    };
+    } | null;
 };
 
 export type NltfParseResultSchema = {
     readonly facets_filters?: {
         [key: string]: Array<string>;
-    };
+    } | null;
     readonly field_types?: {
         [key: string]: string;
-    };
+    } | null;
     readonly filter?: {
         [key: string]: string | Array<string> | Array<MultiSelectFilterGroupSchema> | CriteriaRangeFilterSchema;
-    };
+    } | null;
     readonly filter_options?: {
         [key: string]: Array<string | number>;
-    };
-    readonly query?: string;
+    } | null;
+    readonly query?: string | null;
     readonly query_mapping?: {
         [key: string]: string;
-    };
+    } | null;
 };
 
 export type ReindexSavedSearchGroupSchema = {
-    sync_to_another_dc?: boolean;
+    sync_to_another_dc?: boolean | null;
 };
 
 export type ReindexSavedSearchSchema = {
-    sync_to_another_dc?: boolean;
+    sync_to_another_dc?: boolean | null;
 };
 
 export type SavedSearch = {
     criteria: SearchCriteriaSaved;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    readonly favoured?: boolean;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    readonly favoured?: boolean | null;
     group_id?: string | null;
-    readonly id?: string;
+    readonly id?: string | null;
     name: string;
-    permissions?: Array<string>;
+    permissions?: Array<string> | null;
 };
 
 export type SavedSearchConvertCollectionSchema = {
@@ -334,14 +340,14 @@ export type SavedSearchCopyFromTemplateSchema = {
 };
 
 export type SavedSearchElasticSchema = {
-    criteria?: string;
-    date_created?: string;
-    date_modified?: string;
-    readonly favoured?: boolean;
+    criteria?: string | null;
+    date_created?: string | null;
+    date_modified?: string | null;
+    readonly favoured?: boolean | null;
     group_id?: string | null;
-    readonly id?: string;
+    readonly id?: string | null;
     name: string;
-    permissions?: Array<string>;
+    permissions?: Array<string> | null;
 };
 
 export type SavedSearchGroupQueryParamsSchema = {
@@ -356,30 +362,30 @@ export type SavedSearchGroupQueryParamsSchema = {
     /**
      * A comma separated list of fieldnames with order (asc/desc)
      */
-    sort?: string;
+    sort?: string | null;
 };
 
 export type SavedSearchGroupSchema = {
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    readonly id?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    readonly id?: string | null;
     name: string;
-    saved_searches_count?: number;
-    system_domain_id?: string;
-    user_id?: string;
+    saved_searches_count?: number | null;
+    system_domain_id?: string | null;
+    user_id?: string | null;
 };
 
 export type SavedSearchGroupsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<SavedSearchGroupSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<SavedSearchGroupSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type SavedSearchQueryParamsSchema = {
@@ -391,8 +397,8 @@ export type SavedSearchQueryParamsSchema = {
      * The number of items for each page
      */
     per_page?: number | null;
-    scroll?: boolean;
-    scroll_id?: string;
+    scroll?: boolean | null;
+    scroll_id?: string | null;
     /**
      * This parameter is used for infinite scroll pagination instead of deprecatedscroll API. It accepts a list of sort keys that will be used for getting a next page and it can be obtained from `_sort` key of the last object of the previous response
      */
@@ -400,134 +406,143 @@ export type SavedSearchQueryParamsSchema = {
     /**
      * A comma separated list of fieldnames with order (asc/desc)
      */
-    sort?: string;
+    sort?: string | null;
     /**
      * Comma-separated list of asset types to include in results. Defaults to all except POST.
      */
-    types?: Array<'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP'>;
+    types?: Array<'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP'> | null;
 };
 
 export type SavedSearchResultsSchema = {
-    readonly first_url?: string;
-    id?: string;
-    readonly last_url?: string;
-    name?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<SearchDocument>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    search_criteria_document?: SavedSearch;
-    readonly total?: number;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
+    readonly first_url?: string | null;
+    id?: string | null;
+    readonly last_url?: string | null;
+    name?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<SearchDocument> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    search_criteria_document?: SavedSearch | null;
+    readonly total?: number | null;
 };
 
 export type SavedSearchSchema = {
     criteria: SearchCriteriaSaved;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    readonly favoured?: boolean;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    readonly favoured?: boolean | null;
     group_id?: string | null;
-    readonly id?: string;
+    readonly id?: string | null;
     name: string;
-    permissions?: Array<string>;
+    permissions?: Array<string> | null;
 };
 
 export type SavedSearchesSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<SavedSearchElasticSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<SavedSearchElasticSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type SearchContentInfoInternalSchema = {
-    readonly assets_count?: number;
-    readonly collections_count?: number;
-    media_formats?: Array<unknown>;
-    media_types?: Array<unknown>;
-    readonly storage_info?: Array<StorageContentInfo>;
-    readonly title?: string;
-    readonly total_duration_milliseconds?: number;
-    readonly total_size?: number;
+    readonly assets_count?: number | null;
+    readonly collections_count?: number | null;
+    media_formats?: Array<unknown> | null;
+    media_types?: Array<unknown> | null;
+    readonly storage_info?: Array<StorageContentInfo> | null;
+    readonly title?: string | null;
+    readonly total_duration_milliseconds?: number | null;
+    readonly total_size?: number | null;
 };
 
 export type SearchContentInfoSchema = {
-    readonly assets_count?: number;
-    readonly collections_count?: number;
-    readonly storage_info?: Array<StorageContentInfo>;
-    readonly title?: string;
-    readonly total_duration_milliseconds?: number;
-    readonly total_size?: number;
+    readonly assets_count?: number | null;
+    readonly collections_count?: number | null;
+    readonly storage_info?: Array<StorageContentInfo> | null;
+    readonly title?: string | null;
+    readonly total_duration_milliseconds?: number | null;
+    readonly total_size?: number | null;
 };
 
 export type SearchCriteriaBaseSchema = {
-    doc_types?: Array<'assets' | 'collections' | 'saved_search_groups' | 'saved_searches' | 'segments'>;
-    exclude_fields?: Array<string>;
-    facets?: Array<string>;
-    facets_filters?: Array<FacetFilterSchema>;
-    filter?: CriteriaFilterSchema;
-    include_fields?: Array<string>;
-    metadata_view_id?: string;
-    query?: string;
-    search_fields?: Array<string>;
-    sort?: Array<CriteriaSortSchema>;
+    doc_types?: Array<'assets' | 'collections' | 'saved_search_groups' | 'saved_searches' | 'segments'> | null;
+    exclude_fields?: Array<string> | null;
+    facets?: Array<string> | null;
+    facets_filters?: Array<FacetFilterSchema> | null;
+    filter?: CriteriaFilterSchema | null;
+    include_fields?: Array<string> | null;
+    metadata_view_id?: string | null;
+    query?: string | null;
+    search_fields?: Array<string> | null;
+    sort?: Array<CriteriaSortSchema> | null;
 };
 
 export type SearchCriteriaSaved = {
-    doc_types?: Array<'assets' | 'collections' | 'saved_search_groups' | 'saved_searches' | 'segments'>;
-    exclude_fields?: Array<string>;
-    facets?: Array<string>;
-    facets_filters?: Array<FacetFilterSchema>;
-    filter?: CriteriaFilterSchema;
-    include_fields?: Array<string>;
-    metadata_view_id?: string;
-    query?: string;
-    search_fields?: Array<string>;
-    sort?: Array<CriteriaSortSchema>;
+    doc_types?: Array<'assets' | 'collections' | 'saved_search_groups' | 'saved_searches' | 'segments'> | null;
+    exclude_fields?: Array<string> | null;
+    facets?: Array<string> | null;
+    facets_filters?: Array<FacetFilterSchema> | null;
+    filter?: CriteriaFilterSchema | null;
+    include_fields?: Array<string> | null;
+    metadata_view_id?: string | null;
+    query?: string | null;
+    search_fields?: Array<string> | null;
+    sort?: Array<CriteriaSortSchema> | null;
 };
 
 export type SearchCriteriaSavedSchema = {
-    doc_types?: Array<'assets' | 'collections' | 'saved_search_groups' | 'saved_searches' | 'segments'>;
-    exclude_fields?: Array<string>;
-    facets?: Array<string>;
-    facets_filters?: Array<FacetFilterSchema>;
-    filter?: CriteriaFilterSchema;
-    include_fields?: Array<string>;
-    metadata_view_id?: string;
-    query?: string;
-    search_fields?: Array<string>;
-    sort?: Array<CriteriaSortSchema>;
+    doc_types?: Array<'assets' | 'collections' | 'saved_search_groups' | 'saved_searches' | 'segments'> | null;
+    exclude_fields?: Array<string> | null;
+    facets?: Array<string> | null;
+    facets_filters?: Array<FacetFilterSchema> | null;
+    filter?: CriteriaFilterSchema | null;
+    include_fields?: Array<string> | null;
+    metadata_view_id?: string | null;
+    query?: string | null;
+    search_fields?: Array<string> | null;
+    sort?: Array<CriteriaSortSchema> | null;
 };
 
 export type SearchCriteriaSchema = {
-    doc_types?: Array<'assets' | 'collections' | 'saved_search_groups' | 'saved_searches' | 'segments'>;
-    exclude_fields?: Array<string>;
-    facets?: Array<string>;
-    facets_filters?: Array<FacetFilterSchema>;
-    filter?: CriteriaFilterSchema;
-    include_fields?: Array<string>;
-    metadata_view_id?: string;
-    query?: string;
+    doc_types?: Array<'assets' | 'collections' | 'saved_search_groups' | 'saved_searches' | 'segments'> | null;
+    exclude_fields?: Array<string> | null;
+    facets?: Array<string> | null;
+    facets_filters?: Array<FacetFilterSchema> | null;
+    filter?: CriteriaFilterSchema | null;
+    include_fields?: Array<string> | null;
+    metadata_view_id?: string | null;
+    query?: string | null;
     /**
      * This parameter is used for infinite scroll pagination instead of deprecatedscroll API. It accepts a list of sort keys that will be used for getting a next page and it can be obtained from `_sort` key of the last object of the previous response
      */
-    search_after?: Array<unknown>;
-    search_fields?: Array<string>;
-    sort?: Array<CriteriaSortSchema>;
+    search_after?: Array<unknown> | null;
+    search_fields?: Array<string> | null;
+    sort?: Array<CriteriaSortSchema> | null;
 };
 
 export type SearchDocument = {
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    description?: string;
-    readonly id?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    description?: string | null;
+    readonly id?: string | null;
+    metadata?: {
+        [key: string]: unknown;
+    } | null;
     object_type: string;
     title: string;
 };
@@ -539,47 +554,53 @@ export type SearchDocumentInputSchema = {
 };
 
 export type SearchDocumentSchema = {
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    description?: string;
-    readonly id?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    description?: string | null;
+    readonly id?: string | null;
+    metadata?: {
+        [key: string]: unknown;
+    } | null;
     object_type: string;
     title: string;
 };
 
 export type SearchDocumentsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<SearchDocumentSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<SearchDocumentSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type SearchHistory = {
-    readonly date_created?: string;
+    readonly date_created?: string | null;
     id: string;
 };
 
 export type SearchHistoryListSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<SearchHistory>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<SearchHistory> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type SearchHistorySchema = {
-    readonly date_created?: string;
+    readonly date_created?: string | null;
     id: string;
 };
 
@@ -592,67 +613,67 @@ export type SearchQueryParamsSchema = {
      * The number of items for each page
      */
     per_page?: number | null;
-    scroll?: boolean;
-    scroll_id?: string;
+    scroll?: boolean | null;
+    scroll_id?: string | null;
     /**
      * A comma separated list of fieldnames with order (asc/desc)
      */
-    sort?: string;
+    sort?: string | null;
     /**
      * Comma-separated list of asset types to include in results. Defaults to all except POST.
      */
-    types?: Array<'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP'>;
+    types?: Array<'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP'> | null;
 };
 
 export type SearchSuggestResponseSchema = {
-    value?: string;
+    value?: string | null;
 };
 
 export type SearchSuggestSchema = {
-    doc_types?: Array<'assets' | 'collections' | 'saved_search_groups' | 'saved_searches' | 'segments'>;
+    doc_types?: Array<'assets' | 'collections' | 'saved_search_groups' | 'saved_searches' | 'segments'> | null;
     field_name: string;
-    metadata_view_id?: string;
+    metadata_view_id?: string | null;
     query: string;
 };
 
 export type SearchSuggestsResponseSchema = {
-    readonly objects?: Array<SearchSuggestResponseSchema>;
+    readonly objects?: Array<SearchSuggestResponseSchema> | null;
 };
 
 export type SearchViewFieldTypeSchema = {
-    facetable?: boolean;
-    label?: string;
-    name?: string;
-    origin_field_name?: string;
-    sortable?: boolean;
-    type?: string;
-    width?: SearchViewFieldTypeWidth;
+    facetable?: boolean | null;
+    label?: string | null;
+    name?: string | null;
+    origin_field_name?: string | null;
+    sortable?: boolean | null;
+    type?: string | null;
+    width?: SearchViewFieldTypeWidth | null;
 };
 
 export type SearchViewFieldTypeWidth = {
-    auto_resize?: boolean;
-    current?: number;
-    fixed?: number;
-    max?: number;
-    min?: number;
+    auto_resize?: boolean | null;
+    current?: number | null;
+    fixed?: number | null;
+    max?: number | null;
+    min?: number | null;
 };
 
 export type SearchViewFieldTypeWidthSchema = {
-    auto_resize?: boolean;
-    current?: number;
-    fixed?: number;
-    max?: number;
-    min?: number;
+    auto_resize?: boolean | null;
+    current?: number | null;
+    fixed?: number | null;
+    max?: number | null;
+    min?: number | null;
 };
 
 export type SearchViewSchema = {
-    auto_resize_title_column?: boolean;
-    date_created?: string;
-    date_modified?: string;
-    description?: string;
-    readonly id?: string;
-    name?: string;
-    view_fields?: Array<SearchViewFieldTypeSchema>;
+    auto_resize_title_column?: boolean | null;
+    date_created?: string | null;
+    date_modified?: string | null;
+    description?: string | null;
+    readonly id?: string | null;
+    name?: string | null;
+    view_fields?: Array<SearchViewFieldTypeSchema> | null;
 };
 
 export type SearchViewsIdSchema = {
@@ -660,27 +681,27 @@ export type SearchViewsIdSchema = {
 };
 
 export type SearchViewsSchema = {
-    readonly objects?: Array<SearchViewSchema>;
+    readonly objects?: Array<SearchViewSchema> | null;
 };
 
 export type StorageContentInfo = {
-    readonly assets_count?: number;
-    readonly file_count?: number;
-    readonly storage_id?: string;
-    readonly total_duration_milliseconds?: number;
-    readonly total_size?: number;
+    readonly assets_count?: number | null;
+    readonly file_count?: number | null;
+    readonly storage_id?: string | null;
+    readonly total_duration_milliseconds?: number | null;
+    readonly total_size?: number | null;
 };
 
 export type StorageContentInfoSchema = {
-    readonly assets_count?: number;
-    readonly file_count?: number;
-    readonly storage_id?: string;
-    readonly total_duration_milliseconds?: number;
-    readonly total_size?: number;
+    readonly assets_count?: number | null;
+    readonly file_count?: number | null;
+    readonly storage_id?: string | null;
+    readonly total_duration_milliseconds?: number | null;
+    readonly total_size?: number | null;
 };
 
 export type BulkSavedSearchObjectsDeleteSchemaWritable = {
-    content_only?: boolean;
+    content_only?: boolean | null;
     include_assets: boolean;
     include_collections: boolean;
     job_id: string;
@@ -692,8 +713,11 @@ export type DiscoveryEntitiesSchemaWritable = {
 };
 
 export type DiscoveryEntityWritable = {
-    date_created?: string;
-    date_modified?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
+    metadata?: {
+        [key: string]: unknown;
+    } | null;
     object_id: string;
     object_type: 'COLLECTION' | 'SAVED_SEARCH';
     title: string;
@@ -701,8 +725,11 @@ export type DiscoveryEntityWritable = {
 };
 
 export type DiscoveryEntitySchemaWritable = {
-    date_created?: string;
-    date_modified?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
+    metadata?: {
+        [key: string]: unknown;
+    } | null;
     object_id: string;
     object_type: 'COLLECTION' | 'SAVED_SEARCH';
     title: string;
@@ -711,6 +738,10 @@ export type DiscoveryEntitySchemaWritable = {
 
 export type DiscoveryViewSettingsSchemaWritable = {
     entity_ids: Array<string>;
+};
+
+export type MultiSelectFilterGroupSchemaWritable = {
+    modifier?: unknown;
 };
 
 export type NltfParseResponseSchemaWritable = {
@@ -729,23 +760,23 @@ export type SavedSearchWritable = {
     criteria: SearchCriteriaSaved;
     group_id?: string | null;
     name: string;
-    permissions?: Array<string>;
+    permissions?: Array<string> | null;
 };
 
 export type SavedSearchElasticSchemaWritable = {
-    criteria?: string;
-    date_created?: string;
-    date_modified?: string;
+    criteria?: string | null;
+    date_created?: string | null;
+    date_modified?: string | null;
     group_id?: string | null;
     name: string;
-    permissions?: Array<string>;
+    permissions?: Array<string> | null;
 };
 
 export type SavedSearchGroupSchemaWritable = {
     name: string;
-    saved_searches_count?: number;
-    system_domain_id?: string;
-    user_id?: string;
+    saved_searches_count?: number | null;
+    system_domain_id?: string | null;
+    user_id?: string | null;
 };
 
 export type SavedSearchGroupsSchemaWritable = {
@@ -753,41 +784,54 @@ export type SavedSearchGroupsSchemaWritable = {
 };
 
 export type SavedSearchResultsSchemaWritable = {
-    id?: string;
-    name?: string;
-    search_criteria_document?: SavedSearchWritable;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
+    id?: string | null;
+    name?: string | null;
+    search_criteria_document?: SavedSearchWritable | null;
 };
 
 export type SavedSearchSchemaWritable = {
     criteria: SearchCriteriaSaved;
     group_id?: string | null;
     name: string;
-    permissions?: Array<string>;
+    permissions?: Array<string> | null;
 };
 
 export type SavedSearchesSchemaWritable = {
-    [key: string]: unknown;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
 };
 
 export type SearchContentInfoInternalSchemaWritable = {
-    media_formats?: Array<unknown>;
-    media_types?: Array<unknown>;
+    media_formats?: Array<unknown> | null;
+    media_types?: Array<unknown> | null;
 };
 
 export type SearchDocumentWritable = {
-    description?: string;
+    description?: string | null;
+    metadata?: {
+        [key: string]: unknown;
+    } | null;
     object_type: string;
     title: string;
 };
 
 export type SearchDocumentSchemaWritable = {
-    description?: string;
+    description?: string | null;
+    metadata?: {
+        [key: string]: unknown;
+    } | null;
     object_type: string;
     title: string;
 };
 
 export type SearchDocumentsSchemaWritable = {
-    [key: string]: unknown;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
 };
 
 export type SearchHistoryWritable = {
@@ -807,12 +851,12 @@ export type SearchSuggestsResponseSchemaWritable = {
 };
 
 export type SearchViewSchemaWritable = {
-    auto_resize_title_column?: boolean;
-    date_created?: string;
-    date_modified?: string;
-    description?: string;
-    name?: string;
-    view_fields?: Array<SearchViewFieldTypeSchema>;
+    auto_resize_title_column?: boolean | null;
+    date_created?: string | null;
+    date_modified?: string | null;
+    description?: string | null;
+    name?: string | null;
+    view_fields?: Array<SearchViewFieldTypeSchema> | null;
 };
 
 export type SearchViewsSchemaWritable = {

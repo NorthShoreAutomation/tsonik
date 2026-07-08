@@ -5,64 +5,64 @@ export type ClientOptions = {
 };
 
 export type AppCreateSchema = {
-    allowed_scopes?: Array<string>;
-    readonly client_secret?: string;
-    readonly date_created?: string;
-    readonly date_modified?: string;
+    allowed_scopes?: Array<string> | null;
+    readonly client_secret?: string | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
     default_user_id?: string | null;
     description?: string | null;
-    readonly id?: string;
+    readonly id?: string | null;
     name: string;
-    oauth_client_type?: 'confidential' | 'public';
-    redirect_uris?: Array<string>;
-    readonly system_domain_id?: string;
-    type?: 'OAUTH' | 'PAT';
+    oauth_client_type?: 'confidential' | 'public' | null;
+    redirect_uris?: Array<string> | null;
+    readonly system_domain_id?: string | null;
+    type?: 'OAUTH' | 'PAT' | null;
     url?: string | null;
 };
 
 export type AppSchema = {
-    allowed_scopes?: Array<string>;
-    readonly date_created?: string;
-    readonly date_modified?: string;
+    allowed_scopes?: Array<string> | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
     default_user_id?: string | null;
     description?: string | null;
-    readonly id?: string;
+    readonly id?: string | null;
     name: string;
-    oauth_client_type?: 'confidential' | 'public';
-    redirect_uris?: Array<string>;
-    readonly system_domain_id?: string;
-    readonly type?: 'OAUTH' | 'PAT';
+    oauth_client_type?: 'confidential' | 'public' | null;
+    redirect_uris?: Array<string> | null;
+    readonly system_domain_id?: string | null;
+    type?: 'OAUTH' | 'PAT' | null;
     url?: string | null;
 };
 
 export type ApprovedAppInstanceSchema = {
     app_id: string;
-    readonly date_created?: string;
+    readonly date_created?: string | null;
     id: string;
 };
 
 export type AppsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<AppSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<AppSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type Auth0SettingsSchema = {
     auth0_client_id: string;
     auth0_name: string;
     auth0_region: string;
-    cert_fingerprint?: string;
-    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
-    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
-    readonly domain_name?: string;
-    idp_x509cert?: string;
-    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512';
+    cert_fingerprint?: string | null;
+    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    readonly domain_name?: string | null;
+    idp_x509cert?: string | null;
+    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512' | null;
 };
 
 export type AutoLoginSchema = {
@@ -82,7 +82,7 @@ export type BaseQueryParamsSchema = {
     /**
      * A semicolon separated list of `field,order` pairs (name,asc;type,desc).
      */
-    sort?: string;
+    sort?: string | null;
 };
 
 export type BillingLimitsSchema = {
@@ -114,31 +114,31 @@ export type CompleteInvitationSchema = {
 };
 
 export type CountriesSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<Country>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<Country> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type Country = {
-    alpha2?: string;
-    alpha3?: string;
-    apolitical_name?: string;
+    alpha2?: string | null;
+    alpha3?: string | null;
+    apolitical_name?: string | null;
     name: string;
-    numeric?: string;
+    numeric?: string | null;
 };
 
 export type CountrySchema = {
-    alpha2?: string;
-    alpha3?: string;
-    apolitical_name?: string;
+    alpha2?: string | null;
+    alpha3?: string | null;
+    apolitical_name?: string | null;
     name: string;
-    numeric?: string;
+    numeric?: string | null;
 };
 
 export type DomainIdentityProviderMapSchema = {
@@ -148,7 +148,7 @@ export type DomainIdentityProviderMapSchema = {
 };
 
 export type EmailLoginSchema = {
-    app_name?: string;
+    app_name?: string | null;
     email: string;
 };
 
@@ -157,22 +157,22 @@ export type EnableSystemDomainFeatureSchema = {
 };
 
 export type ExternalAuthRequestResponseSchema = {
-    app_id?: string;
-    redirect_info?: RedirectInfoType;
+    app_id?: string | null;
+    redirect_info?: RedirectInfoType | null;
 };
 
 export type ExternalAuthRequestSchema = {
-    app_id?: string;
-    app_name?: string;
+    app_id?: string | null;
+    app_name?: string | null;
     redirect_info?: RedirectInfoType | null;
     secret: string;
 };
 
 export type ExternalAuthSchema = {
-    readonly app_id?: string;
-    readonly date_created?: string;
-    redirect_info?: RedirectInfoType;
-    readonly token?: string;
+    readonly app_id?: string | null;
+    readonly date_created?: string | null;
+    redirect_info?: RedirectInfoType | null;
+    readonly token?: string | null;
 };
 
 export type ForgotPasswordSchema = {
@@ -181,60 +181,63 @@ export type ForgotPasswordSchema = {
 };
 
 export type GenericSettingsSchema = {
-    cert_fingerprint?: string;
-    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
-    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
-    readonly domain_name?: string;
+    cert_fingerprint?: string | null;
+    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    readonly domain_name?: string | null;
     idp_entity_id: string;
-    idp_sls_redirect_url?: string;
+    idp_sls_redirect_url?: string | null;
     idp_sso_post_url: string;
-    idp_x509cert?: string;
+    idp_x509cert?: string | null;
     name: string;
-    name_id_encrypted?: boolean;
-    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512';
-    want_assertions_signed?: boolean;
-    want_messages_signed?: boolean;
+    name_id_encrypted?: boolean | null;
+    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512' | null;
+    want_assertions_signed?: boolean | null;
+    want_messages_signed?: boolean | null;
 };
 
 export type IdentityProviderBaseSchema = {
     readonly saml_settings?: {
         [key: string]: unknown;
-    };
+    } | null;
 };
 
 export type IdentityProviderBaseSettingsSchema = {
-    cert_fingerprint?: string;
-    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
-    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
-    readonly domain_name?: string;
-    idp_x509cert?: string;
-    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512';
+    cert_fingerprint?: string | null;
+    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    readonly domain_name?: string | null;
+    idp_x509cert?: string | null;
+    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512' | null;
 };
 
 export type IdentityProviderSchema = {
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    readonly id?: string;
-    readonly public_id?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    readonly id?: string | null;
+    readonly public_id?: string | null;
+    readonly saml_settings?: {
+        [key: string]: unknown;
+    } | null;
     type: 'GENERIC' | 'auth0.com' | 'okta.com' | 'onelogin.com';
-    verbose_logging?: boolean;
+    verbose_logging?: boolean | null;
 };
 
 export type IdentityProvidersSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<IdentityProviderSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<IdentityProviderSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type InternalAuthenticateUserSchema = {
     app_name: string;
-    marketplace_signup_nonce?: string;
+    marketplace_signup_nonce?: string | null;
     user: {
         [key: string]: unknown;
     };
@@ -246,21 +249,21 @@ export type InternalTempTokenSchema = {
 };
 
 export type InvitationResponseSchema = {
-    auto_login?: boolean;
-    domain_status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING';
-    login_data?: AutoLoginSchema;
-    readonly user_id?: string;
+    auto_login?: boolean | null;
+    domain_status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING' | null;
+    login_data?: AutoLoginSchema | null;
+    readonly user_id?: string | null;
 };
 
 export type ListObjectsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type MarketplaceGoogleLinkSchema = {
@@ -268,53 +271,53 @@ export type MarketplaceGoogleLinkSchema = {
 };
 
 export type MarketplaceGoogleSignupSchema = {
-    'x-gcp-marketplace-token'?: string;
+    'x-gcp-marketplace-token'?: string | null;
 };
 
 export type MultiDomainLoginSchema = {
-    app_name?: string;
+    app_name?: string | null;
     email: string;
-    marketplace_signup_nonce?: string;
+    marketplace_signup_nonce?: string | null;
     otp?: string | null;
     otp_type?: string | null;
     system_domain_id: string;
 };
 
 export type MultiDomainUserSystemSchema = {
-    readonly logo_url?: string;
-    mfa_methods?: Array<'MAIL_2SV' | 'TOTP'>;
-    mfa_methods_configured?: Array<'MAIL_2SV' | 'TOTP'>;
-    readonly mfa_required?: boolean;
-    readonly mfa_required_configured?: boolean;
-    readonly platform_url?: string;
+    readonly logo_url?: string | null;
+    mfa_methods?: Array<'MAIL_2SV' | 'TOTP'> | null;
+    mfa_methods_configured?: Array<'MAIL_2SV' | 'TOTP'> | null;
+    readonly mfa_required?: boolean | null;
+    readonly mfa_required_configured?: boolean | null;
+    readonly platform_url?: string | null;
     system_domain_id: string;
-    readonly system_domain_name?: string;
-    readonly url?: string;
+    readonly system_domain_name?: string | null;
+    readonly url?: string | null;
 };
 
 export type MultiDomainUserSystemsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<MultiDomainUserSystemSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<MultiDomainUserSystemSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type MultiPlatformDomainUserSystemSchema = {
-    readonly logo_url?: string;
-    mfa_methods?: Array<'MAIL_2SV' | 'TOTP'>;
-    mfa_methods_configured?: Array<'MAIL_2SV' | 'TOTP'>;
-    readonly mfa_required?: boolean;
-    readonly mfa_required_configured?: boolean;
-    readonly platform_url?: string;
+    readonly logo_url?: string | null;
+    mfa_methods?: Array<'MAIL_2SV' | 'TOTP'> | null;
+    mfa_methods_configured?: Array<'MAIL_2SV' | 'TOTP'> | null;
+    readonly mfa_required?: boolean | null;
+    readonly mfa_required_configured?: boolean | null;
+    readonly platform_url?: string | null;
     system_domain_id: string;
-    readonly system_domain_name?: string;
+    readonly system_domain_name?: string | null;
     token: string;
-    readonly url?: string;
+    readonly url?: string | null;
 };
 
 export type NotifyOtpConfigurationChangedSchema = {
@@ -349,27 +352,27 @@ export type OAuth2AuthorizeResponseSchema = {
 };
 
 export type OktaSettingsSchema = {
-    cert_fingerprint?: string;
-    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
-    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
-    readonly domain_name?: string;
-    idp_x509cert?: string;
-    okta_app_id?: string;
+    cert_fingerprint?: string | null;
+    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    readonly domain_name?: string | null;
+    idp_x509cert?: string | null;
+    okta_app_id?: string | null;
     okta_name: string;
-    okta_preview?: boolean;
-    okta_sso?: string;
-    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512';
+    okta_preview?: boolean | null;
+    okta_sso?: string | null;
+    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512' | null;
 };
 
 export type OneloginSettingsSchema = {
-    cert_fingerprint?: string;
-    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
-    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
-    readonly domain_name?: string;
-    idp_x509cert?: string;
+    cert_fingerprint?: string | null;
+    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    readonly domain_name?: string | null;
+    idp_x509cert?: string | null;
     onelogin_client_id: string;
     onelogin_name: string;
-    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512';
+    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512' | null;
 };
 
 export type PasswordChecksSchema = {
@@ -411,7 +414,7 @@ export type RedirectInfoTypeSchema = {
 };
 
 export type ReferralCodeSchema = {
-    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025';
+    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025' | null;
     code: string;
     credit_expiry_days?: number | null;
     do_not_delete?: boolean | null;
@@ -425,28 +428,28 @@ export type ReferralCodeSchema = {
 };
 
 export type ReferralCodesSchema = {
-    readonly objects?: Array<ReferralCodeSchema>;
+    readonly objects?: Array<ReferralCodeSchema> | null;
 };
 
 export type RegistrationSchema = {
-    readonly base_url?: string;
+    readonly base_url?: string | null;
     company_name?: string | null;
     country: string;
-    readonly date_created?: string;
+    readonly date_created?: string | null;
     email: string;
     email_marketing_consent?: boolean | null;
     first_name: string;
-    readonly id?: string;
+    readonly id?: string | null;
     last_name: string;
-    marketplace_signup_nonce?: string;
-    ordway_customer_id?: string;
-    ordway_subscription_id?: string;
-    referral_code?: string;
-    stripe_id?: string;
+    marketplace_signup_nonce?: string | null;
+    ordway_customer_id?: string | null;
+    ordway_subscription_id?: string | null;
+    referral_code?: string | null;
+    stripe_id?: string | null;
 };
 
 export type ReindexSystemDomainSchema = {
-    sync_to_another_dc?: boolean;
+    sync_to_another_dc?: boolean | null;
 };
 
 export type ResetPasswordSchema = {
@@ -459,9 +462,9 @@ export type SamlLoginSchema = {
 };
 
 export type SimpleLoginSchema = {
-    app_name?: string;
+    app_name?: string | null;
     email: string;
-    marketplace_signup_nonce?: string;
+    marketplace_signup_nonce?: string | null;
 };
 
 export type SystemDomainBaseSchema = {
@@ -469,148 +472,148 @@ export type SystemDomainBaseSchema = {
 };
 
 export type SystemDomainBasicAdminSchema = {
-    readonly billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025';
-    readonly contract_end_date?: string;
-    readonly country?: string;
-    readonly date_created?: string;
-    readonly features?: Array<string>;
-    readonly freeze_date?: string;
-    readonly id?: string;
-    is_plg?: boolean;
+    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025' | null;
+    readonly contract_end_date?: string | null;
+    readonly country?: string | null;
+    readonly date_created?: string | null;
+    readonly features?: Array<string> | null;
+    readonly freeze_date?: string | null;
+    readonly id?: string | null;
+    is_plg?: boolean | null;
     name: string;
-    readonly type?: 'CUSTOMER' | 'INTERNAL' | 'PARTNER' | 'TRIAL';
+    type?: 'CUSTOMER' | 'INTERNAL' | 'PARTNER' | 'TRIAL' | null;
 };
 
 export type SystemDomainBasicSchema = {
-    readonly billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025';
-    readonly country?: string;
-    readonly date_created?: string;
-    readonly features?: Array<string>;
-    readonly id?: string;
-    is_plg?: boolean;
+    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025' | null;
+    readonly country?: string | null;
+    readonly date_created?: string | null;
+    readonly features?: Array<string> | null;
+    readonly id?: string | null;
+    is_plg?: boolean | null;
     name: string;
-    readonly type?: 'CUSTOMER' | 'INTERNAL' | 'PARTNER' | 'TRIAL';
+    type?: 'CUSTOMER' | 'INTERNAL' | 'PARTNER' | 'TRIAL' | null;
 };
 
 export type SystemDomainFromReferralCodeSchema = {
-    admin_email?: string;
-    admin_first_name?: string;
-    admin_last_name?: string;
-    admin_password?: string;
-    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025';
+    admin_email?: string | null;
+    admin_first_name?: string | null;
+    admin_last_name?: string | null;
+    admin_password?: string | null;
+    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025' | null;
     country_code: string;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    description?: string;
-    readonly id?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    description?: string | null;
+    readonly id?: string | null;
     name: string;
 };
 
 export type SystemDomainFromTemplateSchema = {
-    admin_email?: string;
-    admin_first_name?: string;
-    readonly admin_id?: string;
-    admin_last_name?: string;
-    admin_password?: string;
-    base_url?: string;
-    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025';
-    custom_terms?: boolean;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    description?: string;
-    readonly id?: string;
+    admin_email?: string | null;
+    admin_first_name?: string | null;
+    readonly admin_id?: string | null;
+    admin_last_name?: string | null;
+    admin_password?: string | null;
+    base_url?: string | null;
+    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025' | null;
+    custom_terms?: boolean | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    description?: string | null;
+    readonly id?: string | null;
     name: string;
-    status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING';
-    type?: 'CUSTOMER' | 'INTERNAL' | 'PARTNER' | 'TRIAL';
+    status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING' | null;
+    type?: 'CUSTOMER' | 'INTERNAL' | 'PARTNER' | 'TRIAL' | null;
 };
 
 export type SystemDomainProfileSchema = {
-    industry?: 'ADVERTISING_MARKETING_CREATIVE' | 'AUTOMOTIVE' | 'BROADCASTER_NETWORKS' | 'CONSTRUCTION_MANUFACTURING' | 'EDUCATION' | 'ENERGY_UTILITIES' | 'FAITH_RELIGIOUS_ORGS' | 'FINANCE' | 'GAME_STUDIOS_PUBLISHERS' | 'GOVERNMENT_PUBLIC_SECTOR' | 'HEALTHCARE' | 'HOSPITALITY_FITNESS_WELLNESS' | 'LIVE_PRODUCTION_EVENTS' | 'MEDIA_CONGLOMERATES' | 'NONPROFITS_NON_RELIGIOUS' | 'ONLINE_MEDIA' | 'OTHER' | 'PUBLISHERS_NEWSPAPERS' | 'RETAIL_CONSUMER_GOODS' | 'SOFTWARE_TECHNOLOGY' | 'SPORTS_RIGHTS_LEAGUES' | 'STUDIOS_CONTENT_PRODUCERS' | 'TELECOMMUNICATIONS';
+    industry?: 'ADVERTISING_MARKETING_CREATIVE' | 'AUTOMOTIVE' | 'BROADCASTER_NETWORKS' | 'CONSTRUCTION_MANUFACTURING' | 'EDUCATION' | 'ENERGY_UTILITIES' | 'FAITH_RELIGIOUS_ORGS' | 'FINANCE' | 'GAME_STUDIOS_PUBLISHERS' | 'GOVERNMENT_PUBLIC_SECTOR' | 'HEALTHCARE' | 'HOSPITALITY_FITNESS_WELLNESS' | 'LIVE_PRODUCTION_EVENTS' | 'MEDIA_CONGLOMERATES' | 'NONPROFITS_NON_RELIGIOUS' | 'ONLINE_MEDIA' | 'OTHER' | 'PUBLISHERS_NEWSPAPERS' | 'RETAIL_CONSUMER_GOODS' | 'SOFTWARE_TECHNOLOGY' | 'SPORTS_RIGHTS_LEAGUES' | 'STUDIOS_CONTENT_PRODUCERS' | 'TELECOMMUNICATIONS' | null;
 };
 
 export type SystemDomainSchema = {
     base_url: string;
     billing_limits?: BillingLimitsSchema | null;
-    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025';
-    readonly contract_end_date?: string;
-    readonly country?: string;
-    readonly creating_user_id?: string;
-    readonly custom_terms?: boolean;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    readonly deactivate_date?: string;
-    description?: string;
-    readonly disable_billing_page?: boolean;
-    disable_cc_purchase?: boolean;
-    readonly discount_percent?: number;
-    readonly do_not_charge_edge_transcoder?: boolean;
-    readonly do_not_charge_remote_proxies?: boolean;
-    readonly do_not_charge_shield?: boolean;
-    readonly features?: Array<string>;
-    readonly freeze_date?: string;
-    has_preloaded_assets?: boolean;
-    readonly id?: string;
-    industry?: 'ADVERTISING_MARKETING_CREATIVE' | 'AUTOMOTIVE' | 'BROADCASTER_NETWORKS' | 'CONSTRUCTION_MANUFACTURING' | 'EDUCATION' | 'ENERGY_UTILITIES' | 'FAITH_RELIGIOUS_ORGS' | 'FINANCE' | 'GAME_STUDIOS_PUBLISHERS' | 'GOVERNMENT_PUBLIC_SECTOR' | 'HEALTHCARE' | 'HOSPITALITY_FITNESS_WELLNESS' | 'LIVE_PRODUCTION_EVENTS' | 'MEDIA_CONGLOMERATES' | 'NONPROFITS_NON_RELIGIOUS' | 'ONLINE_MEDIA' | 'OTHER' | 'PUBLISHERS_NEWSPAPERS' | 'RETAIL_CONSUMER_GOODS' | 'SOFTWARE_TECHNOLOGY' | 'SPORTS_RIGHTS_LEAGUES' | 'STUDIOS_CONTENT_PRODUCERS' | 'TELECOMMUNICATIONS';
-    readonly invoice_end_of_month?: boolean;
-    is_plg?: boolean;
-    readonly is_template?: boolean;
-    readonly licensed_user_billing?: boolean;
-    readonly marketplace_customer_id?: string;
-    readonly marketplace_entitlement_id?: string;
+    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025' | null;
+    readonly contract_end_date?: string | null;
+    readonly country?: string | null;
+    readonly creating_user_id?: string | null;
+    readonly custom_terms?: boolean | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    readonly deactivate_date?: string | null;
+    description?: string | null;
+    readonly disable_billing_page?: boolean | null;
+    disable_cc_purchase?: boolean | null;
+    readonly discount_percent?: number | null;
+    readonly do_not_charge_edge_transcoder?: boolean | null;
+    readonly do_not_charge_remote_proxies?: boolean | null;
+    readonly do_not_charge_shield?: boolean | null;
+    readonly features?: Array<string> | null;
+    readonly freeze_date?: string | null;
+    has_preloaded_assets?: boolean | null;
+    readonly id?: string | null;
+    industry?: 'ADVERTISING_MARKETING_CREATIVE' | 'AUTOMOTIVE' | 'BROADCASTER_NETWORKS' | 'CONSTRUCTION_MANUFACTURING' | 'EDUCATION' | 'ENERGY_UTILITIES' | 'FAITH_RELIGIOUS_ORGS' | 'FINANCE' | 'GAME_STUDIOS_PUBLISHERS' | 'GOVERNMENT_PUBLIC_SECTOR' | 'HEALTHCARE' | 'HOSPITALITY_FITNESS_WELLNESS' | 'LIVE_PRODUCTION_EVENTS' | 'MEDIA_CONGLOMERATES' | 'NONPROFITS_NON_RELIGIOUS' | 'ONLINE_MEDIA' | 'OTHER' | 'PUBLISHERS_NEWSPAPERS' | 'RETAIL_CONSUMER_GOODS' | 'SOFTWARE_TECHNOLOGY' | 'SPORTS_RIGHTS_LEAGUES' | 'STUDIOS_CONTENT_PRODUCERS' | 'TELECOMMUNICATIONS' | null;
+    readonly invoice_end_of_month?: boolean | null;
+    is_plg?: boolean | null;
+    readonly is_template?: boolean | null;
+    readonly licensed_user_billing?: boolean | null;
+    readonly marketplace_customer_id?: string | null;
+    readonly marketplace_entitlement_id?: string | null;
     name: string;
-    readonly ordway_customer_id?: string;
-    readonly ordway_subscription_id?: string;
-    readonly platform_name?: string;
-    readonly price_list?: string;
-    readonly primary_region?: string;
-    readonly referral_code?: string;
-    readonly sales_force_id?: string;
-    readonly status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING';
-    readonly stripe_id?: string;
-    readonly type?: 'CUSTOMER' | 'INTERNAL' | 'PARTNER' | 'TRIAL';
-    readonly warning_message?: string;
+    readonly ordway_customer_id?: string | null;
+    readonly ordway_subscription_id?: string | null;
+    readonly platform_name?: string | null;
+    readonly price_list?: string | null;
+    readonly primary_region?: string | null;
+    readonly referral_code?: string | null;
+    readonly sales_force_id?: string | null;
+    status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING' | null;
+    readonly stripe_id?: string | null;
+    type?: 'CUSTOMER' | 'INTERNAL' | 'PARTNER' | 'TRIAL' | null;
+    readonly warning_message?: string | null;
 };
 
 export type SystemDomainSuperAdminSchema = {
     base_url: string;
     billing_limits?: BillingLimitsSchema | null;
-    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025';
+    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025' | null;
     contract_end_date?: string | null;
     country?: string | null;
     creating_user_id?: string | null;
-    custom_terms?: boolean;
-    readonly date_created?: string;
-    readonly date_modified?: string;
+    custom_terms?: boolean | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
     deactivate_date?: string | null;
-    description?: string;
-    disable_billing_page?: boolean;
-    disable_cc_purchase?: boolean;
+    description?: string | null;
+    disable_billing_page?: boolean | null;
+    disable_cc_purchase?: boolean | null;
     discount_percent?: number | null;
-    do_not_charge_edge_transcoder?: boolean;
-    do_not_charge_remote_proxies?: boolean;
-    do_not_charge_shield?: boolean;
-    features?: Array<string>;
+    do_not_charge_edge_transcoder?: boolean | null;
+    do_not_charge_remote_proxies?: boolean | null;
+    do_not_charge_shield?: boolean | null;
+    features?: Array<string> | null;
     freeze_date?: string | null;
-    has_preloaded_assets?: boolean;
-    readonly id?: string;
-    industry?: 'ADVERTISING_MARKETING_CREATIVE' | 'AUTOMOTIVE' | 'BROADCASTER_NETWORKS' | 'CONSTRUCTION_MANUFACTURING' | 'EDUCATION' | 'ENERGY_UTILITIES' | 'FAITH_RELIGIOUS_ORGS' | 'FINANCE' | 'GAME_STUDIOS_PUBLISHERS' | 'GOVERNMENT_PUBLIC_SECTOR' | 'HEALTHCARE' | 'HOSPITALITY_FITNESS_WELLNESS' | 'LIVE_PRODUCTION_EVENTS' | 'MEDIA_CONGLOMERATES' | 'NONPROFITS_NON_RELIGIOUS' | 'ONLINE_MEDIA' | 'OTHER' | 'PUBLISHERS_NEWSPAPERS' | 'RETAIL_CONSUMER_GOODS' | 'SOFTWARE_TECHNOLOGY' | 'SPORTS_RIGHTS_LEAGUES' | 'STUDIOS_CONTENT_PRODUCERS' | 'TELECOMMUNICATIONS';
-    invoice_end_of_month?: boolean;
-    is_plg?: boolean;
-    is_template?: boolean;
-    licensed_user_billing?: boolean;
+    has_preloaded_assets?: boolean | null;
+    readonly id?: string | null;
+    industry?: 'ADVERTISING_MARKETING_CREATIVE' | 'AUTOMOTIVE' | 'BROADCASTER_NETWORKS' | 'CONSTRUCTION_MANUFACTURING' | 'EDUCATION' | 'ENERGY_UTILITIES' | 'FAITH_RELIGIOUS_ORGS' | 'FINANCE' | 'GAME_STUDIOS_PUBLISHERS' | 'GOVERNMENT_PUBLIC_SECTOR' | 'HEALTHCARE' | 'HOSPITALITY_FITNESS_WELLNESS' | 'LIVE_PRODUCTION_EVENTS' | 'MEDIA_CONGLOMERATES' | 'NONPROFITS_NON_RELIGIOUS' | 'ONLINE_MEDIA' | 'OTHER' | 'PUBLISHERS_NEWSPAPERS' | 'RETAIL_CONSUMER_GOODS' | 'SOFTWARE_TECHNOLOGY' | 'SPORTS_RIGHTS_LEAGUES' | 'STUDIOS_CONTENT_PRODUCERS' | 'TELECOMMUNICATIONS' | null;
+    invoice_end_of_month?: boolean | null;
+    is_plg?: boolean | null;
+    is_template?: boolean | null;
+    licensed_user_billing?: boolean | null;
     marketplace_customer_id?: string | null;
     marketplace_entitlement_id?: string | null;
     name: string;
     ordway_customer_id?: string | null;
     ordway_subscription_id?: string | null;
-    readonly platform_name?: string;
+    readonly platform_name?: string | null;
     price_list?: string | null;
     referral_code?: string | null;
     sales_force_id?: string | null;
-    status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING';
+    status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING' | null;
     stripe_id?: string | null;
-    type?: 'CUSTOMER' | 'INTERNAL' | 'PARTNER' | 'TRIAL';
-    warning_message?: string;
+    type?: 'CUSTOMER' | 'INTERNAL' | 'PARTNER' | 'TRIAL' | null;
+    warning_message?: string | null;
 };
 
 export type SystemDomainWildmokaConfigSchema = {
@@ -652,142 +655,145 @@ export type SystemDomainsQueryParamsSchema = {
     /**
      * A semicolon separated list of `field,order` pairs (name,asc;type,desc).
      */
-    sort?: string;
+    sort?: string | null;
 };
 
 export type SystemDomainsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<SystemDomainSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<SystemDomainSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type TemporaryPasswordTokenSchema = {
-    readonly date_created?: string;
-    readonly date_modified?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
     email: string;
-    readonly expires?: string;
-    readonly id?: string;
+    readonly expires?: string | null;
+    readonly id?: string | null;
     token: string;
 };
 
 export type TokenBaseSchema = {
-    readonly app_id?: string;
-    readonly auth_system_domains?: Array<MultiDomainUserSystemSchema>;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    readonly expires?: string;
-    readonly id?: string;
-    readonly is_admin?: boolean;
-    readonly is_mfa_authenticated?: boolean;
-    readonly is_saml_authenticated?: boolean;
-    readonly is_super_admin?: boolean;
-    readonly is_super_admin_light?: boolean;
-    readonly system_domain_id?: string;
-    readonly system_domain_is_plg?: boolean;
-    readonly system_domain_status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING';
-    readonly system_domain_type?: string;
-    readonly system_domain_warning_message?: string;
-    readonly system_domains?: Array<string>;
-    readonly user_id?: string;
+    readonly app_id?: string | null;
+    readonly auth_system_domains?: Array<MultiDomainUserSystemSchema> | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    readonly expires?: string | null;
+    readonly id?: string | null;
+    readonly is_admin?: boolean | null;
+    readonly is_mfa_authenticated?: boolean | null;
+    readonly is_saml_authenticated?: boolean | null;
+    readonly is_super_admin?: boolean | null;
+    readonly is_super_admin_light?: boolean | null;
+    readonly system_domain_id?: string | null;
+    readonly system_domain_is_plg?: boolean | null;
+    system_domain_status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING' | null;
+    readonly system_domain_type?: string | null;
+    readonly system_domain_warning_message?: string | null;
+    readonly system_domains?: Array<string> | null;
+    readonly user_id?: string | null;
 };
 
 export type TokenMultiplatformLoginSchema = {
-    readonly app_id?: string;
-    readonly auth_system_domains?: Array<MultiPlatformDomainUserSystemSchema>;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    readonly expires?: string;
-    readonly id?: string;
-    readonly is_admin?: boolean;
-    readonly is_mfa_authenticated?: boolean;
-    readonly is_saml_authenticated?: boolean;
-    readonly is_super_admin?: boolean;
-    readonly is_super_admin_light?: boolean;
-    readonly system_domain_id?: string;
-    readonly system_domain_is_plg?: boolean;
-    readonly system_domain_status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING';
-    readonly system_domain_type?: string;
-    readonly system_domain_warning_message?: string;
-    readonly system_domains?: Array<string>;
+    readonly app_id?: string | null;
+    readonly auth_system_domains?: Array<MultiPlatformDomainUserSystemSchema> | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    readonly expires?: string | null;
+    readonly id?: string | null;
+    readonly is_admin?: boolean | null;
+    readonly is_mfa_authenticated?: boolean | null;
+    readonly is_saml_authenticated?: boolean | null;
+    readonly is_super_admin?: boolean | null;
+    readonly is_super_admin_light?: boolean | null;
+    readonly system_domain_id?: string | null;
+    readonly system_domain_is_plg?: boolean | null;
+    system_domain_status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING' | null;
+    readonly system_domain_type?: string | null;
+    readonly system_domain_warning_message?: string | null;
+    readonly system_domains?: Array<string> | null;
     /**
      * Deprecated field. Use the token field from the `auth_system_domains` items instead.
      */
     token?: string | null;
-    readonly user_id?: string;
+    readonly user_id?: string | null;
 };
 
 export type TokenOutputSchema = {
-    readonly app_id?: string;
-    readonly auth_system_domains?: Array<MultiDomainUserSystemSchema>;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    readonly expires?: string;
-    readonly id?: string;
-    readonly is_admin?: boolean;
-    readonly is_mfa_authenticated?: boolean;
-    readonly is_saml_authenticated?: boolean;
-    readonly is_super_admin?: boolean;
-    readonly is_super_admin_light?: boolean;
-    readonly system_domain_id?: string;
-    readonly system_domain_is_plg?: boolean;
-    readonly system_domain_status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING';
-    readonly system_domain_type?: string;
-    readonly system_domain_warning_message?: string;
-    readonly system_domains?: Array<string>;
-    readonly user_id?: string;
+    readonly app_id?: string | null;
+    readonly auth_system_domains?: Array<MultiDomainUserSystemSchema> | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    readonly expires?: string | null;
+    readonly id?: string | null;
+    readonly is_admin?: boolean | null;
+    readonly is_mfa_authenticated?: boolean | null;
+    readonly is_saml_authenticated?: boolean | null;
+    readonly is_super_admin?: boolean | null;
+    readonly is_super_admin_light?: boolean | null;
+    readonly system_domain_id?: string | null;
+    readonly system_domain_is_plg?: boolean | null;
+    system_domain_status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING' | null;
+    readonly system_domain_type?: string | null;
+    readonly system_domain_warning_message?: string | null;
+    readonly system_domains?: Array<string> | null;
+    readonly user_id?: string | null;
 };
 
 export type TokenSchema = {
-    readonly app_id?: string;
-    readonly auth_system_domains?: Array<MultiDomainUserSystemSchema>;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    readonly expires?: string;
-    readonly id?: string;
-    readonly is_admin?: boolean;
-    readonly is_mfa_authenticated?: boolean;
-    readonly is_saml_authenticated?: boolean;
-    readonly is_super_admin?: boolean;
-    readonly is_super_admin_light?: boolean;
-    readonly system_domain_id?: string;
-    readonly system_domain_is_plg?: boolean;
-    readonly system_domain_status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING';
-    readonly system_domain_type?: string;
-    readonly system_domain_warning_message?: string;
-    readonly system_domains?: Array<string>;
+    readonly app_id?: string | null;
+    readonly auth_system_domains?: Array<MultiDomainUserSystemSchema> | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    readonly expires?: string | null;
+    readonly id?: string | null;
+    readonly is_admin?: boolean | null;
+    readonly is_mfa_authenticated?: boolean | null;
+    readonly is_saml_authenticated?: boolean | null;
+    readonly is_super_admin?: boolean | null;
+    readonly is_super_admin_light?: boolean | null;
+    readonly system_domain_id?: string | null;
+    readonly system_domain_is_plg?: boolean | null;
+    system_domain_status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING' | null;
+    readonly system_domain_type?: string | null;
+    readonly system_domain_warning_message?: string | null;
+    readonly system_domains?: Array<string> | null;
     token: string;
-    readonly user_id?: string;
+    readonly user_id?: string | null;
 };
 
 export type TokensSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<TokenOutputSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<TokenOutputSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type UserSystemDomainInviteSchema = {
     id: string;
-    is_existing_user_invitation?: boolean;
-    is_initial_user_invitation?: boolean;
+    is_existing_user_invitation?: boolean | null;
+    is_initial_user_invitation?: boolean | null;
     system_domain_id: string;
 };
 
 export type VerificationResponseSchema = {
-    auto_login?: boolean;
-    domain_data?: SystemDomainFromTemplateSchema;
-    login_data?: AutoLoginSchema;
+    auto_login?: boolean | null;
+    domain_data?: SystemDomainFromTemplateSchema | null;
+    login_data?: AutoLoginSchema | null;
 };
 
 export type VerifyInviteByLinkSchema = {
@@ -799,37 +805,38 @@ export type VerifyInviteByLinkSchema = {
 };
 
 export type WebflowContentSchema = {
-    caption?: string;
-    category?: string;
-    image?: string;
-    name?: string;
+    caption?: string | null;
+    category?: string | null;
+    image?: string | null;
+    name?: string | null;
     slug: string;
 };
 
 export type SystemDomainFeatureSchemaBase = {
     parameters?: {
         [key: string]: unknown;
-    };
+    } | null;
 };
 
 export type AppCreateSchemaWritable = {
-    allowed_scopes?: Array<string>;
+    allowed_scopes?: Array<string> | null;
     default_user_id?: string | null;
     description?: string | null;
     name: string;
-    oauth_client_type?: 'confidential' | 'public';
-    redirect_uris?: Array<string>;
-    type?: 'OAUTH' | 'PAT';
+    oauth_client_type?: 'confidential' | 'public' | null;
+    redirect_uris?: Array<string> | null;
+    type?: 'OAUTH' | 'PAT' | null;
     url?: string | null;
 };
 
 export type AppSchemaWritable = {
-    allowed_scopes?: Array<string>;
+    allowed_scopes?: Array<string> | null;
     default_user_id?: string | null;
     description?: string | null;
     name: string;
-    oauth_client_type?: 'confidential' | 'public';
-    redirect_uris?: Array<string>;
+    oauth_client_type?: 'confidential' | 'public' | null;
+    redirect_uris?: Array<string> | null;
+    type?: unknown;
     url?: string | null;
 };
 
@@ -846,11 +853,11 @@ export type Auth0SettingsSchemaWritable = {
     auth0_client_id: string;
     auth0_name: string;
     auth0_region: string;
-    cert_fingerprint?: string;
-    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
-    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
-    idp_x509cert?: string;
-    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512';
+    cert_fingerprint?: string | null;
+    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    idp_x509cert?: string | null;
+    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512' | null;
 };
 
 export type CompleteInvitationSchemaWritable = {
@@ -866,35 +873,35 @@ export type CountriesSchemaWritable = {
 };
 
 export type ExternalAuthSchemaWritable = {
-    redirect_info?: RedirectInfoType;
+    redirect_info?: RedirectInfoType | null;
 };
 
 export type GenericSettingsSchemaWritable = {
-    cert_fingerprint?: string;
-    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
-    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
+    cert_fingerprint?: string | null;
+    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
     idp_entity_id: string;
-    idp_sls_redirect_url?: string;
+    idp_sls_redirect_url?: string | null;
     idp_sso_post_url: string;
-    idp_x509cert?: string;
+    idp_x509cert?: string | null;
     name: string;
-    name_id_encrypted?: boolean;
-    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512';
-    want_assertions_signed?: boolean;
-    want_messages_signed?: boolean;
+    name_id_encrypted?: boolean | null;
+    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512' | null;
+    want_assertions_signed?: boolean | null;
+    want_messages_signed?: boolean | null;
 };
 
 export type IdentityProviderBaseSettingsSchemaWritable = {
-    cert_fingerprint?: string;
-    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
-    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
-    idp_x509cert?: string;
-    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512';
+    cert_fingerprint?: string | null;
+    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    idp_x509cert?: string | null;
+    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512' | null;
 };
 
 export type IdentityProviderSchemaWritable = {
     type: 'GENERIC' | 'auth0.com' | 'okta.com' | 'onelogin.com';
-    verbose_logging?: boolean;
+    verbose_logging?: boolean | null;
 };
 
 export type IdentityProvidersSchemaWritable = {
@@ -902,14 +909,14 @@ export type IdentityProvidersSchemaWritable = {
 };
 
 export type InvitationResponseSchemaWritable = {
-    auto_login?: boolean;
-    domain_status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING';
-    login_data?: AutoLoginSchema;
+    auto_login?: boolean | null;
+    domain_status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING' | null;
+    login_data?: AutoLoginSchema | null;
 };
 
 export type MultiDomainUserSystemSchemaWritable = {
-    mfa_methods?: Array<unknown>;
-    mfa_methods_configured?: Array<unknown>;
+    mfa_methods?: Array<unknown> | null;
+    mfa_methods_configured?: Array<unknown> | null;
     system_domain_id: string;
 };
 
@@ -918,32 +925,32 @@ export type MultiDomainUserSystemsSchemaWritable = {
 };
 
 export type MultiPlatformDomainUserSystemSchemaWritable = {
-    mfa_methods?: Array<unknown>;
-    mfa_methods_configured?: Array<unknown>;
+    mfa_methods?: Array<unknown> | null;
+    mfa_methods_configured?: Array<unknown> | null;
     system_domain_id: string;
     token: string;
 };
 
 export type OktaSettingsSchemaWritable = {
-    cert_fingerprint?: string;
-    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
-    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
-    idp_x509cert?: string;
-    okta_app_id?: string;
+    cert_fingerprint?: string | null;
+    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    idp_x509cert?: string | null;
+    okta_app_id?: string | null;
     okta_name: string;
-    okta_preview?: boolean;
-    okta_sso?: string;
-    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512';
+    okta_preview?: boolean | null;
+    okta_sso?: string | null;
+    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512' | null;
 };
 
 export type OneloginSettingsSchemaWritable = {
-    cert_fingerprint?: string;
-    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
-    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
-    idp_x509cert?: string;
+    cert_fingerprint?: string | null;
+    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    idp_x509cert?: string | null;
     onelogin_client_id: string;
     onelogin_name: string;
-    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512';
+    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512' | null;
 };
 
 export type ReferralCodesSchemaWritable = {
@@ -957,18 +964,18 @@ export type RegistrationSchemaWritable = {
     email_marketing_consent?: boolean | null;
     first_name: string;
     last_name: string;
-    marketplace_signup_nonce?: string;
-    ordway_customer_id?: string;
-    ordway_subscription_id?: string;
+    marketplace_signup_nonce?: string | null;
+    ordway_customer_id?: string | null;
+    ordway_subscription_id?: string | null;
     password: string;
-    referral_code?: string;
-    stripe_id?: string;
+    referral_code?: string | null;
+    stripe_id?: string | null;
 };
 
 export type SimpleLoginSchemaWritable = {
-    app_name?: string;
+    app_name?: string | null;
     email: string;
-    marketplace_signup_nonce?: string;
+    marketplace_signup_nonce?: string | null;
     password: string;
 };
 
@@ -977,76 +984,82 @@ export type SystemDomainBaseSchemaWritable = {
 };
 
 export type SystemDomainBasicAdminSchemaWritable = {
-    is_plg?: boolean;
+    billing_tier?: unknown;
+    is_plg?: boolean | null;
     name: string;
+    type?: unknown;
 };
 
 export type SystemDomainBasicSchemaWritable = {
-    is_plg?: boolean;
+    billing_tier?: unknown;
+    is_plg?: boolean | null;
     name: string;
+    type?: unknown;
 };
 
 export type SystemDomainFromReferralCodeSchemaWritable = {
-    admin_email?: string;
-    admin_first_name?: string;
-    admin_last_name?: string;
-    admin_password?: string;
-    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025';
+    admin_email?: string | null;
+    admin_first_name?: string | null;
+    admin_last_name?: string | null;
+    admin_password?: string | null;
+    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025' | null;
     country_code: string;
-    description?: string;
+    description?: string | null;
     name: string;
 };
 
 export type SystemDomainFromTemplateSchemaWritable = {
-    admin_email?: string;
-    admin_first_name?: string;
-    admin_last_name?: string;
-    admin_password?: string;
-    base_url?: string;
-    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025';
-    custom_terms?: boolean;
-    description?: string;
+    admin_email?: string | null;
+    admin_first_name?: string | null;
+    admin_last_name?: string | null;
+    admin_password?: string | null;
+    base_url?: string | null;
+    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025' | null;
+    custom_terms?: boolean | null;
+    description?: string | null;
     name: string;
-    status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING';
-    type?: 'CUSTOMER' | 'INTERNAL' | 'PARTNER' | 'TRIAL';
+    status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING' | null;
+    type?: 'CUSTOMER' | 'INTERNAL' | 'PARTNER' | 'TRIAL' | null;
 };
 
 export type SystemDomainSchemaWritable = {
     base_url: string;
     billing_limits?: BillingLimitsSchema | null;
-    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025';
-    description?: string;
-    disable_cc_purchase?: boolean;
-    has_preloaded_assets?: boolean;
-    industry?: 'ADVERTISING_MARKETING_CREATIVE' | 'AUTOMOTIVE' | 'BROADCASTER_NETWORKS' | 'CONSTRUCTION_MANUFACTURING' | 'EDUCATION' | 'ENERGY_UTILITIES' | 'FAITH_RELIGIOUS_ORGS' | 'FINANCE' | 'GAME_STUDIOS_PUBLISHERS' | 'GOVERNMENT_PUBLIC_SECTOR' | 'HEALTHCARE' | 'HOSPITALITY_FITNESS_WELLNESS' | 'LIVE_PRODUCTION_EVENTS' | 'MEDIA_CONGLOMERATES' | 'NONPROFITS_NON_RELIGIOUS' | 'ONLINE_MEDIA' | 'OTHER' | 'PUBLISHERS_NEWSPAPERS' | 'RETAIL_CONSUMER_GOODS' | 'SOFTWARE_TECHNOLOGY' | 'SPORTS_RIGHTS_LEAGUES' | 'STUDIOS_CONTENT_PRODUCERS' | 'TELECOMMUNICATIONS';
-    is_plg?: boolean;
+    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025' | null;
+    description?: string | null;
+    disable_cc_purchase?: boolean | null;
+    has_preloaded_assets?: boolean | null;
+    industry?: 'ADVERTISING_MARKETING_CREATIVE' | 'AUTOMOTIVE' | 'BROADCASTER_NETWORKS' | 'CONSTRUCTION_MANUFACTURING' | 'EDUCATION' | 'ENERGY_UTILITIES' | 'FAITH_RELIGIOUS_ORGS' | 'FINANCE' | 'GAME_STUDIOS_PUBLISHERS' | 'GOVERNMENT_PUBLIC_SECTOR' | 'HEALTHCARE' | 'HOSPITALITY_FITNESS_WELLNESS' | 'LIVE_PRODUCTION_EVENTS' | 'MEDIA_CONGLOMERATES' | 'NONPROFITS_NON_RELIGIOUS' | 'ONLINE_MEDIA' | 'OTHER' | 'PUBLISHERS_NEWSPAPERS' | 'RETAIL_CONSUMER_GOODS' | 'SOFTWARE_TECHNOLOGY' | 'SPORTS_RIGHTS_LEAGUES' | 'STUDIOS_CONTENT_PRODUCERS' | 'TELECOMMUNICATIONS' | null;
+    is_plg?: boolean | null;
     name: string;
+    status?: unknown;
+    type?: unknown;
 };
 
 export type SystemDomainSuperAdminSchemaWritable = {
     base_url: string;
     billing_limits?: BillingLimitsSchema | null;
-    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025';
+    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025' | null;
     contract_end_date?: string | null;
     country?: string | null;
     creating_user_id?: string | null;
-    custom_terms?: boolean;
+    custom_terms?: boolean | null;
     deactivate_date?: string | null;
-    description?: string;
-    disable_billing_page?: boolean;
-    disable_cc_purchase?: boolean;
+    description?: string | null;
+    disable_billing_page?: boolean | null;
+    disable_cc_purchase?: boolean | null;
     discount_percent?: number | null;
-    do_not_charge_edge_transcoder?: boolean;
-    do_not_charge_remote_proxies?: boolean;
-    do_not_charge_shield?: boolean;
-    features?: Array<string>;
+    do_not_charge_edge_transcoder?: boolean | null;
+    do_not_charge_remote_proxies?: boolean | null;
+    do_not_charge_shield?: boolean | null;
+    features?: Array<string> | null;
     freeze_date?: string | null;
-    has_preloaded_assets?: boolean;
-    industry?: 'ADVERTISING_MARKETING_CREATIVE' | 'AUTOMOTIVE' | 'BROADCASTER_NETWORKS' | 'CONSTRUCTION_MANUFACTURING' | 'EDUCATION' | 'ENERGY_UTILITIES' | 'FAITH_RELIGIOUS_ORGS' | 'FINANCE' | 'GAME_STUDIOS_PUBLISHERS' | 'GOVERNMENT_PUBLIC_SECTOR' | 'HEALTHCARE' | 'HOSPITALITY_FITNESS_WELLNESS' | 'LIVE_PRODUCTION_EVENTS' | 'MEDIA_CONGLOMERATES' | 'NONPROFITS_NON_RELIGIOUS' | 'ONLINE_MEDIA' | 'OTHER' | 'PUBLISHERS_NEWSPAPERS' | 'RETAIL_CONSUMER_GOODS' | 'SOFTWARE_TECHNOLOGY' | 'SPORTS_RIGHTS_LEAGUES' | 'STUDIOS_CONTENT_PRODUCERS' | 'TELECOMMUNICATIONS';
-    invoice_end_of_month?: boolean;
-    is_plg?: boolean;
-    is_template?: boolean;
-    licensed_user_billing?: boolean;
+    has_preloaded_assets?: boolean | null;
+    industry?: 'ADVERTISING_MARKETING_CREATIVE' | 'AUTOMOTIVE' | 'BROADCASTER_NETWORKS' | 'CONSTRUCTION_MANUFACTURING' | 'EDUCATION' | 'ENERGY_UTILITIES' | 'FAITH_RELIGIOUS_ORGS' | 'FINANCE' | 'GAME_STUDIOS_PUBLISHERS' | 'GOVERNMENT_PUBLIC_SECTOR' | 'HEALTHCARE' | 'HOSPITALITY_FITNESS_WELLNESS' | 'LIVE_PRODUCTION_EVENTS' | 'MEDIA_CONGLOMERATES' | 'NONPROFITS_NON_RELIGIOUS' | 'ONLINE_MEDIA' | 'OTHER' | 'PUBLISHERS_NEWSPAPERS' | 'RETAIL_CONSUMER_GOODS' | 'SOFTWARE_TECHNOLOGY' | 'SPORTS_RIGHTS_LEAGUES' | 'STUDIOS_CONTENT_PRODUCERS' | 'TELECOMMUNICATIONS' | null;
+    invoice_end_of_month?: boolean | null;
+    is_plg?: boolean | null;
+    is_template?: boolean | null;
+    licensed_user_billing?: boolean | null;
     marketplace_customer_id?: string | null;
     marketplace_entitlement_id?: string | null;
     name: string;
@@ -1055,10 +1068,10 @@ export type SystemDomainSuperAdminSchemaWritable = {
     price_list?: string | null;
     referral_code?: string | null;
     sales_force_id?: string | null;
-    status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING';
+    status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING' | null;
     stripe_id?: string | null;
-    type?: 'CUSTOMER' | 'INTERNAL' | 'PARTNER' | 'TRIAL';
-    warning_message?: string;
+    type?: 'CUSTOMER' | 'INTERNAL' | 'PARTNER' | 'TRIAL' | null;
+    warning_message?: string | null;
 };
 
 export type SystemDomainWithBillingLimitsSchemaWritable = {
@@ -1066,7 +1079,9 @@ export type SystemDomainWithBillingLimitsSchemaWritable = {
 };
 
 export type SystemDomainsSchemaWritable = {
-    [key: string]: unknown;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
 };
 
 export type TemporaryPasswordTokenSchemaWritable = {
@@ -1075,10 +1090,11 @@ export type TemporaryPasswordTokenSchemaWritable = {
 };
 
 export type TokenBaseSchemaWritable = {
-    [key: string]: unknown;
+    system_domain_status?: unknown;
 };
 
 export type TokenMultiplatformLoginSchemaWritable = {
+    system_domain_status?: unknown;
     /**
      * Deprecated field. Use the token field from the `auth_system_domains` items instead.
      */
@@ -1086,10 +1102,11 @@ export type TokenMultiplatformLoginSchemaWritable = {
 };
 
 export type TokenOutputSchemaWritable = {
-    [key: string]: unknown;
+    system_domain_status?: unknown;
 };
 
 export type TokenSchemaWritable = {
+    system_domain_status?: unknown;
     token: string;
 };
 
@@ -1098,9 +1115,9 @@ export type TokensSchemaWritable = {
 };
 
 export type VerificationResponseSchemaWritable = {
-    auto_login?: boolean;
-    domain_data?: SystemDomainFromTemplateSchemaWritable;
-    login_data?: AutoLoginSchema;
+    auto_login?: boolean | null;
+    domain_data?: SystemDomainFromTemplateSchemaWritable | null;
+    login_data?: AutoLoginSchema | null;
 };
 
 export type GetAppsData = {
@@ -2317,7 +2334,7 @@ export type PostAuthSamlLoginResponses = {
         /**
          * saml sso url
          */
-        url?: string;
+        url?: string | null;
     };
 };
 
@@ -2363,7 +2380,7 @@ export type PostAuthSamlLogoutByPublicIdResponses = {
         /**
          * saml sso url. No url is returned if Single Logout is unsupported by IdP
          */
-        url?: string;
+        url?: string | null;
     };
 };
 
@@ -3284,15 +3301,15 @@ export type PostOauthTokenData = {
         /**
          * The OAuth2 client secret (required for client_credentials grant)
          */
-        client_secret?: string;
+        client_secret?: string | null;
         /**
          * The authorization code (required for authorization_code grant)
          */
-        code?: string;
+        code?: string | null;
         /**
          * The PKCE code verifier (required for authorization_code grant)
          */
-        code_verifier?: string;
+        code_verifier?: string | null;
         /**
          * The OAuth2 grant type
          */
@@ -3300,11 +3317,11 @@ export type PostOauthTokenData = {
         /**
          * The redirect URI used in the authorization request (required for authorization_code grant)
          */
-        redirect_uri?: string;
+        redirect_uri?: string | null;
         /**
          * The requested scope (used for client_credentials grant)
          */
-        scope?: string;
+        scope?: string | null;
     };
     path?: never;
     query?: never;
@@ -4450,7 +4467,7 @@ export type PostSystemDomainsBySystemDomainIdLogoResponses = {
         /**
          * Url for the system domain logo
          */
-        logo?: string;
+        logo?: string | null;
     };
 };
 

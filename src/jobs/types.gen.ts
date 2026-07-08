@@ -5,21 +5,21 @@ export type ClientOptions = {
 };
 
 export type ActionContextSchema = {
-    ABORT?: ActionContextValue;
-    CHANGE_PRIORITY?: ActionContextValue;
-    PAUSE?: ActionContextValue;
-    RESTART?: ActionContextValue;
-    RESUME?: ActionContextValue;
+    ABORT?: ActionContextValue | null;
+    CHANGE_PRIORITY?: ActionContextValue | null;
+    PAUSE?: ActionContextValue | null;
+    RESTART?: ActionContextValue | null;
+    RESUME?: ActionContextValue | null;
 };
 
 export type ActionContextValue = {
-    bulk?: boolean;
-    url?: string;
+    bulk?: boolean | null;
+    url?: string | null;
 };
 
 export type ActionContextValueSchema = {
-    bulk?: boolean;
-    url?: string;
+    bulk?: boolean | null;
+    url?: string | null;
 };
 
 export type BaseQueryParamsSchema = {
@@ -34,172 +34,196 @@ export type BaseQueryParamsSchema = {
     /**
      * A comma separated list of fieldnames with order (asc/desc)
      */
-    sort?: string;
+    sort?: string | null;
 };
 
 export type BulkJobCreatedSchema = {
-    job_id?: string;
+    job_id?: string | null;
 };
 
 export type JobBaseSchema = {
-    action_context?: ActionContextSchema;
+    action_context?: ActionContextSchema | null;
     readonly children_progress?: {
         [key: string]: JobChildProgressSchema;
-    };
-    completed_at?: string;
+    } | null;
+    completed_at?: string | null;
     custom_type?: string | null;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    error_message?: string;
-    has_children?: boolean;
-    readonly id?: string;
-    message?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    error_message?: string | null;
+    has_children?: boolean | null;
+    readonly id?: string | null;
+    job_context?: {
+        [key: string]: unknown;
+    } | null;
+    message?: string | null;
+    metadata?: {
+        [key: string]: unknown;
+    } | null;
     object_id?: string | null;
     object_type?: string | null;
     parent_id?: string | null;
-    readonly priority?: number;
-    readonly progress?: number;
-    progress_processed?: number;
-    progress_total?: number;
-    related_objects?: Array<RelatedObject>;
-    started_at?: string;
+    readonly priority?: number | null;
+    readonly progress?: number | null;
+    progress_processed?: number | null;
+    progress_total?: number | null;
+    related_objects?: Array<RelatedObject> | null;
+    started_at?: string | null;
     status: 'ABORTED' | 'ABORT_PENDING' | 'DISCARDED' | 'FAILED' | 'FINISHED' | 'FINISHED_WITH_WARNING' | 'PAUSED' | 'PENDING_USER' | 'READY' | 'SKIPPED' | 'STARTED' | 'WAITING';
     title: string;
     type: 'ACL' | 'ANALYZE' | 'ARCHIVE' | 'AUTOMATION' | 'CHANGE_PERSON' | 'COLLECTION_CUSTOM_ORDER' | 'CONFIRM_PERSON' | 'CONVERT_SAVED_SEARCH_TO_COLLECTION' | 'COPY' | 'CUSTOM' | 'DELETE' | 'DELETE_JOBS' | 'DELETE_PERSON' | 'EDIT_JOBS' | 'EXPORT' | 'FACE_RECOGNITION' | 'KEYFRAMES' | 'MARK_MISSING' | 'MEDIAINFO' | 'METADATA' | 'METADATA_FILLING' | 'MOVE' | 'PUBLISH' | 'REINDEX' | 'REQUEST_APPROVAL' | 'REQUEST_COLLECTION_MAP' | 'RESTORE' | 'RESTORE_FROM_GLACIER' | 'REVIEW_REQUEST' | 'SCAN' | 'SET_APPROVAL' | 'STORAGE_GATEWAY_FILE_INGEST' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER';
 };
 
 export type JobChildProgressSchema = {
-    progress_processed?: number;
-    progress_total?: number;
-    status?: 'ABORTED' | 'ABORT_PENDING' | 'DISCARDED' | 'FAILED' | 'FINISHED' | 'FINISHED_WITH_WARNING' | 'PAUSED' | 'PENDING_USER' | 'READY' | 'SKIPPED' | 'STARTED' | 'WAITING';
+    progress_processed?: number | null;
+    progress_total?: number | null;
+    status?: 'ABORTED' | 'ABORT_PENDING' | 'DISCARDED' | 'FAILED' | 'FINISHED' | 'FINISHED_WITH_WARNING' | 'PAUSED' | 'PENDING_USER' | 'READY' | 'SKIPPED' | 'STARTED' | 'WAITING' | null;
 };
 
 export type JobCreateSchema = {
-    action_context?: ActionContextSchema;
+    action_context?: ActionContextSchema | null;
     readonly children_progress?: {
         [key: string]: JobChildProgressSchema;
-    };
-    completed_at?: string;
-    created_by?: string;
+    } | null;
+    completed_at?: string | null;
+    created_by?: string | null;
     custom_type?: string | null;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    error_message?: string;
-    has_children?: boolean;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    error_message?: string | null;
+    has_children?: boolean | null;
     id?: string | null;
-    message?: string;
+    job_context?: {
+        [key: string]: unknown;
+    } | null;
+    message?: string | null;
+    metadata?: {
+        [key: string]: unknown;
+    } | null;
     object_id?: string | null;
     object_type?: string | null;
     parent_id?: string | null;
-    readonly priority?: number;
-    readonly progress?: number;
-    progress_processed?: number;
-    progress_total?: number;
-    related_objects?: Array<RelatedObject>;
-    started_at?: string;
+    readonly priority?: number | null;
+    readonly progress?: number | null;
+    progress_processed?: number | null;
+    progress_total?: number | null;
+    related_objects?: Array<RelatedObject> | null;
+    started_at?: string | null;
     status: 'ABORTED' | 'ABORT_PENDING' | 'DISCARDED' | 'FAILED' | 'FINISHED' | 'FINISHED_WITH_WARNING' | 'PAUSED' | 'PENDING_USER' | 'READY' | 'SKIPPED' | 'STARTED' | 'WAITING';
-    steps?: Array<JobStep>;
+    steps?: Array<JobStep> | null;
     title: string;
     type: 'ACL' | 'ANALYZE' | 'ARCHIVE' | 'AUTOMATION' | 'CHANGE_PERSON' | 'COLLECTION_CUSTOM_ORDER' | 'CONFIRM_PERSON' | 'CONVERT_SAVED_SEARCH_TO_COLLECTION' | 'COPY' | 'CUSTOM' | 'DELETE' | 'DELETE_JOBS' | 'DELETE_PERSON' | 'EDIT_JOBS' | 'EXPORT' | 'FACE_RECOGNITION' | 'KEYFRAMES' | 'MARK_MISSING' | 'MEDIAINFO' | 'METADATA' | 'METADATA_FILLING' | 'MOVE' | 'PUBLISH' | 'REINDEX' | 'REQUEST_APPROVAL' | 'REQUEST_COLLECTION_MAP' | 'RESTORE' | 'RESTORE_FROM_GLACIER' | 'REVIEW_REQUEST' | 'SCAN' | 'SET_APPROVAL' | 'STORAGE_GATEWAY_FILE_INGEST' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER';
 };
 
 export type JobElasticSchema = {
-    action_context?: ActionContextSchema;
+    action_context?: ActionContextSchema | null;
     readonly children_progress?: {
         [key: string]: JobChildProgressSchema;
-    };
-    completed_at?: string;
-    readonly created_by?: string;
+    } | null;
+    completed_at?: string | null;
+    readonly created_by?: string | null;
     custom_type?: string | null;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    error_message?: string;
-    has_children?: boolean;
-    readonly id?: string;
-    message?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    error_message?: string | null;
+    has_children?: boolean | null;
+    readonly id?: string | null;
+    job_context?: {
+        [key: string]: unknown;
+    } | null;
+    message?: string | null;
+    metadata?: {
+        [key: string]: unknown;
+    } | null;
     object_id?: string | null;
     object_type?: string | null;
     parent_id?: string | null;
-    readonly priority?: number;
-    readonly progress?: number;
-    progress_processed?: number;
-    progress_total?: number;
-    related_objects?: Array<RelatedObject>;
-    started_at?: string;
+    readonly priority?: number | null;
+    readonly progress?: number | null;
+    progress_processed?: number | null;
+    progress_total?: number | null;
+    related_objects?: Array<RelatedObject> | null;
+    started_at?: string | null;
     status: 'ABORTED' | 'ABORT_PENDING' | 'DISCARDED' | 'FAILED' | 'FINISHED' | 'FINISHED_WITH_WARNING' | 'PAUSED' | 'PENDING_USER' | 'READY' | 'SKIPPED' | 'STARTED' | 'WAITING';
-    readonly steps?: Array<JobStepElastic>;
-    readonly storage_id?: string;
+    readonly steps?: Array<JobStepElastic> | null;
+    readonly storage_id?: string | null;
     title: string;
     type: 'ACL' | 'ANALYZE' | 'ARCHIVE' | 'AUTOMATION' | 'CHANGE_PERSON' | 'COLLECTION_CUSTOM_ORDER' | 'CONFIRM_PERSON' | 'CONVERT_SAVED_SEARCH_TO_COLLECTION' | 'COPY' | 'CUSTOM' | 'DELETE' | 'DELETE_JOBS' | 'DELETE_PERSON' | 'EDIT_JOBS' | 'EXPORT' | 'FACE_RECOGNITION' | 'KEYFRAMES' | 'MARK_MISSING' | 'MEDIAINFO' | 'METADATA' | 'METADATA_FILLING' | 'MOVE' | 'PUBLISH' | 'REINDEX' | 'REQUEST_APPROVAL' | 'REQUEST_COLLECTION_MAP' | 'RESTORE' | 'RESTORE_FROM_GLACIER' | 'REVIEW_REQUEST' | 'SCAN' | 'SET_APPROVAL' | 'STORAGE_GATEWAY_FILE_INGEST' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER';
 };
 
 export type JobSchema = {
-    action_context?: ActionContextSchema;
+    action_context?: ActionContextSchema | null;
     readonly children_progress?: {
         [key: string]: JobChildProgressSchema;
-    };
-    completed_at?: string;
-    readonly created_by?: string;
+    } | null;
+    completed_at?: string | null;
+    readonly created_by?: string | null;
     custom_type?: string | null;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    error_message?: string;
-    has_children?: boolean;
-    readonly id?: string;
-    message?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    error_message?: string | null;
+    has_children?: boolean | null;
+    readonly id?: string | null;
+    job_context?: {
+        [key: string]: unknown;
+    } | null;
+    message?: string | null;
+    metadata?: {
+        [key: string]: unknown;
+    } | null;
     object_id?: string | null;
     object_type?: string | null;
     parent_id?: string | null;
-    readonly priority?: number;
-    readonly progress?: number;
-    progress_processed?: number;
-    progress_total?: number;
-    related_objects?: Array<RelatedObject>;
-    started_at?: string;
+    readonly priority?: number | null;
+    readonly progress?: number | null;
+    progress_processed?: number | null;
+    progress_total?: number | null;
+    related_objects?: Array<RelatedObject> | null;
+    started_at?: string | null;
     status: 'ABORTED' | 'ABORT_PENDING' | 'DISCARDED' | 'FAILED' | 'FINISHED' | 'FINISHED_WITH_WARNING' | 'PAUSED' | 'PENDING_USER' | 'READY' | 'SKIPPED' | 'STARTED' | 'WAITING';
-    steps?: Array<JobStep>;
+    steps?: Array<JobStep> | null;
     title: string;
     type: 'ACL' | 'ANALYZE' | 'ARCHIVE' | 'AUTOMATION' | 'CHANGE_PERSON' | 'COLLECTION_CUSTOM_ORDER' | 'CONFIRM_PERSON' | 'CONVERT_SAVED_SEARCH_TO_COLLECTION' | 'COPY' | 'CUSTOM' | 'DELETE' | 'DELETE_JOBS' | 'DELETE_PERSON' | 'EDIT_JOBS' | 'EXPORT' | 'FACE_RECOGNITION' | 'KEYFRAMES' | 'MARK_MISSING' | 'MEDIAINFO' | 'METADATA' | 'METADATA_FILLING' | 'MOVE' | 'PUBLISH' | 'REINDEX' | 'REQUEST_APPROVAL' | 'REQUEST_COLLECTION_MAP' | 'RESTORE' | 'RESTORE_FROM_GLACIER' | 'REVIEW_REQUEST' | 'SCAN' | 'SET_APPROVAL' | 'STORAGE_GATEWAY_FILE_INGEST' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER';
 };
 
 export type JobStep = {
-    readonly date_updated?: string;
+    readonly date_updated?: string | null;
     error_message?: string | null;
-    id?: string;
+    id?: string | null;
     label: string;
     message?: string | null;
     status: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'SKIPPED' | 'WAITING';
 };
 
 export type JobStepElastic = {
-    readonly date_updated?: string;
+    readonly date_updated?: string | null;
     error_message?: string | null;
-    id?: string;
+    id?: string | null;
     label: string;
     message?: string | null;
-    status?: string;
+    status?: string | null;
 };
 
 export type JobStepElasticSchema = {
-    readonly date_updated?: string;
+    readonly date_updated?: string | null;
     error_message?: string | null;
-    id?: string;
+    id?: string | null;
     label: string;
     message?: string | null;
-    status?: string;
+    status?: string | null;
 };
 
 export type JobStepSchema = {
-    readonly date_updated?: string;
+    readonly date_updated?: string | null;
     error_message?: string | null;
-    id?: string;
+    id?: string | null;
     label: string;
     message?: string | null;
     status: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'SKIPPED' | 'WAITING';
 };
 
 export type JobStepUpdateBulkSchema = {
-    readonly date_updated?: string;
+    readonly date_updated?: string | null;
     error_message?: string | null;
     id: string;
     label: string;
@@ -208,25 +232,25 @@ export type JobStepUpdateBulkSchema = {
 };
 
 export type JobStepUpdateSchema = {
-    readonly date_updated?: string;
+    readonly date_updated?: string | null;
     error_message?: string | null;
-    id?: string;
+    id?: string | null;
     label: string;
     message?: string | null;
     status: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'SKIPPED' | 'WAITING';
 };
 
 export type JobStepsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<JobStepSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<JobStepSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type JobStepsUpdateSchema = {
@@ -238,64 +262,64 @@ export type JobsBulkActionSchema = {
 };
 
 export type JobsBulkDeleteParamsSchema = {
-    _exists_?: Array<string>;
-    _missing_?: Array<string>;
-    created_by?: Array<string>;
-    date_created?: string;
-    date_modified?: string;
-    ids?: Array<string>;
-    'metadata.automation_id'?: string;
-    object_id?: string;
-    parent_id?: string;
-    query?: string;
-    status?: Array<'ABORTED' | 'DISCARDED' | 'FAILED' | 'FINISHED' | 'FINISHED_WITH_WARNING' | 'SKIPPED'>;
-    type?: Array<'ACL' | 'ANALYZE' | 'ARCHIVE' | 'AUTOMATION' | 'CHANGE_PERSON' | 'COLLECTION_CUSTOM_ORDER' | 'CONFIRM_PERSON' | 'CONVERT_SAVED_SEARCH_TO_COLLECTION' | 'COPY' | 'CUSTOM' | 'DELETE' | 'DELETE_JOBS' | 'DELETE_PERSON' | 'EDIT_JOBS' | 'EXPORT' | 'FACE_RECOGNITION' | 'KEYFRAMES' | 'MARK_MISSING' | 'MEDIAINFO' | 'METADATA' | 'METADATA_FILLING' | 'MOVE' | 'PUBLISH' | 'REINDEX' | 'REQUEST_APPROVAL' | 'REQUEST_COLLECTION_MAP' | 'RESTORE' | 'RESTORE_FROM_GLACIER' | 'REVIEW_REQUEST' | 'SCAN' | 'SET_APPROVAL' | 'STORAGE_GATEWAY_FILE_INGEST' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER'>;
+    _exists_?: Array<string> | null;
+    _missing_?: Array<string> | null;
+    created_by?: Array<string> | null;
+    date_created?: string | null;
+    date_modified?: string | null;
+    ids?: Array<string> | null;
+    'metadata.automation_id'?: string | null;
+    object_id?: string | null;
+    parent_id?: string | null;
+    query?: string | null;
+    status?: Array<'ABORTED' | 'DISCARDED' | 'FAILED' | 'FINISHED' | 'FINISHED_WITH_WARNING' | 'SKIPPED'> | null;
+    type?: Array<'ACL' | 'ANALYZE' | 'ARCHIVE' | 'AUTOMATION' | 'CHANGE_PERSON' | 'COLLECTION_CUSTOM_ORDER' | 'CONFIRM_PERSON' | 'CONVERT_SAVED_SEARCH_TO_COLLECTION' | 'COPY' | 'CUSTOM' | 'DELETE' | 'DELETE_JOBS' | 'DELETE_PERSON' | 'EDIT_JOBS' | 'EXPORT' | 'FACE_RECOGNITION' | 'KEYFRAMES' | 'MARK_MISSING' | 'MEDIAINFO' | 'METADATA' | 'METADATA_FILLING' | 'MOVE' | 'PUBLISH' | 'REINDEX' | 'REQUEST_APPROVAL' | 'REQUEST_COLLECTION_MAP' | 'RESTORE' | 'RESTORE_FROM_GLACIER' | 'REVIEW_REQUEST' | 'SCAN' | 'SET_APPROVAL' | 'STORAGE_GATEWAY_FILE_INGEST' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER'> | null;
 };
 
 export type JobsBulkDeleteSchema = {
-    job_ids?: Array<string>;
+    job_ids?: Array<string> | null;
 };
 
 export type JobsBulkEditParamsSchema = {
-    _exists_?: Array<string>;
-    _missing_?: Array<string>;
-    created_by?: Array<string>;
-    date_created?: string;
-    date_modified?: string;
-    ids?: Array<string>;
-    merge_metadata?: boolean;
-    'metadata.automation_id'?: string;
-    object_id?: string;
-    parent_id?: string;
-    query?: string;
-    status?: Array<'ABORTED' | 'ABORT_PENDING' | 'DISCARDED' | 'FAILED' | 'FINISHED' | 'FINISHED_WITH_WARNING' | 'PAUSED' | 'PENDING_USER' | 'READY' | 'SKIPPED' | 'STARTED' | 'WAITING'>;
-    type?: Array<'ACL' | 'ANALYZE' | 'ARCHIVE' | 'AUTOMATION' | 'CHANGE_PERSON' | 'COLLECTION_CUSTOM_ORDER' | 'CONFIRM_PERSON' | 'CONVERT_SAVED_SEARCH_TO_COLLECTION' | 'COPY' | 'CUSTOM' | 'DELETE' | 'DELETE_JOBS' | 'DELETE_PERSON' | 'EDIT_JOBS' | 'EXPORT' | 'FACE_RECOGNITION' | 'KEYFRAMES' | 'MARK_MISSING' | 'MEDIAINFO' | 'METADATA' | 'METADATA_FILLING' | 'MOVE' | 'PUBLISH' | 'REINDEX' | 'REQUEST_APPROVAL' | 'REQUEST_COLLECTION_MAP' | 'RESTORE' | 'RESTORE_FROM_GLACIER' | 'REVIEW_REQUEST' | 'SCAN' | 'SET_APPROVAL' | 'STORAGE_GATEWAY_FILE_INGEST' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER'>;
+    _exists_?: Array<string> | null;
+    _missing_?: Array<string> | null;
+    created_by?: Array<string> | null;
+    date_created?: string | null;
+    date_modified?: string | null;
+    ids?: Array<string> | null;
+    merge_metadata?: boolean | null;
+    'metadata.automation_id'?: string | null;
+    object_id?: string | null;
+    parent_id?: string | null;
+    query?: string | null;
+    status?: Array<'ABORTED' | 'ABORT_PENDING' | 'DISCARDED' | 'FAILED' | 'FINISHED' | 'FINISHED_WITH_WARNING' | 'PAUSED' | 'PENDING_USER' | 'READY' | 'SKIPPED' | 'STARTED' | 'WAITING'> | null;
+    type?: Array<'ACL' | 'ANALYZE' | 'ARCHIVE' | 'AUTOMATION' | 'CHANGE_PERSON' | 'COLLECTION_CUSTOM_ORDER' | 'CONFIRM_PERSON' | 'CONVERT_SAVED_SEARCH_TO_COLLECTION' | 'COPY' | 'CUSTOM' | 'DELETE' | 'DELETE_JOBS' | 'DELETE_PERSON' | 'EDIT_JOBS' | 'EXPORT' | 'FACE_RECOGNITION' | 'KEYFRAMES' | 'MARK_MISSING' | 'MEDIAINFO' | 'METADATA' | 'METADATA_FILLING' | 'MOVE' | 'PUBLISH' | 'REINDEX' | 'REQUEST_APPROVAL' | 'REQUEST_COLLECTION_MAP' | 'RESTORE' | 'RESTORE_FROM_GLACIER' | 'REVIEW_REQUEST' | 'SCAN' | 'SET_APPROVAL' | 'STORAGE_GATEWAY_FILE_INGEST' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER'> | null;
 };
 
 export type JobsBulkEditSchema = {
-    error_message?: string;
+    error_message?: string | null;
     job_context?: {
         [key: string]: unknown;
-    };
-    message?: string;
+    } | null;
+    message?: string | null;
     metadata?: {
         [key: string]: unknown;
-    };
-    status?: 'ABORTED' | 'ABORT_PENDING' | 'DISCARDED' | 'FAILED' | 'FINISHED' | 'FINISHED_WITH_WARNING' | 'PAUSED' | 'PENDING_USER' | 'READY' | 'SKIPPED' | 'STARTED' | 'WAITING';
+    } | null;
+    status?: 'ABORTED' | 'ABORT_PENDING' | 'DISCARDED' | 'FAILED' | 'FINISHED' | 'FINISHED_WITH_WARNING' | 'PAUSED' | 'PENDING_USER' | 'READY' | 'SKIPPED' | 'STARTED' | 'WAITING' | null;
 };
 
 export type JobsBulkParamsSchema = {
-    _exists_?: Array<string>;
-    _missing_?: Array<string>;
-    created_by?: Array<string>;
-    date_created?: string;
-    date_modified?: string;
-    ids?: Array<string>;
-    'metadata.automation_id'?: string;
-    object_id?: string;
-    parent_id?: string;
-    query?: string;
-    type?: Array<'ACL' | 'ANALYZE' | 'ARCHIVE' | 'AUTOMATION' | 'CHANGE_PERSON' | 'COLLECTION_CUSTOM_ORDER' | 'CONFIRM_PERSON' | 'CONVERT_SAVED_SEARCH_TO_COLLECTION' | 'COPY' | 'CUSTOM' | 'DELETE' | 'DELETE_JOBS' | 'DELETE_PERSON' | 'EDIT_JOBS' | 'EXPORT' | 'FACE_RECOGNITION' | 'KEYFRAMES' | 'MARK_MISSING' | 'MEDIAINFO' | 'METADATA' | 'METADATA_FILLING' | 'MOVE' | 'PUBLISH' | 'REINDEX' | 'REQUEST_APPROVAL' | 'REQUEST_COLLECTION_MAP' | 'RESTORE' | 'RESTORE_FROM_GLACIER' | 'REVIEW_REQUEST' | 'SCAN' | 'SET_APPROVAL' | 'STORAGE_GATEWAY_FILE_INGEST' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER'>;
+    _exists_?: Array<string> | null;
+    _missing_?: Array<string> | null;
+    created_by?: Array<string> | null;
+    date_created?: string | null;
+    date_modified?: string | null;
+    ids?: Array<string> | null;
+    'metadata.automation_id'?: string | null;
+    object_id?: string | null;
+    parent_id?: string | null;
+    query?: string | null;
+    type?: Array<'ACL' | 'ANALYZE' | 'ARCHIVE' | 'AUTOMATION' | 'CHANGE_PERSON' | 'COLLECTION_CUSTOM_ORDER' | 'CONFIRM_PERSON' | 'CONVERT_SAVED_SEARCH_TO_COLLECTION' | 'COPY' | 'CUSTOM' | 'DELETE' | 'DELETE_JOBS' | 'DELETE_PERSON' | 'EDIT_JOBS' | 'EXPORT' | 'FACE_RECOGNITION' | 'KEYFRAMES' | 'MARK_MISSING' | 'MEDIAINFO' | 'METADATA' | 'METADATA_FILLING' | 'MOVE' | 'PUBLISH' | 'REINDEX' | 'REQUEST_APPROVAL' | 'REQUEST_COLLECTION_MAP' | 'RESTORE' | 'RESTORE_FROM_GLACIER' | 'REVIEW_REQUEST' | 'SCAN' | 'SET_APPROVAL' | 'STORAGE_GATEWAY_FILE_INGEST' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER'> | null;
 };
 
 export type JobsPrioritySchema = {
@@ -312,25 +336,28 @@ export type JobsQueryParamsSchema = {
      * The number of items for each page
      */
     per_page?: number | null;
-    scroll?: boolean;
-    scroll_id?: string;
+    scroll?: boolean | null;
+    scroll_id?: string | null;
     /**
      * A comma separated list of fieldnames with order (asc/desc)
      */
-    sort?: string;
+    sort?: string | null;
 };
 
 export type JobsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<JobElasticSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<JobElasticSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type JobsStateSchema = {
@@ -339,19 +366,19 @@ export type JobsStateSchema = {
 };
 
 export type ListObjectsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type ReindexJobSchema = {
-    sync_to_another_dc?: boolean;
+    sync_to_another_dc?: boolean | null;
 };
 
 export type RelatedObject = {
@@ -365,88 +392,112 @@ export type RelatedObjectSchema = {
 };
 
 export type JobBaseSchemaWritable = {
-    action_context?: ActionContextSchema;
-    completed_at?: string;
+    action_context?: ActionContextSchema | null;
+    completed_at?: string | null;
     custom_type?: string | null;
-    error_message?: string;
-    has_children?: boolean;
-    message?: string;
+    error_message?: string | null;
+    has_children?: boolean | null;
+    job_context?: {
+        [key: string]: unknown;
+    } | null;
+    message?: string | null;
+    metadata?: {
+        [key: string]: unknown;
+    } | null;
     object_id?: string | null;
     object_type?: string | null;
     parent_id?: string | null;
-    progress_processed?: number;
-    progress_total?: number;
-    related_objects?: Array<RelatedObject>;
-    started_at?: string;
+    progress_processed?: number | null;
+    progress_total?: number | null;
+    related_objects?: Array<RelatedObject> | null;
+    started_at?: string | null;
     status: 'ABORTED' | 'ABORT_PENDING' | 'DISCARDED' | 'FAILED' | 'FINISHED' | 'FINISHED_WITH_WARNING' | 'PAUSED' | 'PENDING_USER' | 'READY' | 'SKIPPED' | 'STARTED' | 'WAITING';
     title: string;
     type: 'ACL' | 'ANALYZE' | 'ARCHIVE' | 'AUTOMATION' | 'CHANGE_PERSON' | 'COLLECTION_CUSTOM_ORDER' | 'CONFIRM_PERSON' | 'CONVERT_SAVED_SEARCH_TO_COLLECTION' | 'COPY' | 'CUSTOM' | 'DELETE' | 'DELETE_JOBS' | 'DELETE_PERSON' | 'EDIT_JOBS' | 'EXPORT' | 'FACE_RECOGNITION' | 'KEYFRAMES' | 'MARK_MISSING' | 'MEDIAINFO' | 'METADATA' | 'METADATA_FILLING' | 'MOVE' | 'PUBLISH' | 'REINDEX' | 'REQUEST_APPROVAL' | 'REQUEST_COLLECTION_MAP' | 'RESTORE' | 'RESTORE_FROM_GLACIER' | 'REVIEW_REQUEST' | 'SCAN' | 'SET_APPROVAL' | 'STORAGE_GATEWAY_FILE_INGEST' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER';
 };
 
 export type JobCreateSchemaWritable = {
-    action_context?: ActionContextSchema;
-    completed_at?: string;
-    created_by?: string;
+    action_context?: ActionContextSchema | null;
+    completed_at?: string | null;
+    created_by?: string | null;
     custom_type?: string | null;
-    error_message?: string;
-    has_children?: boolean;
+    error_message?: string | null;
+    has_children?: boolean | null;
     id?: string | null;
-    message?: string;
+    job_context?: {
+        [key: string]: unknown;
+    } | null;
+    message?: string | null;
+    metadata?: {
+        [key: string]: unknown;
+    } | null;
     object_id?: string | null;
     object_type?: string | null;
     parent_id?: string | null;
-    progress_processed?: number;
-    progress_total?: number;
-    related_objects?: Array<RelatedObject>;
-    started_at?: string;
+    progress_processed?: number | null;
+    progress_total?: number | null;
+    related_objects?: Array<RelatedObject> | null;
+    started_at?: string | null;
     status: 'ABORTED' | 'ABORT_PENDING' | 'DISCARDED' | 'FAILED' | 'FINISHED' | 'FINISHED_WITH_WARNING' | 'PAUSED' | 'PENDING_USER' | 'READY' | 'SKIPPED' | 'STARTED' | 'WAITING';
-    steps?: Array<JobStepWritable>;
+    steps?: Array<JobStepWritable> | null;
     title: string;
     type: 'ACL' | 'ANALYZE' | 'ARCHIVE' | 'AUTOMATION' | 'CHANGE_PERSON' | 'COLLECTION_CUSTOM_ORDER' | 'CONFIRM_PERSON' | 'CONVERT_SAVED_SEARCH_TO_COLLECTION' | 'COPY' | 'CUSTOM' | 'DELETE' | 'DELETE_JOBS' | 'DELETE_PERSON' | 'EDIT_JOBS' | 'EXPORT' | 'FACE_RECOGNITION' | 'KEYFRAMES' | 'MARK_MISSING' | 'MEDIAINFO' | 'METADATA' | 'METADATA_FILLING' | 'MOVE' | 'PUBLISH' | 'REINDEX' | 'REQUEST_APPROVAL' | 'REQUEST_COLLECTION_MAP' | 'RESTORE' | 'RESTORE_FROM_GLACIER' | 'REVIEW_REQUEST' | 'SCAN' | 'SET_APPROVAL' | 'STORAGE_GATEWAY_FILE_INGEST' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER';
 };
 
 export type JobElasticSchemaWritable = {
-    action_context?: ActionContextSchema;
-    completed_at?: string;
+    action_context?: ActionContextSchema | null;
+    completed_at?: string | null;
     custom_type?: string | null;
-    error_message?: string;
-    has_children?: boolean;
-    message?: string;
+    error_message?: string | null;
+    has_children?: boolean | null;
+    job_context?: {
+        [key: string]: unknown;
+    } | null;
+    message?: string | null;
+    metadata?: {
+        [key: string]: unknown;
+    } | null;
     object_id?: string | null;
     object_type?: string | null;
     parent_id?: string | null;
-    progress_processed?: number;
-    progress_total?: number;
-    related_objects?: Array<RelatedObject>;
-    started_at?: string;
+    progress_processed?: number | null;
+    progress_total?: number | null;
+    related_objects?: Array<RelatedObject> | null;
+    started_at?: string | null;
     status: 'ABORTED' | 'ABORT_PENDING' | 'DISCARDED' | 'FAILED' | 'FINISHED' | 'FINISHED_WITH_WARNING' | 'PAUSED' | 'PENDING_USER' | 'READY' | 'SKIPPED' | 'STARTED' | 'WAITING';
     title: string;
     type: 'ACL' | 'ANALYZE' | 'ARCHIVE' | 'AUTOMATION' | 'CHANGE_PERSON' | 'COLLECTION_CUSTOM_ORDER' | 'CONFIRM_PERSON' | 'CONVERT_SAVED_SEARCH_TO_COLLECTION' | 'COPY' | 'CUSTOM' | 'DELETE' | 'DELETE_JOBS' | 'DELETE_PERSON' | 'EDIT_JOBS' | 'EXPORT' | 'FACE_RECOGNITION' | 'KEYFRAMES' | 'MARK_MISSING' | 'MEDIAINFO' | 'METADATA' | 'METADATA_FILLING' | 'MOVE' | 'PUBLISH' | 'REINDEX' | 'REQUEST_APPROVAL' | 'REQUEST_COLLECTION_MAP' | 'RESTORE' | 'RESTORE_FROM_GLACIER' | 'REVIEW_REQUEST' | 'SCAN' | 'SET_APPROVAL' | 'STORAGE_GATEWAY_FILE_INGEST' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER';
 };
 
 export type JobSchemaWritable = {
-    action_context?: ActionContextSchema;
-    completed_at?: string;
+    action_context?: ActionContextSchema | null;
+    completed_at?: string | null;
     custom_type?: string | null;
-    error_message?: string;
-    has_children?: boolean;
-    message?: string;
+    error_message?: string | null;
+    has_children?: boolean | null;
+    job_context?: {
+        [key: string]: unknown;
+    } | null;
+    message?: string | null;
+    metadata?: {
+        [key: string]: unknown;
+    } | null;
     object_id?: string | null;
     object_type?: string | null;
     parent_id?: string | null;
-    progress_processed?: number;
-    progress_total?: number;
-    related_objects?: Array<RelatedObject>;
-    started_at?: string;
+    progress_processed?: number | null;
+    progress_total?: number | null;
+    related_objects?: Array<RelatedObject> | null;
+    started_at?: string | null;
     status: 'ABORTED' | 'ABORT_PENDING' | 'DISCARDED' | 'FAILED' | 'FINISHED' | 'FINISHED_WITH_WARNING' | 'PAUSED' | 'PENDING_USER' | 'READY' | 'SKIPPED' | 'STARTED' | 'WAITING';
-    steps?: Array<JobStepWritable>;
+    steps?: Array<JobStepWritable> | null;
     title: string;
     type: 'ACL' | 'ANALYZE' | 'ARCHIVE' | 'AUTOMATION' | 'CHANGE_PERSON' | 'COLLECTION_CUSTOM_ORDER' | 'CONFIRM_PERSON' | 'CONVERT_SAVED_SEARCH_TO_COLLECTION' | 'COPY' | 'CUSTOM' | 'DELETE' | 'DELETE_JOBS' | 'DELETE_PERSON' | 'EDIT_JOBS' | 'EXPORT' | 'FACE_RECOGNITION' | 'KEYFRAMES' | 'MARK_MISSING' | 'MEDIAINFO' | 'METADATA' | 'METADATA_FILLING' | 'MOVE' | 'PUBLISH' | 'REINDEX' | 'REQUEST_APPROVAL' | 'REQUEST_COLLECTION_MAP' | 'RESTORE' | 'RESTORE_FROM_GLACIER' | 'REVIEW_REQUEST' | 'SCAN' | 'SET_APPROVAL' | 'STORAGE_GATEWAY_FILE_INGEST' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER';
 };
 
 export type JobStepWritable = {
     error_message?: string | null;
-    id?: string;
+    id?: string | null;
     label: string;
     message?: string | null;
     status: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'SKIPPED' | 'WAITING';
@@ -454,23 +505,23 @@ export type JobStepWritable = {
 
 export type JobStepElasticWritable = {
     error_message?: string | null;
-    id?: string;
+    id?: string | null;
     label: string;
     message?: string | null;
-    status?: string;
+    status?: string | null;
 };
 
 export type JobStepElasticSchemaWritable = {
     error_message?: string | null;
-    id?: string;
+    id?: string | null;
     label: string;
     message?: string | null;
-    status?: string;
+    status?: string | null;
 };
 
 export type JobStepSchemaWritable = {
     error_message?: string | null;
-    id?: string;
+    id?: string | null;
     label: string;
     message?: string | null;
     status: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'SKIPPED' | 'WAITING';
@@ -486,7 +537,7 @@ export type JobStepUpdateBulkSchemaWritable = {
 
 export type JobStepUpdateSchemaWritable = {
     error_message?: string | null;
-    id?: string;
+    id?: string | null;
     label: string;
     message?: string | null;
     status: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'SKIPPED' | 'WAITING';
@@ -501,7 +552,9 @@ export type JobStepsUpdateSchemaWritable = {
 };
 
 export type JobsSchemaWritable = {
-    [key: string]: unknown;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
 };
 
 export type DeleteJobsData = {

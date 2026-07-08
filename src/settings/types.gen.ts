@@ -6,76 +6,76 @@ export type ClientOptions = {
 
 export type AllowedIpSchema = {
     app_id?: string | null;
-    ip?: string;
+    ip?: string | null;
 };
 
 export type CorsHostSchema = {
     host: string;
-    readonly id?: string;
+    readonly id?: string | null;
 };
 
 export type CorsHostsSchema = {
-    readonly objects?: Array<CorsHostSchema>;
+    readonly objects?: Array<CorsHostSchema> | null;
 };
 
 export type DashboardCollectionsTreeSchema = {
-    visible?: boolean;
+    visible?: boolean | null;
 };
 
 export type DashboardCommentsFeedSchema = {
-    visible?: boolean;
+    visible?: boolean | null;
 };
 
 export type DashboardHeaderSchema = {
-    expanded?: boolean;
+    expanded?: boolean | null;
 };
 
 export type DashboardSchema = {
     collections_tree?: DashboardCollectionsTreeSchema | null;
     comments_feed?: DashboardCommentsFeedSchema | null;
     header?: DashboardHeaderSchema | null;
-    view_type?: 'card' | 'list';
-    widgets?: Array<DashboardWidget>;
+    view_type?: 'card' | 'list' | null;
+    widgets?: Array<DashboardWidget> | null;
 };
 
 export type DashboardWidget = {
-    expanded?: boolean;
-    id?: string;
-    visible?: boolean;
+    expanded?: boolean | null;
+    id?: string | null;
+    visible?: boolean | null;
 };
 
 export type DashboardWidgetSchema = {
-    expanded?: boolean;
-    id?: string;
-    visible?: boolean;
+    expanded?: boolean | null;
+    id?: string | null;
+    visible?: boolean | null;
 };
 
 export type DefaultShareOptionsTypeSchema = {
-    allow_approving_comments?: boolean;
-    allow_comments?: boolean;
-    allow_custom_actions?: boolean;
-    allow_download?: boolean;
-    allow_download_proxy?: boolean;
-    allow_setting_approve_status?: boolean;
-    allow_upload?: boolean;
-    allow_view_transcriptions?: boolean;
-    allow_view_versions?: boolean;
-    can_change_allow_approving_comments?: boolean;
-    can_change_allow_comments?: boolean;
-    can_change_allow_custom_actions?: boolean;
-    can_change_allow_download?: boolean;
-    can_change_allow_download_proxy?: boolean;
-    can_change_allow_setting_approve_status?: boolean;
-    can_change_allow_upload?: boolean;
-    can_change_allow_view_transcriptions?: boolean;
-    can_change_allow_view_versions?: boolean;
-    can_change_search_users_from_share?: boolean;
-    can_change_share_expiration_time?: boolean;
-    can_change_show_existing_comments?: boolean;
-    can_change_show_watermark?: boolean;
-    require_password?: boolean;
-    show_existing_comments?: boolean;
-    show_watermark?: boolean;
+    allow_approving_comments?: boolean | null;
+    allow_comments?: boolean | null;
+    allow_custom_actions?: boolean | null;
+    allow_download?: boolean | null;
+    allow_download_proxy?: boolean | null;
+    allow_setting_approve_status?: boolean | null;
+    allow_upload?: boolean | null;
+    allow_view_transcriptions?: boolean | null;
+    allow_view_versions?: boolean | null;
+    can_change_allow_approving_comments?: boolean | null;
+    can_change_allow_comments?: boolean | null;
+    can_change_allow_custom_actions?: boolean | null;
+    can_change_allow_download?: boolean | null;
+    can_change_allow_download_proxy?: boolean | null;
+    can_change_allow_setting_approve_status?: boolean | null;
+    can_change_allow_upload?: boolean | null;
+    can_change_allow_view_transcriptions?: boolean | null;
+    can_change_allow_view_versions?: boolean | null;
+    can_change_search_users_from_share?: boolean | null;
+    can_change_share_expiration_time?: boolean | null;
+    can_change_show_existing_comments?: boolean | null;
+    can_change_show_watermark?: boolean | null;
+    require_password?: boolean | null;
+    show_existing_comments?: boolean | null;
+    show_watermark?: boolean | null;
 };
 
 export type FacetFieldSchema = {
@@ -83,16 +83,16 @@ export type FacetFieldSchema = {
 };
 
 export type GlobalSettingsSchema = {
-    debug?: boolean;
-    log_level?: 'CRITICAL' | 'DEBUG' | 'ERROR' | 'INFO' | 'NOTSET' | 'WARNING';
+    debug?: boolean | null;
+    log_level?: 'CRITICAL' | 'DEBUG' | 'ERROR' | 'INFO' | 'NOTSET' | 'WARNING' | null;
 };
 
 export type GroupSettingPublicSchema = {
     acl_template_id?: string | null;
-    allowed_ips?: Array<AllowedIpSchema>;
+    allowed_ips?: Array<AllowedIpSchema> | null;
     append_asset_uuid_to_downloads?: boolean | null;
-    asset_default_sections?: Array<string>;
-    readonly client_ip?: string;
+    asset_default_sections?: Array<string> | null;
+    readonly client_ip?: string | null;
     collections_get_parent_acls?: boolean | null;
     date_format?: string | null;
     datetime_format?: string | null;
@@ -101,18 +101,18 @@ export type GroupSettingPublicSchema = {
      * Grace period that indicate how long objects will live in recycle bin. Unit: hours
      */
     delete_grace_period?: number | null;
-    facet_fields?: Array<FacetFieldSchema>;
+    facet_fields?: Array<FacetFieldSchema> | null;
     filters_default_metadata_view_id?: string | null;
-    readonly group_id?: string;
+    readonly group_id?: string | null;
     hide_favourites?: boolean | null;
     home_page?: string | null;
     jobs_dashboard?: JobsDashboard | null;
     logo_storage_id?: string | null;
-    readonly logo_url?: string;
-    required_metadata_views?: Array<string>;
+    readonly logo_url?: string | null;
+    required_metadata_views?: Array<string> | null;
     search_auto_resize_title_column?: boolean | null;
-    search_default_sections?: Array<string>;
-    search_display_fields?: Array<SearchDisplayField>;
+    search_default_sections?: Array<string> | null;
+    search_display_fields?: Array<SearchDisplayField> | null;
     search_in_transcriptions?: boolean | null;
     search_results_asset_metadata_view_id?: string | null;
     search_results_collection_metadata_view_id?: string | null;
@@ -121,15 +121,15 @@ export type GroupSettingPublicSchema = {
      * Default share expiration time that indicate how long share will be valid. Unit: days
      */
     share_expiration_time?: number | null;
-    readonly system_domain_id?: string;
+    readonly system_domain_id?: string | null;
     use_asset_name_on_download?: boolean | null;
 };
 
 export type GroupSettingSchema = {
-    readonly group_id?: string;
+    readonly group_id?: string | null;
     logo_storage_id?: string | null;
     logo_url?: string | null;
-    readonly system_domain_id?: string;
+    readonly system_domain_id?: string | null;
 };
 
 export type GroupSettingsIdSchema = {
@@ -137,48 +137,48 @@ export type GroupSettingsIdSchema = {
 };
 
 export type JobsDashboard = {
-    widgets?: Array<JobsDashboardWidget>;
+    widgets?: Array<JobsDashboardWidget> | null;
 };
 
 export type JobsDashboardSchema = {
-    widgets?: Array<JobsDashboardWidget>;
+    widgets?: Array<JobsDashboardWidget> | null;
 };
 
 export type JobsDashboardWidget = {
-    id?: string;
-    options?: JobsWidgetOption;
+    id?: string | null;
+    options?: JobsWidgetOption | null;
     title?: string | null;
-    type?: 'JOBS_LIST' | 'JOBS_STATS_LIST';
+    type?: 'JOBS_LIST' | 'JOBS_STATS_LIST' | null;
 };
 
 export type JobsDashboardWidgetSchema = {
-    id?: string;
-    options?: JobsWidgetOption;
+    id?: string | null;
+    options?: JobsWidgetOption | null;
     title?: string | null;
-    type?: 'JOBS_LIST' | 'JOBS_STATS_LIST';
+    type?: 'JOBS_LIST' | 'JOBS_STATS_LIST' | null;
 };
 
 export type JobsWidgetOption = {
-    columns?: Array<string>;
+    columns?: Array<string> | null;
     filters?: {
         [key: string]: unknown;
-    };
-    limit?: number;
-    sort?: Array<Sort>;
+    } | null;
+    limit?: number | null;
+    sort?: Array<Sort> | null;
 };
 
 export type JobsWidgetOptionFilterSchema = {
     name?: string | null;
-    value?: Array<string>;
+    value?: Array<string> | null;
 };
 
 export type JobsWidgetOptionSchema = {
-    columns?: Array<string>;
+    columns?: Array<string> | null;
     filters?: {
         [key: string]: unknown;
-    };
-    limit?: number;
-    sort?: Array<Sort>;
+    } | null;
+    limit?: number | null;
+    sort?: Array<Sort> | null;
 };
 
 export type MergedSettingsSchema = {
@@ -189,14 +189,14 @@ export type MergedSettingsSchema = {
      */
     allow_play_original_during_transcoding?: boolean | null;
     allow_share_magic_link_creation?: boolean | null;
-    allowed_ips?: Array<AllowedIpSchema>;
+    allowed_ips?: Array<AllowedIpSchema> | null;
     append_asset_uuid_to_downloads?: boolean | null;
-    asset_default_sections?: Array<string>;
-    readonly billing_tier?: string;
-    readonly client_ip?: string;
+    asset_default_sections?: Array<string> | null;
+    readonly billing_tier?: string | null;
+    readonly client_ip?: string | null;
     collections_get_parent_acls?: boolean | null;
-    cors_hosts?: Array<string>;
-    readonly custom_terms?: boolean;
+    cors_hosts?: Array<string> | null;
+    readonly custom_terms?: boolean | null;
     dashboard?: DashboardSchema | null;
     date_format?: string | null;
     datetime_format?: string | null;
@@ -218,12 +218,12 @@ export type MergedSettingsSchema = {
      * Grace period that indicate how long objects will live in recycle bin. Unit: hours
      */
     delete_grace_period?: number | null;
-    readonly disable_billing_page?: boolean;
-    readonly domain_has_preloaded_assets?: boolean;
+    readonly disable_billing_page?: boolean | null;
+    readonly domain_has_preloaded_assets?: boolean | null;
     /**
      * DRM setting
      */
-    drm?: 'none' | 'standard';
+    drm?: 'none' | 'standard' | null;
     /**
      * Whether to require hardware DRM for playback when DRM is enabled
      */
@@ -237,15 +237,15 @@ export type MergedSettingsSchema = {
      */
     enforce_magic_link_allowlist?: boolean | null;
     external_share?: boolean | null;
-    facet_fields?: Array<FacetFieldSchema>;
-    readonly features?: Array<string>;
+    facet_fields?: Array<FacetFieldSchema> | null;
+    readonly features?: Array<string> | null;
     filters_default_metadata_view_id?: string | null;
     genesis?: string | null;
-    readonly group_id?: string;
+    readonly group_id?: string | null;
     hide_favourites?: boolean | null;
     home_page?: string | null;
     image_properties_metadata_field?: string | null;
-    readonly is_plg_domain?: boolean;
+    readonly is_plg_domain?: boolean | null;
     jobs_dashboard?: JobsDashboardSchema | null;
     locations_metadata_field?: string | null;
     /**
@@ -253,7 +253,7 @@ export type MergedSettingsSchema = {
      */
     lock_mapped_collections?: boolean | null;
     logo_storage_id?: string | null;
-    readonly logo_url?: string;
+    readonly logo_url?: string | null;
     logos_metadata_field?: string | null;
     max_browse_users?: number | null;
     max_power_users?: number | null;
@@ -264,14 +264,14 @@ export type MergedSettingsSchema = {
     mfa_required?: boolean | null;
     password_checks?: PasswordChecksType | null;
     require_limit_download_groups?: boolean | null;
-    required_metadata_views?: Array<string>;
+    required_metadata_views?: Array<string> | null;
     review_experience_disabled?: boolean | null;
     review_experience_disabled_per_share?: boolean | null;
     safe_searches_metadata_field?: string | null;
     saml_require_groups?: boolean | null;
     search_auto_resize_title_column?: boolean | null;
-    search_default_sections?: Array<string>;
-    search_display_fields?: Array<SearchDisplayField>;
+    search_default_sections?: Array<string> | null;
+    search_display_fields?: Array<SearchDisplayField> | null;
     search_in_transcriptions?: boolean | null;
     search_results_asset_metadata_view_id?: string | null;
     search_results_collection_metadata_view_id?: string | null;
@@ -283,8 +283,8 @@ export type MergedSettingsSchema = {
     share_expiration_time?: number | null;
     show_persons_confirmation_modal?: boolean | null;
     support_access?: boolean | null;
-    readonly system_domain_id?: string;
-    readonly system_domain_name?: string;
+    readonly system_domain_id?: string | null;
+    readonly system_domain_name?: string | null;
     tags_metadata_field?: string | null;
     texts_metadata_field?: string | null;
     update_saml_primary_group_on_login?: boolean | null;
@@ -293,7 +293,7 @@ export type MergedSettingsSchema = {
     /**
      * Watermark setting
      */
-    watermark?: 'none' | 'standard';
+    watermark?: 'none' | 'standard' | null;
     watermark_options?: WatermarkOptionsType | null;
 };
 
@@ -325,12 +325,12 @@ export type SearchDisplayFieldSchema = {
 
 export type Sort = {
     name: string;
-    order?: 'asc' | 'desc';
+    order?: 'asc' | 'desc' | null;
 };
 
 export type SortSchema = {
     name: string;
-    order?: 'asc' | 'desc';
+    order?: 'asc' | 'desc' | null;
 };
 
 export type SystemSettingPublicSchema = {
@@ -341,14 +341,14 @@ export type SystemSettingPublicSchema = {
      */
     allow_play_original_during_transcoding?: boolean | null;
     allow_share_magic_link_creation?: boolean | null;
-    allowed_ips?: Array<AllowedIpSchema>;
+    allowed_ips?: Array<AllowedIpSchema> | null;
     append_asset_uuid_to_downloads?: boolean | null;
-    asset_default_sections?: Array<string>;
-    readonly billing_tier?: string;
-    readonly client_ip?: string;
+    asset_default_sections?: Array<string> | null;
+    readonly billing_tier?: string | null;
+    readonly client_ip?: string | null;
     collections_get_parent_acls?: boolean | null;
-    cors_hosts?: Array<string>;
-    readonly custom_terms?: boolean;
+    cors_hosts?: Array<string> | null;
+    readonly custom_terms?: boolean | null;
     date_format?: string | null;
     datetime_format?: string | null;
     /**
@@ -369,12 +369,12 @@ export type SystemSettingPublicSchema = {
      * Grace period that indicate how long objects will live in recycle bin. Unit: hours
      */
     delete_grace_period?: number | null;
-    readonly disable_billing_page?: boolean;
-    readonly domain_has_preloaded_assets?: boolean;
+    readonly disable_billing_page?: boolean | null;
+    readonly domain_has_preloaded_assets?: boolean | null;
     /**
      * DRM setting
      */
-    drm?: 'none' | 'standard';
+    drm?: 'none' | 'standard' | null;
     /**
      * Whether to require hardware DRM for playback when DRM is enabled
      */
@@ -388,13 +388,13 @@ export type SystemSettingPublicSchema = {
      */
     enforce_magic_link_allowlist?: boolean | null;
     external_share?: boolean | null;
-    facet_fields?: Array<FacetFieldSchema>;
-    readonly features?: Array<string>;
+    facet_fields?: Array<FacetFieldSchema> | null;
+    readonly features?: Array<string> | null;
     filters_default_metadata_view_id?: string | null;
     hide_favourites?: boolean | null;
     home_page?: string | null;
     image_properties_metadata_field?: string | null;
-    readonly is_plg_domain?: boolean;
+    readonly is_plg_domain?: boolean | null;
     jobs_dashboard?: JobsDashboardSchema | null;
     locations_metadata_field?: string | null;
     /**
@@ -402,7 +402,7 @@ export type SystemSettingPublicSchema = {
      */
     lock_mapped_collections?: boolean | null;
     logo_storage_id?: string | null;
-    readonly logo_url?: string;
+    readonly logo_url?: string | null;
     logos_metadata_field?: string | null;
     max_browse_users?: number | null;
     max_power_users?: number | null;
@@ -413,14 +413,14 @@ export type SystemSettingPublicSchema = {
     mfa_required?: boolean | null;
     password_checks?: PasswordChecksTypeSchema | null;
     require_limit_download_groups?: boolean | null;
-    required_metadata_views?: Array<string>;
+    required_metadata_views?: Array<string> | null;
     review_experience_disabled?: boolean | null;
     review_experience_disabled_per_share?: boolean | null;
     safe_searches_metadata_field?: string | null;
     saml_require_groups?: boolean | null;
     search_auto_resize_title_column?: boolean | null;
-    search_default_sections?: Array<string>;
-    search_display_fields?: Array<SearchDisplayFieldSchema>;
+    search_default_sections?: Array<string> | null;
+    search_display_fields?: Array<SearchDisplayFieldSchema> | null;
     search_in_transcriptions?: boolean | null;
     search_results_asset_metadata_view_id?: string | null;
     search_results_collection_metadata_view_id?: string | null;
@@ -431,8 +431,8 @@ export type SystemSettingPublicSchema = {
      */
     share_expiration_time?: number | null;
     support_access?: boolean | null;
-    readonly system_domain_id?: string;
-    readonly system_domain_name?: string;
+    readonly system_domain_id?: string | null;
+    readonly system_domain_name?: string | null;
     tags_metadata_field?: string | null;
     texts_metadata_field?: string | null;
     update_saml_primary_group_on_login?: boolean | null;
@@ -440,7 +440,7 @@ export type SystemSettingPublicSchema = {
     /**
      * Watermark setting
      */
-    watermark?: 'none' | 'standard';
+    watermark?: 'none' | 'standard' | null;
     watermark_options?: WatermarkOptionsType | null;
 };
 
@@ -452,12 +452,12 @@ export type SystemSettingSchema = {
      */
     allow_play_original_during_transcoding?: boolean | null;
     allow_share_magic_link_creation?: boolean | null;
-    allowed_ips?: Array<AllowedIpSchema>;
+    allowed_ips?: Array<AllowedIpSchema> | null;
     append_asset_uuid_to_downloads?: boolean | null;
-    asset_default_sections?: Array<string>;
-    readonly client_ip?: string;
+    asset_default_sections?: Array<string> | null;
+    readonly client_ip?: string | null;
     collections_get_parent_acls?: boolean | null;
-    cors_hosts?: Array<string>;
+    cors_hosts?: Array<string> | null;
     date_format?: string | null;
     datetime_format?: string | null;
     /**
@@ -481,7 +481,7 @@ export type SystemSettingSchema = {
     /**
      * DRM setting
      */
-    drm?: 'none' | 'standard';
+    drm?: 'none' | 'standard' | null;
     /**
      * Whether to require hardware DRM for playback when DRM is enabled
      */
@@ -495,7 +495,7 @@ export type SystemSettingSchema = {
      */
     enforce_magic_link_allowlist?: boolean | null;
     external_share?: boolean | null;
-    facet_fields?: Array<FacetFieldSchema>;
+    facet_fields?: Array<FacetFieldSchema> | null;
     filters_default_metadata_view_id?: string | null;
     hide_favourites?: boolean | null;
     home_page?: string | null;
@@ -518,14 +518,14 @@ export type SystemSettingSchema = {
     mfa_required?: boolean | null;
     password_checks?: PasswordChecksTypeSchema | null;
     require_limit_download_groups?: boolean | null;
-    required_metadata_views?: Array<string>;
+    required_metadata_views?: Array<string> | null;
     review_experience_disabled?: boolean | null;
     review_experience_disabled_per_share?: boolean | null;
     safe_searches_metadata_field?: string | null;
     saml_require_groups?: boolean | null;
     search_auto_resize_title_column?: boolean | null;
-    search_default_sections?: Array<string>;
-    search_display_fields?: Array<SearchDisplayFieldSchema>;
+    search_default_sections?: Array<string> | null;
+    search_display_fields?: Array<SearchDisplayFieldSchema> | null;
     search_in_transcriptions?: boolean | null;
     search_results_asset_metadata_view_id?: string | null;
     search_results_collection_metadata_view_id?: string | null;
@@ -535,8 +535,8 @@ export type SystemSettingSchema = {
      */
     share_expiration_time?: number | null;
     support_access?: boolean | null;
-    readonly system_domain_id?: string;
-    readonly system_domain_name?: string;
+    readonly system_domain_id?: string | null;
+    readonly system_domain_name?: string | null;
     tags_metadata_field?: string | null;
     texts_metadata_field?: string | null;
     update_saml_primary_group_on_login?: boolean | null;
@@ -544,44 +544,44 @@ export type SystemSettingSchema = {
     /**
      * Watermark setting
      */
-    watermark?: 'none' | 'standard';
+    watermark?: 'none' | 'standard' | null;
     watermark_options?: WatermarkOptionsType | null;
 };
 
 export type UsageHistory = {
-    widgets?: Array<UsageHistoryWidget>;
+    widgets?: Array<UsageHistoryWidget> | null;
 };
 
 export type UsageHistorySchema = {
-    widgets?: Array<UsageHistoryWidget>;
+    widgets?: Array<UsageHistoryWidget> | null;
 };
 
 export type UsageHistoryWidget = {
-    expanded?: boolean;
-    id?: string;
+    expanded?: boolean | null;
+    id?: string | null;
 };
 
 export type UsageHistoryWidgetSchema = {
-    expanded?: boolean;
-    id?: string;
+    expanded?: boolean | null;
+    id?: string | null;
 };
 
 export type UserSettingRemoveAttributesSchema = {
-    allowed_ips?: Array<AllowedIpSchema>;
-    asset_default_sections?: Array<string>;
-    facet_fields?: Array<FacetFieldSchema>;
+    allowed_ips?: Array<AllowedIpSchema> | null;
+    asset_default_sections?: Array<string> | null;
+    facet_fields?: Array<FacetFieldSchema> | null;
     jobs_dashboard?: JobsDashboardSchema | null;
-    search_default_sections?: Array<string>;
-    search_display_fields?: Array<SearchDisplayFieldSchema>;
+    search_default_sections?: Array<string> | null;
+    search_display_fields?: Array<SearchDisplayFieldSchema> | null;
     user_ids: Array<string>;
 };
 
 export type UserSettingSchema = {
     acl_template_id?: string | null;
-    allowed_ips?: Array<AllowedIpSchema>;
+    allowed_ips?: Array<AllowedIpSchema> | null;
     append_asset_uuid_to_downloads?: boolean | null;
-    asset_default_sections?: Array<string>;
-    readonly client_ip?: string;
+    asset_default_sections?: Array<string> | null;
+    readonly client_ip?: string | null;
     collections_get_parent_acls?: boolean | null;
     dashboard?: DashboardSchema | null;
     date_format?: string | null;
@@ -591,15 +591,15 @@ export type UserSettingSchema = {
      * Grace period that indicate how long objects will live in recycle bin. Unit: hours
      */
     delete_grace_period?: number | null;
-    facet_fields?: Array<FacetFieldSchema>;
+    facet_fields?: Array<FacetFieldSchema> | null;
     filters_default_metadata_view_id?: string | null;
     genesis?: string | null;
     hide_favourites?: boolean | null;
     home_page?: string | null;
     jobs_dashboard?: JobsDashboardSchema | null;
     search_auto_resize_title_column?: boolean | null;
-    search_default_sections?: Array<string>;
-    search_display_fields?: Array<SearchDisplayFieldSchema>;
+    search_default_sections?: Array<string> | null;
+    search_display_fields?: Array<SearchDisplayFieldSchema> | null;
     search_in_transcriptions?: boolean | null;
     search_results_asset_metadata_view_id?: string | null;
     search_results_collection_metadata_view_id?: string | null;
@@ -614,33 +614,33 @@ export type UserSettingSchema = {
 };
 
 export type WatermarkOptionsType = {
-    custom_text?: string;
+    custom_text?: string | null;
     groups?: Array<string> | null;
-    include_custom_text?: boolean;
-    include_date_time?: boolean;
-    include_email?: boolean;
-    include_ip_address?: boolean;
-    shadow_opacity?: number;
-    show_for_groups?: 'all' | 'except' | 'selected_only';
-    show_in_context?: 'proxies' | 'shares';
-    show_watermark?: boolean;
-    text_appearance?: 'bottom' | 'center' | 'top';
-    text_opacity?: number;
+    include_custom_text?: boolean | null;
+    include_date_time?: boolean | null;
+    include_email?: boolean | null;
+    include_ip_address?: boolean | null;
+    shadow_opacity?: number | null;
+    show_for_groups?: 'all' | 'except' | 'selected_only' | null;
+    show_in_context?: 'proxies' | 'shares' | null;
+    show_watermark?: boolean | null;
+    text_appearance?: 'bottom' | 'center' | 'top' | null;
+    text_opacity?: number | null;
 };
 
 export type WatermarkOptionsTypeSchema = {
-    custom_text?: string;
+    custom_text?: string | null;
     groups?: Array<string> | null;
-    include_custom_text?: boolean;
-    include_date_time?: boolean;
-    include_email?: boolean;
-    include_ip_address?: boolean;
-    shadow_opacity?: number;
-    show_for_groups?: 'all' | 'except' | 'selected_only';
-    show_in_context?: 'proxies' | 'shares';
-    show_watermark?: boolean;
-    text_appearance?: 'bottom' | 'center' | 'top';
-    text_opacity?: number;
+    include_custom_text?: boolean | null;
+    include_date_time?: boolean | null;
+    include_email?: boolean | null;
+    include_ip_address?: boolean | null;
+    shadow_opacity?: number | null;
+    show_for_groups?: 'all' | 'except' | 'selected_only' | null;
+    show_in_context?: 'proxies' | 'shares' | null;
+    show_watermark?: boolean | null;
+    text_appearance?: 'bottom' | 'center' | 'top' | null;
+    text_opacity?: number | null;
 };
 
 export type CorsHostSchemaWritable = {
@@ -653,9 +653,9 @@ export type CorsHostsSchemaWritable = {
 
 export type GroupSettingPublicSchemaWritable = {
     acl_template_id?: string | null;
-    allowed_ips?: Array<AllowedIpSchema>;
+    allowed_ips?: Array<AllowedIpSchema> | null;
     append_asset_uuid_to_downloads?: boolean | null;
-    asset_default_sections?: Array<string>;
+    asset_default_sections?: Array<string> | null;
     collections_get_parent_acls?: boolean | null;
     date_format?: string | null;
     datetime_format?: string | null;
@@ -664,16 +664,16 @@ export type GroupSettingPublicSchemaWritable = {
      * Grace period that indicate how long objects will live in recycle bin. Unit: hours
      */
     delete_grace_period?: number | null;
-    facet_fields?: Array<FacetFieldSchema>;
+    facet_fields?: Array<FacetFieldSchema> | null;
     filters_default_metadata_view_id?: string | null;
     hide_favourites?: boolean | null;
     home_page?: string | null;
     jobs_dashboard?: JobsDashboard | null;
     logo_storage_id?: string | null;
-    required_metadata_views?: Array<string>;
+    required_metadata_views?: Array<string> | null;
     search_auto_resize_title_column?: boolean | null;
-    search_default_sections?: Array<string>;
-    search_display_fields?: Array<SearchDisplayField>;
+    search_default_sections?: Array<string> | null;
+    search_display_fields?: Array<SearchDisplayField> | null;
     search_in_transcriptions?: boolean | null;
     search_results_asset_metadata_view_id?: string | null;
     search_results_collection_metadata_view_id?: string | null;
@@ -698,11 +698,11 @@ export type MergedSettingsSchemaWritable = {
      */
     allow_play_original_during_transcoding?: boolean | null;
     allow_share_magic_link_creation?: boolean | null;
-    allowed_ips?: Array<AllowedIpSchema>;
+    allowed_ips?: Array<AllowedIpSchema> | null;
     append_asset_uuid_to_downloads?: boolean | null;
-    asset_default_sections?: Array<string>;
+    asset_default_sections?: Array<string> | null;
     collections_get_parent_acls?: boolean | null;
-    cors_hosts?: Array<string>;
+    cors_hosts?: Array<string> | null;
     dashboard?: DashboardSchema | null;
     date_format?: string | null;
     datetime_format?: string | null;
@@ -727,7 +727,7 @@ export type MergedSettingsSchemaWritable = {
     /**
      * DRM setting
      */
-    drm?: 'none' | 'standard';
+    drm?: 'none' | 'standard' | null;
     /**
      * Whether to require hardware DRM for playback when DRM is enabled
      */
@@ -741,7 +741,7 @@ export type MergedSettingsSchemaWritable = {
      */
     enforce_magic_link_allowlist?: boolean | null;
     external_share?: boolean | null;
-    facet_fields?: Array<FacetFieldSchema>;
+    facet_fields?: Array<FacetFieldSchema> | null;
     filters_default_metadata_view_id?: string | null;
     genesis?: string | null;
     hide_favourites?: boolean | null;
@@ -764,14 +764,14 @@ export type MergedSettingsSchemaWritable = {
     mfa_required?: boolean | null;
     password_checks?: PasswordChecksType | null;
     require_limit_download_groups?: boolean | null;
-    required_metadata_views?: Array<string>;
+    required_metadata_views?: Array<string> | null;
     review_experience_disabled?: boolean | null;
     review_experience_disabled_per_share?: boolean | null;
     safe_searches_metadata_field?: string | null;
     saml_require_groups?: boolean | null;
     search_auto_resize_title_column?: boolean | null;
-    search_default_sections?: Array<string>;
-    search_display_fields?: Array<SearchDisplayField>;
+    search_default_sections?: Array<string> | null;
+    search_display_fields?: Array<SearchDisplayField> | null;
     search_in_transcriptions?: boolean | null;
     search_results_asset_metadata_view_id?: string | null;
     search_results_collection_metadata_view_id?: string | null;
@@ -791,7 +791,7 @@ export type MergedSettingsSchemaWritable = {
     /**
      * Watermark setting
      */
-    watermark?: 'none' | 'standard';
+    watermark?: 'none' | 'standard' | null;
     watermark_options?: WatermarkOptionsType | null;
 };
 
@@ -803,11 +803,11 @@ export type SystemSettingPublicSchemaWritable = {
      */
     allow_play_original_during_transcoding?: boolean | null;
     allow_share_magic_link_creation?: boolean | null;
-    allowed_ips?: Array<AllowedIpSchema>;
+    allowed_ips?: Array<AllowedIpSchema> | null;
     append_asset_uuid_to_downloads?: boolean | null;
-    asset_default_sections?: Array<string>;
+    asset_default_sections?: Array<string> | null;
     collections_get_parent_acls?: boolean | null;
-    cors_hosts?: Array<string>;
+    cors_hosts?: Array<string> | null;
     date_format?: string | null;
     datetime_format?: string | null;
     /**
@@ -831,7 +831,7 @@ export type SystemSettingPublicSchemaWritable = {
     /**
      * DRM setting
      */
-    drm?: 'none' | 'standard';
+    drm?: 'none' | 'standard' | null;
     /**
      * Whether to require hardware DRM for playback when DRM is enabled
      */
@@ -845,7 +845,7 @@ export type SystemSettingPublicSchemaWritable = {
      */
     enforce_magic_link_allowlist?: boolean | null;
     external_share?: boolean | null;
-    facet_fields?: Array<FacetFieldSchema>;
+    facet_fields?: Array<FacetFieldSchema> | null;
     filters_default_metadata_view_id?: string | null;
     hide_favourites?: boolean | null;
     home_page?: string | null;
@@ -867,14 +867,14 @@ export type SystemSettingPublicSchemaWritable = {
     mfa_required?: boolean | null;
     password_checks?: PasswordChecksTypeSchema | null;
     require_limit_download_groups?: boolean | null;
-    required_metadata_views?: Array<string>;
+    required_metadata_views?: Array<string> | null;
     review_experience_disabled?: boolean | null;
     review_experience_disabled_per_share?: boolean | null;
     safe_searches_metadata_field?: string | null;
     saml_require_groups?: boolean | null;
     search_auto_resize_title_column?: boolean | null;
-    search_default_sections?: Array<string>;
-    search_display_fields?: Array<SearchDisplayFieldSchema>;
+    search_default_sections?: Array<string> | null;
+    search_display_fields?: Array<SearchDisplayFieldSchema> | null;
     search_in_transcriptions?: boolean | null;
     search_results_asset_metadata_view_id?: string | null;
     search_results_collection_metadata_view_id?: string | null;
@@ -892,7 +892,7 @@ export type SystemSettingPublicSchemaWritable = {
     /**
      * Watermark setting
      */
-    watermark?: 'none' | 'standard';
+    watermark?: 'none' | 'standard' | null;
     watermark_options?: WatermarkOptionsType | null;
 };
 
@@ -904,11 +904,11 @@ export type SystemSettingSchemaWritable = {
      */
     allow_play_original_during_transcoding?: boolean | null;
     allow_share_magic_link_creation?: boolean | null;
-    allowed_ips?: Array<AllowedIpSchema>;
+    allowed_ips?: Array<AllowedIpSchema> | null;
     append_asset_uuid_to_downloads?: boolean | null;
-    asset_default_sections?: Array<string>;
+    asset_default_sections?: Array<string> | null;
     collections_get_parent_acls?: boolean | null;
-    cors_hosts?: Array<string>;
+    cors_hosts?: Array<string> | null;
     date_format?: string | null;
     datetime_format?: string | null;
     /**
@@ -932,7 +932,7 @@ export type SystemSettingSchemaWritable = {
     /**
      * DRM setting
      */
-    drm?: 'none' | 'standard';
+    drm?: 'none' | 'standard' | null;
     /**
      * Whether to require hardware DRM for playback when DRM is enabled
      */
@@ -946,7 +946,7 @@ export type SystemSettingSchemaWritable = {
      */
     enforce_magic_link_allowlist?: boolean | null;
     external_share?: boolean | null;
-    facet_fields?: Array<FacetFieldSchema>;
+    facet_fields?: Array<FacetFieldSchema> | null;
     filters_default_metadata_view_id?: string | null;
     hide_favourites?: boolean | null;
     home_page?: string | null;
@@ -969,14 +969,14 @@ export type SystemSettingSchemaWritable = {
     mfa_required?: boolean | null;
     password_checks?: PasswordChecksTypeSchema | null;
     require_limit_download_groups?: boolean | null;
-    required_metadata_views?: Array<string>;
+    required_metadata_views?: Array<string> | null;
     review_experience_disabled?: boolean | null;
     review_experience_disabled_per_share?: boolean | null;
     safe_searches_metadata_field?: string | null;
     saml_require_groups?: boolean | null;
     search_auto_resize_title_column?: boolean | null;
-    search_default_sections?: Array<string>;
-    search_display_fields?: Array<SearchDisplayFieldSchema>;
+    search_default_sections?: Array<string> | null;
+    search_display_fields?: Array<SearchDisplayFieldSchema> | null;
     search_in_transcriptions?: boolean | null;
     search_results_asset_metadata_view_id?: string | null;
     search_results_collection_metadata_view_id?: string | null;
@@ -993,15 +993,15 @@ export type SystemSettingSchemaWritable = {
     /**
      * Watermark setting
      */
-    watermark?: 'none' | 'standard';
+    watermark?: 'none' | 'standard' | null;
     watermark_options?: WatermarkOptionsType | null;
 };
 
 export type UserSettingSchemaWritable = {
     acl_template_id?: string | null;
-    allowed_ips?: Array<AllowedIpSchema>;
+    allowed_ips?: Array<AllowedIpSchema> | null;
     append_asset_uuid_to_downloads?: boolean | null;
-    asset_default_sections?: Array<string>;
+    asset_default_sections?: Array<string> | null;
     collections_get_parent_acls?: boolean | null;
     dashboard?: DashboardSchema | null;
     date_format?: string | null;
@@ -1011,15 +1011,15 @@ export type UserSettingSchemaWritable = {
      * Grace period that indicate how long objects will live in recycle bin. Unit: hours
      */
     delete_grace_period?: number | null;
-    facet_fields?: Array<FacetFieldSchema>;
+    facet_fields?: Array<FacetFieldSchema> | null;
     filters_default_metadata_view_id?: string | null;
     genesis?: string | null;
     hide_favourites?: boolean | null;
     home_page?: string | null;
     jobs_dashboard?: JobsDashboardSchema | null;
     search_auto_resize_title_column?: boolean | null;
-    search_default_sections?: Array<string>;
-    search_display_fields?: Array<SearchDisplayFieldSchema>;
+    search_default_sections?: Array<string> | null;
+    search_display_fields?: Array<SearchDisplayFieldSchema> | null;
     search_in_transcriptions?: boolean | null;
     search_results_asset_metadata_view_id?: string | null;
     search_results_collection_metadata_view_id?: string | null;

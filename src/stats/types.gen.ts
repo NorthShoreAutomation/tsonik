@@ -6,70 +6,70 @@ export type ClientOptions = {
 
 export type AssetUsageSchema = {
     asset_id: string;
-    asset_type?: 'ASSET' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'SEQUENCE';
-    date?: string;
-    readonly id?: string;
-    metadata?: string;
-    operation_source?: '' | 'COLLECTION' | 'DISCOVERY' | 'EXTERNAL_SHARE' | 'NOTIFICATION' | 'SEARCH' | 'SHARE';
+    asset_type?: 'ASSET' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'SEQUENCE' | null;
+    date?: string | null;
+    readonly id?: string | null;
+    metadata?: string | null;
+    operation_source?: '' | 'COLLECTION' | 'DISCOVERY' | 'EXTERNAL_SHARE' | 'NOTIFICATION' | 'SEARCH' | 'SHARE' | null;
     operation_type: 'APPROVE' | 'COMMENT' | 'CREATE' | 'DELETE' | 'EXIT' | 'PAUSE' | 'PLAY' | 'REFOCUS' | 'REJECT' | 'RENAME' | 'SEEK' | 'UNFOCUS' | 'VIEW';
-    readonly system_domain_id?: string;
+    readonly system_domain_id?: string | null;
     system_name: string;
-    time?: string;
+    time?: string | null;
     user_id: string;
 };
 
 export type AssetUsagesElasticSchema = {
-    count?: number;
-    date?: string;
-    readonly id?: string;
-    system_domain_id?: string;
+    count?: number | null;
+    date?: string | null;
+    readonly id?: string | null;
+    system_domain_id?: string | null;
 };
 
 export type AssetUsagesSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<AssetUsagesElasticSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<AssetUsagesElasticSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type AutomationRunSchema = {
-    readonly count?: number;
-    readonly date?: string;
-    readonly system_domain_id?: string;
+    readonly count?: number | null;
+    readonly date?: string | null;
+    readonly system_domain_id?: string | null;
 };
 
 export type AutomationRunsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<AutomationRunSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<AutomationRunSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type BillingCreditsSchema = {
-    auto_pay?: boolean;
-    readonly country?: string;
+    auto_pay?: boolean | null;
+    readonly country?: string | null;
     credits: number;
-    readonly currency?: string;
-    custom_message?: string;
-    readonly system_domain_id?: string;
-    readonly total?: string;
-    readonly vat?: number;
+    readonly currency?: string | null;
+    custom_message?: string | null;
+    readonly system_domain_id?: string | null;
+    readonly total?: string | null;
+    readonly vat?: number | null;
 };
 
 export type BillingCreditsVerifySchema = {
-    readonly charge?: string;
+    readonly charge?: string | null;
     invoice_id: string;
-    readonly system_domain_id?: string;
+    readonly system_domain_id?: string | null;
 };
 
 export type BillingCustomerCardSchema = {
@@ -77,9 +77,9 @@ export type BillingCustomerCardSchema = {
 };
 
 export type BillingCustomerSchema = {
-    business_vat_id?: string;
-    email?: string;
-    enable_subscription?: boolean;
+    business_vat_id?: string | null;
+    email?: string | null;
+    enable_subscription?: boolean | null;
     shipping: BillingCustomerShipping;
 };
 
@@ -118,21 +118,21 @@ export type BillingExpirationUpdateSchema = {
 };
 
 export type BillingReceiptSchema = {
-    receipt_url?: string;
+    receipt_url?: string | null;
 };
 
 export type BillingRecipientsSchema = {
-    emails?: Array<string>;
+    emails?: Array<string> | null;
 };
 
 export type BillingSchema = {
-    balance?: number;
-    consumption_subtype?: string;
-    consumption_type?: string;
-    currency?: 'EUR' | 'USD';
-    date?: string;
+    balance?: number | null;
+    consumption_subtype?: string | null;
+    consumption_type?: string | null;
+    currency?: 'EUR' | 'USD' | null;
+    date?: string | null;
     expiration_date?: string | null;
-    readonly id?: string;
+    readonly id?: string | null;
     label: string;
     price_list?: string | null;
     system_domain_id: string;
@@ -141,90 +141,90 @@ export type BillingSchema = {
 
 export type BillingSettingsSchema = {
     auto_refill_amount?: number | null;
-    enable_auto_top_up?: boolean;
+    enable_auto_top_up?: boolean | null;
     low_balance_trigger?: number | null;
 };
 
 export type BillingStatsSchema = {
-    current_balance?: number;
-    invoice_end_of_month?: boolean;
-    new_billing_enabled?: boolean;
-    stripe_id?: boolean;
-    system_domain_status?: 'EUR' | 'USD';
+    current_balance?: number | null;
+    invoice_end_of_month?: boolean | null;
+    new_billing_enabled?: boolean | null;
+    stripe_id?: boolean | null;
+    system_domain_status?: 'EUR' | 'USD' | null;
     system_domain_type: string;
     system_domain_warning_message: string;
 };
 
 export type BillingsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<BillingSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<BillingSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type CollectionUsageSchema = {
     collection_id: string;
-    date?: string;
-    readonly id?: string;
-    metadata?: string;
-    operation_source?: 'COLLECTION' | 'NOTIFICATION' | 'SEARCH';
+    date?: string | null;
+    readonly id?: string | null;
+    metadata?: string | null;
+    operation_source?: 'COLLECTION' | 'NOTIFICATION' | 'SEARCH' | null;
     operation_type: 'CREATE' | 'DELETE' | 'RENAME' | 'VIEW';
-    system_domain_id?: string;
+    system_domain_id?: string | null;
     system_name: string;
-    time?: string;
+    time?: string | null;
     user_id: string;
 };
 
 export type CollectionUsagesElasticSchema = {
-    count?: number;
-    date?: string;
-    readonly id?: string;
-    system_domain_id?: string;
+    count?: number | null;
+    date?: string | null;
+    readonly id?: string | null;
+    system_domain_id?: string | null;
 };
 
 export type CollectionUsagesSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<CollectionUsagesElasticSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<CollectionUsagesElasticSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type CreditsSchema = {
-    readonly country?: string;
+    readonly country?: string | null;
     credits: number;
-    readonly currency?: string;
-    readonly total?: number;
-    readonly vat?: number;
+    readonly currency?: string | null;
+    readonly total?: number | null;
+    readonly vat?: number | null;
 };
 
 export type CurrentUsageSchema = {
-    readonly automation_runs?: number;
-    readonly edge_transcoders?: number;
-    readonly external_storage?: number;
-    readonly images_analyzed?: number;
-    readonly images_face_recognition?: number;
-    readonly shield_enabled?: boolean;
+    readonly automation_runs?: number | null;
+    readonly edge_transcoders?: number | null;
+    readonly external_storage?: number | null;
+    readonly images_analyzed?: number | null;
+    readonly images_face_recognition?: number | null;
+    readonly shield_enabled?: boolean | null;
     readonly storage?: {
         [key: string]: unknown;
-    };
-    readonly storage_gateway_clusters?: number;
-    readonly storage_gateway_nodes?: number;
-    readonly transcription_hours?: number;
+    } | null;
+    readonly storage_gateway_clusters?: number | null;
+    readonly storage_gateway_nodes?: number | null;
+    readonly transcription_hours?: number | null;
     readonly users?: {
         [key: string]: unknown;
-    };
-    readonly video_analyzed_hours?: number;
-    readonly video_face_recognition_hours?: number;
+    } | null;
+    readonly video_analyzed_hours?: number | null;
+    readonly video_face_recognition_hours?: number | null;
 };
 
 export type DateFilterSchema = {
@@ -233,47 +233,47 @@ export type DateFilterSchema = {
 };
 
 export type ListObjectsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type LogsRecipientReadSchema = {
-    readonly id?: string;
+    readonly id?: string | null;
     method: 'AMAZON' | 'GOOGLE';
     name: string;
 };
 
 export type LogsRecipientSchema = {
-    readonly id?: string;
+    readonly id?: string | null;
     method: 'AMAZON' | 'GOOGLE';
     name: string;
 };
 
 export type LogsRecipientsSchema = {
-    readonly objects?: Array<LogsRecipientSchema>;
+    readonly objects?: Array<LogsRecipientSchema> | null;
 };
 
 export type PaygoCostsSchema = {
-    readonly analysis_cost?: number;
-    readonly automation_cost?: number;
-    readonly edge_transcoder_cost?: number;
-    readonly external_storage_cost?: number;
-    readonly face_recognition_cost?: number;
-    readonly shield_cost?: number;
+    readonly analysis_cost?: number | null;
+    readonly automation_cost?: number | null;
+    readonly edge_transcoder_cost?: number | null;
+    readonly external_storage_cost?: number | null;
+    readonly face_recognition_cost?: number | null;
+    readonly shield_cost?: number | null;
     readonly storage_costs?: {
         [key: string]: unknown;
-    };
-    readonly total_spend?: number;
-    readonly transcription_cost?: number;
+    } | null;
+    readonly total_spend?: number | null;
+    readonly transcription_cost?: number | null;
     readonly user_costs?: {
         [key: string]: unknown;
-    };
+    } | null;
 };
 
 export type PriceSchema = {
@@ -285,220 +285,220 @@ export type PriceSchema = {
 };
 
 export type PricesSchema = {
-    readonly objects?: Array<PriceSchema>;
+    readonly objects?: Array<PriceSchema> | null;
 };
 
 export type StorageAccessElasticSchema = {
-    bucket_name?: string;
-    bytes_received?: number;
-    bytes_sent?: number;
-    date?: string;
-    readonly id?: string;
-    operations?: number;
-    system_domain_id?: string;
+    bucket_name?: string | null;
+    bytes_received?: number | null;
+    bytes_sent?: number | null;
+    date?: string | null;
+    readonly id?: string | null;
+    operations?: number | null;
+    system_domain_id?: string | null;
 };
 
 export type StorageAccessSchema = {
     bucket_name: string;
-    bytes_received?: number;
-    bytes_sent?: number;
-    date?: string;
-    readonly id?: string;
+    bytes_received?: number | null;
+    bytes_sent?: number | null;
+    date?: string | null;
+    readonly id?: string | null;
     operation_type: string;
-    operations?: number;
+    operations?: number | null;
     storage_type: 'AZURE' | 'B2' | 'FILE' | 'FTP' | 'GCS' | 'HTTP' | 'OMMS' | 'S3' | 'SFTP' | 'TRANSFER';
-    system_domain_id?: string;
+    system_domain_id?: string | null;
     system_name: string;
 };
 
 export type StorageAccessesSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<StorageAccessElasticSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<StorageAccessElasticSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type StorageUsageSchema = {
     bucket_name: string;
-    bytes_stored?: number;
-    date?: string;
-    readonly id?: string;
+    bytes_stored?: number | null;
+    date?: string | null;
+    readonly id?: string | null;
     storage_type: 'AZURE' | 'B2' | 'FILE' | 'FTP' | 'GCS' | 'HTTP' | 'OMMS' | 'S3' | 'SFTP' | 'TRANSFER';
-    system_domain_id?: string;
+    system_domain_id?: string | null;
     system_name: string;
 };
 
 export type StorageUsagesElasticSchema = {
-    bucket_name?: string;
-    bytes_stored?: number;
-    date?: string;
-    readonly id?: string;
-    system_domain_id?: string;
+    bucket_name?: string | null;
+    bytes_stored?: number | null;
+    date?: string | null;
+    readonly id?: string | null;
+    system_domain_id?: string | null;
 };
 
 export type StorageUsagesSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<StorageUsagesElasticSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<StorageUsagesElasticSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type TranscoderUsageSchema = {
     adjusted_duration_seconds?: number | null;
-    date?: string;
+    date?: string | null;
     destination_bytes?: number | null;
     duration_seconds?: number | null;
-    readonly id?: string;
-    is_user_transcoder?: boolean;
+    readonly id?: string | null;
+    is_user_transcoder?: boolean | null;
     job_id?: string | null;
     object_id?: string | null;
     object_type?: string | null;
-    operation_type?: 'ANALYZE' | 'CONFORM' | 'EXTRACT_AUDIO' | 'EXTRACT_IMAGE' | 'FACE_RECOGNITION_IMAGE' | 'FACE_RECOGNITION_VIDEO' | 'MEDIAINFO' | 'TRANSCODE' | 'TRANSCODE_AUDIO' | 'TRANSCODE_IMAGE' | 'TRANSCODE_KEYFRAMES' | 'TRANSCODE_VIDEO' | 'TRANSCRIBE' | 'TRANSCRIBE_HUMAN';
+    operation_type?: 'ANALYZE' | 'CONFORM' | 'EXTRACT_AUDIO' | 'EXTRACT_IMAGE' | 'FACE_RECOGNITION_IMAGE' | 'FACE_RECOGNITION_VIDEO' | 'MEDIAINFO' | 'TRANSCODE' | 'TRANSCODE_AUDIO' | 'TRANSCODE_IMAGE' | 'TRANSCODE_KEYFRAMES' | 'TRANSCODE_VIDEO' | 'TRANSCRIBE' | 'TRANSCRIBE_HUMAN' | null;
     percent_done?: number | null;
     source_bytes?: number | null;
     status: 'ABORTED' | 'FAILED' | 'FINISHED';
-    readonly system_domain_id?: string;
+    readonly system_domain_id?: string | null;
     system_name: string;
-    time?: string;
+    time?: string | null;
     transcoder_type: 'AMAZON_REKOGNITION_IMAGE' | 'AMAZON_REKOGNITION_VIDEO' | 'AMAZON_TRANSCRIBE' | 'COLLECTION_KEYFRAMES' | 'ELEMENTAL_MEDIACONVERT' | 'ELEMENTAL_SERVER' | 'ENCODING_COM' | 'FACE_RECOGNITION' | 'FFMPEG' | 'FFMPEG_FIRST_FRAME' | 'FLICS' | 'GCVI_TRANSCRIPTION' | 'GOOGLE_VIDEO_INTELLIGENCE' | 'GOOGLE_VISION' | 'ICONIK_EDGE_TRANSCODER' | 'IMAGEMAGICK' | 'LIBREOFFICE' | 'MEDIAINFO' | 'NONE' | 'OPEN_GRAPH' | 'REV_AI_TRANSCRIPTION' | 'SUBTITLES' | 'TELESTREAM_CLOUD' | 'VANTAGE' | 'WILDMOKA' | 'ZENCODER';
 };
 
 export type TranscoderUsagesElasticSchema = {
-    count?: number;
-    date?: string;
-    destination_bytes?: number;
-    duration_seconds?: number;
-    readonly id?: string;
-    is_user_transcoder?: boolean;
-    operation_type?: 'ANALYZE' | 'CONFORM' | 'EXTRACT_AUDIO' | 'EXTRACT_IMAGE' | 'FACE_RECOGNITION_IMAGE' | 'FACE_RECOGNITION_VIDEO' | 'MEDIAINFO' | 'TRANSCODE' | 'TRANSCODE_AUDIO' | 'TRANSCODE_IMAGE' | 'TRANSCODE_KEYFRAMES' | 'TRANSCODE_VIDEO' | 'TRANSCRIBE' | 'TRANSCRIBE_HUMAN';
-    source_bytes?: number;
-    system_domain_id?: string;
+    count?: number | null;
+    date?: string | null;
+    destination_bytes?: number | null;
+    duration_seconds?: number | null;
+    readonly id?: string | null;
+    is_user_transcoder?: boolean | null;
+    operation_type?: 'ANALYZE' | 'CONFORM' | 'EXTRACT_AUDIO' | 'EXTRACT_IMAGE' | 'FACE_RECOGNITION_IMAGE' | 'FACE_RECOGNITION_VIDEO' | 'MEDIAINFO' | 'TRANSCODE' | 'TRANSCODE_AUDIO' | 'TRANSCODE_IMAGE' | 'TRANSCODE_KEYFRAMES' | 'TRANSCODE_VIDEO' | 'TRANSCRIBE' | 'TRANSCRIBE_HUMAN' | null;
+    source_bytes?: number | null;
+    system_domain_id?: string | null;
     transcoder_type: 'AMAZON_REKOGNITION_IMAGE' | 'AMAZON_REKOGNITION_VIDEO' | 'AMAZON_TRANSCRIBE' | 'COLLECTION_KEYFRAMES' | 'ELEMENTAL_MEDIACONVERT' | 'ELEMENTAL_SERVER' | 'ENCODING_COM' | 'FACE_RECOGNITION' | 'FFMPEG' | 'FFMPEG_FIRST_FRAME' | 'FLICS' | 'GCVI_TRANSCRIPTION' | 'GOOGLE_VIDEO_INTELLIGENCE' | 'GOOGLE_VISION' | 'ICONIK_EDGE_TRANSCODER' | 'IMAGEMAGICK' | 'LIBREOFFICE' | 'MEDIAINFO' | 'NONE' | 'OPEN_GRAPH' | 'REV_AI_TRANSCRIPTION' | 'SUBTITLES' | 'TELESTREAM_CLOUD' | 'VANTAGE' | 'WILDMOKA' | 'ZENCODER';
 };
 
 export type TranscoderUsagesSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<TranscoderUsagesElasticSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<TranscoderUsagesElasticSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type TransferStatsSchema = {
     bytes_sent: number;
-    ip?: string;
-    object_info?: string;
-    object_name?: string;
-    time_taken_us?: number;
+    ip?: string | null;
+    object_info?: string | null;
+    object_name?: string | null;
+    time_taken_us?: number | null;
 };
 
 export type UnpublishedUserAuditSchema = {
-    app_id?: string;
-    client_ip?: string;
-    date?: string;
-    readonly id?: string;
-    is_acting_as_user?: boolean;
+    app_id?: string | null;
+    client_ip?: string | null;
+    date?: string | null;
+    readonly id?: string | null;
+    is_acting_as_user?: boolean | null;
     log_recipient_id: string;
-    metadata?: string;
-    operation_result?: number;
+    metadata?: string | null;
+    operation_result?: number | null;
     operation_type: 'DELETE' | 'GET' | 'OPTIONS' | 'PATCH' | 'POST' | 'PUT';
-    original_user_id?: string;
-    payload?: string;
-    request_id?: string;
-    resource?: string;
-    share_id?: string;
-    share_user_id?: string;
-    sudo?: boolean;
-    system_domain_id?: string;
+    original_user_id?: string | null;
+    payload?: string | null;
+    request_id?: string | null;
+    resource?: string | null;
+    share_id?: string | null;
+    share_user_id?: string | null;
+    sudo?: boolean | null;
+    system_domain_id?: string | null;
     system_name: string;
-    time?: string;
-    user_agent?: string;
-    user_id?: string;
+    time?: string | null;
+    user_agent?: string | null;
+    user_id?: string | null;
 };
 
 export type UserAuditSchema = {
-    app_id?: string;
-    client_ip?: string;
-    date?: string;
-    readonly id?: string;
-    is_acting_as_user?: boolean;
-    metadata?: string;
-    operation_result?: number;
+    app_id?: string | null;
+    client_ip?: string | null;
+    date?: string | null;
+    readonly id?: string | null;
+    is_acting_as_user?: boolean | null;
+    metadata?: string | null;
+    operation_result?: number | null;
     operation_type: 'DELETE' | 'GET' | 'OPTIONS' | 'PATCH' | 'POST' | 'PUT';
-    original_user_id?: string;
-    payload?: string;
-    request_id?: string;
-    resource?: string;
-    share_id?: string;
-    share_user_id?: string;
-    sudo?: boolean;
-    system_domain_id?: string;
+    original_user_id?: string | null;
+    payload?: string | null;
+    request_id?: string | null;
+    resource?: string | null;
+    share_id?: string | null;
+    share_user_id?: string | null;
+    sudo?: boolean | null;
+    system_domain_id?: string | null;
     system_name: string;
-    time?: string;
-    user_agent?: string;
-    user_id?: string;
+    time?: string | null;
+    user_agent?: string | null;
+    user_id?: string | null;
 };
 
 export type UserUsagesDetailedSchema = {
-    date?: string;
-    system_domain_id?: string;
-    type?: string;
-    user_id?: string;
+    date?: string | null;
+    system_domain_id?: string | null;
+    type?: string | null;
+    user_id?: string | null;
 };
 
 export type UserUsagesElasticSchema = {
-    count?: number;
-    date?: string;
-    readonly id?: string;
-    system_domain_id?: string;
-    type?: string;
-    user_email?: string;
-    user_id?: string;
-    user_name?: string;
+    count?: number | null;
+    date?: string | null;
+    readonly id?: string | null;
+    system_domain_id?: string | null;
+    type?: string | null;
+    user_email?: string | null;
+    user_id?: string | null;
+    user_name?: string | null;
 };
 
 export type UserUsagesSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<UserUsagesElasticSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<UserUsagesElasticSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type AssetUsageSchemaWritable = {
     asset_id: string;
-    asset_type?: 'ASSET' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'SEQUENCE';
-    date?: string;
-    metadata?: string;
-    operation_source?: '' | 'COLLECTION' | 'DISCOVERY' | 'EXTERNAL_SHARE' | 'NOTIFICATION' | 'SEARCH' | 'SHARE';
+    asset_type?: 'ASSET' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'SEQUENCE' | null;
+    date?: string | null;
+    metadata?: string | null;
+    operation_source?: '' | 'COLLECTION' | 'DISCOVERY' | 'EXTERNAL_SHARE' | 'NOTIFICATION' | 'SEARCH' | 'SHARE' | null;
     operation_type: 'APPROVE' | 'COMMENT' | 'CREATE' | 'DELETE' | 'EXIT' | 'PAUSE' | 'PLAY' | 'REFOCUS' | 'REJECT' | 'RENAME' | 'SEEK' | 'UNFOCUS' | 'VIEW';
     system_name: string;
-    time?: string;
+    time?: string | null;
     user_id: string;
 };
 
 export type AssetUsagesElasticSchemaWritable = {
-    count?: number;
-    date?: string;
-    system_domain_id?: string;
+    count?: number | null;
+    date?: string | null;
+    system_domain_id?: string | null;
 };
 
 export type AssetUsagesSchemaWritable = {
@@ -506,9 +506,9 @@ export type AssetUsagesSchemaWritable = {
 };
 
 export type BillingCreditsSchemaWritable = {
-    auto_pay?: boolean;
+    auto_pay?: boolean | null;
     credits: number;
-    custom_message?: string;
+    custom_message?: string | null;
 };
 
 export type BillingCreditsVerifySchemaWritable = {
@@ -516,11 +516,11 @@ export type BillingCreditsVerifySchemaWritable = {
 };
 
 export type BillingSchemaWritable = {
-    balance?: number;
-    consumption_subtype?: string;
-    consumption_type?: string;
-    currency?: 'EUR' | 'USD';
-    date?: string;
+    balance?: number | null;
+    consumption_subtype?: string | null;
+    consumption_type?: string | null;
+    currency?: 'EUR' | 'USD' | null;
+    date?: string | null;
     expiration_date?: string | null;
     label: string;
     price_list?: string | null;
@@ -534,20 +534,20 @@ export type BillingsSchemaWritable = {
 
 export type CollectionUsageSchemaWritable = {
     collection_id: string;
-    date?: string;
-    metadata?: string;
-    operation_source?: 'COLLECTION' | 'NOTIFICATION' | 'SEARCH';
+    date?: string | null;
+    metadata?: string | null;
+    operation_source?: 'COLLECTION' | 'NOTIFICATION' | 'SEARCH' | null;
     operation_type: 'CREATE' | 'DELETE' | 'RENAME' | 'VIEW';
-    system_domain_id?: string;
+    system_domain_id?: string | null;
     system_name: string;
-    time?: string;
+    time?: string | null;
     user_id: string;
 };
 
 export type CollectionUsagesElasticSchemaWritable = {
-    count?: number;
-    date?: string;
-    system_domain_id?: string;
+    count?: number | null;
+    date?: string | null;
+    system_domain_id?: string | null;
 };
 
 export type CollectionUsagesSchemaWritable = {
@@ -577,23 +577,23 @@ export type PricesSchemaWritable = {
 };
 
 export type StorageAccessElasticSchemaWritable = {
-    bucket_name?: string;
-    bytes_received?: number;
-    bytes_sent?: number;
-    date?: string;
-    operations?: number;
-    system_domain_id?: string;
+    bucket_name?: string | null;
+    bytes_received?: number | null;
+    bytes_sent?: number | null;
+    date?: string | null;
+    operations?: number | null;
+    system_domain_id?: string | null;
 };
 
 export type StorageAccessSchemaWritable = {
     bucket_name: string;
-    bytes_received?: number;
-    bytes_sent?: number;
-    date?: string;
+    bytes_received?: number | null;
+    bytes_sent?: number | null;
+    date?: string | null;
     operation_type: string;
-    operations?: number;
+    operations?: number | null;
     storage_type: 'AZURE' | 'B2' | 'FILE' | 'FTP' | 'GCS' | 'HTTP' | 'OMMS' | 'S3' | 'SFTP' | 'TRANSFER';
-    system_domain_id?: string;
+    system_domain_id?: string | null;
     system_name: string;
 };
 
@@ -603,18 +603,18 @@ export type StorageAccessesSchemaWritable = {
 
 export type StorageUsageSchemaWritable = {
     bucket_name: string;
-    bytes_stored?: number;
-    date?: string;
+    bytes_stored?: number | null;
+    date?: string | null;
     storage_type: 'AZURE' | 'B2' | 'FILE' | 'FTP' | 'GCS' | 'HTTP' | 'OMMS' | 'S3' | 'SFTP' | 'TRANSFER';
-    system_domain_id?: string;
+    system_domain_id?: string | null;
     system_name: string;
 };
 
 export type StorageUsagesElasticSchemaWritable = {
-    bucket_name?: string;
-    bytes_stored?: number;
-    date?: string;
-    system_domain_id?: string;
+    bucket_name?: string | null;
+    bytes_stored?: number | null;
+    date?: string | null;
+    system_domain_id?: string | null;
 };
 
 export type StorageUsagesSchemaWritable = {
@@ -623,31 +623,31 @@ export type StorageUsagesSchemaWritable = {
 
 export type TranscoderUsageSchemaWritable = {
     adjusted_duration_seconds?: number | null;
-    date?: string;
+    date?: string | null;
     destination_bytes?: number | null;
     duration_seconds?: number | null;
-    is_user_transcoder?: boolean;
+    is_user_transcoder?: boolean | null;
     job_id?: string | null;
     object_id?: string | null;
     object_type?: string | null;
-    operation_type?: 'ANALYZE' | 'CONFORM' | 'EXTRACT_AUDIO' | 'EXTRACT_IMAGE' | 'FACE_RECOGNITION_IMAGE' | 'FACE_RECOGNITION_VIDEO' | 'MEDIAINFO' | 'TRANSCODE' | 'TRANSCODE_AUDIO' | 'TRANSCODE_IMAGE' | 'TRANSCODE_KEYFRAMES' | 'TRANSCODE_VIDEO' | 'TRANSCRIBE' | 'TRANSCRIBE_HUMAN';
+    operation_type?: 'ANALYZE' | 'CONFORM' | 'EXTRACT_AUDIO' | 'EXTRACT_IMAGE' | 'FACE_RECOGNITION_IMAGE' | 'FACE_RECOGNITION_VIDEO' | 'MEDIAINFO' | 'TRANSCODE' | 'TRANSCODE_AUDIO' | 'TRANSCODE_IMAGE' | 'TRANSCODE_KEYFRAMES' | 'TRANSCODE_VIDEO' | 'TRANSCRIBE' | 'TRANSCRIBE_HUMAN' | null;
     percent_done?: number | null;
     source_bytes?: number | null;
     status: 'ABORTED' | 'FAILED' | 'FINISHED';
     system_name: string;
-    time?: string;
+    time?: string | null;
     transcoder_type: 'AMAZON_REKOGNITION_IMAGE' | 'AMAZON_REKOGNITION_VIDEO' | 'AMAZON_TRANSCRIBE' | 'COLLECTION_KEYFRAMES' | 'ELEMENTAL_MEDIACONVERT' | 'ELEMENTAL_SERVER' | 'ENCODING_COM' | 'FACE_RECOGNITION' | 'FFMPEG' | 'FFMPEG_FIRST_FRAME' | 'FLICS' | 'GCVI_TRANSCRIPTION' | 'GOOGLE_VIDEO_INTELLIGENCE' | 'GOOGLE_VISION' | 'ICONIK_EDGE_TRANSCODER' | 'IMAGEMAGICK' | 'LIBREOFFICE' | 'MEDIAINFO' | 'NONE' | 'OPEN_GRAPH' | 'REV_AI_TRANSCRIPTION' | 'SUBTITLES' | 'TELESTREAM_CLOUD' | 'VANTAGE' | 'WILDMOKA' | 'ZENCODER';
 };
 
 export type TranscoderUsagesElasticSchemaWritable = {
-    count?: number;
-    date?: string;
-    destination_bytes?: number;
-    duration_seconds?: number;
-    is_user_transcoder?: boolean;
-    operation_type?: 'ANALYZE' | 'CONFORM' | 'EXTRACT_AUDIO' | 'EXTRACT_IMAGE' | 'FACE_RECOGNITION_IMAGE' | 'FACE_RECOGNITION_VIDEO' | 'MEDIAINFO' | 'TRANSCODE' | 'TRANSCODE_AUDIO' | 'TRANSCODE_IMAGE' | 'TRANSCODE_KEYFRAMES' | 'TRANSCODE_VIDEO' | 'TRANSCRIBE' | 'TRANSCRIBE_HUMAN';
-    source_bytes?: number;
-    system_domain_id?: string;
+    count?: number | null;
+    date?: string | null;
+    destination_bytes?: number | null;
+    duration_seconds?: number | null;
+    is_user_transcoder?: boolean | null;
+    operation_type?: 'ANALYZE' | 'CONFORM' | 'EXTRACT_AUDIO' | 'EXTRACT_IMAGE' | 'FACE_RECOGNITION_IMAGE' | 'FACE_RECOGNITION_VIDEO' | 'MEDIAINFO' | 'TRANSCODE' | 'TRANSCODE_AUDIO' | 'TRANSCODE_IMAGE' | 'TRANSCODE_KEYFRAMES' | 'TRANSCODE_VIDEO' | 'TRANSCRIBE' | 'TRANSCRIBE_HUMAN' | null;
+    source_bytes?: number | null;
+    system_domain_id?: string | null;
     transcoder_type: 'AMAZON_REKOGNITION_IMAGE' | 'AMAZON_REKOGNITION_VIDEO' | 'AMAZON_TRANSCRIBE' | 'COLLECTION_KEYFRAMES' | 'ELEMENTAL_MEDIACONVERT' | 'ELEMENTAL_SERVER' | 'ENCODING_COM' | 'FACE_RECOGNITION' | 'FFMPEG' | 'FFMPEG_FIRST_FRAME' | 'FLICS' | 'GCVI_TRANSCRIPTION' | 'GOOGLE_VIDEO_INTELLIGENCE' | 'GOOGLE_VISION' | 'ICONIK_EDGE_TRANSCODER' | 'IMAGEMAGICK' | 'LIBREOFFICE' | 'MEDIAINFO' | 'NONE' | 'OPEN_GRAPH' | 'REV_AI_TRANSCRIPTION' | 'SUBTITLES' | 'TELESTREAM_CLOUD' | 'VANTAGE' | 'WILDMOKA' | 'ZENCODER';
 };
 
@@ -656,58 +656,58 @@ export type TranscoderUsagesSchemaWritable = {
 };
 
 export type UnpublishedUserAuditSchemaWritable = {
-    app_id?: string;
-    client_ip?: string;
-    date?: string;
-    is_acting_as_user?: boolean;
+    app_id?: string | null;
+    client_ip?: string | null;
+    date?: string | null;
+    is_acting_as_user?: boolean | null;
     log_recipient_id: string;
-    metadata?: string;
-    operation_result?: number;
+    metadata?: string | null;
+    operation_result?: number | null;
     operation_type: 'DELETE' | 'GET' | 'OPTIONS' | 'PATCH' | 'POST' | 'PUT';
-    original_user_id?: string;
-    payload?: string;
-    request_id?: string;
-    resource?: string;
-    share_id?: string;
-    share_user_id?: string;
-    sudo?: boolean;
-    system_domain_id?: string;
+    original_user_id?: string | null;
+    payload?: string | null;
+    request_id?: string | null;
+    resource?: string | null;
+    share_id?: string | null;
+    share_user_id?: string | null;
+    sudo?: boolean | null;
+    system_domain_id?: string | null;
     system_name: string;
-    time?: string;
-    user_agent?: string;
-    user_id?: string;
+    time?: string | null;
+    user_agent?: string | null;
+    user_id?: string | null;
 };
 
 export type UserAuditSchemaWritable = {
-    app_id?: string;
-    client_ip?: string;
-    date?: string;
-    is_acting_as_user?: boolean;
-    metadata?: string;
-    operation_result?: number;
+    app_id?: string | null;
+    client_ip?: string | null;
+    date?: string | null;
+    is_acting_as_user?: boolean | null;
+    metadata?: string | null;
+    operation_result?: number | null;
     operation_type: 'DELETE' | 'GET' | 'OPTIONS' | 'PATCH' | 'POST' | 'PUT';
-    original_user_id?: string;
-    payload?: string;
-    request_id?: string;
-    resource?: string;
-    share_id?: string;
-    share_user_id?: string;
-    sudo?: boolean;
-    system_domain_id?: string;
+    original_user_id?: string | null;
+    payload?: string | null;
+    request_id?: string | null;
+    resource?: string | null;
+    share_id?: string | null;
+    share_user_id?: string | null;
+    sudo?: boolean | null;
+    system_domain_id?: string | null;
     system_name: string;
-    time?: string;
-    user_agent?: string;
-    user_id?: string;
+    time?: string | null;
+    user_agent?: string | null;
+    user_id?: string | null;
 };
 
 export type UserUsagesElasticSchemaWritable = {
-    count?: number;
-    date?: string;
-    system_domain_id?: string;
-    type?: string;
-    user_email?: string;
-    user_id?: string;
-    user_name?: string;
+    count?: number | null;
+    date?: string | null;
+    system_domain_id?: string | null;
+    type?: string | null;
+    user_email?: string | null;
+    user_id?: string | null;
+    user_name?: string | null;
 };
 
 export type UserUsagesSchemaWritable = {
@@ -2673,8 +2673,8 @@ export type PostSystemLogsRecipientsByLogsRecipientIdResponses = {
      * Returns a document describing storage access
      */
     200: {
-        access_check?: boolean;
-        error_message?: string;
+        access_check?: boolean | null;
+        error_message?: string | null;
     };
 };
 

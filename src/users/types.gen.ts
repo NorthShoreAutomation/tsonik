@@ -16,64 +16,67 @@ export type BaseQueryParamsSchema = {
     /**
      * A comma separated list of fieldnames with order (asc/desc)
      */
-    sort?: string;
+    sort?: string | null;
 };
 
 export type DomainUsersByEmailSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly mfa_methods?: Array<'MAIL_2SV' | 'TOTP'>;
-    readonly mfa_required?: boolean;
-    readonly next_url?: string;
-    readonly objects?: Array<UserElastic>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly mfa_methods?: Array<'MAIL_2SV' | 'TOTP'> | null;
+    readonly mfa_required?: boolean | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<UserElastic> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type GroupBaseSchema = {
-    alias?: string;
-    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
-    description?: string;
+    alias?: string | null;
+    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD' | null;
+    description?: string | null;
     external_id?: string | null;
-    readonly group_type?: 'ROLE_GROUP' | 'TEAM';
-    readonly id?: string;
-    readonly is_legacy_everyone?: boolean;
-    readonly is_saml_group?: boolean;
+    group_type?: 'ROLE_GROUP' | 'TEAM' | null;
+    readonly id?: string | null;
+    readonly is_legacy_everyone?: boolean | null;
+    readonly is_saml_group?: boolean | null;
     name: string;
     saml_primary_group_priority?: number | null;
 };
 
 export type GroupCreateSchema = {
-    alias?: string;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
-    description?: string;
+    alias?: string | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD' | null;
+    description?: string | null;
     external_id?: string | null;
-    readonly group_type?: 'ROLE_GROUP' | 'TEAM';
-    readonly id?: string;
-    readonly is_legacy_everyone?: boolean;
-    readonly is_saml_group?: boolean;
+    group_type?: 'ROLE_GROUP' | 'TEAM' | null;
+    readonly id?: string | null;
+    readonly is_legacy_everyone?: boolean | null;
+    readonly is_saml_group?: boolean | null;
     name: string;
     role_categories?: RoleCategories | null;
-    roles?: Array<string>;
+    roles?: Array<string> | null;
     saml_primary_group_priority?: number | null;
 };
 
 export type GroupElasticSchema = {
-    alias?: string;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
-    description?: string;
+    alias?: string | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD' | null;
+    description?: string | null;
     external_id?: string | null;
-    readonly group_type?: 'ROLE_GROUP' | 'TEAM';
-    readonly id?: string;
-    readonly is_legacy_everyone?: boolean;
-    readonly is_saml_group?: boolean;
+    group_type?: 'ROLE_GROUP' | 'TEAM' | null;
+    readonly id?: string | null;
+    readonly is_legacy_everyone?: boolean | null;
+    readonly is_saml_group?: boolean | null;
     name: string;
     saml_primary_group_priority?: number | null;
 };
@@ -84,64 +87,64 @@ export type GroupMappingSchema = {
 };
 
 export type GroupMappingsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<GroupMappingSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<GroupMappingSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type GroupSchema = {
-    alias?: string;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
-    description?: string;
+    alias?: string | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD' | null;
+    description?: string | null;
     external_id?: string | null;
-    readonly group_type?: 'ROLE_GROUP' | 'TEAM';
-    readonly id?: string;
-    readonly is_legacy_everyone?: boolean;
-    readonly is_saml_group?: boolean;
-    readonly logo?: string;
+    group_type?: 'ROLE_GROUP' | 'TEAM' | null;
+    readonly id?: string | null;
+    readonly is_legacy_everyone?: boolean | null;
+    readonly is_saml_group?: boolean | null;
+    readonly logo?: string | null;
     name: string;
     role_categories?: RoleCategories | null;
-    roles?: Array<string>;
+    roles?: Array<string> | null;
     saml_primary_group_priority?: number | null;
 };
 
 export type GroupWithRolesBaseSchema = {
-    alias?: string;
-    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
-    description?: string;
+    alias?: string | null;
+    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD' | null;
+    description?: string | null;
     external_id?: string | null;
-    readonly group_type?: 'ROLE_GROUP' | 'TEAM';
-    readonly id?: string;
-    readonly is_legacy_everyone?: boolean;
-    readonly is_saml_group?: boolean;
+    group_type?: 'ROLE_GROUP' | 'TEAM' | null;
+    readonly id?: string | null;
+    readonly is_legacy_everyone?: boolean | null;
+    readonly is_saml_group?: boolean | null;
     name: string;
     role_categories?: RoleCategories | null;
-    roles?: Array<string>;
+    roles?: Array<string> | null;
     saml_primary_group_priority?: number | null;
 };
 
 export type GroupWithRolesElasticSchema = {
-    alias?: string;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
-    description?: string;
+    alias?: string | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD' | null;
+    description?: string | null;
     external_id?: string | null;
-    readonly group_type?: 'ROLE_GROUP' | 'TEAM';
-    readonly id?: string;
-    readonly is_legacy_everyone?: boolean;
-    readonly is_saml_group?: boolean;
+    group_type?: 'ROLE_GROUP' | 'TEAM' | null;
+    readonly id?: string | null;
+    readonly is_legacy_everyone?: boolean | null;
+    readonly is_saml_group?: boolean | null;
     name: string;
     role_categories?: RoleCategories | null;
-    roles?: Array<string>;
+    roles?: Array<string> | null;
     saml_primary_group_priority?: number | null;
 };
 
@@ -157,30 +160,33 @@ export type GroupsQueryParamsSchema = {
     /**
      * A comma separated list of fieldnames with order (asc/desc)
      */
-    sort?: string;
+    sort?: string | null;
 };
 
 export type GroupsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<GroupWithRolesElasticSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<GroupWithRolesElasticSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type ListObjectsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type MultiplatformUserPasswordEditSchema = {
@@ -195,11 +201,11 @@ export type MultiplatformUserSchema = {
 
 export type OtpEditInternalSchema = {
     email: string;
-    mfa_required?: boolean;
+    mfa_required?: boolean | null;
 };
 
 export type OtpEditSchema = {
-    mfa_required?: boolean;
+    mfa_required?: boolean | null;
     otp: string;
     otp_type: 'MAIL_2SV' | 'TOTP';
 };
@@ -225,100 +231,106 @@ export type PartnerDomainAccessSchema = {
 };
 
 export type ReindexGroupSchema = {
-    sync_to_another_dc?: boolean;
+    sync_to_another_dc?: boolean | null;
 };
 
 export type ReindexUserSchema = {
-    sync_to_another_dc?: boolean;
+    sync_to_another_dc?: boolean | null;
 };
 
 export type RoleCategories = {
-    assets_edit?: boolean;
-    billing?: boolean;
-    collaborate?: boolean;
-    core?: boolean;
-    download?: boolean;
-    face_recognition?: boolean;
-    integrations_admin?: boolean;
-    metadata_admin?: boolean;
-    organize?: boolean;
-    others?: boolean;
-    storage_admin?: boolean;
-    upload?: boolean;
-    users_groups_admin?: boolean;
+    assets_edit?: boolean | null;
+    billing?: boolean | null;
+    collaborate?: boolean | null;
+    core?: boolean | null;
+    download?: boolean | null;
+    face_recognition?: boolean | null;
+    integrations_admin?: boolean | null;
+    metadata_admin?: boolean | null;
+    organize?: boolean | null;
+    others?: boolean | null;
+    storage_admin?: boolean | null;
+    upload?: boolean | null;
+    users_groups_admin?: boolean | null;
 };
 
 export type RoleCategoriesSchema = {
-    assets_edit?: boolean;
-    billing?: boolean;
-    collaborate?: boolean;
-    core?: boolean;
-    download?: boolean;
-    face_recognition?: boolean;
-    integrations_admin?: boolean;
-    metadata_admin?: boolean;
-    organize?: boolean;
-    others?: boolean;
-    storage_admin?: boolean;
-    upload?: boolean;
-    users_groups_admin?: boolean;
+    assets_edit?: boolean | null;
+    billing?: boolean | null;
+    collaborate?: boolean | null;
+    core?: boolean | null;
+    download?: boolean | null;
+    face_recognition?: boolean | null;
+    integrations_admin?: boolean | null;
+    metadata_admin?: boolean | null;
+    organize?: boolean | null;
+    others?: boolean | null;
+    storage_admin?: boolean | null;
+    upload?: boolean | null;
+    users_groups_admin?: boolean | null;
 };
 
 export type RoleGroupSchema = {
-    alias?: string;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
-    description?: string;
+    alias?: string | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD' | null;
+    description?: string | null;
     external_id?: string | null;
-    readonly group_type?: 'ROLE_GROUP' | 'TEAM';
-    readonly id?: string;
-    readonly is_legacy_everyone?: boolean;
-    readonly is_saml_group?: boolean;
+    group_type?: 'ROLE_GROUP' | 'TEAM' | null;
+    readonly id?: string | null;
+    readonly is_legacy_everyone?: boolean | null;
+    readonly is_saml_group?: boolean | null;
     name: string;
     role_categories?: RoleCategoriesSchema | null;
-    roles?: Array<string>;
+    roles?: Array<string> | null;
     saml_primary_group_priority?: number | null;
 };
 
 export type RoleGroupsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<GroupWithRolesElasticSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<GroupWithRolesElasticSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type TeamSchema = {
-    alias?: string;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
-    description?: string;
+    alias?: string | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD' | null;
+    description?: string | null;
     external_id?: string | null;
-    readonly group_type?: 'ROLE_GROUP' | 'TEAM';
-    readonly id?: string;
-    readonly is_legacy_everyone?: boolean;
-    readonly is_saml_group?: boolean;
-    readonly logo?: string;
+    group_type?: 'ROLE_GROUP' | 'TEAM' | null;
+    readonly id?: string | null;
+    readonly is_legacy_everyone?: boolean | null;
+    readonly is_saml_group?: boolean | null;
+    readonly logo?: string | null;
     name: string;
     saml_primary_group_priority?: number | null;
 };
 
 export type TeamsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<GroupElasticSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<GroupElasticSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type UserBaseSchema = {
@@ -328,51 +340,51 @@ export type UserBaseSchema = {
     date_terms_accepted?: string | null;
     date_visited_dashboard?: string | null;
     date_welcomed?: string | null;
-    email?: string;
+    email?: string | null;
     email_marketing_consent?: boolean | null;
     first_name?: string | null;
-    groups?: Array<string>;
-    hide_email?: boolean;
-    hide_phone?: boolean;
-    readonly id?: string;
-    readonly identity_provider_id?: string;
-    is_admin?: boolean;
-    readonly is_super_admin?: boolean;
-    readonly is_super_admin_light?: boolean;
+    groups?: Array<string> | null;
+    hide_email?: boolean | null;
+    hide_phone?: boolean | null;
+    readonly id?: string | null;
+    readonly identity_provider_id?: string | null;
+    is_admin?: boolean | null;
+    readonly is_super_admin?: boolean | null;
+    readonly is_super_admin_light?: boolean | null;
     last_name?: string | null;
-    readonly last_successful_auth?: string;
-    readonly last_unsuccessful_auth?: string;
-    readonly last_web_login?: string;
+    readonly last_successful_auth?: string | null;
+    readonly last_unsuccessful_auth?: string | null;
+    readonly last_web_login?: string | null;
     metadata?: unknown;
-    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT';
-    readonly password_changed?: string;
-    phone?: string;
-    readonly photo?: string;
-    readonly photo_big?: string;
-    readonly photo_small?: string;
-    primary_group?: string;
-    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE';
-    readonly system_domain_id?: string;
-    system_domains?: Array<string>;
-    system_metadata?: UserSystemMetadata;
-    readonly system_name?: string;
+    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT' | null;
+    readonly password_changed?: string | null;
+    phone?: string | null;
+    readonly photo?: string | null;
+    readonly photo_big?: string | null;
+    readonly photo_small?: string | null;
+    primary_group?: string | null;
+    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE' | null;
+    readonly system_domain_id?: string | null;
+    system_domains?: Array<string> | null;
+    system_metadata?: UserSystemMetadata | null;
+    readonly system_name?: string | null;
     type: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
 };
 
 export type UserBasicElasticSchema = {
-    email?: string;
+    email?: string | null;
     first_name?: string | null;
-    readonly id?: string;
+    readonly id?: string | null;
     last_name?: string | null;
-    readonly photo?: string;
-    readonly photo_big?: string;
-    readonly photo_small?: string;
-    readonly photo_storage_id?: string;
+    readonly photo?: string | null;
+    readonly photo_big?: string | null;
+    readonly photo_small?: string | null;
+    readonly photo_storage_id?: string | null;
 };
 
 export type UserByEmailAndLoginTypeSchema = {
     email: string;
-    login_type?: 'PASSWORD' | 'SSO';
+    login_type?: 'PASSWORD' | 'SSO' | null;
 };
 
 export type UserByEmailSchema = {
@@ -381,9 +393,9 @@ export type UserByEmailSchema = {
 
 export type UserCreateSchema = {
     date_checklist_completed?: string | null;
-    readonly date_created?: string;
+    readonly date_created?: string | null;
     date_first_uploaded?: string | null;
-    readonly date_modified?: string;
+    readonly date_modified?: string | null;
     date_returned?: string | null;
     date_terms_accepted?: string | null;
     date_visited_dashboard?: string | null;
@@ -391,35 +403,35 @@ export type UserCreateSchema = {
     /**
      * Available only for admin users
      */
-    description?: string;
+    description?: string | null;
     email: string;
     email_marketing_consent?: boolean | null;
     first_name?: string | null;
-    groups?: Array<string>;
-    hide_email?: boolean;
-    hide_phone?: boolean;
-    readonly id?: string;
-    identity_provider_id?: string;
-    is_admin?: boolean;
-    readonly is_super_admin?: boolean;
-    readonly is_super_admin_light?: boolean;
+    groups?: Array<string> | null;
+    hide_email?: boolean | null;
+    hide_phone?: boolean | null;
+    readonly id?: string | null;
+    identity_provider_id?: string | null;
+    is_admin?: boolean | null;
+    readonly is_super_admin?: boolean | null;
+    readonly is_super_admin_light?: boolean | null;
     last_name?: string | null;
-    readonly last_successful_auth?: string;
-    readonly last_unsuccessful_auth?: string;
-    readonly last_web_login?: string;
+    readonly last_successful_auth?: string | null;
+    readonly last_unsuccessful_auth?: string | null;
+    readonly last_web_login?: string | null;
     metadata?: unknown;
-    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT';
-    readonly password_changed?: string;
-    phone?: string;
-    readonly photo?: string;
-    readonly photo_big?: string;
-    readonly photo_small?: string;
-    primary_group?: string;
-    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE';
-    readonly system_domain_id?: string;
-    system_domains?: Array<string>;
-    system_metadata?: UserSystemMetadata;
-    readonly system_name?: string;
+    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT' | null;
+    readonly password_changed?: string | null;
+    phone?: string | null;
+    readonly photo?: string | null;
+    readonly photo_big?: string | null;
+    readonly photo_small?: string | null;
+    primary_group?: string | null;
+    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE' | null;
+    readonly system_domain_id?: string | null;
+    system_domains?: Array<string> | null;
+    system_metadata?: UserSystemMetadata | null;
+    readonly system_name?: string | null;
     type: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
 };
 
@@ -433,35 +445,35 @@ export type UserEditInternalSchema = {
     /**
      * Available only for admin users
      */
-    description?: string;
-    email?: string;
+    description?: string | null;
+    email?: string | null;
     email_marketing_consent?: boolean | null;
     first_name?: string | null;
-    groups?: Array<string>;
-    hide_email?: boolean;
-    hide_phone?: boolean;
-    readonly id?: string;
-    readonly identity_provider_id?: string;
-    is_admin?: boolean;
-    readonly is_super_admin?: boolean;
-    readonly is_super_admin_light?: boolean;
+    groups?: Array<string> | null;
+    hide_email?: boolean | null;
+    hide_phone?: boolean | null;
+    readonly id?: string | null;
+    readonly identity_provider_id?: string | null;
+    is_admin?: boolean | null;
+    readonly is_super_admin?: boolean | null;
+    readonly is_super_admin_light?: boolean | null;
     last_name?: string | null;
-    last_successful_auth?: string;
-    last_unsuccessful_auth?: string;
-    last_web_login?: string;
+    last_successful_auth?: string | null;
+    last_unsuccessful_auth?: string | null;
+    last_web_login?: string | null;
     metadata?: unknown;
-    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT';
-    readonly password_changed?: string;
-    phone?: string;
-    readonly photo?: string;
-    readonly photo_big?: string;
-    readonly photo_small?: string;
-    primary_group?: string;
-    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE';
-    readonly system_domain_id?: string;
-    system_domains?: Array<string>;
-    system_metadata?: UserSystemMetadata;
-    readonly system_name?: string;
+    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT' | null;
+    readonly password_changed?: string | null;
+    phone?: string | null;
+    readonly photo?: string | null;
+    readonly photo_big?: string | null;
+    readonly photo_small?: string | null;
+    primary_group?: string | null;
+    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE' | null;
+    readonly system_domain_id?: string | null;
+    system_domains?: Array<string> | null;
+    system_metadata?: UserSystemMetadata | null;
+    readonly system_name?: string | null;
     type: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
 };
 
@@ -475,43 +487,43 @@ export type UserEditSchema = {
     /**
      * Available only for admin users
      */
-    description?: string;
-    email?: string;
+    description?: string | null;
+    email?: string | null;
     email_marketing_consent?: boolean | null;
     first_name?: string | null;
-    groups?: Array<string>;
-    hide_email?: boolean;
-    hide_phone?: boolean;
-    readonly id?: string;
-    readonly identity_provider_id?: string;
-    is_admin?: boolean;
-    readonly is_super_admin?: boolean;
-    readonly is_super_admin_light?: boolean;
+    groups?: Array<string> | null;
+    hide_email?: boolean | null;
+    hide_phone?: boolean | null;
+    readonly id?: string | null;
+    readonly identity_provider_id?: string | null;
+    is_admin?: boolean | null;
+    readonly is_super_admin?: boolean | null;
+    readonly is_super_admin_light?: boolean | null;
     last_name?: string | null;
-    readonly last_successful_auth?: string;
-    readonly last_unsuccessful_auth?: string;
-    readonly last_web_login?: string;
+    readonly last_successful_auth?: string | null;
+    readonly last_unsuccessful_auth?: string | null;
+    readonly last_web_login?: string | null;
     metadata?: unknown;
-    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT';
-    readonly password_changed?: string;
-    phone?: string;
-    readonly photo?: string;
-    readonly photo_big?: string;
-    readonly photo_small?: string;
-    primary_group?: string;
-    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE';
-    readonly system_domain_id?: string;
-    system_domains?: Array<string>;
-    system_metadata?: UserSystemMetadata;
-    readonly system_name?: string;
+    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT' | null;
+    readonly password_changed?: string | null;
+    phone?: string | null;
+    readonly photo?: string | null;
+    readonly photo_big?: string | null;
+    readonly photo_small?: string | null;
+    primary_group?: string | null;
+    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE' | null;
+    readonly system_domain_id?: string | null;
+    system_domains?: Array<string> | null;
+    system_metadata?: UserSystemMetadata | null;
+    readonly system_name?: string | null;
     type: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
 };
 
 export type UserElastic = {
     date_checklist_completed?: string | null;
-    readonly date_created?: string;
+    readonly date_created?: string | null;
     date_first_uploaded?: string | null;
-    readonly date_modified?: string;
+    readonly date_modified?: string | null;
     date_returned?: string | null;
     date_terms_accepted?: string | null;
     date_visited_dashboard?: string | null;
@@ -519,43 +531,43 @@ export type UserElastic = {
     /**
      * Available only for admin users
      */
-    description?: string;
-    email?: string;
+    description?: string | null;
+    email?: string | null;
     email_marketing_consent?: boolean | null;
     first_name?: string | null;
-    groups?: Array<string>;
-    hide_email?: boolean;
-    hide_phone?: boolean;
-    readonly id?: string;
-    readonly identity_provider_id?: string;
-    is_admin?: boolean;
-    readonly is_super_admin?: boolean;
-    readonly is_super_admin_light?: boolean;
+    groups?: Array<string> | null;
+    hide_email?: boolean | null;
+    hide_phone?: boolean | null;
+    readonly id?: string | null;
+    readonly identity_provider_id?: string | null;
+    is_admin?: boolean | null;
+    readonly is_super_admin?: boolean | null;
+    readonly is_super_admin_light?: boolean | null;
     last_name?: string | null;
-    readonly last_successful_auth?: string;
-    readonly last_unsuccessful_auth?: string;
-    readonly last_web_login?: string;
+    readonly last_successful_auth?: string | null;
+    readonly last_unsuccessful_auth?: string | null;
+    readonly last_web_login?: string | null;
     metadata?: unknown;
-    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT';
-    readonly password_changed?: string;
-    phone?: string;
-    readonly photo?: string;
-    readonly photo_big?: string;
-    readonly photo_small?: string;
-    primary_group?: string;
-    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE';
-    readonly system_domain_id?: string;
-    system_domains?: Array<string>;
-    system_metadata?: UserSystemMetadata;
-    readonly system_name?: string;
+    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT' | null;
+    readonly password_changed?: string | null;
+    phone?: string | null;
+    readonly photo?: string | null;
+    readonly photo_big?: string | null;
+    readonly photo_small?: string | null;
+    primary_group?: string | null;
+    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE' | null;
+    readonly system_domain_id?: string | null;
+    system_domains?: Array<string> | null;
+    system_metadata?: UserSystemMetadata | null;
+    readonly system_name?: string | null;
     type: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
 };
 
 export type UserElasticSchema = {
     date_checklist_completed?: string | null;
-    readonly date_created?: string;
+    readonly date_created?: string | null;
     date_first_uploaded?: string | null;
-    readonly date_modified?: string;
+    readonly date_modified?: string | null;
     date_returned?: string | null;
     date_terms_accepted?: string | null;
     date_visited_dashboard?: string | null;
@@ -563,55 +575,55 @@ export type UserElasticSchema = {
     /**
      * Available only for admin users
      */
-    description?: string;
-    email?: string;
+    description?: string | null;
+    email?: string | null;
     email_marketing_consent?: boolean | null;
     first_name?: string | null;
-    groups?: Array<string>;
-    hide_email?: boolean;
-    hide_phone?: boolean;
-    readonly id?: string;
-    readonly identity_provider_id?: string;
-    is_admin?: boolean;
-    readonly is_super_admin?: boolean;
-    readonly is_super_admin_light?: boolean;
+    groups?: Array<string> | null;
+    hide_email?: boolean | null;
+    hide_phone?: boolean | null;
+    readonly id?: string | null;
+    readonly identity_provider_id?: string | null;
+    is_admin?: boolean | null;
+    readonly is_super_admin?: boolean | null;
+    readonly is_super_admin_light?: boolean | null;
     last_name?: string | null;
-    readonly last_successful_auth?: string;
-    readonly last_unsuccessful_auth?: string;
-    readonly last_web_login?: string;
+    readonly last_successful_auth?: string | null;
+    readonly last_unsuccessful_auth?: string | null;
+    readonly last_web_login?: string | null;
     metadata?: unknown;
-    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT';
-    readonly password_changed?: string;
-    phone?: string;
-    readonly photo?: string;
-    readonly photo_big?: string;
-    readonly photo_small?: string;
-    primary_group?: string;
-    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE';
-    readonly system_domain_id?: string;
-    system_domains?: Array<string>;
-    system_metadata?: UserSystemMetadata;
-    readonly system_name?: string;
+    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT' | null;
+    readonly password_changed?: string | null;
+    phone?: string | null;
+    readonly photo?: string | null;
+    readonly photo_big?: string | null;
+    readonly photo_small?: string | null;
+    primary_group?: string | null;
+    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE' | null;
+    readonly system_domain_id?: string | null;
+    system_domains?: Array<string> | null;
+    system_metadata?: UserSystemMetadata | null;
+    readonly system_name?: string | null;
     type: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
 };
 
 export type UserInviteRegisterRequestSchema = {
     email: string;
     first_name: string;
-    last_name?: string;
+    last_name?: string | null;
     token: string;
 };
 
 export type UserInviteRegisterResponseSchema = {
-    readonly id?: string;
-    readonly is_existing_user?: boolean;
+    readonly id?: string | null;
+    readonly is_existing_user?: boolean | null;
 };
 
 export type UserInviteRequestLinkSchema = {
-    groups?: Array<string>;
-    is_admin?: boolean;
+    groups?: Array<string> | null;
+    is_admin?: boolean | null;
     primary_group: string;
-    type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
+    type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD' | null;
 };
 
 export type UserLoginSchema = {
@@ -627,14 +639,14 @@ export type UserOtpEditMultiPlatformSchema = {
 };
 
 export type UserRolesSchema = {
-    objects?: Array<string>;
+    objects?: Array<string> | null;
 };
 
 export type UserSamlCreateSchema = {
     date_checklist_completed?: string | null;
-    readonly date_created?: string;
+    readonly date_created?: string | null;
     date_first_uploaded?: string | null;
-    readonly date_modified?: string;
+    readonly date_modified?: string | null;
     date_returned?: string | null;
     date_terms_accepted?: string | null;
     date_visited_dashboard?: string | null;
@@ -642,33 +654,33 @@ export type UserSamlCreateSchema = {
     email: string;
     email_marketing_consent?: boolean | null;
     first_name?: string | null;
-    group_names?: Array<string>;
-    groups?: Array<string>;
-    hide_email?: boolean;
-    hide_phone?: boolean;
-    readonly id?: string;
-    identity_provider_id?: string;
-    is_admin?: boolean;
-    readonly is_super_admin?: boolean;
-    readonly is_super_admin_light?: boolean;
+    group_names?: Array<string> | null;
+    groups?: Array<string> | null;
+    hide_email?: boolean | null;
+    hide_phone?: boolean | null;
+    readonly id?: string | null;
+    identity_provider_id?: string | null;
+    is_admin?: boolean | null;
+    readonly is_super_admin?: boolean | null;
+    readonly is_super_admin_light?: boolean | null;
     last_name?: string | null;
-    readonly last_successful_auth?: string;
-    readonly last_unsuccessful_auth?: string;
-    readonly last_web_login?: string;
+    readonly last_successful_auth?: string | null;
+    readonly last_unsuccessful_auth?: string | null;
+    readonly last_web_login?: string | null;
     metadata?: unknown;
-    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT';
-    readonly password_changed?: string;
-    phone?: string;
-    readonly photo?: string;
-    readonly photo_big?: string;
-    readonly photo_small?: string;
-    primary_group?: string;
-    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE';
-    readonly system_domain_id?: string;
-    system_domains?: Array<string>;
-    system_metadata?: UserSystemMetadata;
-    readonly system_name?: string;
-    type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
+    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT' | null;
+    readonly password_changed?: string | null;
+    phone?: string | null;
+    readonly photo?: string | null;
+    readonly photo_big?: string | null;
+    readonly photo_small?: string | null;
+    primary_group?: string | null;
+    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE' | null;
+    readonly system_domain_id?: string | null;
+    system_domains?: Array<string> | null;
+    system_metadata?: UserSystemMetadata | null;
+    readonly system_name?: string | null;
+    type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD' | null;
 };
 
 export type UserSamlIdpUpdateSchema = {
@@ -678,18 +690,18 @@ export type UserSamlIdpUpdateSchema = {
 
 export type UserSamlUpdateSchema = {
     email: string;
-    first_name?: string;
-    group_names?: Array<string>;
-    identity_provider_id?: string;
-    last_name?: string;
+    first_name?: string | null;
+    group_names?: Array<string> | null;
+    identity_provider_id?: string | null;
+    last_name?: string | null;
 };
 
 export type UserSchema = {
-    readonly app_id?: string;
+    readonly app_id?: string | null;
     date_checklist_completed?: string | null;
-    readonly date_created?: string;
+    readonly date_created?: string | null;
     date_first_uploaded?: string | null;
-    readonly date_modified?: string;
+    readonly date_modified?: string | null;
     date_returned?: string | null;
     date_terms_accepted?: string | null;
     date_visited_dashboard?: string | null;
@@ -697,62 +709,62 @@ export type UserSchema = {
     /**
      * Available only for admin users
      */
-    description?: string;
-    readonly disable_mixpanel?: boolean;
-    email?: string;
+    description?: string | null;
+    readonly disable_mixpanel?: boolean | null;
+    email?: string | null;
     email_marketing_consent?: boolean | null;
     first_name?: string | null;
-    groups?: Array<string>;
-    readonly has_domain_been_migrated_to_simplified_acls?: boolean;
-    hide_email?: boolean;
-    hide_phone?: boolean;
-    readonly id?: string;
-    readonly identity_provider_id?: string;
-    is_admin?: boolean;
-    readonly is_super_admin?: boolean;
-    readonly is_super_admin_light?: boolean;
+    groups?: Array<string> | null;
+    readonly has_domain_been_migrated_to_simplified_acls?: boolean | null;
+    hide_email?: boolean | null;
+    hide_phone?: boolean | null;
+    readonly id?: string | null;
+    readonly identity_provider_id?: string | null;
+    is_admin?: boolean | null;
+    readonly is_super_admin?: boolean | null;
+    readonly is_super_admin_light?: boolean | null;
     last_name?: string | null;
-    readonly last_successful_auth?: string;
-    readonly last_unsuccessful_auth?: string;
-    readonly last_web_login?: string;
+    readonly last_successful_auth?: string | null;
+    readonly last_unsuccessful_auth?: string | null;
+    readonly last_web_login?: string | null;
     metadata?: unknown;
-    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT';
-    readonly password_changed?: string;
-    phone?: string;
-    readonly photo?: string;
-    readonly photo_big?: string;
-    readonly photo_small?: string;
-    readonly photo_storage_id?: string;
-    primary_group?: string;
-    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE';
-    readonly system_domain_id?: string;
-    system_domains?: Array<string>;
-    system_metadata?: UserSystemMetadata;
-    readonly system_name?: string;
+    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT' | null;
+    readonly password_changed?: string | null;
+    phone?: string | null;
+    readonly photo?: string | null;
+    readonly photo_big?: string | null;
+    readonly photo_small?: string | null;
+    readonly photo_storage_id?: string | null;
+    primary_group?: string | null;
+    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE' | null;
+    readonly system_domain_id?: string | null;
+    system_domains?: Array<string> | null;
+    system_metadata?: UserSystemMetadata | null;
+    readonly system_name?: string | null;
     type: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
 };
 
 export type UserSystemMetadata = {
-    readonly saml_created?: boolean;
+    readonly saml_created?: boolean | null;
 };
 
 export type UserSystemMetadataSchema = {
-    readonly saml_created?: boolean;
+    readonly saml_created?: boolean | null;
 };
 
 export type UserTypeCountsSchema = {
-    readonly BROWSE_API_ONLY?: number;
-    readonly BROWSE_ONLY?: number;
-    readonly POWER?: number;
-    readonly STANDARD?: number;
+    readonly BROWSE_API_ONLY?: number | null;
+    readonly BROWSE_ONLY?: number | null;
+    readonly POWER?: number | null;
+    readonly STANDARD?: number | null;
 };
 
 export type UserWithSeparatedGroupsSchema = {
-    readonly app_id?: string;
+    readonly app_id?: string | null;
     date_checklist_completed?: string | null;
-    readonly date_created?: string;
+    readonly date_created?: string | null;
     date_first_uploaded?: string | null;
-    readonly date_modified?: string;
+    readonly date_modified?: string | null;
     date_returned?: string | null;
     date_terms_accepted?: string | null;
     date_visited_dashboard?: string | null;
@@ -760,53 +772,56 @@ export type UserWithSeparatedGroupsSchema = {
     /**
      * Available only for admin users
      */
-    description?: string;
-    readonly disable_mixpanel?: boolean;
-    email?: string;
+    description?: string | null;
+    readonly disable_mixpanel?: boolean | null;
+    email?: string | null;
     email_marketing_consent?: boolean | null;
     first_name?: string | null;
-    groups?: Array<string>;
-    readonly has_domain_been_migrated_to_simplified_acls?: boolean;
-    hide_email?: boolean;
-    hide_phone?: boolean;
-    readonly id?: string;
-    readonly identity_provider_id?: string;
-    is_admin?: boolean;
-    readonly is_super_admin?: boolean;
-    readonly is_super_admin_light?: boolean;
+    groups?: Array<string> | null;
+    readonly has_domain_been_migrated_to_simplified_acls?: boolean | null;
+    hide_email?: boolean | null;
+    hide_phone?: boolean | null;
+    readonly id?: string | null;
+    readonly identity_provider_id?: string | null;
+    is_admin?: boolean | null;
+    readonly is_super_admin?: boolean | null;
+    readonly is_super_admin_light?: boolean | null;
     last_name?: string | null;
-    readonly last_successful_auth?: string;
-    readonly last_unsuccessful_auth?: string;
-    readonly last_web_login?: string;
+    readonly last_successful_auth?: string | null;
+    readonly last_unsuccessful_auth?: string | null;
+    readonly last_web_login?: string | null;
     metadata?: unknown;
-    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT';
-    readonly password_changed?: string;
-    phone?: string;
-    readonly photo?: string;
-    readonly photo_big?: string;
-    readonly photo_small?: string;
-    readonly photo_storage_id?: string;
-    primary_group?: string;
-    readonly role_groups?: Array<string>;
-    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE';
-    readonly system_domain_id?: string;
-    system_domains?: Array<string>;
-    system_metadata?: UserSystemMetadataSchema;
-    readonly system_name?: string;
-    readonly teams?: Array<string>;
+    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT' | null;
+    readonly password_changed?: string | null;
+    phone?: string | null;
+    readonly photo?: string | null;
+    readonly photo_big?: string | null;
+    readonly photo_small?: string | null;
+    readonly photo_storage_id?: string | null;
+    primary_group?: string | null;
+    readonly role_groups?: Array<string> | null;
+    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE' | null;
+    readonly system_domain_id?: string | null;
+    system_domains?: Array<string> | null;
+    system_metadata?: UserSystemMetadataSchema | null;
+    readonly system_name?: string | null;
+    readonly teams?: Array<string> | null;
     type: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
 };
 
 export type UsersBasicSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<UserBasicElasticSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<UserBasicElasticSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type UsersByEmailsSchema = {
@@ -825,51 +840,59 @@ export type UsersQueryParamsSchema = {
     /**
      * A comma separated list of fieldnames with order (asc/desc)
      */
-    sort?: string;
+    sort?: string | null;
 };
 
 export type UsersSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<UserElasticSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<UserElasticSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type DomainUsersByEmailSchemaWritable = {
-    [key: string]: unknown;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
 };
 
 export type GroupBaseSchemaWritable = {
-    alias?: string;
-    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
-    description?: string;
+    alias?: string | null;
+    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD' | null;
+    description?: string | null;
     external_id?: string | null;
+    group_type?: unknown;
     name: string;
     saml_primary_group_priority?: number | null;
 };
 
 export type GroupCreateSchemaWritable = {
-    alias?: string;
-    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
-    description?: string;
+    alias?: string | null;
+    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD' | null;
+    description?: string | null;
     external_id?: string | null;
+    group_type?: unknown;
     name: string;
     role_categories?: RoleCategories | null;
-    roles?: Array<string>;
+    roles?: Array<string> | null;
     saml_primary_group_priority?: number | null;
     system_domain_id: string;
 };
 
 export type GroupElasticSchemaWritable = {
-    alias?: string;
-    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
-    description?: string;
+    alias?: string | null;
+    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD' | null;
+    description?: string | null;
     external_id?: string | null;
+    group_type?: unknown;
     name: string;
     saml_primary_group_priority?: number | null;
 };
@@ -879,75 +902,86 @@ export type GroupMappingsSchemaWritable = {
 };
 
 export type GroupSchemaWritable = {
-    alias?: string;
-    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
-    description?: string;
+    alias?: string | null;
+    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD' | null;
+    description?: string | null;
     external_id?: string | null;
+    group_type?: unknown;
     name: string;
     role_categories?: RoleCategories | null;
-    roles?: Array<string>;
+    roles?: Array<string> | null;
     saml_primary_group_priority?: number | null;
 };
 
 export type GroupWithRolesBaseSchemaWritable = {
-    alias?: string;
-    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
-    description?: string;
+    alias?: string | null;
+    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD' | null;
+    description?: string | null;
     external_id?: string | null;
+    group_type?: unknown;
     name: string;
     role_categories?: RoleCategories | null;
-    roles?: Array<string>;
+    roles?: Array<string> | null;
     saml_primary_group_priority?: number | null;
 };
 
 export type GroupWithRolesElasticSchemaWritable = {
-    alias?: string;
-    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
-    description?: string;
+    alias?: string | null;
+    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD' | null;
+    description?: string | null;
     external_id?: string | null;
+    group_type?: unknown;
     name: string;
     role_categories?: RoleCategories | null;
-    roles?: Array<string>;
+    roles?: Array<string> | null;
     saml_primary_group_priority?: number | null;
 };
 
 export type GroupsSchemaWritable = {
-    [key: string]: unknown;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
 };
 
 export type MultiplatformUserPasswordEditSchemaWritable = {
-    current_password?: string;
+    current_password?: string | null;
     email: string;
     ignore_current_password?: boolean | null;
     password: string;
 };
 
 export type RoleGroupSchemaWritable = {
-    alias?: string;
-    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
-    description?: string;
+    alias?: string | null;
+    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD' | null;
+    description?: string | null;
     external_id?: string | null;
+    group_type?: unknown;
     name: string;
     role_categories?: RoleCategoriesSchema | null;
-    roles?: Array<string>;
+    roles?: Array<string> | null;
     saml_primary_group_priority?: number | null;
 };
 
 export type RoleGroupsSchemaWritable = {
-    [key: string]: unknown;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
 };
 
 export type TeamSchemaWritable = {
-    alias?: string;
-    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
-    description?: string;
+    alias?: string | null;
+    default_user_type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD' | null;
+    description?: string | null;
     external_id?: string | null;
+    group_type?: unknown;
     name: string;
     saml_primary_group_priority?: number | null;
 };
 
 export type TeamsSchemaWritable = {
-    [key: string]: unknown;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
 };
 
 export type UserBaseSchemaWritable = {
@@ -957,26 +991,26 @@ export type UserBaseSchemaWritable = {
     date_terms_accepted?: string | null;
     date_visited_dashboard?: string | null;
     date_welcomed?: string | null;
-    email?: string;
+    email?: string | null;
     email_marketing_consent?: boolean | null;
     first_name?: string | null;
-    groups?: Array<string>;
-    hide_email?: boolean;
-    hide_phone?: boolean;
-    is_admin?: boolean;
+    groups?: Array<string> | null;
+    hide_email?: boolean | null;
+    hide_phone?: boolean | null;
+    is_admin?: boolean | null;
     last_name?: string | null;
     metadata?: unknown;
-    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT';
-    password?: string;
-    phone?: string;
-    primary_group?: string;
-    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE';
-    system_domains?: Array<string>;
+    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT' | null;
+    password?: string | null;
+    phone?: string | null;
+    primary_group?: string | null;
+    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE' | null;
+    system_domains?: Array<string> | null;
     type: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
 };
 
 export type UserBasicElasticSchemaWritable = {
-    email?: string;
+    email?: string | null;
     first_name?: string | null;
     last_name?: string | null;
 };
@@ -991,28 +1025,28 @@ export type UserCreateSchemaWritable = {
     /**
      * Available only for admin users
      */
-    description?: string;
+    description?: string | null;
     email: string;
     email_marketing_consent?: boolean | null;
     first_name?: string | null;
-    groups?: Array<string>;
-    hide_email?: boolean;
-    hide_phone?: boolean;
-    identity_provider_id?: string;
-    is_admin?: boolean;
+    groups?: Array<string> | null;
+    hide_email?: boolean | null;
+    hide_phone?: boolean | null;
+    identity_provider_id?: string | null;
+    is_admin?: boolean | null;
     last_name?: string | null;
     metadata?: unknown;
-    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT';
-    password?: string;
-    phone?: string;
-    primary_group?: string;
-    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE';
-    system_domains?: Array<string>;
+    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT' | null;
+    password?: string | null;
+    phone?: string | null;
+    primary_group?: string | null;
+    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE' | null;
+    system_domains?: Array<string> | null;
     type: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
 };
 
 export type UserEditInternalSchemaWritable = {
-    current_password?: string;
+    current_password?: string | null;
     date_checklist_completed?: string | null;
     date_first_uploaded?: string | null;
     date_returned?: string | null;
@@ -1022,30 +1056,30 @@ export type UserEditInternalSchemaWritable = {
     /**
      * Available only for admin users
      */
-    description?: string;
-    email?: string;
+    description?: string | null;
+    email?: string | null;
     email_marketing_consent?: boolean | null;
     first_name?: string | null;
-    groups?: Array<string>;
-    hide_email?: boolean;
-    hide_phone?: boolean;
-    is_admin?: boolean;
+    groups?: Array<string> | null;
+    hide_email?: boolean | null;
+    hide_phone?: boolean | null;
+    is_admin?: boolean | null;
     last_name?: string | null;
-    last_successful_auth?: string;
-    last_unsuccessful_auth?: string;
-    last_web_login?: string;
+    last_successful_auth?: string | null;
+    last_unsuccessful_auth?: string | null;
+    last_web_login?: string | null;
     metadata?: unknown;
-    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT';
-    password?: string;
-    phone?: string;
-    primary_group?: string;
-    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE';
-    system_domains?: Array<string>;
+    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT' | null;
+    password?: string | null;
+    phone?: string | null;
+    primary_group?: string | null;
+    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE' | null;
+    system_domains?: Array<string> | null;
     type: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
 };
 
 export type UserEditSchemaWritable = {
-    current_password?: string;
+    current_password?: string | null;
     date_checklist_completed?: string | null;
     date_first_uploaded?: string | null;
     date_returned?: string | null;
@@ -1055,22 +1089,22 @@ export type UserEditSchemaWritable = {
     /**
      * Available only for admin users
      */
-    description?: string;
-    email?: string;
+    description?: string | null;
+    email?: string | null;
     email_marketing_consent?: boolean | null;
     first_name?: string | null;
-    groups?: Array<string>;
-    hide_email?: boolean;
-    hide_phone?: boolean;
-    is_admin?: boolean;
+    groups?: Array<string> | null;
+    hide_email?: boolean | null;
+    hide_phone?: boolean | null;
+    is_admin?: boolean | null;
     last_name?: string | null;
     metadata?: unknown;
-    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT';
-    password?: string;
-    phone?: string;
-    primary_group?: string;
-    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE';
-    system_domains?: Array<string>;
+    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT' | null;
+    password?: string | null;
+    phone?: string | null;
+    primary_group?: string | null;
+    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE' | null;
+    system_domains?: Array<string> | null;
     type: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
 };
 
@@ -1084,22 +1118,22 @@ export type UserElasticWritable = {
     /**
      * Available only for admin users
      */
-    description?: string;
-    email?: string;
+    description?: string | null;
+    email?: string | null;
     email_marketing_consent?: boolean | null;
     first_name?: string | null;
-    groups?: Array<string>;
-    hide_email?: boolean;
-    hide_phone?: boolean;
-    is_admin?: boolean;
+    groups?: Array<string> | null;
+    hide_email?: boolean | null;
+    hide_phone?: boolean | null;
+    is_admin?: boolean | null;
     last_name?: string | null;
     metadata?: unknown;
-    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT';
-    password?: string;
-    phone?: string;
-    primary_group?: string;
-    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE';
-    system_domains?: Array<string>;
+    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT' | null;
+    password?: string | null;
+    phone?: string | null;
+    primary_group?: string | null;
+    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE' | null;
+    system_domains?: Array<string> | null;
     type: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
 };
 
@@ -1113,22 +1147,22 @@ export type UserElasticSchemaWritable = {
     /**
      * Available only for admin users
      */
-    description?: string;
-    email?: string;
+    description?: string | null;
+    email?: string | null;
     email_marketing_consent?: boolean | null;
     first_name?: string | null;
-    groups?: Array<string>;
-    hide_email?: boolean;
-    hide_phone?: boolean;
-    is_admin?: boolean;
+    groups?: Array<string> | null;
+    hide_email?: boolean | null;
+    hide_phone?: boolean | null;
+    is_admin?: boolean | null;
     last_name?: string | null;
     metadata?: unknown;
-    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT';
-    password?: string;
-    phone?: string;
-    primary_group?: string;
-    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE';
-    system_domains?: Array<string>;
+    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT' | null;
+    password?: string | null;
+    phone?: string | null;
+    primary_group?: string | null;
+    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE' | null;
+    system_domains?: Array<string> | null;
     type: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
 };
 
@@ -1147,21 +1181,21 @@ export type UserSamlCreateSchemaWritable = {
     email: string;
     email_marketing_consent?: boolean | null;
     first_name?: string | null;
-    group_names?: Array<string>;
-    groups?: Array<string>;
-    hide_email?: boolean;
-    hide_phone?: boolean;
-    identity_provider_id?: string;
-    is_admin?: boolean;
+    group_names?: Array<string> | null;
+    groups?: Array<string> | null;
+    hide_email?: boolean | null;
+    hide_phone?: boolean | null;
+    identity_provider_id?: string | null;
+    is_admin?: boolean | null;
     last_name?: string | null;
     metadata?: unknown;
-    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT';
-    password?: string;
-    phone?: string;
-    primary_group?: string;
-    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE';
-    system_domains?: Array<string>;
-    type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
+    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT' | null;
+    password?: string | null;
+    phone?: string | null;
+    primary_group?: string | null;
+    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE' | null;
+    system_domains?: Array<string> | null;
+    type?: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD' | null;
 };
 
 export type UserSchemaWritable = {
@@ -1174,22 +1208,22 @@ export type UserSchemaWritable = {
     /**
      * Available only for admin users
      */
-    description?: string;
-    email?: string;
+    description?: string | null;
+    email?: string | null;
     email_marketing_consent?: boolean | null;
     first_name?: string | null;
-    groups?: Array<string>;
-    hide_email?: boolean;
-    hide_phone?: boolean;
-    is_admin?: boolean;
+    groups?: Array<string> | null;
+    hide_email?: boolean | null;
+    hide_phone?: boolean | null;
+    is_admin?: boolean | null;
     last_name?: string | null;
     metadata?: unknown;
-    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT';
-    password?: string;
-    phone?: string;
-    primary_group?: string;
-    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE';
-    system_domains?: Array<string>;
+    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT' | null;
+    password?: string | null;
+    phone?: string | null;
+    primary_group?: string | null;
+    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE' | null;
+    system_domains?: Array<string> | null;
     type: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
 };
 
@@ -1203,31 +1237,35 @@ export type UserWithSeparatedGroupsSchemaWritable = {
     /**
      * Available only for admin users
      */
-    description?: string;
-    email?: string;
+    description?: string | null;
+    email?: string | null;
     email_marketing_consent?: boolean | null;
     first_name?: string | null;
-    groups?: Array<string>;
-    hide_email?: boolean;
-    hide_phone?: boolean;
-    is_admin?: boolean;
+    groups?: Array<string> | null;
+    hide_email?: boolean | null;
+    hide_phone?: boolean | null;
+    is_admin?: boolean | null;
     last_name?: string | null;
     metadata?: unknown;
-    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT';
-    password?: string;
-    phone?: string;
-    primary_group?: string;
-    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE';
-    system_domains?: Array<string>;
+    onboarding_goal?: 'CENTRALIZE' | 'COLLABORATE' | 'REVISIT' | null;
+    password?: string | null;
+    phone?: string | null;
+    primary_group?: string | null;
+    status?: 'ACTIVE' | 'BLOCKED' | 'DELETED' | 'INACTIVE' | null;
+    system_domains?: Array<string> | null;
     type: 'BROWSE_API_ONLY' | 'BROWSE_ONLY' | 'POWER' | 'STANDARD';
 };
 
 export type UsersBasicSchemaWritable = {
-    [key: string]: unknown;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
 };
 
 export type UsersSchemaWritable = {
-    [key: string]: unknown;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
 };
 
 export type GetGroupsData = {
@@ -1956,7 +1994,7 @@ export type PostGroupsByGroupIdLogoResponses = {
         /**
          * Url for the group logo
          */
-        logo?: string;
+        logo?: string | null;
     };
 };
 
@@ -3064,7 +3102,7 @@ export type PostTeamsByTeamIdLogoResponses = {
         /**
          * Url for the team logo
          */
-        logo?: string;
+        logo?: string | null;
     };
 };
 
@@ -3573,7 +3611,7 @@ export type GetUsersCurrentOtpConfigureResponses = {
         /**
          * is mfa required for the user
          */
-        mfa_required?: boolean;
+        mfa_required?: boolean | null;
     };
 };
 
@@ -3740,15 +3778,15 @@ export type PostUsersCurrentPhotoResponses = {
         /**
          * Url for the user original photo
          */
-        photo?: string;
+        photo?: string | null;
         /**
          * Url for the user re-sized big photo
          */
-        photo_big?: string;
+        photo_big?: string | null;
         /**
          * Url for the user re-sized small photo
          */
-        photo_small?: string;
+        photo_small?: string | null;
     };
 };
 
@@ -3866,11 +3904,11 @@ export type PostUsersCurrentTotpConfigureResponses = {
         /**
          * secret key
          */
-        secret?: string;
+        secret?: string | null;
         /**
          * provisioning URIs
          */
-        url?: string;
+        url?: string | null;
     };
 };
 
@@ -4048,7 +4086,7 @@ export type PostUsersInviteTokenRequestResponses = {
         /**
          * The generated invite link
          */
-        invite_link?: string;
+        invite_link?: string | null;
     };
 };
 
@@ -4093,7 +4131,7 @@ export type PostUsersInviteValidateResponses = {
         /**
          * The system domain name
          */
-        system_domain_name?: string;
+        system_domain_name?: string | null;
     };
 };
 
@@ -4458,15 +4496,15 @@ export type PostUsersByUserIdPhotoResponses = {
         /**
          * Url for the user original photo
          */
-        photo?: string;
+        photo?: string | null;
         /**
          * Url for the user re-sized big photo
          */
-        photo_big?: string;
+        photo_big?: string | null;
         /**
          * Url for the user re-sized small photo
          */
-        photo_small?: string;
+        photo_small?: string | null;
     };
 };
 

@@ -12,20 +12,20 @@ export type BaseQueryParamsSchema = {
 };
 
 export type DeviceTokenSchema = {
-    app_bundle_id?: string;
-    app_version?: string;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    device_name?: string;
+    app_bundle_id?: string | null;
+    app_version?: string | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    device_name?: string | null;
     device_token: string;
-    readonly failed_count?: number;
-    readonly is_active?: boolean;
-    readonly last_failed_at?: string;
-    readonly last_used_at?: string;
+    readonly failed_count?: number | null;
+    readonly is_active?: boolean | null;
+    readonly last_failed_at?: string | null;
+    readonly last_used_at?: string | null;
     platform: 'android' | 'ios';
-    push_service?: 'apns' | 'fcm';
-    readonly system_domain_id?: string;
-    readonly user_id?: string;
+    push_service?: 'apns' | 'fcm' | null;
+    readonly system_domain_id?: string | null;
+    readonly user_id?: string | null;
 };
 
 export type DeviceTokensQueryParamsSchema = {
@@ -36,136 +36,145 @@ export type DeviceTokensQueryParamsSchema = {
 };
 
 export type DeviceTokensSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<DeviceTokenSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<DeviceTokenSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type ListObjectsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type NotificationSchema = {
-    readonly date_created?: string;
-    readonly date_modified?: string;
+    context?: {
+        [key: string]: unknown;
+    } | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
     event_type: string;
     exclude_users?: Array<string> | null;
-    readonly id?: string;
+    readonly id?: string | null;
     message_long: string;
     message_short: string;
     object_id: string;
     object_type: string;
     recipient_id: string;
     sender_id: string;
-    share_id?: string;
-    share_user_id?: string;
-    status?: 'QUEUED' | 'READ' | 'SENT';
-    sub_object_id?: string;
-    sub_object_type?: string;
-    readonly system_domain_id?: string;
-    user_id?: string;
+    share_id?: string | null;
+    share_user_id?: string | null;
+    status?: 'QUEUED' | 'READ' | 'SENT' | null;
+    sub_object_id?: string | null;
+    sub_object_type?: string | null;
+    readonly system_domain_id?: string | null;
+    user_id?: string | null;
 };
 
 export type NotificationSettingSchema = {
     enabled: boolean;
     readonly event_type: string;
     readonly object_type: string;
-    readonly protocol?: 'email' | 'push' | 'web';
-    readonly recipient_id?: string;
-    readonly sub_object_type?: string;
-    readonly system_domain_id?: string;
+    protocol?: 'email' | 'push' | 'web' | null;
+    readonly recipient_id?: string | null;
+    settings?: {
+        [key: string]: unknown;
+    } | null;
+    readonly sub_object_type?: string | null;
+    readonly system_domain_id?: string | null;
 };
 
 export type NotificationSettingsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<NotificationSettingSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<NotificationSettingSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type NotificationsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<NotificationSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<NotificationSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type SubscriptionSchema = {
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    event_type?: string;
-    readonly id?: string;
-    object_id?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    event_type?: string | null;
+    readonly id?: string | null;
+    object_id?: string | null;
     object_type: string;
-    sub_object_id?: string;
-    sub_object_type?: string;
-    readonly system_domain_id?: string;
-    readonly user_id?: string;
+    sub_object_id?: string | null;
+    sub_object_type?: string | null;
+    readonly system_domain_id?: string | null;
+    readonly user_id?: string | null;
 };
 
 export type SubscriptionsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<SubscriptionSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<SubscriptionSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type SystemNotificationSchema = {
-    readonly date_created?: string;
-    readonly date_modified?: string;
+    context?: {
+        [key: string]: unknown;
+    } | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
     event_type: string;
     exclude_users?: Array<string> | null;
-    readonly id?: string;
+    readonly id?: string | null;
     message_long: string;
     message_short: string;
     object_id?: string | null;
     object_type: string;
     recipient_id: string;
     sender_id: string;
-    share_id?: string;
-    share_user_id?: string;
-    status?: 'QUEUED' | 'READ' | 'SENT';
-    sub_object_id?: string;
-    sub_object_type?: string;
+    share_id?: string | null;
+    share_user_id?: string | null;
+    status?: 'QUEUED' | 'READ' | 'SENT' | null;
+    sub_object_id?: string | null;
+    sub_object_type?: string | null;
     system_domain_id: string;
-    user_id?: string;
+    user_id?: string | null;
 };
 
 export type DeviceTokenSchemaWritable = {
-    app_bundle_id?: string;
-    app_version?: string;
-    device_name?: string;
+    app_bundle_id?: string | null;
+    app_version?: string | null;
+    device_name?: string | null;
     device_token: string;
     platform: 'android' | 'ios';
-    push_service?: 'apns' | 'fcm';
+    push_service?: 'apns' | 'fcm' | null;
 };
 
 export type DeviceTokensSchemaWritable = {
@@ -173,6 +182,9 @@ export type DeviceTokensSchemaWritable = {
 };
 
 export type NotificationSchemaWritable = {
+    context?: {
+        [key: string]: unknown;
+    } | null;
     event_type: string;
     exclude_users?: Array<string> | null;
     message_long: string;
@@ -181,16 +193,20 @@ export type NotificationSchemaWritable = {
     object_type: string;
     recipient_id: string;
     sender_id: string;
-    share_id?: string;
-    share_user_id?: string;
-    status?: 'QUEUED' | 'READ' | 'SENT';
-    sub_object_id?: string;
-    sub_object_type?: string;
-    user_id?: string;
+    share_id?: string | null;
+    share_user_id?: string | null;
+    status?: 'QUEUED' | 'READ' | 'SENT' | null;
+    sub_object_id?: string | null;
+    sub_object_type?: string | null;
+    user_id?: string | null;
 };
 
 export type NotificationSettingSchemaWritable = {
     enabled: boolean;
+    protocol?: unknown;
+    settings?: {
+        [key: string]: unknown;
+    } | null;
 };
 
 export type NotificationSettingsSchemaWritable = {
@@ -202,11 +218,11 @@ export type NotificationsSchemaWritable = {
 };
 
 export type SubscriptionSchemaWritable = {
-    event_type?: string;
-    object_id?: string;
+    event_type?: string | null;
+    object_id?: string | null;
     object_type: string;
-    sub_object_id?: string;
-    sub_object_type?: string;
+    sub_object_id?: string | null;
+    sub_object_type?: string | null;
 };
 
 export type SubscriptionsSchemaWritable = {
@@ -214,6 +230,9 @@ export type SubscriptionsSchemaWritable = {
 };
 
 export type SystemNotificationSchemaWritable = {
+    context?: {
+        [key: string]: unknown;
+    } | null;
     event_type: string;
     exclude_users?: Array<string> | null;
     message_long: string;
@@ -222,13 +241,13 @@ export type SystemNotificationSchemaWritable = {
     object_type: string;
     recipient_id: string;
     sender_id: string;
-    share_id?: string;
-    share_user_id?: string;
-    status?: 'QUEUED' | 'READ' | 'SENT';
-    sub_object_id?: string;
-    sub_object_type?: string;
+    share_id?: string | null;
+    share_user_id?: string | null;
+    status?: 'QUEUED' | 'READ' | 'SENT' | null;
+    sub_object_id?: string | null;
+    sub_object_type?: string | null;
     system_domain_id: string;
-    user_id?: string;
+    user_id?: string | null;
 };
 
 export type PostDeviceTokensData = {

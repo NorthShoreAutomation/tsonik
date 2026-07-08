@@ -5,18 +5,18 @@ export type ClientOptions = {
 };
 
 export type AbortStorageTranscodeJobsSchema = {
-    error_message?: string;
+    error_message?: string | null;
 };
 
 export type AnalyzeSchema = {
-    force?: boolean;
-    force_type?: 'APPEND' | 'OVERWRITE';
-    service_name?: string;
+    force?: boolean | null;
+    force_type?: 'APPEND' | 'OVERWRITE' | null;
+    service_name?: string | null;
 };
 
 export type AssetLinkData = {
-    readonly site_name?: string;
-    readonly title?: string;
+    readonly site_name?: string | null;
+    readonly title?: string | null;
 };
 
 export type AssetLinkUrlSchema = {
@@ -29,11 +29,11 @@ export type BulkActionSchema = {
 };
 
 export type BulkAnalyzeSchema = {
-    force?: boolean;
-    force_type?: 'APPEND' | 'OVERWRITE';
+    force?: boolean | null;
+    force_type?: 'APPEND' | 'OVERWRITE' | null;
     object_ids: Array<string>;
     object_type: 'assets' | 'collections' | 'saved_searches';
-    profile_id?: string;
+    profile_id?: string | null;
 };
 
 export type BulkMetadataFillingSchema = {
@@ -45,190 +45,190 @@ export type BulkMetadataFillingSchema = {
 
 export type BulkTranscribeSchema = {
     engine?: string | null;
-    force?: boolean;
+    force?: boolean | null;
     language?: string | null;
     object_ids: Array<string>;
     object_type: 'assets' | 'collections' | 'saved_searches';
-    profile_id?: string;
+    profile_id?: string | null;
     speakers?: number | null;
     summary?: boolean | null;
-    topics_extraction?: boolean;
+    topics_extraction?: boolean | null;
     translate_languages?: Array<string> | null;
 };
 
 export type EdgeThumbnailJobFieldSchema = {
-    height?: number;
-    id?: string;
-    max_number?: number;
-    min_interval?: number;
+    height?: number | null;
+    id?: string | null;
+    max_number?: number | null;
+    min_interval?: number | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
-    timestamp?: number;
-    width?: number;
+    timestamp?: number | null;
+    width?: number | null;
 };
 
 export type EdgeTranscodeEndpointSchema = {
     data?: {
         [key: string]: unknown;
-    };
-    method?: string;
-    storage_method?: string;
-    type?: string;
+    } | null;
+    method?: string | null;
+    storage_method?: string | null;
+    type?: string | null;
     url: string;
 };
 
 export type EdgeTranscodeInputSchema = {
-    asset_id?: string;
-    closed_captions?: boolean;
-    directory_path?: string;
+    asset_id?: string | null;
+    closed_captions?: boolean | null;
+    directory_path?: string | null;
     endpoint: EdgeTranscodeEndpointSchema;
-    file_id?: string;
+    file_id?: string | null;
     file_set_id?: string | null;
     format_id?: string | null;
-    language?: string;
+    language?: string | null;
     original_asset_id?: string | null;
-    original_name?: string;
+    original_name?: string | null;
     proxy_id?: string | null;
-    storage_id?: string;
+    storage_id?: string | null;
 };
 
 export type EdgeTranscodeJobFieldSchema = {
-    height?: number;
-    id?: string;
-    width?: number;
+    height?: number | null;
+    id?: string | null;
+    width?: number | null;
 };
 
 export type EdgeTranscodeJobSchema = {
-    asset_id?: string;
-    collection_id?: string;
+    asset_id?: string | null;
+    collection_id?: string | null;
     input: EdgeTranscodeInputSchema;
-    job_id?: string;
-    job_steps?: Array<JobStep>;
+    job_id?: string | null;
+    job_steps?: Array<JobStep> | null;
     media_info?: string | null;
-    thumbnail?: Array<EdgeThumbnailJobFieldSchema>;
-    transcode?: Array<EdgeTranscodeJobFieldSchema>;
+    thumbnail?: Array<EdgeThumbnailJobFieldSchema> | null;
+    transcode?: Array<EdgeTranscodeJobFieldSchema> | null;
 };
 
 export type EdgeTranscodeJobsSchema = {
-    objects?: Array<EdgeTranscodeJobSchema>;
+    objects?: Array<EdgeTranscodeJobSchema> | null;
 };
 
 export type EdgeTranscodeWorkerSchema = {
-    readonly id?: string;
-    readonly last_update_date?: string;
+    readonly id?: string | null;
+    readonly last_update_date?: string | null;
     status: 'ACTIVE' | 'INACTIVE';
     storage_id: string;
 };
 
 export type EdgeTranscodeWorkersSchema = {
-    objects?: Array<EdgeTranscodeWorkerSchema>;
+    objects?: Array<EdgeTranscodeWorkerSchema> | null;
 };
 
 export type EndpointSchema = {
     data?: {
         [key: string]: unknown;
-    };
+    } | null;
     headers?: {
         [key: string]: unknown;
-    };
-    method?: string;
-    storage_method?: string;
-    type?: string;
+    } | null;
+    method?: string | null;
+    storage_method?: string | null;
+    type?: string | null;
     url: string;
 };
 
 export type FacetBucketSchema = {
-    doc_count?: number;
-    key?: string;
+    doc_count?: number | null;
+    key?: string | null;
 };
 
 export type FacetSchema = {
-    buckets?: Array<FacetBucketSchema>;
-    doc_count_error_upper_bound?: number;
-    sum_other_doc_count?: number;
+    buckets?: Array<FacetBucketSchema> | null;
+    doc_count_error_upper_bound?: number | null;
+    sum_other_doc_count?: number | null;
 };
 
 export type GenerateCollectionKeyframeSchema = {
-    deleted_asset_id?: string;
-    force?: boolean;
-    specified_asset_ids?: Array<string>;
-    specified_keyframes?: Array<SpecifiedKeyframes>;
+    deleted_asset_id?: string | null;
+    force?: boolean | null;
+    specified_asset_ids?: Array<string> | null;
+    specified_keyframes?: Array<SpecifiedKeyframes> | null;
 };
 
 export type InputSchema = {
     asset_id?: string | null;
-    closed_captions?: boolean;
+    closed_captions?: boolean | null;
     collection_id?: string | null;
     directory_path?: string | null;
     endpoint: EndpointSchema;
-    engine?: string;
+    engine?: string | null;
     file_id?: string | null;
     file_set_id?: string | null;
     format_id?: string | null;
-    language?: string;
+    language?: string | null;
     original_asset_id?: string | null;
-    original_name?: string;
+    original_name?: string | null;
     proxy_id?: string | null;
-    storage_id?: string;
+    storage_id?: string | null;
     update_proxy_mediainfo?: boolean | null;
     version_id?: string | null;
 };
 
 export type JobBaseSchema = {
-    asset_id?: string;
-    collection_id?: string;
-    input?: InputSchema;
-    job_id?: string;
-    job_steps?: Array<JobStep>;
+    asset_id?: string | null;
+    collection_id?: string | null;
+    input?: InputSchema | null;
+    job_id?: string | null;
+    job_steps?: Array<JobStep> | null;
     media_info?: string | null;
-    thumbnail?: Array<ThumbnailJob>;
-    transcode?: Array<TranscodeJob>;
+    thumbnail?: Array<ThumbnailJob> | null;
+    transcode?: Array<TranscodeJob> | null;
 };
 
 export type JobSchema = {
-    amazon_rekognition?: boolean;
+    amazon_rekognition?: boolean | null;
     analysis_data?: {
         [key: string]: unknown;
-    };
-    analysis_query_default_service_account?: boolean;
-    analyzed_before?: boolean;
-    asset_id?: string;
-    asset_link?: string;
-    collection_id?: string;
-    create_transcription?: boolean;
-    delete_old_transcriptions?: boolean;
-    force_transcoder?: string;
-    google_cloud_video_intelligence?: boolean;
-    input?: InputSchema;
-    job_id?: string;
-    job_steps?: Array<JobStep>;
+    } | null;
+    analysis_query_default_service_account?: boolean | null;
+    analyzed_before?: boolean | null;
+    asset_id?: string | null;
+    asset_link?: string | null;
+    collection_id?: string | null;
+    create_transcription?: boolean | null;
+    delete_old_transcriptions?: boolean | null;
+    force_transcoder?: string | null;
+    google_cloud_video_intelligence?: boolean | null;
+    input?: InputSchema | null;
+    job_id?: string | null;
+    job_steps?: Array<JobStep> | null;
     language?: string | null;
     media_info?: string | null;
-    overwrite?: boolean;
-    priority?: number;
+    overwrite?: boolean | null;
+    priority?: number | null;
     speakers?: number | null;
-    thumbnail?: Array<ThumbnailJob>;
-    transcode?: Array<TranscodeJob>;
-    valid_transcoders?: Array<Transcoders>;
-    version_id?: string;
+    thumbnail?: Array<ThumbnailJob> | null;
+    transcode?: Array<TranscodeJob> | null;
+    valid_transcoders?: Array<Transcoders> | null;
+    version_id?: string | null;
 };
 
 export type JobStep = {
-    date_created?: string;
-    date_updated?: string;
-    id?: string;
-    label?: string;
-    message?: string;
-    status?: string;
+    date_created?: string | null;
+    date_updated?: string | null;
+    id?: string | null;
+    label?: string | null;
+    message?: string | null;
+    status?: string | null;
 };
 
 export type JobStepSchema = {
-    date_created?: string;
-    date_updated?: string;
-    id?: string;
-    label?: string;
-    message?: string;
-    status?: string;
+    date_created?: string | null;
+    date_updated?: string | null;
+    id?: string | null;
+    label?: string | null;
+    message?: string | null;
+    status?: string | null;
 };
 
 export type JobsPrioritySchema = {
@@ -242,93 +242,93 @@ export type JobsStateSchema = {
 };
 
 export type LlmMetadataJobSchema = {
-    amazon_rekognition?: boolean;
+    amazon_rekognition?: boolean | null;
     analysis_data?: {
         [key: string]: unknown;
-    };
-    analysis_query_default_service_account?: boolean;
-    analyzed_before?: boolean;
-    asset_id?: string;
-    asset_link?: string;
-    collection_id?: string;
-    create_transcription?: boolean;
-    delete_old_transcriptions?: boolean;
+    } | null;
+    analysis_query_default_service_account?: boolean | null;
+    analyzed_before?: boolean | null;
+    asset_id?: string | null;
+    asset_link?: string | null;
+    collection_id?: string | null;
+    create_transcription?: boolean | null;
+    delete_old_transcriptions?: boolean | null;
     field_names: Array<string>;
-    force_transcoder?: string;
-    google_cloud_video_intelligence?: boolean;
-    input?: InputSchema;
-    job_id?: string;
-    job_steps?: Array<JobStepSchema>;
+    force_transcoder?: string | null;
+    google_cloud_video_intelligence?: boolean | null;
+    input?: InputSchema | null;
+    job_id?: string | null;
+    job_steps?: Array<JobStepSchema> | null;
     language?: string | null;
     media_info?: string | null;
-    overwrite?: boolean;
+    overwrite?: boolean | null;
     parent_job_id?: string | null;
-    priority?: number;
+    priority?: number | null;
     speakers?: number | null;
-    thumbnail?: Array<ThumbnailJob>;
-    transcode?: Array<TranscodeJob>;
-    valid_transcoders?: Array<Transcoders>;
-    version_id?: string;
+    thumbnail?: Array<ThumbnailJob> | null;
+    transcode?: Array<TranscodeJob> | null;
+    valid_transcoders?: Array<Transcoders> | null;
+    version_id?: string | null;
     view_id: string;
 };
 
 export type ListObjectsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type LocalStorageFileTranscodeJobSchema = {
     asset_id: string;
     checksum?: string | null;
     collection_id?: string | null;
-    component_ids?: Array<string>;
+    component_ids?: Array<string> | null;
     directory_path: string;
     file_id: string;
     file_set_id: string;
     filename: string;
     format_id: string;
-    id?: string;
+    id?: string | null;
     job_id: string;
     metadata_update_only?: boolean | null;
-    priority?: number;
+    priority?: number | null;
     size: number;
     version_id: string;
 };
 
 export type LocalStorageFileTranscodeJobsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<LocalStorageFileTranscodeJobSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<LocalStorageFileTranscodeJobSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type LocalTranscodeInputSchema = {
     asset_id: string;
     checksum?: string | null;
-    closed_captions?: boolean;
+    closed_captions?: boolean | null;
     collection_id?: string | null;
-    component_ids?: Array<string>;
+    component_ids?: Array<string> | null;
     directory_path: string;
     endpoint: EndpointSchema;
-    engine?: string;
+    engine?: string | null;
     file_id: string;
     file_set_id: string;
     filename: string;
     format_id: string;
-    language?: string;
+    language?: string | null;
     original_asset_id?: string | null;
-    original_name?: string;
+    original_name?: string | null;
     proxy_id?: string | null;
     size: number;
     storage_id: string;
@@ -337,31 +337,31 @@ export type LocalTranscodeInputSchema = {
 };
 
 export type LocalTranscodeJobSchema = {
-    amazon_rekognition?: boolean;
+    amazon_rekognition?: boolean | null;
     analysis_data?: {
         [key: string]: unknown;
-    };
-    analysis_query_default_service_account?: boolean;
-    analyzed_before?: boolean;
-    asset_id?: string;
-    asset_link?: string;
-    collection_id?: string;
-    create_transcription?: boolean;
-    delete_old_transcriptions?: boolean;
-    force_transcoder?: string;
-    google_cloud_video_intelligence?: boolean;
+    } | null;
+    analysis_query_default_service_account?: boolean | null;
+    analyzed_before?: boolean | null;
+    asset_id?: string | null;
+    asset_link?: string | null;
+    collection_id?: string | null;
+    create_transcription?: boolean | null;
+    delete_old_transcriptions?: boolean | null;
+    force_transcoder?: string | null;
+    google_cloud_video_intelligence?: boolean | null;
     input: LocalTranscodeInputSchema;
-    job_id?: string;
-    job_steps?: Array<JobStepSchema>;
+    job_id?: string | null;
+    job_steps?: Array<JobStepSchema> | null;
     language?: string | null;
     media_info?: string | null;
-    overwrite?: boolean;
-    priority?: number;
+    overwrite?: boolean | null;
+    priority?: number | null;
     speakers?: number | null;
-    thumbnail?: Array<ThumbnailJob>;
-    transcode?: Array<TranscodeJob>;
-    valid_transcoders?: Array<Transcoders>;
-    version_id?: string;
+    thumbnail?: Array<ThumbnailJob> | null;
+    transcode?: Array<TranscodeJob> | null;
+    valid_transcoders?: Array<Transcoders> | null;
+    version_id?: string | null;
 };
 
 export type MetadataFillingProposalByAssetQueryParamsSchema = {
@@ -369,29 +369,29 @@ export type MetadataFillingProposalByAssetQueryParamsSchema = {
 };
 
 export type MetadataFillingProposalSchema = {
-    asset_id?: string;
-    date_created?: string;
-    errors?: Array<string>;
-    field_names?: Array<string>;
+    asset_id?: string | null;
+    date_created?: string | null;
+    errors?: Array<string> | null;
+    field_names?: Array<string> | null;
     field_values?: unknown;
-    job_id?: string;
+    job_id?: string | null;
     parent_job_id?: string | null;
-    review_status?: 'ACCEPTED' | 'PENDING_USER' | 'REJECTED';
-    user_id?: string;
+    review_status?: 'ACCEPTED' | 'PENDING_USER' | 'REJECTED' | null;
+    user_id?: string | null;
     version_id?: string | null;
     view_id?: string | null;
-    warnings?: Array<string>;
+    warnings?: Array<string> | null;
 };
 
 export type MetadataFillingResponseSchema = {
-    errors?: Array<string>;
+    errors?: Array<string> | null;
     /**
      * Map of field names to generated values. Values can be a string, a list of strings, or an object with 'value' and optional 'label' keys.
      */
     metadata_values?: {
         [key: string]: unknown;
-    };
-    warnings?: Array<string>;
+    } | null;
+    warnings?: Array<string> | null;
 };
 
 export type MetadataFillingSchema = {
@@ -402,19 +402,19 @@ export type MetadataFillingSchema = {
 export type OutputEndpoint = {
     headers?: {
         [key: string]: unknown;
-    };
+    } | null;
     key: string;
 };
 
 export type OutputEndpointSchema = {
     headers?: {
         [key: string]: unknown;
-    };
+    } | null;
     key: string;
 };
 
 export type ReindexQueueRecordSchema = {
-    sync_to_another_dc?: boolean;
+    sync_to_another_dc?: boolean | null;
 };
 
 export type SpecifiedKeyframes = {
@@ -426,110 +426,110 @@ export type SpecifiedKeyframesSchema = {
 };
 
 export type ThumbnailJob = {
-    height?: number;
-    id?: string;
-    max_number?: number;
-    min_interval?: number;
+    height?: number | null;
+    id?: string | null;
+    max_number?: number | null;
+    min_interval?: number | null;
     output_endpoint: OutputEndpoint;
-    set_as_custom_keyframe?: boolean;
+    set_as_custom_keyframe?: boolean | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
-    timestamp?: number;
-    width?: number;
+    timestamp?: number | null;
+    width?: number | null;
 };
 
 export type ThumbnailJobSchema = {
-    height?: number;
-    id?: string;
-    max_number?: number;
-    min_interval?: number;
+    height?: number | null;
+    id?: string | null;
+    max_number?: number | null;
+    min_interval?: number | null;
     output_endpoint: OutputEndpointSchema;
-    set_as_custom_keyframe?: boolean;
+    set_as_custom_keyframe?: boolean | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
-    timestamp?: number;
-    width?: number;
+    timestamp?: number | null;
+    width?: number | null;
 };
 
 export type TranscodeEsQueueRecordsSchema = {
-    readonly objects?: Array<TranscodeElasticQueueRecord>;
+    readonly objects?: Array<TranscodeElasticQueueRecord> | null;
 };
 
 export type TranscodeElasticQueueRecord = {
-    readonly date_created?: string;
-    readonly date_updated?: string;
-    readonly id?: string;
-    readonly job_id?: string;
-    readonly object_id?: string;
-    readonly object_type?: string;
-    readonly priority?: string;
-    readonly queue?: string;
-    readonly retry_count?: string;
-    readonly status?: string;
-    readonly storage_id?: string;
-    readonly system_domain_id?: string;
-    readonly system_domain_timestamp?: string;
-    readonly system_name?: string;
-    readonly type?: string;
-    readonly user_id?: string;
-    readonly version_id?: string;
+    readonly date_created?: string | null;
+    readonly date_updated?: string | null;
+    readonly id?: string | null;
+    readonly job_id?: string | null;
+    readonly object_id?: string | null;
+    readonly object_type?: string | null;
+    readonly priority?: string | null;
+    readonly queue?: string | null;
+    readonly retry_count?: string | null;
+    readonly status?: string | null;
+    readonly storage_id?: string | null;
+    readonly system_domain_id?: string | null;
+    readonly system_domain_timestamp?: string | null;
+    readonly system_name?: string | null;
+    readonly type?: string | null;
+    readonly user_id?: string | null;
+    readonly version_id?: string | null;
 };
 
 export type TranscodeElasticQueueRecordSchema = {
-    readonly date_created?: string;
-    readonly date_updated?: string;
-    readonly id?: string;
-    readonly job_id?: string;
-    readonly object_id?: string;
-    readonly object_type?: string;
-    readonly priority?: string;
-    readonly queue?: string;
-    readonly retry_count?: string;
-    readonly status?: string;
-    readonly storage_id?: string;
-    readonly system_domain_id?: string;
-    readonly system_domain_timestamp?: string;
-    readonly system_name?: string;
-    readonly type?: string;
-    readonly user_id?: string;
-    readonly version_id?: string;
+    readonly date_created?: string | null;
+    readonly date_updated?: string | null;
+    readonly id?: string | null;
+    readonly job_id?: string | null;
+    readonly object_id?: string | null;
+    readonly object_type?: string | null;
+    readonly priority?: string | null;
+    readonly queue?: string | null;
+    readonly retry_count?: string | null;
+    readonly status?: string | null;
+    readonly storage_id?: string | null;
+    readonly system_domain_id?: string | null;
+    readonly system_domain_timestamp?: string | null;
+    readonly system_name?: string | null;
+    readonly type?: string | null;
+    readonly user_id?: string | null;
+    readonly version_id?: string | null;
 };
 
 export type TranscodeJob = {
-    height?: number;
-    id?: string;
+    height?: number | null;
+    id?: string | null;
     output_endpoint: OutputEndpoint;
-    width?: number;
+    width?: number | null;
 };
 
 export type TranscodeJobSchema = {
-    height?: number;
-    id?: string;
+    height?: number | null;
+    id?: string | null;
     output_endpoint: OutputEndpointSchema;
-    width?: number;
+    width?: number | null;
 };
 
 export type TranscodeQueueObjectSchema = {
-    date_created?: string;
-    date_updated?: string;
-    id?: string;
-    job_id?: string;
-    priority?: number;
-    retry_count?: number;
-    status?: string;
-    system_domain?: string;
-    system_domain_id?: string;
-    system_domain_timestamp?: number;
-    system_name?: string;
-    type?: string;
-    user_id?: string;
+    date_created?: string | null;
+    date_updated?: string | null;
+    id?: string | null;
+    job_id?: string | null;
+    priority?: number | null;
+    retry_count?: number | null;
+    status?: string | null;
+    system_domain?: string | null;
+    system_domain_id?: string | null;
+    system_domain_timestamp?: number | null;
+    system_name?: string | null;
+    type?: string | null;
+    user_id?: string | null;
 };
 
 export type TranscodeQueueRecordSchema = {
     bytes_params?: unknown;
-    date_created?: string;
-    date_updated?: string;
-    id?: string;
+    date_created?: string | null;
+    date_updated?: string | null;
+    id?: string | null;
     job_id?: string | null;
     media_info?: string | null;
     object_id?: string | null;
@@ -540,7 +540,7 @@ export type TranscodeQueueRecordSchema = {
     spec?: string | null;
     status?: string | null;
     system_domain_id?: string | null;
-    system_name?: string;
+    system_name?: string | null;
     transcoder_id?: string | null;
     type?: string | null;
     user_id?: string | null;
@@ -550,49 +550,49 @@ export type TranscodeQueueRecordSchema = {
 export type TranscodeQueueSchema = {
     facets?: {
         [key: string]: FacetSchema;
-    };
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<TranscodeQueueObjectSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    } | null;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<TranscodeQueueObjectSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type TranscodeValidateMediaInfoSchema = {
-    filename?: string;
+    filename?: string | null;
     media_info: string;
 };
 
 export type Transcoders = {
-    id?: string;
-    name?: string;
+    id?: string | null;
+    name?: string | null;
     settings?: {
         [key: string]: unknown;
-    };
-    type?: string;
+    } | null;
+    type?: string | null;
 };
 
 export type TranscodersSchema = {
-    id?: string;
-    name?: string;
+    id?: string | null;
+    name?: string | null;
     settings?: {
         [key: string]: unknown;
-    };
-    type?: string;
+    } | null;
+    type?: string | null;
 };
 
 export type TranscribeSchema = {
     engine?: string | null;
-    force?: boolean;
+    force?: boolean | null;
     language?: string | null;
-    profile_id?: string;
+    profile_id?: string | null;
     speakers?: number | null;
     summary?: boolean | null;
-    topics_extraction?: boolean;
+    topics_extraction?: boolean | null;
     translate_languages?: Array<string> | null;
 };
 
@@ -638,7 +638,7 @@ export type EdgeTranscodeWorkerSchemaWritable = {
 };
 
 export type EdgeTranscodeWorkersSchemaWritable = {
-    objects?: Array<EdgeTranscodeWorkerSchemaWritable>;
+    objects?: Array<EdgeTranscodeWorkerSchemaWritable> | null;
 };
 
 export type LocalStorageFileTranscodeJobsSchemaWritable = {
@@ -648,7 +648,7 @@ export type LocalStorageFileTranscodeJobsSchemaWritable = {
 export type TranscodeQueueSchemaWritable = {
     facets?: {
         [key: string]: FacetSchema;
-    };
+    } | null;
 };
 
 export type PostAnalyzeAssetsByAssetIdData = {

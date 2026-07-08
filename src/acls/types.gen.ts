@@ -5,35 +5,35 @@ export type ClientOptions = {
 };
 
 export type AclSchema = {
-    readonly groups_acl?: Array<GroupAclBase>;
-    readonly inherited_groups_acl?: Array<PropagatingGroupAcl>;
-    readonly inherited_users_acl?: Array<PropagatingAcl>;
-    readonly propagating_groups_acl?: Array<PropagatingGroupAcl>;
-    readonly propagating_users_acl?: Array<PropagatingAcl>;
-    readonly users_acl?: Array<UserAclBase>;
+    readonly groups_acl?: Array<GroupAclBase> | null;
+    readonly inherited_groups_acl?: Array<PropagatingGroupAcl> | null;
+    readonly inherited_users_acl?: Array<PropagatingAcl> | null;
+    readonly propagating_groups_acl?: Array<PropagatingGroupAcl> | null;
+    readonly propagating_users_acl?: Array<PropagatingAcl> | null;
+    readonly users_acl?: Array<UserAclBase> | null;
 };
 
 export type AclTemplateSchema = {
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    readonly id?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    readonly id?: string | null;
     name: string;
 };
 
 export type AclTemplatesSchema = {
-    readonly objects?: Array<AclTemplateSchema>;
+    readonly objects?: Array<AclTemplateSchema> | null;
 };
 
 export type AclsSchema = {
     /**
      * The number of object_keys in the list is limited to a minimum of 0 and a maximum of 500
      */
-    object_keys?: Array<string>;
+    object_keys?: Array<string> | null;
 };
 
 export type BulkAclSchema = {
-    access_denied?: Array<string>;
-    access_granted?: Array<string>;
+    access_denied?: Array<string> | null;
+    access_granted?: Array<string> | null;
 };
 
 export type BulkAclsObjectSchema = {
@@ -59,56 +59,59 @@ export type CheckBulkAclsSchema = {
 };
 
 export type CombinedPermissionsSchema = {
-    readonly permissions?: Array<string>;
+    readonly permissions?: Array<string> | null;
 };
 
 export type CopyInheritedAclSchema = {
-    readonly date_created?: string;
-    readonly date_modified?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
     from_collection_ids: Array<string>;
     object_key: string;
     object_type: string;
 };
 
 export type CreateAclsResultSchema = {
-    readonly updated_object_keys?: Array<string>;
+    readonly updated_object_keys?: Array<string> | null;
 };
 
 export type CreateAclsSchema = {
-    group_ids?: Array<string>;
+    group_ids?: Array<string> | null;
+    mode?: unknown;
     /**
      * The number of object_keys in the list is limited to a minimum of 0 and a maximum of 500
      */
     object_keys: Array<string>;
-    readonly object_type?: string;
+    readonly object_type?: string | null;
     permissions: Array<string>;
-    user_ids?: Array<string>;
+    user_ids?: Array<string> | null;
 };
 
 export type CreateAclsSchemaMultiple = {
-    group_ids?: Array<string>;
+    group_ids?: Array<string> | null;
+    mode?: unknown;
     /**
      * The number of object_keys in the list is limited to a minimum of 1 and a maximum of 1
      */
     object_keys: [
         string
     ];
-    readonly object_type?: string;
+    readonly object_type?: string | null;
     permissions: Array<string>;
-    user_ids?: Array<string>;
+    user_ids?: Array<string> | null;
 };
 
 export type CreateBulkAclsSchema = {
-    group_ids?: Array<string>;
+    group_ids?: Array<string> | null;
     include_assets: boolean;
     include_collections: boolean;
+    mode?: unknown;
     /**
      * The number of object_ids in the list is limited to a minimum of 0 and a maximum of 500
      */
-    object_ids?: Array<string>;
-    readonly object_type?: string;
+    object_ids?: Array<string> | null;
+    readonly object_type?: string | null;
     permissions: Array<string>;
-    user_ids?: Array<string>;
+    user_ids?: Array<string> | null;
 };
 
 export type CreateMultipleAclsSchema = {
@@ -122,159 +125,159 @@ export type CreateShareAclsSchema = {
     /**
      * The number of object_keys in the list is limited to a min of 0 and a maximum of 500
      */
-    object_keys?: Array<string>;
-    readonly object_type?: string;
+    object_keys?: Array<string> | null;
+    readonly object_type?: string | null;
     permissions: Array<string>;
-    readonly share_id?: string;
+    readonly share_id?: string | null;
 };
 
 export type DeleteAclsSchema = {
-    group_ids?: Array<string>;
+    group_ids?: Array<string> | null;
     /**
      * The number of object_keys in the list is limitedto a minimum of 0 and a maximum of 500
      */
-    object_keys?: Array<string>;
-    readonly object_type?: string;
-    user_ids?: Array<string>;
+    object_keys?: Array<string> | null;
+    readonly object_type?: string | null;
+    user_ids?: Array<string> | null;
 };
 
 export type DeleteBulkAclsSchema = {
-    group_ids?: Array<string>;
+    group_ids?: Array<string> | null;
     include_assets: boolean;
     include_collections: boolean;
     /**
      * The number of object_ids in the list is limited to a minimum of 0 and a maximum of 500
      */
-    object_ids?: Array<string>;
-    readonly object_type?: string;
-    user_ids?: Array<string>;
+    object_ids?: Array<string> | null;
+    readonly object_type?: string | null;
+    user_ids?: Array<string> | null;
 };
 
 export type GroupAclBase = {
-    readonly group_id?: string;
+    readonly group_id?: string | null;
     permissions: Array<string>;
 };
 
 export type GroupAclBaseSchema = {
-    readonly group_id?: string;
+    readonly group_id?: string | null;
     permissions: Array<string>;
 };
 
 export type GroupAclSchema = {
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    readonly group_id?: string;
-    readonly object_key?: string;
-    readonly object_type?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    readonly group_id?: string | null;
+    readonly object_key?: string | null;
+    readonly object_type?: string | null;
     permissions: Array<string>;
 };
 
 export type GroupIdsSchema = {
-    group_ids?: Array<string>;
+    group_ids?: Array<string> | null;
 };
 
 export type InheritedAclSchema = {
     collection_ids: Array<string>;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    readonly object_key?: string;
-    readonly object_type?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    readonly object_key?: string | null;
+    readonly object_type?: string | null;
 };
 
 export type ListObjectsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type PropagatingAcl = {
-    readonly object_key?: string;
-    readonly object_type?: string;
+    readonly object_key?: string | null;
+    readonly object_type?: string | null;
     permissions: Array<string>;
-    readonly user_id?: string;
+    readonly user_id?: string | null;
 };
 
 export type PropagatingAclSchema = {
-    readonly object_key?: string;
-    readonly object_type?: string;
+    readonly object_key?: string | null;
+    readonly object_type?: string | null;
     permissions: Array<string>;
-    readonly user_id?: string;
+    readonly user_id?: string | null;
 };
 
 export type PropagatingGroupAcl = {
-    readonly group_id?: string;
-    readonly object_key?: string;
-    readonly object_type?: string;
+    readonly group_id?: string | null;
+    readonly object_key?: string | null;
+    readonly object_type?: string | null;
     permissions: Array<string>;
 };
 
 export type PropagatingGroupAclSchema = {
-    readonly group_id?: string;
-    readonly object_key?: string;
-    readonly object_type?: string;
+    readonly group_id?: string | null;
+    readonly object_key?: string | null;
+    readonly object_type?: string | null;
     permissions: Array<string>;
 };
 
 export type ReindexPropagatingAclSchema = {
-    sync_to_another_dc?: boolean;
+    sync_to_another_dc?: boolean | null;
 };
 
 export type ShareAclSchema = {
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    readonly object_key?: string;
-    readonly object_type?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    readonly object_key?: string | null;
+    readonly object_type?: string | null;
     permissions: Array<string>;
-    readonly share_id?: string;
+    readonly share_id?: string | null;
 };
 
 export type SharesAclSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<ShareAclSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<ShareAclSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type UserAclBase = {
     permissions: Array<string>;
-    readonly user_id?: string;
+    readonly user_id?: string | null;
 };
 
 export type UserAclBaseSchema = {
     permissions: Array<string>;
-    readonly user_id?: string;
+    readonly user_id?: string | null;
 };
 
 export type UserAclSchema = {
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    readonly object_key?: string;
-    readonly object_type?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    readonly object_key?: string | null;
+    readonly object_type?: string | null;
     permissions: Array<string>;
-    readonly user_id?: string;
+    readonly user_id?: string | null;
 };
 
 export type UserIdsSchema = {
-    user_ids?: Array<string>;
+    user_ids?: Array<string> | null;
 };
 
 export type UsersCheckAclSchema = {
-    group_ids?: Array<string>;
-    user_id?: string;
+    group_ids?: Array<string> | null;
+    user_id?: string | null;
 };
 
 export type UsersSchema = {
-    users?: Array<UsersCheckAclSchema>;
+    users?: Array<UsersCheckAclSchema> | null;
 };
 
 export type AclSchemaWritable = {
@@ -296,19 +299,19 @@ export type CopyInheritedAclSchemaWritable = {
 };
 
 export type CreateAclsSchemaWritable = {
-    group_ids?: Array<unknown>;
-    mode?: 'APPEND' | 'OVERWRITE';
+    group_ids?: Array<unknown> | null;
+    mode?: 'APPEND' | 'OVERWRITE' | null;
     /**
      * The number of object_keys in the list is limited to a minimum of 0 and a maximum of 500
      */
     object_keys: Array<string>;
     permissions: Array<string>;
-    user_ids?: Array<unknown>;
+    user_ids?: Array<unknown> | null;
 };
 
 export type CreateAclsSchemaMultipleWritable = {
-    group_ids?: Array<unknown>;
-    mode?: 'APPEND' | 'OVERWRITE';
+    group_ids?: Array<unknown> | null;
+    mode?: 'APPEND' | 'OVERWRITE' | null;
     /**
      * The number of object_keys in the list is limited to a minimum of 1 and a maximum of 1
      */
@@ -316,20 +319,20 @@ export type CreateAclsSchemaMultipleWritable = {
         string
     ];
     permissions: Array<string>;
-    user_ids?: Array<unknown>;
+    user_ids?: Array<unknown> | null;
 };
 
 export type CreateBulkAclsSchemaWritable = {
-    group_ids?: Array<string>;
+    group_ids?: Array<string> | null;
     include_assets: boolean;
     include_collections: boolean;
-    mode?: 'APPEND' | 'OVERWRITE';
+    mode?: 'APPEND' | 'OVERWRITE' | null;
     /**
      * The number of object_ids in the list is limited to a minimum of 0 and a maximum of 500
      */
-    object_ids?: Array<string>;
+    object_ids?: Array<string> | null;
     permissions: Array<string>;
-    user_ids?: Array<string>;
+    user_ids?: Array<string> | null;
 };
 
 export type CreateMultipleAclsSchemaWritable = {
@@ -343,28 +346,28 @@ export type CreateShareAclsSchemaWritable = {
     /**
      * The number of object_keys in the list is limited to a min of 0 and a maximum of 500
      */
-    object_keys?: Array<string>;
+    object_keys?: Array<string> | null;
     permissions: Array<string>;
 };
 
 export type DeleteAclsSchemaWritable = {
-    group_ids?: Array<unknown>;
+    group_ids?: Array<unknown> | null;
     /**
      * The number of object_keys in the list is limitedto a minimum of 0 and a maximum of 500
      */
-    object_keys?: Array<string>;
-    user_ids?: Array<unknown>;
+    object_keys?: Array<string> | null;
+    user_ids?: Array<unknown> | null;
 };
 
 export type DeleteBulkAclsSchemaWritable = {
-    group_ids?: Array<string>;
+    group_ids?: Array<string> | null;
     include_assets: boolean;
     include_collections: boolean;
     /**
      * The number of object_ids in the list is limited to a minimum of 0 and a maximum of 500
      */
-    object_ids?: Array<string>;
-    user_ids?: Array<string>;
+    object_ids?: Array<string> | null;
+    user_ids?: Array<string> | null;
 };
 
 export type GroupAclBaseWritable = {
@@ -380,7 +383,7 @@ export type GroupAclSchemaWritable = {
 };
 
 export type GroupIdsSchemaWritable = {
-    group_ids?: Array<unknown>;
+    group_ids?: Array<unknown> | null;
 };
 
 export type InheritedAclSchemaWritable = {
@@ -424,7 +427,7 @@ export type UserAclSchemaWritable = {
 };
 
 export type UserIdsSchemaWritable = {
-    user_ids?: Array<unknown>;
+    user_ids?: Array<unknown> | null;
 };
 
 export type PostAclData = {

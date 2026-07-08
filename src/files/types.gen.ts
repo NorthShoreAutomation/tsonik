@@ -8,7 +8,7 @@ export type AnalysisAmazonRekognitionSettingsSchema = {
     access_key: string;
     bucket: string;
     endpoint: string;
-    is_system?: boolean;
+    is_system?: boolean | null;
     path: string;
     region: string;
     secret_key: string;
@@ -16,17 +16,17 @@ export type AnalysisAmazonRekognitionSettingsSchema = {
 
 export type AnalysisGoogleAiSettingsSchema = {
     bucket_name: string;
-    is_system?: boolean;
+    is_system?: boolean | null;
     json_key: string;
 };
 
 export type AnalysisIconikSettingsSchema = {
-    is_system?: boolean;
+    is_system?: boolean | null;
 };
 
 export type AnalysisProfileAmazonRekognitionSettingsSchema = {
-    is_system?: boolean;
-    min_confidence?: number;
+    is_system?: boolean | null;
+    min_confidence?: number | null;
 };
 
 export type AnalysisProfileBaseSchema = {
@@ -34,38 +34,41 @@ export type AnalysisProfileBaseSchema = {
 };
 
 export type AnalysisProfileGoogleVideoIntelligenceSettingsSchema = {
-    frame_confidence_threshold?: number;
-    is_system?: boolean;
-    video_confidence_threshold?: number;
+    frame_confidence_threshold?: number | null;
+    is_system?: boolean | null;
+    video_confidence_threshold?: number | null;
 };
 
 export type AnalysisProfileGoogleVisionSettingsSchema = {
-    is_system?: boolean;
-    min_confidence?: number;
+    is_system?: boolean | null;
+    min_confidence?: number | null;
 };
 
 export type AnalysisProfileIconikFaceRecognitionSettingsSchema = {
-    confirmed_face_match_threshold?: number;
-    detection_threshold?: number;
+    confirmed_face_match_threshold?: number | null;
+    detection_threshold?: number | null;
     directory_path: string;
-    is_system?: boolean;
+    is_system?: boolean | null;
     storage_id: string;
-    unconfirmed_face_match_threshold?: number;
+    unconfirmed_face_match_threshold?: number | null;
 };
 
 export type AnalysisProfileRevAiSettingsSchema = {
-    is_system?: boolean;
-    min_confidence?: number;
+    is_system?: boolean | null;
+    min_confidence?: number | null;
 };
 
 export type AnalysisProfileSchema = {
     analysis_service_account_id: string;
-    enabled?: boolean;
-    readonly id?: string;
-    readonly is_default?: boolean;
+    enabled?: boolean | null;
+    readonly id?: string | null;
+    readonly is_default?: boolean | null;
     media_type: 'face_image' | 'face_video' | 'image' | 'transcription' | 'video';
     name: string;
-    service_type?: 'AMAZON_REKOGNITION' | 'GOOGLE_VIDEO_INTELLIGENCE' | 'GOOGLE_VISION' | 'ICONIK' | 'ICONIK_FACE_RECOGNITION' | 'REV_AI';
+    service_type?: 'AMAZON_REKOGNITION' | 'GOOGLE_VIDEO_INTELLIGENCE' | 'GOOGLE_VISION' | 'ICONIK' | 'ICONIK_FACE_RECOGNITION' | 'REV_AI' | null;
+    settings?: {
+        [key: string]: unknown;
+    } | null;
 };
 
 export type AnalysisProfileServiceIdSchema = {
@@ -73,17 +76,17 @@ export type AnalysisProfileServiceIdSchema = {
 };
 
 export type AnalysisProfileSettingsSchema = {
-    is_system?: boolean;
+    is_system?: boolean | null;
 };
 
 export type AnalysisProfilesSchema = {
-    readonly objects?: Array<AnalysisProfileSchema>;
+    readonly objects?: Array<AnalysisProfileSchema> | null;
 };
 
 export type AnalysisRevAiSettingsSchema = {
     access_token: string;
     custom_vocabulary?: Array<string> | null;
-    is_system?: boolean;
+    is_system?: boolean | null;
     /**
      * View in which to save topic extraction time-based metadata
      */
@@ -103,49 +106,55 @@ export type AnalysisServiceAccountBaseSchema = {
 };
 
 export type AnalysisServiceAccountReadSchema = {
-    readonly id?: string;
+    readonly id?: string | null;
     method: 'AMAZON' | 'GOOGLE_AI' | 'ICONIK' | 'REV_AI';
     name: string;
 };
 
 export type AnalysisServiceAccountSchema = {
-    readonly id?: string;
+    readonly id?: string | null;
     method: 'AMAZON' | 'GOOGLE_AI' | 'ICONIK' | 'REV_AI';
     name: string;
 };
 
 export type AnalysisServiceAccountsSchema = {
-    readonly objects?: Array<AnalysisServiceAccountReadSchema>;
+    readonly objects?: Array<AnalysisServiceAccountReadSchema> | null;
 };
 
 export type AnalysisTranscriptionSettingsSchema = {
     analysis_service_account_id: string;
-    enabled?: boolean;
-    readonly id?: string;
-    readonly is_default?: boolean;
+    analysis_service_account_settings?: {
+        [key: string]: unknown;
+    } | null;
+    enabled?: boolean | null;
+    readonly id?: string | null;
+    readonly is_default?: boolean | null;
     media_type: 'face_image' | 'face_video' | 'image' | 'transcription' | 'video';
     name: string;
-    service_type?: 'AMAZON_REKOGNITION' | 'GOOGLE_VIDEO_INTELLIGENCE' | 'GOOGLE_VISION' | 'ICONIK' | 'ICONIK_FACE_RECOGNITION' | 'REV_AI';
+    service_type?: 'AMAZON_REKOGNITION' | 'GOOGLE_VIDEO_INTELLIGENCE' | 'GOOGLE_VISION' | 'ICONIK' | 'ICONIK_FACE_RECOGNITION' | 'REV_AI' | null;
+    settings?: {
+        [key: string]: unknown;
+    } | null;
 };
 
 export type ArchiveAssetFormatSchema = {
-    delete_original?: boolean;
-    destination_directory_path?: string;
-    destination_filename?: string;
+    delete_original?: boolean | null;
+    destination_directory_path?: string | null;
+    destination_filename?: string | null;
     destination_storage_id?: string | null;
     preferred_original_storage_id?: string | null;
 };
 
 export type ArchiveAssetRequest = {
-    all_versions?: boolean;
-    delete_only_from_source?: boolean;
-    delete_only_from_source_context?: SourceContext;
-    delete_original?: boolean;
+    all_versions?: boolean | null;
+    delete_only_from_source?: boolean | null;
+    delete_only_from_source_context?: SourceContext | null;
+    delete_original?: boolean | null;
     destination_directory_path?: string | null;
     /**
      * List of format names to transfer. If not specified, all formats will be transferred.
      */
-    formats?: Array<string>;
+    formats?: Array<string> | null;
     /**
      * ID of the object to transfer.
      */
@@ -154,19 +163,19 @@ export type ArchiveAssetRequest = {
     /**
      * List of version IDs to transfer.
      */
-    version_ids?: Array<string>;
+    version_ids?: Array<string> | null;
 };
 
 export type ArchiveAssetRequestSchema = {
-    all_versions?: boolean;
-    delete_only_from_source?: boolean;
-    delete_only_from_source_context?: SourceContext;
-    delete_original?: boolean;
+    all_versions?: boolean | null;
+    delete_only_from_source?: boolean | null;
+    delete_only_from_source_context?: SourceContext | null;
+    delete_original?: boolean | null;
     destination_directory_path?: string | null;
     /**
      * List of format names to transfer. If not specified, all formats will be transferred.
      */
-    formats?: Array<string>;
+    formats?: Array<string> | null;
     /**
      * ID of the object to transfer.
      */
@@ -175,19 +184,19 @@ export type ArchiveAssetRequestSchema = {
     /**
      * List of version IDs to transfer.
      */
-    version_ids?: Array<string>;
+    version_ids?: Array<string> | null;
 };
 
 export type ArchiveCollectionRequest = {
-    all_versions?: boolean;
-    delete_only_from_source?: boolean;
-    delete_only_from_source_context?: SourceContext;
-    delete_original?: boolean;
+    all_versions?: boolean | null;
+    delete_only_from_source?: boolean | null;
+    delete_only_from_source_context?: SourceContext | null;
+    delete_original?: boolean | null;
     destination_directory_path?: string | null;
     /**
      * List of format names to transfer. If not specified, all formats will be transferred.
      */
-    formats?: Array<string>;
+    formats?: Array<string> | null;
     /**
      * ID of the object to transfer.
      */
@@ -195,24 +204,24 @@ export type ArchiveCollectionRequest = {
     /**
      * Whether to keep the collection structure when archiving collections.
      */
-    keep_collection_structure?: boolean;
+    keep_collection_structure?: boolean | null;
     /**
      * Whether to keep the parent collection structure when archiving collections.
      */
-    keep_parent_collection_structure?: boolean;
+    keep_parent_collection_structure?: boolean | null;
     preferred_original_storage_id?: string | null;
 };
 
 export type ArchiveCollectionRequestSchema = {
-    all_versions?: boolean;
-    delete_only_from_source?: boolean;
-    delete_only_from_source_context?: SourceContext;
-    delete_original?: boolean;
+    all_versions?: boolean | null;
+    delete_only_from_source?: boolean | null;
+    delete_only_from_source_context?: SourceContext | null;
+    delete_original?: boolean | null;
     destination_directory_path?: string | null;
     /**
      * List of format names to transfer. If not specified, all formats will be transferred.
      */
-    formats?: Array<string>;
+    formats?: Array<string> | null;
     /**
      * ID of the object to transfer.
      */
@@ -220,24 +229,24 @@ export type ArchiveCollectionRequestSchema = {
     /**
      * Whether to keep the collection structure when archiving collections.
      */
-    keep_collection_structure?: boolean;
+    keep_collection_structure?: boolean | null;
     /**
      * Whether to keep the parent collection structure when archiving collections.
      */
-    keep_parent_collection_structure?: boolean;
+    keep_parent_collection_structure?: boolean | null;
     preferred_original_storage_id?: string | null;
 };
 
 export type ArchiveSavedSearchRequest = {
-    all_versions?: boolean;
-    delete_only_from_source?: boolean;
-    delete_only_from_source_context?: SourceContext;
-    delete_original?: boolean;
+    all_versions?: boolean | null;
+    delete_only_from_source?: boolean | null;
+    delete_only_from_source_context?: SourceContext | null;
+    delete_original?: boolean | null;
     destination_directory_path?: string | null;
     /**
      * List of format names to transfer. If not specified, all formats will be transferred.
      */
-    formats?: Array<string>;
+    formats?: Array<string> | null;
     /**
      * ID of the object to transfer.
      */
@@ -246,15 +255,15 @@ export type ArchiveSavedSearchRequest = {
 };
 
 export type ArchiveSavedSearchRequestSchema = {
-    all_versions?: boolean;
-    delete_only_from_source?: boolean;
-    delete_only_from_source_context?: SourceContext;
-    delete_original?: boolean;
+    all_versions?: boolean | null;
+    delete_only_from_source?: boolean | null;
+    delete_only_from_source_context?: SourceContext | null;
+    delete_original?: boolean | null;
     destination_directory_path?: string | null;
     /**
      * List of format names to transfer. If not specified, all formats will be transferred.
      */
-    formats?: Array<string>;
+    formats?: Array<string> | null;
     /**
      * ID of the object to transfer.
      */
@@ -272,7 +281,7 @@ export type AssetBatchExportSchema = {
     assets: Array<AssetBatchExportItemSchema>;
     export_metadata?: boolean | null;
     export_to_asset_folder?: boolean | null;
-    metadata_format?: 'CSV' | 'JSON' | 'XML';
+    metadata_format?: 'CSV' | 'JSON' | 'XML' | null;
     metadata_view?: string | null;
     overwrite?: boolean | null;
     preferred_original_storage_id?: string | null;
@@ -284,7 +293,7 @@ export type AssetExportSchema = {
     export_to_asset_folder?: boolean | null;
     file_name?: string | null;
     format_id?: string | null;
-    metadata_format?: 'CSV' | 'JSON' | 'XML';
+    metadata_format?: 'CSV' | 'JSON' | 'XML' | null;
     metadata_view?: string | null;
     overwrite?: boolean | null;
     preferred_original_storage_id?: string | null;
@@ -293,18 +302,18 @@ export type AssetExportSchema = {
 
 export type AssetLinkProxySchema = {
     asset_id: string;
-    filename?: string;
-    name?: string;
+    filename?: string | null;
+    name?: string | null;
     url: string;
     version_id: string;
 };
 
 export type AssetSubclipKeyframesSchema = {
     asset_id: string;
-    filename?: string;
-    name?: string;
+    filename?: string | null;
+    name?: string | null;
     original_asset_id: string;
-    original_segment_id?: string;
+    original_segment_id?: string | null;
     original_version_id: string;
     time_end_milliseconds: number;
     time_start_milliseconds: number;
@@ -313,82 +322,82 @@ export type AssetSubclipKeyframesSchema = {
 
 export type AssetVersionKeyframesSchema = {
     asset_id: string;
-    readonly keyframes?: Array<Keyframe>;
+    readonly keyframes?: Array<Keyframe> | null;
     version_id: string;
 };
 
 export type AssetVersionsKeyframesSchema = {
-    objects?: Array<AssetVersionKeyframesSchema>;
+    objects?: Array<AssetVersionKeyframesSchema> | null;
 };
 
 export type AzureSettingsSchema = {
     access_group_id?: string | null;
     acl_template_id?: string | null;
-    add_uuid_to_filenames?: boolean;
-    aggregate_identical_files?: boolean;
-    aggregate_ignore?: Array<string>;
-    aggregate_only_on_same_storage?: boolean;
+    add_uuid_to_filenames?: boolean | null;
+    aggregate_identical_files?: boolean | null;
+    aggregate_ignore?: Array<string> | null;
+    aggregate_only_on_same_storage?: boolean | null;
     connection_string: string;
     container: string;
-    delete?: boolean;
-    enable_collection_directory_mapping?: boolean;
-    filename_is_external_id?: boolean;
-    folder_name_tags_metadata_field_name?: string;
+    delete?: boolean | null;
+    enable_collection_directory_mapping?: boolean | null;
+    filename_is_external_id?: boolean | null;
+    folder_name_tags_metadata_field_name?: string | null;
     folder_name_tags_metadata_view_id?: string | null;
-    is_system?: boolean;
-    metadata_conversion_url?: string;
+    is_system?: boolean | null;
+    metadata_conversion_url?: string | null;
     metadata_conversion_url_headers?: string | null;
     metadata_view_id?: string | null;
     path: string;
     preload_edge_jobs?: number | null;
-    read?: boolean;
-    root_collection_id?: string;
-    scan?: boolean;
-    scan_directories?: Array<string>;
-    scan_ignore?: Array<string>;
-    sidecar_metadata_required?: boolean;
-    title_includes_extension?: boolean;
-    transcode_ignore?: Array<string>;
-    write?: boolean;
+    read?: boolean | null;
+    root_collection_id?: string | null;
+    scan?: boolean | null;
+    scan_directories?: Array<string> | null;
+    scan_ignore?: Array<string> | null;
+    sidecar_metadata_required?: boolean | null;
+    title_includes_extension?: boolean | null;
+    transcode_ignore?: Array<string> | null;
+    write?: boolean | null;
 };
 
 export type B2SettingsSchema = {
     access_group_id?: string | null;
     account_id: string;
     acl_template_id?: string | null;
-    add_uuid_to_filenames?: boolean;
-    aggregate_identical_files?: boolean;
-    aggregate_ignore?: Array<string>;
-    aggregate_only_on_same_storage?: boolean;
+    add_uuid_to_filenames?: boolean | null;
+    aggregate_identical_files?: boolean | null;
+    aggregate_ignore?: Array<string> | null;
+    aggregate_only_on_same_storage?: boolean | null;
     authorization_token: string;
     bucket_id: string;
     bucket_name: string;
-    delete?: boolean;
-    enable_collection_directory_mapping?: boolean;
-    filename_is_external_id?: boolean;
-    folder_name_tags_metadata_field_name?: string;
+    delete?: boolean | null;
+    enable_collection_directory_mapping?: boolean | null;
+    filename_is_external_id?: boolean | null;
+    folder_name_tags_metadata_field_name?: string | null;
     folder_name_tags_metadata_view_id?: string | null;
-    is_system?: boolean;
-    metadata_conversion_url?: string;
+    is_system?: boolean | null;
+    metadata_conversion_url?: string | null;
     metadata_conversion_url_headers?: string | null;
     metadata_view_id?: string | null;
     path: string;
     preload_edge_jobs?: number | null;
-    read?: boolean;
-    root_collection_id?: string;
-    scan?: boolean;
-    scan_directories?: Array<string>;
-    scan_ignore?: Array<string>;
-    sidecar_metadata_required?: boolean;
-    title_includes_extension?: boolean;
-    transcode_ignore?: Array<string>;
-    write?: boolean;
+    read?: boolean | null;
+    root_collection_id?: string | null;
+    scan?: boolean | null;
+    scan_directories?: Array<string> | null;
+    scan_ignore?: Array<string> | null;
+    sidecar_metadata_required?: boolean | null;
+    title_includes_extension?: boolean | null;
+    transcode_ignore?: Array<string> | null;
+    write?: boolean | null;
 };
 
 export type BaseExportSchema = {
     export_metadata?: boolean | null;
     export_to_asset_folder?: boolean | null;
-    metadata_format?: 'CSV' | 'JSON' | 'XML';
+    metadata_format?: 'CSV' | 'JSON' | 'XML' | null;
     metadata_view?: string | null;
     overwrite?: boolean | null;
     preferred_original_storage_id?: string | null;
@@ -406,7 +415,7 @@ export type BaseQueryParamsSchema = {
     /**
      * A comma separated list of fieldnames with order (asc/desc)
      */
-    sort?: string;
+    sort?: string | null;
 };
 
 export type BulkActionSchema = {
@@ -422,7 +431,7 @@ export type BulkArchiveAssetRequestSchema = {
     /**
      * List of assets to archive. Each asset should contain the asset ID.
      */
-    objects?: Array<ArchiveAssetRequest>;
+    objects?: Array<ArchiveAssetRequest> | null;
     /**
      * Parent job ID
      */
@@ -433,16 +442,16 @@ export type BulkArchiveAssetSchema = {
     /**
      * If true, all versions of the asset will be transferred
      */
-    all_versions?: boolean;
+    all_versions?: boolean | null;
     asset_ids: Array<string>;
-    delete_only_from_source_folder?: boolean;
-    delete_original?: boolean;
-    destination_directory_path?: string;
+    delete_only_from_source_folder?: boolean | null;
+    delete_original?: boolean | null;
+    destination_directory_path?: string | null;
     destination_storage_id?: string | null;
     /**
      * List of format names to transfer. If not specified, all formats will be transferred.
      */
-    formats?: Array<string>;
+    formats?: Array<string> | null;
     preferred_original_storage_id?: string | null;
 };
 
@@ -454,7 +463,7 @@ export type BulkArchiveCollectionRequestSchema = {
     /**
      * List of collections to archive. Each collection should contain the collection ID.
      */
-    objects?: Array<ArchiveCollectionRequest>;
+    objects?: Array<ArchiveCollectionRequest> | null;
 };
 
 export type BulkArchiveSavedSearchRequestSchema = {
@@ -465,11 +474,11 @@ export type BulkArchiveSavedSearchRequestSchema = {
     /**
      * List of saved searches to archive. Each saved search should contain the saved search ID.
      */
-    objects?: Array<ArchiveSavedSearchRequest>;
+    objects?: Array<ArchiveSavedSearchRequest> | null;
 };
 
 export type BulkAssetIdsWithFiles = {
-    asset_ids?: Array<string>;
+    asset_ids?: Array<string> | null;
 };
 
 export type BulkCheckAssetHasFilesSchema = {
@@ -480,7 +489,7 @@ export type BulkExportAssetRequestSchema = {
     /**
      * List of assets to export. Each asset should contain the asset ID.
      */
-    objects?: Array<ExportAssetRequest>;
+    objects?: Array<ExportAssetRequest> | null;
     /**
      * Parent job ID
      */
@@ -491,37 +500,37 @@ export type BulkExportCollectionRequestSchema = {
     /**
      * List of collections to export. Each collection should contain the collection ID.
      */
-    objects?: Array<ExportCollectionRequest>;
+    objects?: Array<ExportCollectionRequest> | null;
 };
 
 export type BulkExportSavedSearchRequestSchema = {
     /**
      * List of saved searches to export. Each saved search should contain the saved search ID.
      */
-    objects?: Array<ExportSavedSearchRequest>;
+    objects?: Array<ExportSavedSearchRequest> | null;
 };
 
 export type BulkFilesetArchiveSchema = {
-    allow_duplicate_transfers?: boolean;
-    delete_only_from_source_folder?: boolean;
-    delete_original?: boolean;
+    allow_duplicate_transfers?: boolean | null;
+    delete_only_from_source_folder?: boolean | null;
+    delete_original?: boolean | null;
     destination_directory_path?: string | null;
     destination_storage_id?: string | null;
-    keep_collection_structure?: boolean;
-    keep_parent_collection_structure?: boolean;
+    keep_collection_structure?: boolean | null;
+    keep_parent_collection_structure?: boolean | null;
     object_ids: Array<string>;
     object_type: 'assets' | 'collections' | 'playlists' | 'saved_searches';
     preferred_original_storage_id?: string | null;
 };
 
 export type BulkFilesetExportSchema = {
-    allow_duplicate_transfers?: boolean;
-    delete_only_from_source_folder?: boolean;
-    delete_original?: boolean;
+    allow_duplicate_transfers?: boolean | null;
+    delete_only_from_source_folder?: boolean | null;
+    delete_original?: boolean | null;
     export_metadata?: boolean | null;
     export_to_asset_folder?: boolean | null;
-    keep_collection_structure?: boolean;
-    metadata_format?: 'CSV' | 'JSON' | 'XML';
+    keep_collection_structure?: boolean | null;
+    metadata_format?: 'CSV' | 'JSON' | 'XML' | null;
     metadata_view?: string | null;
     object_ids: Array<string>;
     object_type: 'assets' | 'collections';
@@ -530,13 +539,13 @@ export type BulkFilesetExportSchema = {
 };
 
 export type BulkFilesetRestoreSchema = {
-    allow_duplicate_transfers?: boolean;
-    delete_only_from_source_folder?: boolean;
-    delete_original?: boolean;
+    allow_duplicate_transfers?: boolean | null;
+    delete_only_from_source_folder?: boolean | null;
+    delete_original?: boolean | null;
     destination_directory_path?: string | null;
     destination_storage_id?: string | null;
-    keep_collection_structure?: boolean;
-    keep_parent_collection_structure?: boolean;
+    keep_collection_structure?: boolean | null;
+    keep_parent_collection_structure?: boolean | null;
     object_ids: Array<string>;
     object_type: 'assets' | 'collections' | 'playlists' | 'saved_searches';
     preferred_original_storage_id?: string | null;
@@ -554,7 +563,7 @@ export type BulkRestoreAssetRequestSchema = {
     /**
      * List of assets to restore. Each asset should contain the asset ID and the storage ID.
      */
-    objects?: Array<RestoreAssetToStorageRequest>;
+    objects?: Array<RestoreAssetToStorageRequest> | null;
     /**
      * Parent job ID
      */
@@ -569,7 +578,7 @@ export type BulkRestoreCollectionRequestSchema = {
     /**
      * List of collections to restore. Each collection should contain the collection ID.
      */
-    objects?: Array<RestoreCollectionToStorageRequest>;
+    objects?: Array<RestoreCollectionToStorageRequest> | null;
 };
 
 export type BulkRestoreSavedSearchRequestSchema = {
@@ -580,24 +589,24 @@ export type BulkRestoreSavedSearchRequestSchema = {
     /**
      * List of saved searches to restore. Each saved search should contain the saved search ID.
      */
-    objects?: Array<RestoreSavedSearchToStorageRequest>;
+    objects?: Array<RestoreSavedSearchToStorageRequest> | null;
 };
 
 export type BulkTranscodeSchema = {
-    format_name?: string;
+    format_name?: string | null;
     object_ids: Array<string>;
     object_type: 'assets' | 'collections' | 'playlists' | 'saved_searches';
-    prefer_any_cloud?: boolean;
-    preferred_storage_id?: string;
-    preferred_storage_method?: 'AZURE' | 'B2' | 'CUSTOM' | 'FILE' | 'FTP' | 'GCS' | 'HTTP' | 'PORTAL' | 'S3' | 'SFTP';
-    priority?: number;
+    prefer_any_cloud?: boolean | null;
+    preferred_storage_id?: string | null;
+    preferred_storage_method?: 'AZURE' | 'B2' | 'CUSTOM' | 'FILE' | 'FTP' | 'GCS' | 'HTTP' | 'PORTAL' | 'S3' | 'SFTP' | null;
+    priority?: number | null;
 };
 
 export type BulkTransferAssetRequestSchema = {
     /**
      * List of assets to transfer. Each asset should contain the asset ID and the storage ID.
      */
-    objects?: Array<TransferAssetToStorageRequest>;
+    objects?: Array<TransferAssetToStorageRequest> | null;
     /**
      * Parent job ID
      */
@@ -608,50 +617,50 @@ export type BulkTransferAssetToStorageSchema = {
     /**
      * If true, all versions of the asset will be transferred
      */
-    all_versions?: boolean;
+    all_versions?: boolean | null;
     asset_ids: Array<string>;
-    destination_directory_path?: string;
+    destination_directory_path?: string | null;
     /**
      * List of format names to transfer. If not specified, all formats will be transferred.
      */
-    formats?: Array<string>;
+    formats?: Array<string> | null;
 };
 
 export type BulkTransferCollectionRequestSchema = {
     /**
      * List of collections to transfer. Each collection should contain the collection ID.
      */
-    objects?: Array<TransferCollectionToStorageRequest>;
+    objects?: Array<TransferCollectionToStorageRequest> | null;
 };
 
 export type BulkTransferSavedSearchRequestSchema = {
     /**
      * List of saved searches to transfer. Each saved search should contain the saved search ID.
      */
-    objects?: Array<TransferSavedSearchToStorageRequest>;
+    objects?: Array<TransferSavedSearchToStorageRequest> | null;
 };
 
 export type BulkTransferSchema = {
-    allow_duplicate_transfers?: boolean;
-    delete_only_from_source_folder?: boolean;
-    delete_original?: boolean;
-    keep_collection_structure?: boolean;
+    allow_duplicate_transfers?: boolean | null;
+    delete_only_from_source_folder?: boolean | null;
+    delete_original?: boolean | null;
+    keep_collection_structure?: boolean | null;
     object_ids: Array<string>;
     object_type: 'assets' | 'collections' | 'playlists' | 'saved_searches';
     preferred_original_storage_id?: string | null;
 };
 
 export type BulkTransferToStorageSchema = {
-    allow_duplicate_transfers?: boolean;
-    delete_only_from_source_folder?: boolean;
-    delete_original?: boolean;
+    allow_duplicate_transfers?: boolean | null;
+    delete_only_from_source_folder?: boolean | null;
+    delete_original?: boolean | null;
     file_path?: string | null;
-    format_name?: string;
-    keep_collection_structure?: boolean;
-    keep_parent_collection_structure?: boolean;
+    format_name?: string | null;
+    keep_collection_structure?: boolean | null;
+    keep_parent_collection_structure?: boolean | null;
     object_ids: Array<string>;
     object_type: 'assets' | 'collections' | 'playlists' | 'saved_searches';
-    overwrite?: boolean;
+    overwrite?: boolean | null;
     preferred_original_storage_id?: string | null;
 };
 
@@ -681,148 +690,154 @@ export type CollectionExportSchema = {
     export_metadata?: boolean | null;
     export_to_asset_folder?: boolean | null;
     keep_collection_structure?: boolean | null;
-    metadata_format?: 'CSV' | 'JSON' | 'XML';
+    metadata_format?: 'CSV' | 'JSON' | 'XML' | null;
     metadata_view?: string | null;
     overwrite?: boolean | null;
     preferred_original_storage_id?: string | null;
 };
 
 export type CollectionKeyframeCreateSchema = {
-    collection_id?: string;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    filename?: string;
+    collection_id?: string | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    filename?: string | null;
     format?: string | null;
-    readonly id?: string;
-    is_custom_keyframe?: boolean;
-    readonly is_public?: boolean;
-    name?: string;
-    resolution?: ResolutionType;
+    readonly id?: string | null;
+    is_custom_keyframe?: boolean | null;
+    readonly is_public?: boolean | null;
+    name?: string | null;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    time_code?: TimeCodeType;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
-    readonly upload_method?: string;
-    readonly upload_url?: string;
-    readonly url?: string;
+    readonly upload_credentials?: {
+        [key: string]: unknown;
+    } | null;
+    readonly upload_method?: string | null;
+    readonly upload_url?: string | null;
+    readonly url?: string | null;
 };
 
 export type CollectionKeyframeSchema = {
-    collection_id?: string;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    filename?: string;
+    collection_id?: string | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    filename?: string | null;
     format?: string | null;
-    readonly id?: string;
-    is_custom_keyframe?: boolean;
-    readonly is_public?: boolean;
-    name?: string;
-    resolution?: ResolutionType;
+    readonly id?: string | null;
+    is_custom_keyframe?: boolean | null;
+    readonly is_public?: boolean | null;
+    name?: string | null;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    time_code?: TimeCodeType;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
-    readonly url?: string;
+    readonly url?: string | null;
 };
 
 export type CollectionKeyframeUpdateSchema = {
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    filename?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    filename?: string | null;
     format?: string | null;
-    is_custom_keyframe?: boolean;
-    readonly is_public?: boolean;
-    name?: string;
-    resolution?: ResolutionType;
+    is_custom_keyframe?: boolean | null;
+    readonly is_public?: boolean | null;
+    name?: string | null;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    time_code?: TimeCodeType;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
-    readonly url?: string;
+    readonly url?: string | null;
 };
 
 export type CollectionKeyframesSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<CollectionKeyframeSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<CollectionKeyframeSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type CompleteExportToLocalStorageSchema = {
-    add_file_set?: boolean;
-    asset_id?: string;
-    asset_paths?: Array<string>;
-    collection_storage_id?: string;
-    component_ids?: Array<string>;
-    delete_only_from_source_folder?: boolean;
-    delete_remote_file_set_after_download?: boolean;
-    delete_source_file_set_after_download?: boolean;
-    destination_base_directory?: string;
+    add_file_set?: boolean | null;
+    asset_id?: string | null;
+    asset_paths?: Array<string> | null;
+    collection_storage_id?: string | null;
+    component_ids?: Array<string> | null;
+    delete_only_from_source_folder?: boolean | null;
+    delete_remote_file_set_after_download?: boolean | null;
+    delete_source_file_set_after_download?: boolean | null;
+    destination_base_directory?: string | null;
     destination_directory_path: string;
     destination_file_set_name: string;
-    destination_filename?: string;
-    export_metadata_format?: string;
-    export_metadata_view?: string;
-    export_original?: boolean;
-    export_posters?: boolean;
-    export_proxy?: boolean;
-    export_transcription_format?: string;
-    file_set_id?: string;
-    format_id?: string;
-    readonly id?: string;
-    include_original_extension?: boolean;
-    job_id?: string;
-    local_storage_id?: string;
-    original_storage_id?: string;
-    original_url?: string;
-    overwrite?: boolean;
-    parent_job_id?: string;
-    temporary_file_set_source?: boolean;
-    readonly transfer_type?: string;
+    destination_filename?: string | null;
+    export_metadata_format?: string | null;
+    export_metadata_view?: string | null;
+    export_original?: boolean | null;
+    export_posters?: boolean | null;
+    export_proxy?: boolean | null;
+    export_transcription_format?: string | null;
+    file_set_id?: string | null;
+    format_id?: string | null;
+    readonly id?: string | null;
+    include_original_extension?: boolean | null;
+    job_id?: string | null;
+    job_steps?: {
+        [key: string]: unknown;
+    } | null;
+    local_storage_id?: string | null;
+    original_storage_id?: string | null;
+    original_url?: string | null;
+    overwrite?: boolean | null;
+    parent_job_id?: string | null;
+    temporary_file_set_source?: boolean | null;
+    readonly transfer_type?: string | null;
 };
 
 export type ComponentSchema = {
-    readonly id?: string;
+    readonly id?: string | null;
     /**
      * Sequence cannot have more than 10000. Excess values will be stripped
      */
     metadata?: {
         [key: string]: string;
-    };
+    } | null;
     name: string;
     type: 'AUDIO' | 'EXIF' | 'GENERAL' | 'IMAGE' | 'IPTC' | 'MANIFEST' | 'NON_MEDIA' | 'OTHER' | 'TEXT' | 'VIDEO' | 'XMP';
 };
 
 export type ComponentsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<ComponentSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<ComponentSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type CustomSettingsSchema = {
-    custom?: string;
-    delete?: boolean;
-    is_system?: boolean;
-    read?: boolean;
-    write?: boolean;
+    custom?: string | null;
+    delete?: boolean | null;
+    is_system?: boolean | null;
+    read?: boolean | null;
+    write?: boolean | null;
 };
 
 export type DeleteQueueFileSetsQueryParamsSchema = {
@@ -837,7 +852,7 @@ export type DeleteQueueFileSetsQueryParamsSchema = {
     /**
      * A comma separated list of fieldnames with order (asc/desc)
      */
-    sort?: string;
+    sort?: string | null;
 };
 
 export type DeleteQueueFormatsQueryParamsSchema = {
@@ -852,7 +867,7 @@ export type DeleteQueueFormatsQueryParamsSchema = {
     /**
      * A comma separated list of fieldnames with order (asc/desc)
      */
-    sort?: string;
+    sort?: string | null;
 };
 
 export type DeleteQueueSchema = {
@@ -860,28 +875,28 @@ export type DeleteQueueSchema = {
 };
 
 export type EditProxyResponseSchema = {
-    audio_bitrate?: number;
-    audio_codec?: string;
-    bitrate?: number;
-    codec?: string;
-    directory_path?: string;
-    file_set_id?: string;
-    format_id?: string;
-    height?: number;
-    id?: string;
-    name?: string;
-    transcoder_id?: string;
-    type?: string;
-    width?: number;
+    audio_bitrate?: number | null;
+    audio_codec?: string | null;
+    bitrate?: number | null;
+    codec?: string | null;
+    directory_path?: string | null;
+    file_set_id?: string | null;
+    format_id?: string | null;
+    height?: number | null;
+    id?: string | null;
+    name?: string | null;
+    transcoder_id?: string | null;
+    type?: string | null;
+    width?: number | null;
 };
 
 export type EditProxySchema = {
     allow_mxf?: boolean | null;
     directory_path: string | null;
     file_suffix?: string | null;
-    force_storage_id?: boolean;
+    force_storage_id?: boolean | null;
     height: number;
-    ignore_transcoder_settings?: boolean;
+    ignore_transcoder_settings?: boolean | null;
     keep_extension?: boolean | null;
     name: string;
     storage_id: string;
@@ -890,43 +905,43 @@ export type EditProxySchema = {
 };
 
 export type EditProxySettingsSchema = {
-    audio_bitrate?: number;
+    audio_bitrate?: number | null;
     audio_codec?: string | null;
-    bitrate?: number;
-    codec?: string;
-    data?: string;
-    delete_after_upload?: boolean;
+    bitrate?: number | null;
+    codec?: string | null;
+    data?: string | null;
+    delete_after_upload?: boolean | null;
     destination_path?: string | null;
-    exclude_patterns?: Array<string>;
+    exclude_patterns?: Array<string> | null;
     height: number;
-    include_patterns?: Array<string>;
-    local?: boolean;
+    include_patterns?: Array<string> | null;
+    local?: boolean | null;
     local_destination_path?: string | null;
-    min_height?: number;
-    min_width?: number;
+    min_height?: number | null;
+    min_width?: number | null;
     priority?: number | null;
     storage_id?: string | null;
     width: number;
 };
 
 export type EditReadyTranscoderSchema = {
-    apply_color_conversion?: boolean;
-    bitrate?: number;
-    create_edit_proxy?: boolean;
-    delete_after_upload?: boolean;
-    edit_proxy_height?: number;
-    edit_proxy_local_storage_path?: string;
-    edit_proxy_upload_storage_id?: string;
-    edit_proxy_upload_storage_path?: string;
-    edit_proxy_width?: number;
-    editready_preset?: string;
-    exclude_patterns?: Array<string>;
-    include_patterns?: Array<string>;
-    local?: boolean;
-    min_height?: number;
-    min_width?: number;
-    overwrite_edit_proxy?: boolean;
-    videocodec?: 'Apple_ProRes_422' | 'Apple_ProRes_422_HQ' | 'Apple_ProRes_422_LT' | 'Apple_ProRes_422_Proxy' | 'Apple_ProRes_4444';
+    apply_color_conversion?: boolean | null;
+    bitrate?: number | null;
+    create_edit_proxy?: boolean | null;
+    delete_after_upload?: boolean | null;
+    edit_proxy_height?: number | null;
+    edit_proxy_local_storage_path?: string | null;
+    edit_proxy_upload_storage_id?: string | null;
+    edit_proxy_upload_storage_path?: string | null;
+    edit_proxy_width?: number | null;
+    editready_preset?: string | null;
+    exclude_patterns?: Array<string> | null;
+    include_patterns?: Array<string> | null;
+    local?: boolean | null;
+    min_height?: number | null;
+    min_width?: number | null;
+    overwrite_edit_proxy?: boolean | null;
+    videocodec?: 'Apple_ProRes_422' | 'Apple_ProRes_422_HQ' | 'Apple_ProRes_422_LT' | 'Apple_ProRes_422_Proxy' | 'Apple_ProRes_4444' | null;
     width: number;
 };
 
@@ -935,42 +950,42 @@ export type ElementalMediaConvertSchema = {
     edit_proxy_directory_path?: string | null;
     edit_proxy_storage_id?: string | null;
     endpoint_url: string;
-    exclude_patterns?: Array<string>;
+    exclude_patterns?: Array<string> | null;
     file_group_custom_name: string;
     iam_role: string;
-    include_patterns?: Array<string>;
+    include_patterns?: Array<string> | null;
     job_template_name: string;
     keyframe_storage_id?: string | null;
-    local?: boolean;
+    local?: boolean | null;
     priority?: number | null;
     proxy_storage_id?: string | null;
-    queue_name?: string;
+    queue_name?: string | null;
     region_name: string;
     s3_endpoint_url: string;
-    s3_region_name?: string;
+    s3_region_name?: string | null;
     secret_key: string;
-    temp_upload_path?: string;
+    temp_upload_path?: string | null;
 };
 
 export type ElementalServerSchema = {
     api_key: string;
     base_url: string;
-    exclude_patterns?: Array<string>;
-    include_patterns?: Array<string>;
-    keyframe_map_output_group_order?: number;
-    keyframe_output_group_order?: number;
-    local?: boolean;
+    exclude_patterns?: Array<string> | null;
+    include_patterns?: Array<string> | null;
+    keyframe_map_output_group_order?: number | null;
+    keyframe_output_group_order?: number | null;
+    local?: boolean | null;
     mount_point: string;
     priority?: number | null;
     profile: number;
-    proxy_output_group_order?: number;
+    proxy_output_group_order?: number | null;
     username: string;
 };
 
 export type EncodingComSettingsSchema = {
-    exclude_patterns?: Array<string>;
-    include_patterns?: Array<string>;
-    local?: boolean;
+    exclude_patterns?: Array<string> | null;
+    include_patterns?: Array<string> | null;
+    local?: boolean | null;
     priority?: number | null;
     user_id: string;
     user_key: string;
@@ -988,11 +1003,11 @@ export type ExportAssetRequest = {
     /**
      * Whether to export to asset folder.
      */
-    export_to_asset_folder?: boolean;
+    export_to_asset_folder?: boolean | null;
     /**
      * List containing a single format name to transfer. If not specified, ORIGINAL will be transferred.
      */
-    formats?: Array<string>;
+    formats?: Array<string> | null;
     /**
      * ID of the object to export.
      */
@@ -1000,7 +1015,7 @@ export type ExportAssetRequest = {
     /**
      * Whether to overwrite existing files.
      */
-    overwrite?: boolean;
+    overwrite?: boolean | null;
     preferred_original_storage_id?: string | null;
 };
 
@@ -1016,11 +1031,11 @@ export type ExportAssetRequestSchema = {
     /**
      * Whether to export to asset folder.
      */
-    export_to_asset_folder?: boolean;
+    export_to_asset_folder?: boolean | null;
     /**
      * List containing a single format name to transfer. If not specified, ORIGINAL will be transferred.
      */
-    formats?: Array<string>;
+    formats?: Array<string> | null;
     /**
      * ID of the object to export.
      */
@@ -1028,7 +1043,7 @@ export type ExportAssetRequestSchema = {
     /**
      * Whether to overwrite existing files.
      */
-    overwrite?: boolean;
+    overwrite?: boolean | null;
     preferred_original_storage_id?: string | null;
 };
 
@@ -1040,11 +1055,11 @@ export type ExportCollectionRequest = {
     /**
      * Whether to export to asset folder.
      */
-    export_to_asset_folder?: boolean;
+    export_to_asset_folder?: boolean | null;
     /**
      * List containing a single format name to transfer. If not specified, ORIGINAL will be transferred.
      */
-    formats?: Array<string>;
+    formats?: Array<string> | null;
     /**
      * ID of the object to export.
      */
@@ -1052,15 +1067,15 @@ export type ExportCollectionRequest = {
     /**
      * Whether to keep the collection structure when exporting collections.
      */
-    keep_collection_structure?: boolean;
+    keep_collection_structure?: boolean | null;
     /**
      * Whether to keep the parent collection structure when transferring collections.
      */
-    keep_parent_collection_structure?: boolean;
+    keep_parent_collection_structure?: boolean | null;
     /**
      * Whether to overwrite existing files.
      */
-    overwrite?: boolean;
+    overwrite?: boolean | null;
     preferred_original_storage_id?: string | null;
 };
 
@@ -1072,11 +1087,11 @@ export type ExportCollectionRequestSchema = {
     /**
      * Whether to export to asset folder.
      */
-    export_to_asset_folder?: boolean;
+    export_to_asset_folder?: boolean | null;
     /**
      * List containing a single format name to transfer. If not specified, ORIGINAL will be transferred.
      */
-    formats?: Array<string>;
+    formats?: Array<string> | null;
     /**
      * ID of the object to export.
      */
@@ -1084,49 +1099,52 @@ export type ExportCollectionRequestSchema = {
     /**
      * Whether to keep the collection structure when exporting collections.
      */
-    keep_collection_structure?: boolean;
+    keep_collection_structure?: boolean | null;
     /**
      * Whether to keep the parent collection structure when transferring collections.
      */
-    keep_parent_collection_structure?: boolean;
+    keep_parent_collection_structure?: boolean | null;
     /**
      * Whether to overwrite existing files.
      */
-    overwrite?: boolean;
+    overwrite?: boolean | null;
     preferred_original_storage_id?: string | null;
 };
 
 export type ExportLocationSchema = {
-    description?: string;
-    export_metadata?: boolean;
-    export_original?: boolean;
-    export_posters?: boolean;
-    export_proxy?: boolean;
-    export_to_asset_folder?: boolean;
-    export_transcriptions?: boolean;
-    readonly id?: string;
-    include_original_extension?: boolean;
-    metadata_format?: 'CSV' | 'JSON' | 'XML';
-    metadata_view?: string;
+    description?: string | null;
+    export_metadata?: boolean | null;
+    export_original?: boolean | null;
+    export_posters?: boolean | null;
+    export_proxy?: boolean | null;
+    export_to_asset_folder?: boolean | null;
+    export_transcriptions?: boolean | null;
+    readonly id?: string | null;
+    include_original_extension?: boolean | null;
+    metadata_format?: 'CSV' | 'JSON' | 'XML' | null;
+    metadata_view?: string | null;
     name: string;
     path: string;
     storage_id: string;
-    readonly system_domain_id?: string;
-    transcode_profile_ids?: Array<string>;
-    transcription_format?: 'SRT' | 'WEBVTT';
+    readonly system_domain_id?: string | null;
+    transcode_profile_ids?: Array<string> | null;
+    transcription_format?: 'SRT' | 'WEBVTT' | null;
 };
 
 export type ExportLocationsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<ExportLocationSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<ExportLocationSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type ExportSavedSearchRequest = {
@@ -1137,11 +1155,11 @@ export type ExportSavedSearchRequest = {
     /**
      * Whether to export to asset folder.
      */
-    export_to_asset_folder?: boolean;
+    export_to_asset_folder?: boolean | null;
     /**
      * List containing a single format name to transfer. If not specified, ORIGINAL will be transferred.
      */
-    formats?: Array<string>;
+    formats?: Array<string> | null;
     /**
      * ID of the object to export.
      */
@@ -1149,7 +1167,7 @@ export type ExportSavedSearchRequest = {
     /**
      * Whether to overwrite existing files.
      */
-    overwrite?: boolean;
+    overwrite?: boolean | null;
     preferred_original_storage_id?: string | null;
 };
 
@@ -1161,11 +1179,11 @@ export type ExportSavedSearchRequestSchema = {
     /**
      * Whether to export to asset folder.
      */
-    export_to_asset_folder?: boolean;
+    export_to_asset_folder?: boolean | null;
     /**
      * List containing a single format name to transfer. If not specified, ORIGINAL will be transferred.
      */
-    formats?: Array<string>;
+    formats?: Array<string> | null;
     /**
      * ID of the object to export.
      */
@@ -1173,651 +1191,669 @@ export type ExportSavedSearchRequestSchema = {
     /**
      * Whether to overwrite existing files.
      */
-    overwrite?: boolean;
+    overwrite?: boolean | null;
     preferred_original_storage_id?: string | null;
 };
 
 export type ExternalReferences = {
-    action?: string;
-    display_name?: string;
-    icon?: string;
+    action?: string | null;
+    display_name?: string | null;
+    icon?: string | null;
     uri: string;
 };
 
 export type FFmpegSettingsSchema = {
-    audio_bitrate?: number;
-    bitrate?: number;
-    data?: string;
+    audio_bitrate?: number | null;
+    bitrate?: number | null;
+    data?: string | null;
     edit_proxy_folder?: string | null;
-    enable_multi_channel_audio?: boolean;
-    exclude_patterns?: Array<string>;
+    enable_multi_channel_audio?: boolean | null;
+    exclude_patterns?: Array<string> | null;
     hdr_brightness?: number | null;
     hdr_contrast?: number | null;
     hdr_gamma?: number | null;
     hdr_saturation?: number | null;
     hdr_tonemap_desat?: number | null;
     hdr_tonemap_peak?: number | null;
-    include_patterns?: Array<string>;
-    local?: boolean;
-    merge_multichannel_audio_tracks?: boolean;
+    include_patterns?: Array<string> | null;
+    local?: boolean | null;
+    merge_multichannel_audio_tracks?: boolean | null;
     overlay_coordinates?: string | null;
     overlay_url?: string | null;
     priority?: number | null;
-    scaling_method?: 'accurate_rnd' | 'area' | 'bicubic' | 'bicublin' | 'bilinear' | 'bitexact' | 'experimental' | 'fast_bilinear' | 'full_chroma_inp' | 'full_chroma_int' | 'gauss' | 'lanczos' | 'neighbor' | 'sinc' | 'spline';
-    width?: number;
+    scaling_method?: 'accurate_rnd' | 'area' | 'bicubic' | 'bicublin' | 'bilinear' | 'bitexact' | 'experimental' | 'fast_bilinear' | 'full_chroma_inp' | 'full_chroma_int' | 'gauss' | 'lanczos' | 'neighbor' | 'sinc' | 'spline' | null;
+    width?: number | null;
 };
 
 export type FileBaseSchema = {
-    asset_id?: string;
+    asset_id?: string | null;
     checksum?: string | null;
-    readonly date_created?: string;
-    readonly date_modified?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
     directory_path: string;
-    file_date_created?: string;
-    file_date_modified?: string;
-    file_set_id?: string;
-    format_id?: string;
-    readonly id?: string;
+    file_date_created?: string | null;
+    file_date_modified?: string | null;
+    file_set_id?: string | null;
+    format_id?: string | null;
+    readonly id?: string | null;
     /**
      * If not specified, name will be autogenerated based on `id` and `original_name`
      */
-    name?: string;
+    name?: string | null;
     original_name: string;
     parent_id?: string | null;
-    size?: number;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    template?: string;
-    template_engine?: 'JINJA2' | 'SIMPLE';
+    size?: number | null;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    template?: string | null;
+    template_engine?: 'JINJA2' | 'SIMPLE' | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
     user_id?: string | null;
-    version_id?: string;
+    version_id?: string | null;
 };
 
 export type FileCreateSchema = {
-    asset_id?: string;
+    asset_id?: string | null;
     checksum?: string | null;
-    readonly date_created?: string;
-    readonly date_modified?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
     directory_path: string;
-    file_date_created?: string;
-    file_date_modified?: string;
-    file_set_id?: string;
-    format_id?: string;
-    readonly id?: string;
-    readonly multipart_upload_url?: string;
+    file_date_created?: string | null;
+    file_date_modified?: string | null;
+    file_set_id?: string | null;
+    format_id?: string | null;
+    readonly id?: string | null;
+    readonly multipart_upload_url?: string | null;
     /**
      * If not specified, name will be autogenerated based on `id` and `original_name`
      */
-    name?: string;
+    name?: string | null;
     original_name: string;
     parent_id?: string | null;
-    size?: number;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    readonly storage_method?: string;
-    template?: string;
-    template_engine?: 'JINJA2' | 'SIMPLE';
+    size?: number | null;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    readonly storage_method?: string | null;
+    template?: string | null;
+    template_engine?: 'JINJA2' | 'SIMPLE' | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
-    readonly upload_filename?: string;
-    readonly upload_method?: string;
-    readonly upload_url?: string;
+    readonly upload_credentials?: {
+        [key: string]: unknown;
+    } | null;
+    readonly upload_filename?: string | null;
+    readonly upload_method?: string | null;
+    readonly upload_url?: string | null;
     user_id?: string | null;
-    version_id?: string;
+    version_id?: string | null;
 };
 
 export type FileDeletionFromLocalStorageSchema = {
-    readonly asset_id?: string;
-    directory_path?: string;
+    readonly asset_id?: string | null;
+    directory_path?: string | null;
     file_id: string;
-    file_type?: string;
+    file_type?: string | null;
     filename: string;
-    readonly format_id?: string;
-    readonly id?: string;
+    readonly format_id?: string | null;
+    readonly id?: string | null;
     job_id: string;
-    keep_source?: boolean;
+    keep_source?: boolean | null;
     storage_id: string;
-    template?: string;
-    template_engine?: string;
-    readonly version_id?: string;
+    template?: string | null;
+    template_engine?: string | null;
+    readonly version_id?: string | null;
 };
 
 export type FileDeletionsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<FileDeletionFromLocalStorageSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<FileDeletionFromLocalStorageSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type FileDownloadUrlSchema = {
-    readonly url?: string;
+    readonly url?: string | null;
 };
 
 export type FileElasticSchema = {
-    asset_id?: string;
+    asset_id?: string | null;
     checksum?: string | null;
-    readonly date_created?: string;
-    readonly date_modified?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
     directory_path: string;
-    file_date_created?: string;
-    file_date_modified?: string;
-    file_set_id?: string;
+    file_date_created?: string | null;
+    file_date_modified?: string | null;
+    file_set_id?: string | null;
     readonly file_set_status?: string | null;
-    format_id?: string;
+    format_id?: string | null;
     readonly format_status?: string | null;
-    readonly id?: string;
+    readonly id?: string | null;
     /**
      * If not specified, name will be autogenerated based on `id` and `original_name`
      */
-    name?: string;
+    name?: string | null;
     original_name: string;
     parent_id?: string | null;
-    size?: number;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    template?: string;
-    template_engine?: 'JINJA2' | 'SIMPLE';
+    size?: number | null;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    template?: string | null;
+    template_engine?: 'JINJA2' | 'SIMPLE' | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
     user_id?: string | null;
-    version_id?: string;
+    version_id?: string | null;
 };
 
 export type FileExistenceCheckSchema = {
     directory_path: string;
     file_name: string;
-    file_type?: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
-    template?: string;
-    template_engine?: string;
+    file_type?: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK' | null;
+    template?: string | null;
+    template_engine?: string | null;
 };
 
 export type FileSchema = {
-    asset_id?: string;
+    asset_id?: string | null;
     checksum?: string | null;
-    readonly date_created?: string;
-    readonly date_modified?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
     directory_path: string;
-    file_date_created?: string;
-    file_date_modified?: string;
+    file_date_created?: string | null;
+    file_date_modified?: string | null;
     file_set_id: string;
     readonly file_set_status?: string | null;
-    format_id?: string;
+    format_id?: string | null;
     readonly format_status?: string | null;
-    readonly id?: string;
-    readonly multipart_upload_url?: string;
+    readonly id?: string | null;
+    readonly multipart_upload_url?: string | null;
     /**
      * If not specified, name will be autogenerated based on `id` and `original_name`
      */
-    name?: string;
+    name?: string | null;
     original_name: string;
     parent_id?: string | null;
-    size?: number;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    readonly storage_method?: string;
-    readonly system_domain_id?: string;
-    template?: string;
-    template_engine?: 'JINJA2' | 'SIMPLE';
+    size?: number | null;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    readonly storage_method?: string | null;
+    readonly system_domain_id?: string | null;
+    template?: string | null;
+    template_engine?: 'JINJA2' | 'SIMPLE' | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
-    readonly upload_filename?: string;
-    readonly upload_method?: string;
+    readonly upload_credentials?: {
+        [key: string]: unknown;
+    } | null;
+    readonly upload_filename?: string | null;
+    readonly upload_method?: string | null;
     /**
      * On a file creation for Backblaze B2 storage in case when request to Backblaze failed, upload_url field will be empty. You can try getting upload_url again by requesting created file with `generate_signed_post_url` set to true.
      */
-    readonly upload_url?: string;
-    readonly url?: string;
+    readonly upload_url?: string | null;
+    readonly url?: string | null;
     user_id?: string | null;
-    version_id?: string;
+    version_id?: string | null;
 };
 
 export type FileSetElasticSchema = {
-    archive_file_set_id?: string;
-    readonly asset_id?: string;
+    archive_file_set_id?: string | null;
+    readonly asset_id?: string | null;
     base_dir: string;
     component_ids: Array<string>;
-    readonly date_created?: string;
-    date_deleted?: string;
-    readonly date_modified?: string;
-    readonly deleted_by_user?: string;
-    readonly file_count?: number;
+    readonly date_created?: string | null;
+    date_deleted?: string | null;
+    readonly date_modified?: string | null;
+    readonly deleted_by_user?: string | null;
+    readonly file_count?: number | null;
     format_id: string;
-    readonly id?: string;
-    is_archive?: boolean;
+    readonly id?: string | null;
+    is_archive?: boolean | null;
     name: string;
-    original_storage_id?: string;
-    status?: 'ACTIVE' | 'ARCHIVED' | 'DELETED';
-    storage_id?: string;
-    type?: 'MANY_FILES' | 'REGULAR';
-    version_id?: string;
+    original_storage_id?: string | null;
+    status?: 'ACTIVE' | 'ARCHIVED' | 'DELETED' | null;
+    storage_id?: string | null;
+    type?: 'MANY_FILES' | 'REGULAR' | null;
+    version_id?: string | null;
 };
 
 export type FileSetSchema = {
-    archive_file_set_id?: string;
-    readonly asset_id?: string;
+    archive_file_set_id?: string | null;
+    readonly asset_id?: string | null;
     base_dir: string;
     component_ids: Array<string>;
-    readonly date_created?: string;
-    date_deleted?: string;
-    readonly date_modified?: string;
-    readonly deleted_by_user?: string;
-    readonly file_count?: number;
+    readonly date_created?: string | null;
+    date_deleted?: string | null;
+    readonly date_modified?: string | null;
+    readonly deleted_by_user?: string | null;
+    readonly file_count?: number | null;
     format_id: string;
-    readonly id?: string;
-    is_archive?: boolean;
+    readonly id?: string | null;
+    is_archive?: boolean | null;
     name: string;
-    original_storage_id?: string;
-    status?: 'ACTIVE' | 'ARCHIVED' | 'DELETED';
-    storage_id?: string;
-    type?: 'MANY_FILES' | 'REGULAR';
-    version_id?: string;
+    original_storage_id?: string | null;
+    status?: 'ACTIVE' | 'ARCHIVED' | 'DELETED' | null;
+    storage_id?: string | null;
+    type?: 'MANY_FILES' | 'REGULAR' | null;
+    version_id?: string | null;
 };
 
 export type FileSetSourceSchema = {
-    archive_file_set_id?: string;
-    readonly asset_id?: string;
+    archive_file_set_id?: string | null;
+    readonly asset_id?: string | null;
     base_dir: string;
     component_ids: Array<string>;
-    readonly date_created?: string;
-    date_deleted?: string;
-    readonly date_modified?: string;
-    readonly deleted_by_user?: string;
-    readonly file_count?: number;
+    readonly date_created?: string | null;
+    date_deleted?: string | null;
+    readonly date_modified?: string | null;
+    readonly deleted_by_user?: string | null;
+    readonly file_count?: number | null;
     format_id: string;
-    readonly id?: string;
-    is_archive?: boolean;
+    readonly id?: string | null;
+    is_archive?: boolean | null;
     name: string;
-    original_storage_id?: string;
-    status?: 'ACTIVE' | 'ARCHIVED' | 'DELETED';
+    original_storage_id?: string | null;
+    status?: 'ACTIVE' | 'ARCHIVED' | 'DELETED' | null;
     storage_id: string;
     storage_method: string;
-    type?: 'MANY_FILES' | 'REGULAR';
-    version_id?: string;
+    type?: 'MANY_FILES' | 'REGULAR' | null;
+    version_id?: string | null;
 };
 
 export type FileSetSourcesSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<FileSetSourceSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<FileSetSourceSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type FileSetsElasticSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<FileSetElasticSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<FileSetElasticSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type FileSetsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<FileSetSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<FileSetSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type FileSettingsSchema = {
     access_group_id?: string | null;
     acl_template_id?: string | null;
-    aggregate_identical_files?: boolean;
-    aggregate_ignore?: Array<string>;
-    aggregate_only_on_same_storage?: boolean;
-    allow_access_outside_scan_directories?: boolean;
-    asset_versions_suffix?: string;
-    auto_version_ignore?: Array<string>;
-    auto_version_ingest_throttle_value?: number;
-    delete?: boolean;
-    directory_assets_original_patterns?: Array<string>;
-    directory_assets_transcode_patterns?: Array<string>;
-    enable_auto_versioning?: boolean;
-    enable_collection_directory_mapping?: boolean;
-    enable_directory_assets?: boolean;
-    filename_is_external_id?: boolean;
-    folder_name_tags_metadata_field_name?: string;
+    aggregate_identical_files?: boolean | null;
+    aggregate_ignore?: Array<string> | null;
+    aggregate_only_on_same_storage?: boolean | null;
+    allow_access_outside_scan_directories?: boolean | null;
+    asset_versions_suffix?: string | null;
+    auto_version_ignore?: Array<string> | null;
+    auto_version_ingest_throttle_value?: number | null;
+    delete?: boolean | null;
+    directory_assets_original_patterns?: Array<string> | null;
+    directory_assets_transcode_patterns?: Array<string> | null;
+    enable_auto_versioning?: boolean | null;
+    enable_collection_directory_mapping?: boolean | null;
+    enable_directory_assets?: boolean | null;
+    filename_is_external_id?: boolean | null;
+    folder_name_tags_metadata_field_name?: string | null;
     folder_name_tags_metadata_view_id?: string | null;
-    readonly gateway_user_id?: string;
-    growing_files_threshold?: number;
-    is_system?: boolean;
-    local_keyframe_creation?: boolean;
-    local_proxy_creation?: boolean;
-    metadata_conversion_url?: string;
+    readonly gateway_user_id?: string | null;
+    growing_files_threshold?: number | null;
+    is_system?: boolean | null;
+    local_keyframe_creation?: boolean | null;
+    local_proxy_creation?: boolean | null;
+    metadata_conversion_url?: string | null;
     metadata_conversion_url_headers?: string | null;
     metadata_view_id?: string | null;
     mount_point: string;
     prio_dirs?: Array<PrioDir> | null;
     prio_patterns?: Array<PrioPattern> | null;
-    public_identity?: string;
-    read?: boolean;
-    remote_path?: string;
-    remote_storage_id?: string;
-    scan?: boolean;
-    scan_directories?: Array<string>;
-    scan_ignore?: Array<string>;
-    scan_include?: Array<string>;
-    scan_interval_seconds?: number;
-    sidecar_metadata_required?: boolean;
-    skip_upload_on_any_remote_copy_found?: boolean;
-    storage_addr?: string;
-    title_includes_extension?: boolean;
-    transcode_ignore?: Array<string>;
-    transcode_include?: Array<string>;
-    upload_files?: boolean;
-    upload_ignore?: Array<string>;
-    write?: boolean;
+    public_identity?: string | null;
+    read?: boolean | null;
+    remote_path?: string | null;
+    remote_storage_id?: string | null;
+    scan?: boolean | null;
+    scan_directories?: Array<string> | null;
+    scan_ignore?: Array<string> | null;
+    scan_include?: Array<string> | null;
+    scan_interval_seconds?: number | null;
+    sidecar_metadata_required?: boolean | null;
+    skip_upload_on_any_remote_copy_found?: boolean | null;
+    storage_addr?: string | null;
+    title_includes_extension?: boolean | null;
+    transcode_ignore?: Array<string> | null;
+    transcode_include?: Array<string> | null;
+    upload_files?: boolean | null;
+    upload_ignore?: Array<string> | null;
+    write?: boolean | null;
 };
 
 export type FileShareUploadEditSchema = {
-    size?: number;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
+    size?: number | null;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
 };
 
 export type FilesElasticSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<FileElasticSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<FileElasticSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type FilesSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<FileSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<FileSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type FilesetTransferBaseSchema = {
-    asset_id?: string;
-    asset_paths?: Array<string>;
-    collection_storage_id?: string;
-    component_ids?: Array<string>;
-    delete_only_from_source_folder?: boolean;
-    destination_filename?: string;
-    readonly id?: string;
-    job_id?: string;
-    original_storage_id?: string;
-    original_url?: string;
-    parent_job_id?: string;
-    readonly transfer_type?: string;
+    asset_id?: string | null;
+    asset_paths?: Array<string> | null;
+    collection_storage_id?: string | null;
+    component_ids?: Array<string> | null;
+    delete_only_from_source_folder?: boolean | null;
+    destination_filename?: string | null;
+    readonly id?: string | null;
+    job_id?: string | null;
+    job_steps?: {
+        [key: string]: unknown;
+    } | null;
+    original_storage_id?: string | null;
+    original_url?: string | null;
+    parent_job_id?: string | null;
+    readonly transfer_type?: string | null;
 };
 
 export type FlicsTranscoderSchema = {
-    audio_template_id?: string;
-    create_edit_proxy?: boolean;
-    delete_after_upload?: boolean;
-    edit_proxy_local_storage_path?: string;
-    edit_proxy_upload_storage_id?: string;
-    edit_proxy_upload_storage_path?: string;
-    exclude_patterns?: Array<string>;
-    host?: string;
-    image_template_id?: string;
-    include_patterns?: Array<string>;
-    local?: boolean;
+    audio_template_id?: string | null;
+    create_edit_proxy?: boolean | null;
+    delete_after_upload?: boolean | null;
+    edit_proxy_local_storage_path?: string | null;
+    edit_proxy_upload_storage_id?: string | null;
+    edit_proxy_upload_storage_path?: string | null;
+    exclude_patterns?: Array<string> | null;
+    host?: string | null;
+    image_template_id?: string | null;
+    include_patterns?: Array<string> | null;
+    local?: boolean | null;
     max_concurrency?: number | null;
-    secret_key?: string;
+    secret_key?: string | null;
     storage_id_path_mapping?: unknown;
     storage_ids_mapping?: unknown;
-    template_id?: string;
+    template_id?: string | null;
 };
 
 export type FormatArchiveSchema = {
-    delete_original?: boolean;
-    destination_directory_path?: string;
-    readonly destination_file_set_name?: string;
-    destination_storage_id?: string;
-    destination_storage_method?: string;
-    format_id?: string;
-    original_file_set_id?: string;
+    delete_original?: boolean | null;
+    destination_directory_path?: string | null;
+    readonly destination_file_set_name?: string | null;
+    destination_storage_id?: string | null;
+    destination_storage_method?: string | null;
+    format_id?: string | null;
+    original_file_set_id?: string | null;
 };
 
 export type FormatDeleteArchiveSchema = {
-    file_set_id?: string;
+    file_set_id?: string | null;
 };
 
 export type FormatElasticSchema = {
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED';
-    readonly asset_id?: string;
-    components?: Array<ComponentSchema>;
-    readonly date_created?: string;
-    date_deleted?: string;
-    readonly date_modified?: string;
-    readonly deleted_by_user?: string;
-    external_references?: Array<ExternalReferences>;
-    readonly id?: string;
-    is_online?: boolean;
+    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    readonly asset_id?: string | null;
+    components?: Array<ComponentSchema> | null;
+    readonly date_created?: string | null;
+    date_deleted?: string | null;
+    readonly date_modified?: string | null;
+    readonly deleted_by_user?: string | null;
+    external_references?: Array<ExternalReferences> | null;
+    readonly id?: string | null;
+    is_online?: boolean | null;
     /**
      * Sequence cannot have more than 10000. Excess values will be stripped
      */
     metadata?: Array<{
         [key: string]: string;
-    }>;
+    }> | null;
     name: string;
-    status?: 'ACTIVE' | 'DELETED';
-    storage_methods?: Array<string>;
-    user_id?: string;
-    version_id?: string;
-    readonly warnings?: Array<string>;
+    status?: 'ACTIVE' | 'DELETED' | null;
+    storage_methods?: Array<string> | null;
+    user_id?: string | null;
+    version_id?: string | null;
+    readonly warnings?: Array<string> | null;
 };
 
 export type FormatRestoreSchema = {
     destination_directory_path?: string | null;
-    destination_storage_id?: string;
+    destination_storage_id?: string | null;
     /**
      * Deprecated field. Use destination_storage_id instead
      */
-    storage_id?: string;
+    storage_id?: string | null;
 };
 
 export type FormatSchema = {
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED';
-    readonly asset_id?: string;
-    components?: Array<ComponentSchema>;
-    readonly date_created?: string;
-    date_deleted?: string;
-    readonly date_modified?: string;
-    readonly deleted_by_user?: string;
-    external_references?: Array<ExternalReferences>;
-    readonly id?: string;
-    is_online?: boolean;
+    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    readonly asset_id?: string | null;
+    components?: Array<ComponentSchema> | null;
+    readonly date_created?: string | null;
+    date_deleted?: string | null;
+    readonly date_modified?: string | null;
+    readonly deleted_by_user?: string | null;
+    external_references?: Array<ExternalReferences> | null;
+    readonly id?: string | null;
+    is_online?: boolean | null;
     /**
      * Sequence cannot have more than 10000. Excess values will be stripped
      */
     metadata?: Array<{
         [key: string]: string;
-    }>;
+    }> | null;
     name: string;
-    status?: 'ACTIVE' | 'DELETED';
-    storage_methods?: Array<string>;
-    user_id?: string;
-    version_id?: string;
-    readonly warnings?: Array<string>;
+    status?: 'ACTIVE' | 'DELETED' | null;
+    storage_methods?: Array<string> | null;
+    user_id?: string | null;
+    version_id?: string | null;
+    readonly warnings?: Array<string> | null;
 };
 
 export type FormatsElasticSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<FormatElasticSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<FormatElasticSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type FormatsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<FormatSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<FormatSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type FtpSettingsSchema = {
     address: string;
-    delete?: boolean;
-    is_system?: boolean;
+    delete?: boolean | null;
+    is_system?: boolean | null;
     password: string;
-    read?: boolean;
-    scan?: boolean;
+    read?: boolean | null;
+    scan?: boolean | null;
     user: string;
-    write?: boolean;
+    write?: boolean | null;
 };
 
 export type GatewayReportSchema = {
     await_checksum_files_number?: number | null;
-    readonly date_reported?: string;
+    readonly date_reported?: string | null;
     empty_files_number?: number | null;
-    error_log_lines?: Array<string>;
+    error_log_lines?: Array<string> | null;
     exported_files_number?: number | null;
     faulty_files_number?: number | null;
-    host_info?: string;
-    host_name?: string;
-    readonly id?: string;
+    host_info?: string | null;
+    host_name?: string | null;
+    readonly id?: string | null;
     ingested_files_number?: number | null;
     ingested_files_uploads_number?: number | null;
     ingesting_files_number?: number | null;
     last_scan_time?: number | null;
-    log_lines?: Array<string>;
-    readonly logs_url?: string;
+    log_lines?: Array<string> | null;
+    readonly logs_url?: string | null;
     missing_files_number?: number | null;
     scanned_files_number?: number | null;
     skipped_files_number?: number | null;
-    readonly start_last_date?: string;
-    start_status?: 'FAILED' | 'SUCCESS';
-    start_status_message?: string;
-    status?: 'ERROR' | 'LIVE' | 'OFFLINE' | 'STOPPED' | 'UNKNOWN' | 'WARNING';
-    readonly storage_id?: string;
+    readonly start_last_date?: string | null;
+    start_status?: 'FAILED' | 'SUCCESS' | null;
+    start_status_message?: string | null;
+    status?: 'ERROR' | 'LIVE' | 'OFFLINE' | 'STOPPED' | 'UNKNOWN' | 'WARNING' | null;
+    readonly storage_id?: string | null;
     total_files_number?: number | null;
     total_folders_number?: number | null;
-    version?: string;
+    version?: string | null;
     waiting_preview_transcode_jobs_number?: number | null;
     waiting_transcode_jobs_number?: number | null;
 };
 
 export type GatewayStatusSchema = {
-    status?: string;
+    status?: string | null;
 };
 
 export type GoogleCloudStorageSettingsSchema = {
     access_group_id?: string | null;
     acl_template_id?: string | null;
-    add_uuid_to_filenames?: boolean;
-    aggregate_identical_files?: boolean;
-    aggregate_ignore?: Array<string>;
-    aggregate_only_on_same_storage?: boolean;
+    add_uuid_to_filenames?: boolean | null;
+    aggregate_identical_files?: boolean | null;
+    aggregate_ignore?: Array<string> | null;
+    aggregate_only_on_same_storage?: boolean | null;
     bucket: string;
-    delete?: boolean;
-    enable_collection_directory_mapping?: boolean;
-    filename_is_external_id?: boolean;
-    folder_name_tags_metadata_field_name?: string;
+    delete?: boolean | null;
+    enable_collection_directory_mapping?: boolean | null;
+    filename_is_external_id?: boolean | null;
+    folder_name_tags_metadata_field_name?: string | null;
     folder_name_tags_metadata_view_id?: string | null;
-    is_system?: boolean;
+    is_system?: boolean | null;
     json_key: string;
-    metadata_conversion_url?: string;
+    metadata_conversion_url?: string | null;
     metadata_conversion_url_headers?: string | null;
     metadata_view_id?: string | null;
     path: string;
     preload_edge_jobs?: number | null;
     project: string;
-    read?: boolean;
-    root_collection_id?: string;
-    scan?: boolean;
-    scan_directories?: Array<string>;
-    scan_ignore?: Array<string>;
-    sidecar_metadata_required?: boolean;
-    title_includes_extension?: boolean;
-    transcode_ignore?: Array<string>;
-    write?: boolean;
+    read?: boolean | null;
+    root_collection_id?: string | null;
+    scan?: boolean | null;
+    scan_directories?: Array<string> | null;
+    scan_ignore?: Array<string> | null;
+    sidecar_metadata_required?: boolean | null;
+    title_includes_extension?: boolean | null;
+    transcode_ignore?: Array<string> | null;
+    write?: boolean | null;
 };
 
 export type HttpSettingsSchema = {
     address: string;
-    auto?: boolean;
-    delete?: boolean;
-    is_system?: boolean;
-    read?: boolean;
-    scan?: boolean;
+    auto?: boolean | null;
+    delete?: boolean | null;
+    is_system?: boolean | null;
+    read?: boolean | null;
+    scan?: boolean | null;
 };
 
 export type IsgConfigClusterSettingsSchema = {
-    checksum_max_workers?: number;
-    file_download_parallel_downloads_num?: number;
-    file_upload_parallel_uploads_num?: number;
-    max_transcoding_jobs?: number;
-    scanner_concurrency_value?: number;
+    checksum_max_workers?: number | null;
+    file_download_parallel_downloads_num?: number | null;
+    file_upload_parallel_uploads_num?: number | null;
+    max_transcoding_jobs?: number | null;
+    scanner_concurrency_value?: number | null;
 };
 
 export type IsgConfigSettingsSchema = {
-    checksum_max_workers?: number;
-    file_download_parallel_downloads_num?: number;
-    file_upload_parallel_uploads_num?: number;
-    max_transcoding_jobs?: number;
-    scanner_concurrency_value?: number;
+    checksum_max_workers?: number | null;
+    file_download_parallel_downloads_num?: number | null;
+    file_upload_parallel_uploads_num?: number | null;
+    max_transcoding_jobs?: number | null;
+    scanner_concurrency_value?: number | null;
 };
 
 export type IsgHandlerUrlSchema = {
-    url?: string;
+    url?: string | null;
 };
 
 export type IconikEdgeTranscoderSchema = {
-    enable_multi_channel_audio?: boolean;
-    exclude_patterns?: Array<string>;
-    include_patterns?: Array<string>;
-    local?: boolean;
-    max_transcoding_jobs?: number;
-    merge_multichannel_audio_tracks?: boolean;
+    enable_multi_channel_audio?: boolean | null;
+    exclude_patterns?: Array<string> | null;
+    include_patterns?: Array<string> | null;
+    local?: boolean | null;
+    max_transcoding_jobs?: number | null;
+    merge_multichannel_audio_tracks?: boolean | null;
     priority?: number | null;
 };
 
 export type IconikStorageGatewayBaseSchema = {
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    description?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    description?: string | null;
     /**
      * Application toggle. If turned off ISG will enter idle state waiting to get enabled again.
      */
     enabled: boolean;
-    readonly id?: string;
+    readonly id?: string | null;
     name: string;
     /**
      * Application configuration settings as key-value pairs
@@ -1826,103 +1862,106 @@ export type IconikStorageGatewayBaseSchema = {
 };
 
 export type IconikStorageGatewayClusterReadSchema = {
-    readonly date_created?: string;
-    readonly date_modified?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
     /**
      * Database connection URI
      */
     db_connection_uri: string;
-    description?: string;
+    description?: string | null;
     /**
      * Application toggle. If turned off ISG will enter idle state waiting to get enabled again.
      */
     enabled: boolean;
-    readonly id?: string;
-    readonly leader_changed_at?: string;
+    readonly id?: string | null;
+    readonly leader_changed_at?: string | null;
     /**
      * Last reported leader ID.
      */
-    readonly leader_id?: string;
+    readonly leader_id?: string | null;
     name: string;
-    readonly nodes?: Array<IconikStorageGatewayRead>;
+    readonly nodes?: Array<IconikStorageGatewayRead> | null;
     /**
      * Application configuration settings as key-value pairs
      */
-    settings?: IsgConfigClusterSettingsSchema;
-    readonly status?: 'ACTIVE' | 'ERROR' | 'OFFLINE' | 'STOPPED' | 'WARNING';
+    settings?: IsgConfigClusterSettingsSchema | null;
+    status?: 'ACTIVE' | 'ERROR' | 'OFFLINE' | 'STOPPED' | 'WARNING' | null;
     storage_ids: Array<string>;
     /**
      * Total number of files
      */
-    readonly total_files_number?: number;
+    readonly total_files_number?: number | null;
     /**
      * Total number of scheduled transcode jobs
      */
-    readonly transcode_queue_total?: number;
+    readonly transcode_queue_total?: number | null;
     /**
      * Total number of scheduled auto-uploads
      */
-    readonly uploads_queue_total?: number;
+    readonly uploads_queue_total?: number | null;
     /**
      * The number of seconds jobs should remain invisible to other nodes
      */
-    visibility_timeout?: number;
+    visibility_timeout?: number | null;
 };
 
 export type IconikStorageGatewayClusterSchema = {
-    readonly date_created?: string;
-    readonly date_modified?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
     /**
      * Database connection URI
      */
     db_connection_uri: string;
-    description?: string;
+    description?: string | null;
     /**
      * Application toggle. If turned off ISG will enter idle state waiting to get enabled again.
      */
     enabled: boolean;
-    readonly id?: string;
+    readonly id?: string | null;
     name: string;
     /**
      * Application configuration settings as key-value pairs
      */
-    settings?: IsgConfigClusterSettingsSchema;
-    readonly status?: 'ACTIVE' | 'ERROR' | 'OFFLINE' | 'STOPPED' | 'WARNING';
+    settings?: IsgConfigClusterSettingsSchema | null;
+    status?: 'ACTIVE' | 'ERROR' | 'OFFLINE' | 'STOPPED' | 'WARNING' | null;
     storage_ids: Array<string>;
     /**
      * Total number of files
      */
-    readonly total_files_number?: number;
+    readonly total_files_number?: number | null;
     /**
      * Total number of scheduled transcode jobs
      */
-    readonly transcode_queue_total?: number;
+    readonly transcode_queue_total?: number | null;
     /**
      * Total number of scheduled auto-uploads
      */
-    readonly uploads_queue_total?: number;
+    readonly uploads_queue_total?: number | null;
     /**
      * The number of seconds jobs should remain invisible to other nodes
      */
-    visibility_timeout?: number;
+    visibility_timeout?: number | null;
 };
 
 export type IconikStorageGatewayClustersSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    objects?: Array<IconikStorageGatewayClusterReadSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    objects?: Array<IconikStorageGatewayClusterReadSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type IconikStorageGatewayEventSchema = {
-    readonly date_created?: string;
-    readonly id?: string;
+    data?: {
+        [key: string]: unknown;
+    } | null;
+    readonly date_created?: string | null;
+    readonly id?: string | null;
     type: 'ABORT_COLLECTION_MAP' | 'ABORT_JOBS_BULK' | 'ASSET_MERGED' | 'COLLECTION_DELETED' | 'DELETE' | 'DOWNLOAD' | 'DOWNLOAD_ABORT' | 'DOWNLOAD_CHANGE_PRIORITY' | 'INGEST_UPLOAD' | 'MARK_MISSING_OUTSIDE_SCAN_DIRS' | 'REQUEST_COLLECTION_MAP' | 'RESET_INGEST_VALIDATION' | 'RESTART' | 'SCHEDULE_CHECKSUM_CALCULATION' | 'TRANSCODE' | 'TRANSCODE_ABORT' | 'TRANSCODE_CHANGE_PRIORITY' | 'UPLOAD' | 'UPLOAD_ABORT' | 'UPLOAD_CHANGE_PRIORITY';
 };
 
@@ -1931,117 +1970,117 @@ export type IconikStorageGatewayEventsPurgeSchema = {
 };
 
 export type IconikStorageGatewayEventsSchema = {
-    readonly objects?: Array<IconikStorageGatewayEventSchema>;
+    readonly objects?: Array<IconikStorageGatewayEventSchema> | null;
 };
 
 export type IconikStorageGatewayRead = {
-    cluster_id?: string;
+    cluster_id?: string | null;
     /**
      * Cluster storage IDs
      */
-    readonly cluster_storage_ids?: Array<string>;
-    readonly date_created?: string;
-    readonly date_modified?: string;
+    readonly cluster_storage_ids?: Array<string> | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
     /**
      * Dedicated storage IDs
      */
-    readonly dedicated_storage_ids?: Array<string>;
-    description?: string;
+    readonly dedicated_storage_ids?: Array<string> | null;
+    description?: string | null;
     /**
      * Application toggle. If turned off ISG will enter idle state waiting to get enabled again.
      */
     enabled: boolean;
-    readonly id?: string;
+    readonly id?: string | null;
     /**
      * Application configuration settings merged with cluster settings
      */
-    merged_settings?: IsgConfigClusterSettingsSchema;
+    merged_settings?: IsgConfigClusterSettingsSchema | null;
     name: string;
-    public_identity?: string;
+    public_identity?: string | null;
     /**
      * Set of roles this gateway can perform when part of cluster
      */
-    roles?: Array<'CHECKSUM' | 'MAIN' | 'TRANSCODE' | 'TRANSFER'>;
+    roles?: Array<'CHECKSUM' | 'MAIN' | 'TRANSCODE' | 'TRANSFER'> | null;
     /**
      * Application configuration settings as key-value pairs
      */
     settings?: IsgConfigSettingsSchema | null;
-    readonly status?: 'ACTIVE' | 'ERROR' | 'OFFLINE' | 'STOPPED' | 'WARNING';
+    status?: 'ACTIVE' | 'ERROR' | 'OFFLINE' | 'STOPPED' | 'WARNING' | null;
     /**
      * Server address for direct transfers between storage gateways
      */
-    storage_addr?: string;
+    storage_addr?: string | null;
     /**
      * Storage mount points mapped by storage ID
      */
     storages?: {
         [key: string]: IconikStorageGatewayStorageMap;
-    };
-    telemetry?: IconikStorageGatewayTelemetry;
+    } | null;
+    telemetry?: IconikStorageGatewayTelemetry | null;
 };
 
 export type IconikStorageGatewayReadSchema = {
-    cluster_id?: string;
+    cluster_id?: string | null;
     /**
      * Cluster storage IDs
      */
-    readonly cluster_storage_ids?: Array<string>;
-    readonly date_created?: string;
-    readonly date_modified?: string;
+    readonly cluster_storage_ids?: Array<string> | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
     /**
      * Dedicated storage IDs
      */
-    readonly dedicated_storage_ids?: Array<string>;
-    description?: string;
+    readonly dedicated_storage_ids?: Array<string> | null;
+    description?: string | null;
     /**
      * Application toggle. If turned off ISG will enter idle state waiting to get enabled again.
      */
     enabled: boolean;
-    readonly id?: string;
+    readonly id?: string | null;
     /**
      * Application configuration settings merged with cluster settings
      */
-    merged_settings?: IsgConfigClusterSettingsSchema;
+    merged_settings?: IsgConfigClusterSettingsSchema | null;
     name: string;
-    public_identity?: string;
+    public_identity?: string | null;
     /**
      * Set of roles this gateway can perform when part of cluster
      */
-    roles?: Array<'CHECKSUM' | 'MAIN' | 'TRANSCODE' | 'TRANSFER'>;
+    roles?: Array<'CHECKSUM' | 'MAIN' | 'TRANSCODE' | 'TRANSFER'> | null;
     /**
      * Application configuration settings as key-value pairs
      */
     settings?: IsgConfigSettingsSchema | null;
-    readonly status?: 'ACTIVE' | 'ERROR' | 'OFFLINE' | 'STOPPED' | 'WARNING';
+    status?: 'ACTIVE' | 'ERROR' | 'OFFLINE' | 'STOPPED' | 'WARNING' | null;
     /**
      * Server address for direct transfers between storage gateways
      */
-    storage_addr?: string;
+    storage_addr?: string | null;
     /**
      * Storage mount points mapped by storage ID
      */
     storages?: {
         [key: string]: IconikStorageGatewayStorageMap;
-    };
-    telemetry?: IconikStorageGatewayTelemetry;
+    } | null;
+    telemetry?: IconikStorageGatewayTelemetry | null;
 };
 
 export type IconikStorageGatewaySchema = {
-    cluster_id?: string;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    description?: string;
+    cluster_id?: string | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    description?: string | null;
     /**
      * Application toggle. If turned off ISG will enter idle state waiting to get enabled again.
      */
     enabled: boolean;
-    readonly id?: string;
+    readonly id?: string | null;
     name: string;
-    public_identity?: string;
+    public_identity?: string | null;
     /**
      * Set of roles this gateway can perform when part of cluster
      */
-    roles?: Array<'CHECKSUM' | 'MAIN' | 'TRANSCODE' | 'TRANSFER'>;
+    roles?: Array<'CHECKSUM' | 'MAIN' | 'TRANSCODE' | 'TRANSFER'> | null;
     /**
      * Application configuration settings as key-value pairs
      */
@@ -2049,13 +2088,13 @@ export type IconikStorageGatewaySchema = {
     /**
      * Server address for direct transfers between storage gateways
      */
-    storage_addr?: string;
+    storage_addr?: string | null;
     /**
      * Storage mount points mapped by storage ID
      */
     storages?: {
         [key: string]: IconikStorageGatewayStorageMap;
-    };
+    } | null;
 };
 
 export type IconikStorageGatewayStorageMap = {
@@ -2067,71 +2106,71 @@ export type IconikStorageGatewayStorageMapSchema = {
 };
 
 export type IconikStorageGatewayTelemetry = {
-    error_log_lines?: Array<string>;
-    host_info?: string;
-    host_ip?: string;
-    host_name?: string;
-    log_lines?: Array<string>;
-    start_last_date?: string;
-    start_status?: 'FAILED' | 'SUCCESS';
-    start_status_message?: string;
-    status?: 'ERROR' | 'LIVE' | 'OFFLINE' | 'STOPPED' | 'UNKNOWN' | 'WARNING';
-    readonly storage_gateway_id?: string;
-    version?: string;
+    error_log_lines?: Array<string> | null;
+    host_info?: string | null;
+    host_ip?: string | null;
+    host_name?: string | null;
+    log_lines?: Array<string> | null;
+    start_last_date?: string | null;
+    start_status?: 'FAILED' | 'SUCCESS' | null;
+    start_status_message?: string | null;
+    status?: 'ERROR' | 'LIVE' | 'OFFLINE' | 'STOPPED' | 'UNKNOWN' | 'WARNING' | null;
+    readonly storage_gateway_id?: string | null;
+    version?: string | null;
     worker_id: string;
 };
 
 export type IconikStorageGatewayTelemetrySchema = {
-    error_log_lines?: Array<string>;
-    host_info?: string;
-    host_ip?: string;
-    host_name?: string;
-    log_lines?: Array<string>;
-    start_last_date?: string;
-    start_status?: 'FAILED' | 'SUCCESS';
-    start_status_message?: string;
-    status?: 'ERROR' | 'LIVE' | 'OFFLINE' | 'STOPPED' | 'UNKNOWN' | 'WARNING';
-    readonly storage_gateway_id?: string;
-    version?: string;
+    error_log_lines?: Array<string> | null;
+    host_info?: string | null;
+    host_ip?: string | null;
+    host_name?: string | null;
+    log_lines?: Array<string> | null;
+    start_last_date?: string | null;
+    start_status?: 'FAILED' | 'SUCCESS' | null;
+    start_status_message?: string | null;
+    status?: 'ERROR' | 'LIVE' | 'OFFLINE' | 'STOPPED' | 'UNKNOWN' | 'WARNING' | null;
+    readonly storage_gateway_id?: string | null;
+    version?: string | null;
     worker_id: string;
 };
 
 export type IconikStorageGatewaysSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    objects?: Array<IconikStorageGatewayReadSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    objects?: Array<IconikStorageGatewayReadSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type IconikStorageGatewaysTelemetrySchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    objects?: Array<IconikStorageGatewayTelemetrySchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    objects?: Array<IconikStorageGatewayTelemetrySchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type ImageMagickSettingsSchema = {
-    data?: string;
-    exclude_patterns?: Array<string>;
-    height?: number;
-    include_patterns?: Array<string>;
-    local?: boolean;
+    data?: string | null;
+    exclude_patterns?: Array<string> | null;
+    height?: number | null;
+    include_patterns?: Array<string> | null;
+    local?: boolean | null;
     overlay_coordinates?: string | null;
     overlay_url?: string | null;
     priority?: number | null;
-    width?: number;
+    width?: number | null;
 };
 
 export type JobsPrioritySchema = {
@@ -2147,143 +2186,152 @@ export type JobsStateSchema = {
 export type Keyframe = {
     asset_id?: string | null;
     collection_id?: string | null;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    filename?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    filename?: string | null;
     format?: string | null;
-    readonly id?: string;
-    is_custom_keyframe?: boolean;
-    readonly is_public?: boolean;
-    name?: string;
-    resolution?: ResolutionType;
+    readonly id?: string | null;
+    is_custom_keyframe?: boolean | null;
+    readonly is_public?: boolean | null;
+    name?: string | null;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    readonly storage_method?: string;
-    time_code?: TimeCodeType;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    readonly storage_method?: string | null;
+    time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
-    readonly upload_method?: string;
-    readonly upload_url?: string;
-    readonly url?: string;
+    readonly upload_credentials?: {
+        [key: string]: unknown;
+    } | null;
+    readonly upload_method?: string | null;
+    readonly upload_url?: string | null;
+    readonly url?: string | null;
     version_id?: string | null;
 };
 
 export type KeyframeBaseSchema = {
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    filename?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    filename?: string | null;
     format?: string | null;
-    is_custom_keyframe?: boolean;
-    readonly is_public?: boolean;
-    name?: string;
-    resolution?: ResolutionType;
+    is_custom_keyframe?: boolean | null;
+    readonly is_public?: boolean | null;
+    name?: string | null;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    time_code?: TimeCodeType;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
-    readonly url?: string;
+    readonly url?: string | null;
 };
 
 export type KeyframeCreateSchema = {
     asset_id?: string | null;
     collection_id?: string | null;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    filename?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    filename?: string | null;
     format?: string | null;
-    readonly id?: string;
-    is_custom_keyframe?: boolean;
-    readonly is_public?: boolean;
-    name?: string;
-    resolution?: ResolutionType;
+    readonly id?: string | null;
+    is_custom_keyframe?: boolean | null;
+    readonly is_public?: boolean | null;
+    name?: string | null;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    readonly storage_method?: string;
-    time_code?: TimeCodeType;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    readonly storage_method?: string | null;
+    time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
-    readonly upload_method?: string;
-    readonly upload_url?: string;
-    readonly url?: string;
+    readonly upload_credentials?: {
+        [key: string]: unknown;
+    } | null;
+    readonly upload_method?: string | null;
+    readonly upload_url?: string | null;
+    readonly url?: string | null;
     version_id?: string | null;
 };
 
 export type KeyframeSchema = {
     asset_id?: string | null;
     collection_id?: string | null;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    filename?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    filename?: string | null;
     format?: string | null;
-    readonly id?: string;
-    is_custom_keyframe?: boolean;
-    readonly is_public?: boolean;
-    name?: string;
-    resolution?: ResolutionType;
+    readonly id?: string | null;
+    is_custom_keyframe?: boolean | null;
+    readonly is_public?: boolean | null;
+    name?: string | null;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    readonly storage_method?: string;
-    time_code?: TimeCodeType;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    readonly storage_method?: string | null;
+    time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
-    readonly upload_method?: string;
-    readonly upload_url?: string;
-    readonly url?: string;
+    readonly upload_credentials?: {
+        [key: string]: unknown;
+    } | null;
+    readonly upload_method?: string | null;
+    readonly upload_url?: string | null;
+    readonly url?: string | null;
     version_id?: string | null;
 };
 
 export type KeyframeUpdateSchema = {
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    filename?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    filename?: string | null;
     format?: string | null;
-    is_custom_keyframe?: boolean;
-    readonly is_public?: boolean;
-    name?: string;
-    resolution?: ResolutionType;
+    is_custom_keyframe?: boolean | null;
+    readonly is_public?: boolean | null;
+    name?: string | null;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    time_code?: TimeCodeType;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
-    readonly url?: string;
+    readonly url?: string | null;
 };
 
 export type KeyframesSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    objects?: Array<KeyframeSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    objects?: Array<KeyframeSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type LibreOfficeSettingsSchema = {
-    exclude_patterns?: Array<string>;
-    include_patterns?: Array<string>;
-    local?: boolean;
+    exclude_patterns?: Array<string> | null;
+    include_patterns?: Array<string> | null;
+    local?: boolean | null;
     priority?: number | null;
 };
 
 export type ListObjectsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type MoveAssetResourceSchema = {
@@ -2298,8 +2346,8 @@ export type MultiPartS3UrlPartSchema = {
      * base64-encoded md5 digest
      */
     checksum?: string | null;
-    part_number?: number;
-    readonly url?: string;
+    part_number?: number | null;
+    readonly url?: string | null;
 };
 
 export type MultiPartS3UrlPartsSchema = {
@@ -2308,28 +2356,28 @@ export type MultiPartS3UrlPartsSchema = {
 };
 
 export type MultiPartUrlsSchema = {
-    readonly abort_url?: string;
-    readonly complete_url?: string;
-    readonly list_parts_url?: Array<string>;
+    readonly abort_url?: string | null;
+    readonly complete_url?: string | null;
+    readonly list_parts_url?: Array<string> | null;
 };
 
 export type MultiPartUploadComposeUrlSchema = {
-    readonly compose_url?: string;
-    readonly delete_url?: string;
-    readonly key?: string;
-    readonly url?: string;
+    readonly compose_url?: string | null;
+    readonly delete_url?: string | null;
+    readonly key?: string | null;
+    readonly url?: string | null;
 };
 
 export type MultiPartUploadUrlSchema = {
-    readonly delete_url?: string;
-    readonly download_url?: string;
-    readonly key?: string;
-    readonly number?: number;
-    readonly url?: string;
+    readonly delete_url?: string | null;
+    readonly download_url?: string | null;
+    readonly key?: string | null;
+    readonly number?: number | null;
+    readonly url?: string | null;
 };
 
 export type MultiPartUploadUrlsSchema = {
-    readonly objects?: Array<MultiPartUploadUrlSchema>;
+    readonly objects?: Array<MultiPartUploadUrlSchema> | null;
 };
 
 export type MultipartB2CancelUpload = {
@@ -2342,20 +2390,20 @@ export type MultipartB2FinishUpload = {
 };
 
 export type MultipartB2StartUpload = {
-    readonly authorization_token?: string;
-    readonly error?: string;
-    readonly error_code?: string;
-    readonly status?: string;
+    readonly authorization_token?: string | null;
+    readonly error?: string | null;
+    readonly error_code?: string | null;
+    readonly status?: string | null;
     upload_file_id?: string | null;
-    readonly upload_url?: string;
+    readonly upload_url?: string | null;
 };
 
 export type MultipartUploadCleanupSchema = {
-    abort_upload?: boolean;
+    abort_upload?: boolean | null;
     parts_group_number?: number | null;
-    parts_number?: number;
-    temporary?: boolean;
-    upload_id?: string;
+    parts_number?: number | null;
+    temporary?: boolean | null;
+    upload_id?: string | null;
 };
 
 export type MultipartUploadComposeSchema = {
@@ -2364,8 +2412,8 @@ export type MultipartUploadComposeSchema = {
 };
 
 export type MultipartUploadProxyCleanupSchema = {
-    abort_upload?: boolean;
-    upload_id?: string;
+    abort_upload?: boolean | null;
+    upload_id?: string | null;
 };
 
 export type MultipartUploadSchema = {
@@ -2374,265 +2422,274 @@ export type MultipartUploadSchema = {
 };
 
 export type PlaylistKeyframeCreateSchema = {
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    filename?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    filename?: string | null;
     format?: string | null;
-    readonly id?: string;
-    is_custom_keyframe?: boolean;
-    readonly is_public?: boolean;
-    name?: string;
-    playlist_id?: string;
-    resolution?: ResolutionType;
+    readonly id?: string | null;
+    is_custom_keyframe?: boolean | null;
+    readonly is_public?: boolean | null;
+    name?: string | null;
+    playlist_id?: string | null;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    time_code?: TimeCodeType;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
-    readonly upload_method?: string;
-    readonly upload_url?: string;
-    readonly url?: string;
+    readonly upload_credentials?: {
+        [key: string]: unknown;
+    } | null;
+    readonly upload_method?: string | null;
+    readonly upload_url?: string | null;
+    readonly url?: string | null;
 };
 
 export type PlaylistKeyframeSchema = {
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    filename?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    filename?: string | null;
     format?: string | null;
-    readonly id?: string;
-    is_custom_keyframe?: boolean;
-    readonly is_public?: boolean;
-    name?: string;
-    playlist_id?: string;
-    resolution?: ResolutionType;
+    readonly id?: string | null;
+    is_custom_keyframe?: boolean | null;
+    readonly is_public?: boolean | null;
+    name?: string | null;
+    playlist_id?: string | null;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    time_code?: TimeCodeType;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
-    readonly url?: string;
+    readonly url?: string | null;
 };
 
 export type PlaylistKeyframeUpdateSchema = {
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    filename?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    filename?: string | null;
     format?: string | null;
-    is_custom_keyframe?: boolean;
-    readonly is_public?: boolean;
-    name?: string;
-    resolution?: ResolutionType;
+    is_custom_keyframe?: boolean | null;
+    readonly is_public?: boolean | null;
+    name?: string | null;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    time_code?: TimeCodeType;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
-    readonly url?: string;
+    readonly url?: string | null;
 };
 
 export type PlaylistKeyframesSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<PlaylistKeyframeSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<PlaylistKeyframeSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type PortalSettingsSchema = {
-    delete?: boolean;
-    is_system?: boolean;
-    read?: boolean;
-    scan?: boolean;
-    write?: boolean;
+    delete?: boolean | null;
+    is_system?: boolean | null;
+    read?: boolean | null;
+    scan?: boolean | null;
+    write?: boolean | null;
 };
 
 export type PrioDir = {
-    directory?: string;
-    priority?: number;
+    directory?: string | null;
+    priority?: number | null;
 };
 
 export type PrioDirSchema = {
-    directory?: string;
-    priority?: number;
+    directory?: string | null;
+    priority?: number | null;
 };
 
 export type PrioPattern = {
-    pattern?: string;
-    priority?: number;
+    pattern?: string | null;
+    priority?: number | null;
 };
 
 export type PrioPatternSchema = {
-    pattern?: string;
-    priority?: number;
+    pattern?: string | null;
+    priority?: number | null;
 };
 
 export type ProxiesSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<Proxy>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<Proxy> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type Proxy = {
-    asset_id?: string;
-    audio_bitrate?: number;
+    asset_id?: string | null;
+    audio_bitrate?: number | null;
     audio_channels?: number | null;
-    bit_rate?: number;
-    codec?: string;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    filename?: string;
-    format?: string;
+    bit_rate?: number | null;
+    codec?: string | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    filename?: string | null;
+    format?: string | null;
     frame_rate?: string | null;
-    readonly id?: string;
+    readonly id?: string | null;
     is_drop_frame?: boolean | null;
     is_multichannel?: boolean | null;
-    readonly is_public?: boolean;
-    readonly multipart_upload_url?: string;
-    name?: string;
+    readonly is_public?: boolean | null;
+    readonly multipart_upload_url?: string | null;
+    name?: string | null;
     proxy_container_id?: string | null;
-    resolution?: ResolutionType;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
     start_time_code?: string | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    readonly storage_method?: string;
-    readonly upload_method?: string;
-    readonly upload_url?: string;
-    readonly url?: string;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    readonly storage_method?: string | null;
+    readonly upload_credentials?: {
+        [key: string]: unknown;
+    } | null;
+    readonly upload_method?: string | null;
+    readonly upload_url?: string | null;
+    readonly url?: string | null;
     version_id?: string | null;
 };
 
 export type ProxyBaseSchema = {
-    asset_id?: string;
-    audio_bitrate?: number;
+    asset_id?: string | null;
+    audio_bitrate?: number | null;
     audio_channels?: number | null;
-    bit_rate?: number;
-    codec?: string;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    filename?: string;
-    format?: string;
+    bit_rate?: number | null;
+    codec?: string | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    filename?: string | null;
+    format?: string | null;
     frame_rate?: string | null;
-    readonly id?: string;
+    readonly id?: string | null;
     is_drop_frame?: boolean | null;
     is_multichannel?: boolean | null;
-    readonly is_public?: boolean;
-    name?: string;
-    resolution?: ResolutionType;
+    readonly is_public?: boolean | null;
+    name?: string | null;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
     start_time_code?: string | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    readonly url?: string;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    readonly url?: string | null;
     version_id?: string | null;
 };
 
 export type ProxyContainerByUserSchema = {
-    readonly bit_profile?: number;
-    readonly deep_fake?: number;
-    drm?: string;
-    fingerprint?: string;
-    readonly height?: number;
-    readonly id?: string;
-    readonly original_proxy_url?: string;
-    readonly pixel_density?: number;
-    readonly proxy_id?: string;
-    readonly sp_height?: number;
-    readonly sp_width?: number;
-    readonly strength?: number;
-    readonly super_pixel_density?: number;
-    readonly user_id?: string;
-    watermark?: string;
-    readonly width?: number;
+    readonly bit_profile?: number | null;
+    readonly deep_fake?: number | null;
+    drm?: string | null;
+    fingerprint?: string | null;
+    readonly height?: number | null;
+    readonly id?: string | null;
+    readonly original_proxy_url?: string | null;
+    readonly pixel_density?: number | null;
+    readonly proxy_id?: string | null;
+    readonly sp_height?: number | null;
+    readonly sp_width?: number | null;
+    readonly strength?: number | null;
+    readonly super_pixel_density?: number | null;
+    readonly user_id?: string | null;
+    watermark?: string | null;
+    readonly width?: number | null;
 };
 
 export type ProxyContainerSchema = {
-    drm?: string;
-    frame_count?: number;
-    frame_rate?: number;
-    readonly id?: string;
+    drm?: string | null;
+    frame_count?: number | null;
+    frame_rate?: number | null;
+    readonly id?: string | null;
     parent_container_id?: string | null;
-    segment_duration?: number;
+    segment_duration?: number | null;
     user_id?: string | null;
-    watermark?: string;
+    watermark?: string | null;
 };
 
 export type ProxyCreateSchema = {
-    asset_id?: string;
-    audio_bitrate?: number;
+    asset_id?: string | null;
+    audio_bitrate?: number | null;
     audio_channels?: number | null;
-    bit_rate?: number;
-    codec?: string;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    filename?: string;
-    format?: string;
+    bit_rate?: number | null;
+    codec?: string | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    filename?: string | null;
+    format?: string | null;
     frame_rate?: string | null;
-    readonly id?: string;
+    readonly id?: string | null;
     is_drop_frame?: boolean | null;
     is_multichannel?: boolean | null;
-    readonly is_public?: boolean;
-    readonly multipart_upload_url?: string;
-    name?: string;
+    readonly is_public?: boolean | null;
+    readonly multipart_upload_url?: string | null;
+    name?: string | null;
     proxy_container_id?: string | null;
-    resolution?: ResolutionType;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
     start_time_code?: string | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    readonly storage_method?: string;
-    readonly upload_method?: string;
-    readonly upload_url?: string;
-    readonly url?: string;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    readonly storage_method?: string | null;
+    readonly upload_credentials?: {
+        [key: string]: unknown;
+    } | null;
+    readonly upload_method?: string | null;
+    readonly upload_url?: string | null;
+    readonly url?: string | null;
     version_id?: string | null;
 };
 
 export type ProxyDownloadUrlSchema = {
-    readonly url?: string;
+    readonly url?: string | null;
 };
 
 export type ProxyFileSchema = {
-    asset_id?: string;
+    asset_id?: string | null;
     checksum?: string | null;
-    readonly date_created?: string;
-    readonly date_modified?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
     directory_path: string;
-    file_date_created?: string;
-    file_date_modified?: string;
-    file_set_id?: string;
-    format_id?: string;
-    readonly id?: string;
+    file_date_created?: string | null;
+    file_date_modified?: string | null;
+    file_set_id?: string | null;
+    format_id?: string | null;
+    readonly id?: string | null;
     /**
      * If not specified, name will be autogenerated based on `id` and `original_name`
      */
-    name?: string;
+    name?: string | null;
     original_name: string;
     parent_id?: string | null;
     proxy_sequence_type: string;
-    size?: number;
-    status?: 'CLOSED' | 'FAILED' | 'OPEN';
-    storage_id?: string;
-    template?: string;
-    template_engine?: 'JINJA2' | 'SIMPLE';
+    size?: number | null;
+    status?: 'CLOSED' | 'FAILED' | 'OPEN' | null;
+    storage_id?: string | null;
+    template?: string | null;
+    template_engine?: 'JINJA2' | 'SIMPLE' | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
     user_id?: string | null;
-    version_id?: string;
+    version_id?: string | null;
 };
 
 export type ProxyFileUpdateSchema = {
@@ -2640,126 +2697,129 @@ export type ProxyFileUpdateSchema = {
 };
 
 export type ProxySchema = {
-    asset_id?: string;
-    audio_bitrate?: number;
+    asset_id?: string | null;
+    audio_bitrate?: number | null;
     audio_channels?: number | null;
-    bit_rate?: number;
-    codec?: string;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    filename?: string;
-    format?: string;
+    bit_rate?: number | null;
+    codec?: string | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    filename?: string | null;
+    format?: string | null;
     frame_rate?: string | null;
-    readonly id?: string;
+    readonly id?: string | null;
     is_drop_frame?: boolean | null;
     is_multichannel?: boolean | null;
-    readonly is_public?: boolean;
-    readonly multipart_upload_url?: string;
-    name?: string;
+    readonly is_public?: boolean | null;
+    readonly multipart_upload_url?: string | null;
+    name?: string | null;
     proxy_container_id?: string | null;
-    resolution?: ResolutionType;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
     start_time_code?: string | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    readonly storage_method?: string;
-    readonly upload_method?: string;
-    readonly upload_url?: string;
-    readonly url?: string;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    readonly storage_method?: string | null;
+    readonly upload_credentials?: {
+        [key: string]: unknown;
+    } | null;
+    readonly upload_method?: string | null;
+    readonly upload_url?: string | null;
+    readonly url?: string | null;
     version_id?: string | null;
 };
 
 export type ProxyUpdateSchema = {
-    asset_id?: string;
-    audio_bitrate?: number;
+    asset_id?: string | null;
+    audio_bitrate?: number | null;
     audio_channels?: number | null;
-    bit_rate?: number;
-    codec?: string;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    filename?: string;
-    format?: string;
+    bit_rate?: number | null;
+    codec?: string | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    filename?: string | null;
+    format?: string | null;
     frame_rate?: string | null;
-    readonly id?: string;
+    readonly id?: string | null;
     is_drop_frame?: boolean | null;
     is_multichannel?: boolean | null;
-    readonly is_public?: boolean;
-    name?: string;
-    resolution?: ResolutionType;
+    readonly is_public?: boolean | null;
+    name?: string | null;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
     start_time_code?: string | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    readonly url?: string;
-    version_id?: string;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    readonly url?: string | null;
+    version_id?: string | null;
 };
 
 export type RedlineSchema = {
     default_lut3d_file?: string | null;
-    edit_proxy_local_storage_path?: string;
-    edit_proxy_upload_storage_id?: string;
-    edit_proxy_upload_storage_path?: string;
-    exclude_patterns?: Array<string>;
-    format?: '' | 'Apple ProRes' | 'QT transcode';
-    include_patterns?: Array<string>;
-    keep_redline_proxy?: boolean;
-    local?: boolean;
-    opencl_device_indexes?: Array<string>;
-    prcodec?: 'Apple_ProRes_422' | 'Apple_ProRes_422_HQ' | 'Apple_ProRes_422_LT' | 'Apple_ProRes_422_Proxy' | 'Apple_ProRes_4444' | 'Apple_ProRes_4444_XQ';
+    edit_proxy_local_storage_path?: string | null;
+    edit_proxy_upload_storage_id?: string | null;
+    edit_proxy_upload_storage_path?: string | null;
+    exclude_patterns?: Array<string> | null;
+    format?: '' | 'Apple ProRes' | 'QT transcode' | null;
+    include_patterns?: Array<string> | null;
+    keep_redline_proxy?: boolean | null;
+    local?: boolean | null;
+    opencl_device_indexes?: Array<string> | null;
+    prcodec?: 'Apple_ProRes_422' | 'Apple_ProRes_422_HQ' | 'Apple_ProRes_422_LT' | 'Apple_ProRes_422_Proxy' | 'Apple_ProRes_4444' | 'Apple_ProRes_4444_XQ' | null;
     priority?: number | null;
-    qt_codec?: '' | 'AVID_1080P_DNxHD_115/120_8-bit' | 'AVID_1080P_DNxHD_175/185_10-bit' | 'AVID_1080P_DNxHD_175/185_8-bit' | 'AVID_1080P_DNxHD_36_8-bit' | 'AVID_720P_DNxHD_120/145_8-bit' | 'AVID_720P_DNxHD_185/220_10-bit' | 'AVID_720P_DNxHD_185/220_8-bit' | 'AVID_720P_DNxHD_60/75_8-bit' | 'AVID_720P_DNxHD_90/110_10-bit' | 'AVID_720P_DNxHD_90/110_8-bit' | 'Apple_ProRes_422' | 'Apple_ProRes_422_HQ' | 'Apple_ProRes_422_LT' | 'Apple_ProRes_422_Proxy' | 'Apple_ProRes_4444' | 'H263' | 'H264';
+    qt_codec?: '' | 'AVID_1080P_DNxHD_115/120_8-bit' | 'AVID_1080P_DNxHD_175/185_10-bit' | 'AVID_1080P_DNxHD_175/185_8-bit' | 'AVID_1080P_DNxHD_36_8-bit' | 'AVID_720P_DNxHD_120/145_8-bit' | 'AVID_720P_DNxHD_185/220_10-bit' | 'AVID_720P_DNxHD_185/220_8-bit' | 'AVID_720P_DNxHD_60/75_8-bit' | 'AVID_720P_DNxHD_90/110_10-bit' | 'AVID_720P_DNxHD_90/110_8-bit' | 'Apple_ProRes_422' | 'Apple_ProRes_422_HQ' | 'Apple_ProRes_422_LT' | 'Apple_ProRes_422_Proxy' | 'Apple_ProRes_4444' | 'H263' | 'H264' | null;
     render_resolution?: number | null;
-    use_metadata_cube_file_in_proxy?: boolean;
+    use_metadata_cube_file_in_proxy?: boolean | null;
     use_rmd?: number | null;
 };
 
 export type ReindexExportLocationSchema = {
-    sync_to_another_dc?: boolean;
+    sync_to_another_dc?: boolean | null;
 };
 
 export type ReindexFileSchema = {
-    sync_to_another_dc?: boolean;
+    sync_to_another_dc?: boolean | null;
 };
 
 export type ReindexFileSetSchema = {
-    sync_to_another_dc?: boolean;
+    sync_to_another_dc?: boolean | null;
 };
 
 export type ReindexFormatSchema = {
-    sync_to_another_dc?: boolean;
+    sync_to_another_dc?: boolean | null;
 };
 
 export type ReindexStorageGatewaySchema = {
-    sync_to_another_dc?: boolean;
+    sync_to_another_dc?: boolean | null;
 };
 
 export type ReindexStorageSchema = {
-    sync_to_another_dc?: boolean;
+    sync_to_another_dc?: boolean | null;
 };
 
 export type ReindexTranscoderSchema = {
-    sync_to_another_dc?: boolean;
+    sync_to_another_dc?: boolean | null;
 };
 
 export type ResolutionType = {
-    height?: number;
-    width?: number;
+    height?: number | null;
+    width?: number | null;
 };
 
 export type ResolutionTypeSchema = {
-    height?: number;
-    width?: number;
+    height?: number | null;
+    width?: number | null;
 };
 
 export type RestoreAssetToStorageRequest = {
-    all_versions?: boolean;
+    all_versions?: boolean | null;
     destination_directory_path?: string | null;
     /**
      * List of format names to transfer. If not specified, all formats will be transferred.
      */
-    formats?: Array<string>;
+    formats?: Array<string> | null;
     /**
      * ID of the object to transfer.
      */
@@ -2772,16 +2832,16 @@ export type RestoreAssetToStorageRequest = {
     /**
      * List of version IDs to transfer.
      */
-    version_ids?: Array<string>;
+    version_ids?: Array<string> | null;
 };
 
 export type RestoreAssetToStorageRequestSchema = {
-    all_versions?: boolean;
+    all_versions?: boolean | null;
     destination_directory_path?: string | null;
     /**
      * List of format names to transfer. If not specified, all formats will be transferred.
      */
-    formats?: Array<string>;
+    formats?: Array<string> | null;
     /**
      * ID of the object to transfer.
      */
@@ -2794,16 +2854,16 @@ export type RestoreAssetToStorageRequestSchema = {
     /**
      * List of version IDs to transfer.
      */
-    version_ids?: Array<string>;
+    version_ids?: Array<string> | null;
 };
 
 export type RestoreCollectionToStorageRequest = {
-    all_versions?: boolean;
+    all_versions?: boolean | null;
     destination_directory_path?: string | null;
     /**
      * List of format names to transfer. If not specified, all formats will be transferred.
      */
-    formats?: Array<string>;
+    formats?: Array<string> | null;
     /**
      * ID of the object to transfer.
      */
@@ -2811,11 +2871,11 @@ export type RestoreCollectionToStorageRequest = {
     /**
      * Whether to keep the collection structure when transferring collections.
      */
-    keep_collection_structure?: boolean;
+    keep_collection_structure?: boolean | null;
     /**
      * Whether to keep the parent collection structure when transferring collections.
      */
-    keep_parent_collection_structure?: boolean;
+    keep_parent_collection_structure?: boolean | null;
     preferred_original_storage_id?: string | null;
     /**
      * The restore tier to use when retrieving from cold storage one of LOW, MID, HIGH.
@@ -2824,16 +2884,16 @@ export type RestoreCollectionToStorageRequest = {
     /**
      * List of version IDs to transfer.
      */
-    version_ids?: Array<string>;
+    version_ids?: Array<string> | null;
 };
 
 export type RestoreCollectionToStorageRequestSchema = {
-    all_versions?: boolean;
+    all_versions?: boolean | null;
     destination_directory_path?: string | null;
     /**
      * List of format names to transfer. If not specified, all formats will be transferred.
      */
-    formats?: Array<string>;
+    formats?: Array<string> | null;
     /**
      * ID of the object to transfer.
      */
@@ -2841,11 +2901,11 @@ export type RestoreCollectionToStorageRequestSchema = {
     /**
      * Whether to keep the collection structure when transferring collections.
      */
-    keep_collection_structure?: boolean;
+    keep_collection_structure?: boolean | null;
     /**
      * Whether to keep the parent collection structure when transferring collections.
      */
-    keep_parent_collection_structure?: boolean;
+    keep_parent_collection_structure?: boolean | null;
     preferred_original_storage_id?: string | null;
     /**
      * The restore tier to use when retrieving from cold storage one of LOW, MID, HIGH.
@@ -2854,16 +2914,16 @@ export type RestoreCollectionToStorageRequestSchema = {
     /**
      * List of version IDs to transfer.
      */
-    version_ids?: Array<string>;
+    version_ids?: Array<string> | null;
 };
 
 export type RestoreSavedSearchToStorageRequest = {
-    all_versions?: boolean;
+    all_versions?: boolean | null;
     destination_directory_path?: string | null;
     /**
      * List of format names to transfer. If not specified, all formats will be transferred.
      */
-    formats?: Array<string>;
+    formats?: Array<string> | null;
     /**
      * ID of the object to transfer.
      */
@@ -2876,16 +2936,16 @@ export type RestoreSavedSearchToStorageRequest = {
     /**
      * List of version IDs to transfer.
      */
-    version_ids?: Array<string>;
+    version_ids?: Array<string> | null;
 };
 
 export type RestoreSavedSearchToStorageRequestSchema = {
-    all_versions?: boolean;
+    all_versions?: boolean | null;
     destination_directory_path?: string | null;
     /**
      * List of format names to transfer. If not specified, all formats will be transferred.
      */
-    formats?: Array<string>;
+    formats?: Array<string> | null;
     /**
      * ID of the object to transfer.
      */
@@ -2898,87 +2958,87 @@ export type RestoreSavedSearchToStorageRequestSchema = {
     /**
      * List of version IDs to transfer.
      */
-    version_ids?: Array<string>;
+    version_ids?: Array<string> | null;
 };
 
 export type S3SettingsSchema = {
     access_group_id?: string | null;
-    access_key?: string;
+    access_key?: string | null;
     acl_template_id?: string | null;
-    add_uuid_to_filenames?: boolean;
-    aggregate_identical_files?: boolean;
-    aggregate_ignore?: Array<string>;
-    aggregate_only_on_same_storage?: boolean;
+    add_uuid_to_filenames?: boolean | null;
+    aggregate_identical_files?: boolean | null;
+    aggregate_ignore?: Array<string> | null;
+    aggregate_only_on_same_storage?: boolean | null;
     bucket: string;
-    delete?: boolean;
-    enable_collection_directory_mapping?: boolean;
+    delete?: boolean | null;
+    enable_collection_directory_mapping?: boolean | null;
     endpoint: string;
-    filename_is_external_id?: boolean;
-    folder_name_tags_metadata_field_name?: string;
+    filename_is_external_id?: boolean | null;
+    folder_name_tags_metadata_field_name?: string | null;
     folder_name_tags_metadata_view_id?: string | null;
     /**
      * Keep restored assets online for this many days to allow them to be copied before going back to Glacier
      */
     glacier_restore_timeout?: number | null;
-    is_system?: boolean;
-    metadata_conversion_url?: string;
+    is_system?: boolean | null;
+    metadata_conversion_url?: string | null;
     metadata_conversion_url_headers?: string | null;
     metadata_view_id?: string | null;
-    notification_sqs_url?: string;
+    notification_sqs_url?: string | null;
     path: string;
     preload_edge_jobs?: number | null;
-    presign_md5_checksum?: boolean;
-    read?: boolean;
+    presign_md5_checksum?: boolean | null;
+    read?: boolean | null;
     region: string;
-    root_collection_id?: string;
-    scan?: boolean;
-    scan_directories?: Array<string>;
-    scan_ignore?: Array<string>;
-    secret_key?: string;
-    session_token?: string;
-    sidecar_metadata_required?: boolean;
-    title_includes_extension?: boolean;
-    transcode_ignore?: Array<string>;
-    use_acceleration?: boolean;
-    write?: boolean;
+    root_collection_id?: string | null;
+    scan?: boolean | null;
+    scan_directories?: Array<string> | null;
+    scan_ignore?: Array<string> | null;
+    secret_key?: string | null;
+    session_token?: string | null;
+    sidecar_metadata_required?: boolean | null;
+    title_includes_extension?: boolean | null;
+    transcode_ignore?: Array<string> | null;
+    use_acceleration?: boolean | null;
+    write?: boolean | null;
 };
 
 export type SequenceUpdateSchema = {
-    asset_id?: string;
+    asset_id?: string | null;
     checksum?: string | null;
-    readonly date_created?: string;
-    readonly date_modified?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
     directory_path: string;
-    file_date_created?: string;
-    file_date_modified?: string;
-    file_set_id?: string;
-    format_id?: string;
-    readonly id?: string;
+    file_date_created?: string | null;
+    file_date_modified?: string | null;
+    file_set_id?: string | null;
+    format_id?: string | null;
+    readonly id?: string | null;
     /**
      * If not specified, name will be autogenerated based on `id` and `original_name`
      */
-    name?: string;
+    name?: string | null;
     original_name: string;
     parent_id?: string | null;
-    size?: number;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    template?: string;
-    template_engine?: 'JINJA2' | 'SIMPLE';
+    size?: number | null;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    template?: string | null;
+    template_engine?: 'JINJA2' | 'SIMPLE' | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
     user_id?: string | null;
-    version_id?: string;
+    version_id?: string | null;
 };
 
 export type SftpSettingsSchema = {
     address: string;
-    delete?: boolean;
-    is_system?: boolean;
+    delete?: boolean | null;
+    is_system?: boolean | null;
     password: string;
-    read?: boolean;
-    scan?: boolean;
+    read?: boolean | null;
+    scan?: boolean | null;
     user: string;
-    write?: boolean;
+    write?: boolean | null;
 };
 
 export type SourceContext = {
@@ -3005,7 +3065,7 @@ export type StorageAccessSchema = {
 };
 
 export type StorageAutoScanSchema = {
-    hours_interval?: number;
+    hours_interval?: number | null;
 };
 
 export type StorageBaseSchema = {
@@ -3013,59 +3073,59 @@ export type StorageBaseSchema = {
 };
 
 export type StorageFileSchema = {
-    asset_id?: string;
+    asset_id?: string | null;
     checksum?: string | null;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    destination_storage_id?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    destination_storage_id?: string | null;
     directory_path: string;
-    file_date_created?: string;
-    file_date_modified?: string;
-    file_set_id?: string;
-    format_id?: string;
-    readonly id?: string;
+    file_date_created?: string | null;
+    file_date_modified?: string | null;
+    file_set_id?: string | null;
+    format_id?: string | null;
+    readonly id?: string | null;
     /**
      * If not specified, name will be autogenerated based on `id` and `original_name`
      */
-    name?: string;
+    name?: string | null;
     original_name: string;
     parent_id?: string | null;
-    size?: number;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
+    size?: number | null;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
     /**
      * Deprecated field. Use destination_storage_id instead
      */
-    storage_id?: string;
-    template?: string;
-    template_engine?: 'JINJA2' | 'SIMPLE';
+    storage_id?: string | null;
+    template?: string | null;
+    template_engine?: 'JINJA2' | 'SIMPLE' | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
-    readonly url?: string;
+    readonly url?: string | null;
     user_id?: string | null;
-    version_id?: string;
+    version_id?: string | null;
 };
 
 export type StorageFileUpdateSchema = {
-    asset_id?: string;
+    asset_id?: string | null;
     checksum?: string | null;
-    readonly date_created?: string;
-    readonly date_modified?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
     directory_path: string;
-    file_date_created?: string;
-    file_date_modified?: string;
-    file_set_id?: string;
-    format_id?: string;
-    readonly id?: string;
+    file_date_created?: string | null;
+    file_date_modified?: string | null;
+    file_set_id?: string | null;
+    format_id?: string | null;
+    readonly id?: string | null;
     name: string;
-    original_name?: string;
+    original_name?: string | null;
     parent_id?: string | null;
-    size?: number;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    template?: string;
-    template_engine?: 'JINJA2' | 'SIMPLE';
-    type?: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
+    size?: number | null;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    template?: string | null;
+    template_engine?: 'JINJA2' | 'SIMPLE' | null;
+    type?: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK' | null;
     user_id?: string | null;
-    version_id?: string;
+    version_id?: string | null;
 };
 
 export type StorageFilesDeleteBulkSchema = {
@@ -3077,7 +3137,7 @@ export type StorageFilesDeleteBulkSchema = {
 };
 
 export type StorageFilesQueryParamsSchema = {
-    include_parent_statuses?: boolean;
+    include_parent_statuses?: boolean | null;
     /**
      * Which page number to fetch
      */
@@ -3086,12 +3146,12 @@ export type StorageFilesQueryParamsSchema = {
      * The number of items for each page
      */
     per_page?: number | null;
-    scroll?: boolean;
-    scroll_id?: string;
+    scroll?: boolean | null;
+    scroll_id?: string | null;
     /**
      * A comma separated list of fieldnames with order (asc/desc)
      */
-    sort?: string;
+    sort?: string | null;
 };
 
 export type StorageGatewayParamsSchema = {
@@ -3106,7 +3166,7 @@ export type StorageGatewayParamsSchema = {
     /**
      * A comma separated list of fieldnames with order (asc/desc)
      */
-    sort?: string;
+    sort?: string | null;
 };
 
 export type StoragePermissionsSchema = {
@@ -3118,35 +3178,35 @@ export type StoragePermissionsSchema = {
 };
 
 export type StoragePrivateDataSchema = {
-    readonly bucket_location?: string;
-    readonly default?: boolean;
+    readonly bucket_location?: string | null;
+    readonly default?: boolean | null;
     description?: string | null;
-    readonly id?: string;
+    readonly id?: string | null;
     last_scanned?: string | null;
     method: 'AZURE' | 'B2' | 'CUSTOM' | 'FILE' | 'FTP' | 'GCS' | 'HTTP' | 'PORTAL' | 'S3' | 'SFTP';
     name: string;
     purpose: 'ARCHIVE' | 'EXPORTS' | 'FACES' | 'FILES' | 'KEYFRAMES' | 'PROXIES';
     scanner_status?: string | null;
-    status?: 'ACTIVE' | 'FAILING' | 'INACTIVE';
+    status?: 'ACTIVE' | 'FAILING' | 'INACTIVE' | null;
     status_message?: string | null;
-    readonly version?: string;
+    readonly version?: string | null;
 };
 
 export type StorageReadSchema = {
-    readonly default?: boolean;
+    readonly default?: boolean | null;
     description?: string | null;
-    readonly id?: string;
-    readonly isg_version?: string;
+    readonly id?: string | null;
+    readonly isg_version?: string | null;
     last_scanned?: string | null;
     method: 'AZURE' | 'B2' | 'CUSTOM' | 'FILE' | 'FTP' | 'GCS' | 'HTTP' | 'PORTAL' | 'S3' | 'SFTP';
     name: string;
     purpose: 'ARCHIVE' | 'EXPORTS' | 'FACES' | 'FILES' | 'KEYFRAMES' | 'PROXIES';
     scanner_status?: string | null;
-    status?: 'ACTIVE' | 'FAILING' | 'INACTIVE';
+    status?: 'ACTIVE' | 'FAILING' | 'INACTIVE' | null;
     status_message?: string | null;
-    readonly storage_gateway_cluster_id?: string;
-    readonly storage_gateway_ids?: Array<string>;
-    readonly version?: string;
+    readonly storage_gateway_cluster_id?: string | null;
+    readonly storage_gateway_ids?: Array<string> | null;
+    readonly version?: string | null;
 };
 
 export type StorageScanSchema = {
@@ -3154,22 +3214,22 @@ export type StorageScanSchema = {
     /**
      * Will force scanning even if the scan is already active if any of `paths` or `files` are specified.
      */
-    ignore_already_active?: boolean;
+    ignore_already_active?: boolean | null;
     paths?: Array<string> | null;
 };
 
 export type StorageSchema = {
-    readonly default?: boolean;
+    readonly default?: boolean | null;
     description?: string | null;
-    readonly id?: string;
+    readonly id?: string | null;
     last_scanned?: string | null;
     method: 'AZURE' | 'B2' | 'CUSTOM' | 'FILE' | 'FTP' | 'GCS' | 'HTTP' | 'PORTAL' | 'S3' | 'SFTP';
     name: string;
     purpose: 'ARCHIVE' | 'EXPORTS' | 'FACES' | 'FILES' | 'KEYFRAMES' | 'PROXIES';
     scanner_status?: string | null;
-    status?: 'ACTIVE' | 'FAILING' | 'INACTIVE';
+    status?: 'ACTIVE' | 'FAILING' | 'INACTIVE' | null;
     status_message?: string | null;
-    readonly version?: string;
+    readonly version?: string | null;
 };
 
 export type StorageValidationSchema = {
@@ -3191,20 +3251,23 @@ export type StoragesQueryParamsSchema = {
     /**
      * A comma separated list of fieldnames with order (asc/desc)
      */
-    sort?: string;
+    sort?: string | null;
 };
 
 export type StoragesReadSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<StorageReadSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<StorageReadSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type Subtitle = {
@@ -3213,38 +3276,38 @@ export type Subtitle = {
     format_id: string;
     readonly id: string;
     language: string;
-    name?: string;
-    version_id?: string;
+    name?: string | null;
+    version_id?: string | null;
 };
 
 export type SubtitleRequestSchema = {
-    create_transcription?: boolean;
-    delete_old_transcriptions?: boolean;
+    create_transcription?: boolean | null;
+    delete_old_transcriptions?: boolean | null;
     priority?: number | null;
 };
 
 export type SubtitleSchema = {
     readonly asset_id: string;
     closed_captions: boolean;
-    content?: string;
+    content?: string | null;
     format_id: string;
     readonly id: string;
     language: string;
-    name?: string;
-    version_id?: string;
+    name?: string | null;
+    version_id?: string | null;
 };
 
 export type SubtitlesSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<Subtitle>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<Subtitle> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type SwapStoragesSchema = {
@@ -3255,13 +3318,13 @@ export type SwapStoragesSchema = {
 
 export type TelestreamCloudSchema = {
     access_key: string;
-    api_host?: string;
-    api_port?: number;
-    exclude_patterns?: Array<string>;
+    api_host?: string | null;
+    api_port?: number | null;
+    exclude_patterns?: Array<string> | null;
     factory_id: string;
-    include_patterns?: Array<string>;
+    include_patterns?: Array<string> | null;
     keyframes_profile_id: string;
-    local?: boolean;
+    local?: boolean | null;
     priority?: number | null;
     proxy_profile_id: string;
     secret_key: string;
@@ -3269,92 +3332,95 @@ export type TelestreamCloudSchema = {
 };
 
 export type TemporaryFileCreateSchema = {
-    asset_id?: string;
+    asset_id?: string | null;
     checksum?: string | null;
-    readonly date_created?: string;
-    readonly date_modified?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
     directory_path: string;
-    file_date_created?: string;
-    file_date_modified?: string;
-    file_set_id?: string;
-    format_id?: string;
-    readonly id?: string;
-    readonly multipart_upload_url?: string;
+    file_date_created?: string | null;
+    file_date_modified?: string | null;
+    file_set_id?: string | null;
+    format_id?: string | null;
+    readonly id?: string | null;
+    readonly multipart_upload_url?: string | null;
     /**
      * If not specified, name will be autogenerated based on `id` and `original_name`
      */
-    name?: string;
+    name?: string | null;
     original_name: string;
     parent_id?: string | null;
-    readonly path_exist?: boolean;
-    size?: number;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    readonly storage_method?: string;
-    template?: string;
-    template_engine?: 'JINJA2' | 'SIMPLE';
+    readonly path_exist?: boolean | null;
+    size?: number | null;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    readonly storage_method?: string | null;
+    template?: string | null;
+    template_engine?: 'JINJA2' | 'SIMPLE' | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
-    readonly upload_filename?: string;
-    readonly upload_method?: string;
-    readonly upload_url?: string;
+    readonly upload_credentials?: {
+        [key: string]: unknown;
+    } | null;
+    readonly upload_filename?: string | null;
+    readonly upload_method?: string | null;
+    readonly upload_url?: string | null;
     user_id?: string | null;
-    version_id?: string;
+    version_id?: string | null;
 };
 
 export type TemporaryFileSetSchema = {
-    archive_file_set_id?: string;
-    readonly asset_id?: string;
+    archive_file_set_id?: string | null;
+    readonly asset_id?: string | null;
     base_dir: string;
     component_ids: Array<string>;
-    readonly date_created?: string;
-    date_deleted?: string;
-    readonly date_modified?: string;
-    readonly deleted_by_user?: string;
-    readonly file_count?: number;
+    readonly date_created?: string | null;
+    date_deleted?: string | null;
+    readonly date_modified?: string | null;
+    readonly deleted_by_user?: string | null;
+    readonly file_count?: number | null;
     format_id: string;
-    readonly id?: string;
-    is_archive?: boolean;
+    readonly id?: string | null;
+    is_archive?: boolean | null;
     job_id: string;
     name: string;
-    original_storage_id?: string;
-    status?: 'ACTIVE' | 'ARCHIVED' | 'DELETED';
-    storage_id?: string;
-    type?: 'MANY_FILES' | 'REGULAR';
-    version_id?: string;
+    original_storage_id?: string | null;
+    status?: 'ACTIVE' | 'ARCHIVED' | 'DELETED' | null;
+    storage_id?: string | null;
+    type?: 'MANY_FILES' | 'REGULAR' | null;
+    version_id?: string | null;
 };
 
 export type TimeBaseType = {
-    denominator?: number;
-    numerator?: number;
+    denominator?: number | null;
+    numerator?: number | null;
 };
 
 export type TimeBaseTypeSchema = {
-    denominator?: number;
-    numerator?: number;
+    denominator?: number | null;
+    numerator?: number | null;
 };
 
 export type TimeCodeType = {
-    frames_number?: number;
-    is_drop_frame?: boolean;
-    time_base?: TimeBaseType;
+    frames_number?: number | null;
+    is_drop_frame?: boolean | null;
+    time_base?: TimeBaseType | null;
 };
 
 export type TimeCodeTypeSchema = {
-    frames_number?: number;
-    is_drop_frame?: boolean;
-    time_base?: TimeBaseTypeSchema;
+    frames_number?: number | null;
+    is_drop_frame?: boolean | null;
+    time_base?: TimeBaseTypeSchema | null;
 };
 
 export type TranscodeRequestSchema = {
     job_id?: string | null;
     priority?: number | null;
     set_as_custom_keyframe?: boolean | null;
-    update_proxy_mediainfo?: boolean;
+    update_proxy_mediainfo?: boolean | null;
     use_storage_transcode_ignore_pattern?: boolean | null;
 };
 
 export type TranscodeResponseSchema = {
-    readonly job_id?: string;
+    readonly job_id?: string | null;
 };
 
 export type TranscoderBaseSchema = {
@@ -3362,68 +3428,74 @@ export type TranscoderBaseSchema = {
 };
 
 export type TranscoderByStorageReadSchema = {
-    readonly id?: string;
-    name?: string;
-    storage_id?: string;
-    type?: 'EDITREADY' | 'EDIT_PROXY' | 'ELEMENTAL_MEDIACONVERT' | 'ELEMENTAL_SERVER' | 'ENCODING_COM' | 'FFMPEG' | 'FLICS' | 'ICONIK_EDGE_TRANSCODER' | 'IMAGEMAGICK' | 'LIBREOFFICE' | 'REDLINE' | 'TELESTREAM_CLOUD' | 'VANTAGE' | 'WATCH_FOLDER_VIDEO' | 'WILDMOKA' | 'ZENCODER';
+    readonly id?: string | null;
+    name?: string | null;
+    settings?: {
+        [key: string]: unknown;
+    } | null;
+    storage_id?: string | null;
+    type?: 'EDITREADY' | 'EDIT_PROXY' | 'ELEMENTAL_MEDIACONVERT' | 'ELEMENTAL_SERVER' | 'ENCODING_COM' | 'FFMPEG' | 'FLICS' | 'ICONIK_EDGE_TRANSCODER' | 'IMAGEMAGICK' | 'LIBREOFFICE' | 'REDLINE' | 'TELESTREAM_CLOUD' | 'VANTAGE' | 'WATCH_FOLDER_VIDEO' | 'WILDMOKA' | 'ZENCODER' | null;
 };
 
 export type TranscoderCreateSchema = {
-    readonly id?: string;
+    readonly id?: string | null;
     name: string;
     type: 'EDITREADY' | 'EDIT_PROXY' | 'ELEMENTAL_MEDIACONVERT' | 'ELEMENTAL_SERVER' | 'ENCODING_COM' | 'FFMPEG' | 'FLICS' | 'ICONIK_EDGE_TRANSCODER' | 'IMAGEMAGICK' | 'LIBREOFFICE' | 'REDLINE' | 'TELESTREAM_CLOUD' | 'VANTAGE' | 'WATCH_FOLDER_VIDEO' | 'WILDMOKA' | 'ZENCODER';
 };
 
 export type TranscoderOptionSchema = {
-    label?: string;
-    value?: string;
+    label?: string | null;
+    value?: string | null;
 };
 
 export type TranscoderOptionsSchema = {
-    readonly objects?: Array<TranscoderOptionSchema>;
+    readonly objects?: Array<TranscoderOptionSchema> | null;
 };
 
 export type TranscoderReadSchema = {
-    readonly id?: string;
+    readonly id?: string | null;
     name: string;
-    readonly storages?: Array<StorageReadSchema>;
+    readonly storages?: Array<StorageReadSchema> | null;
     type: 'EDITREADY' | 'EDIT_PROXY' | 'ELEMENTAL_MEDIACONVERT' | 'ELEMENTAL_SERVER' | 'ENCODING_COM' | 'FFMPEG' | 'FLICS' | 'ICONIK_EDGE_TRANSCODER' | 'IMAGEMAGICK' | 'LIBREOFFICE' | 'REDLINE' | 'TELESTREAM_CLOUD' | 'VANTAGE' | 'WATCH_FOLDER_VIDEO' | 'WILDMOKA' | 'ZENCODER';
 };
 
 export type TranscoderSchema = {
-    readonly id?: string;
+    readonly id?: string | null;
     name: string;
     type: 'EDITREADY' | 'EDIT_PROXY' | 'ELEMENTAL_MEDIACONVERT' | 'ELEMENTAL_SERVER' | 'ENCODING_COM' | 'FFMPEG' | 'FLICS' | 'ICONIK_EDGE_TRANSCODER' | 'IMAGEMAGICK' | 'LIBREOFFICE' | 'REDLINE' | 'TELESTREAM_CLOUD' | 'VANTAGE' | 'WATCH_FOLDER_VIDEO' | 'WILDMOKA' | 'ZENCODER';
 };
 
 export type TranscoderTokenRequestSchema = {
-    expires_in?: number;
+    expires_in?: number | null;
     payload?: {
         [key: string]: unknown;
-    };
+    } | null;
 };
 
 export type TranscoderTokenSchema = {
-    token?: string;
+    token?: string | null;
 };
 
 export type TranscoderUpdateSchema = {
-    readonly id?: string;
+    readonly id?: string | null;
     name: string;
     type: 'EDITREADY' | 'EDIT_PROXY' | 'ELEMENTAL_MEDIACONVERT' | 'ELEMENTAL_SERVER' | 'ENCODING_COM' | 'FFMPEG' | 'FLICS' | 'ICONIK_EDGE_TRANSCODER' | 'IMAGEMAGICK' | 'LIBREOFFICE' | 'REDLINE' | 'TELESTREAM_CLOUD' | 'VANTAGE' | 'WATCH_FOLDER_VIDEO' | 'WILDMOKA' | 'ZENCODER';
 };
 
 export type TranscodersByStorageSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<TranscoderByStorageReadSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<TranscoderByStorageReadSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type TranscodersQueryParamsSchema = {
@@ -3438,32 +3510,35 @@ export type TranscodersQueryParamsSchema = {
     /**
      * A comma separated list of fieldnames with order (asc/desc)
      */
-    sort?: string;
+    sort?: string | null;
 };
 
 export type TranscodersSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<TranscoderReadSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<TranscoderReadSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type TransferAssetToStorageRequest = {
-    all_versions?: boolean;
-    delete_only_from_source?: boolean;
-    delete_only_from_source_context?: SourceContext;
-    delete_original?: boolean;
+    all_versions?: boolean | null;
+    delete_only_from_source?: boolean | null;
+    delete_only_from_source_context?: SourceContext | null;
+    delete_original?: boolean | null;
     destination_directory_path?: string | null;
     /**
      * List of format names to transfer. If not specified, all formats will be transferred.
      */
-    formats?: Array<string>;
+    formats?: Array<string> | null;
     /**
      * ID of the object to transfer.
      */
@@ -3472,19 +3547,19 @@ export type TransferAssetToStorageRequest = {
     /**
      * List of version IDs to transfer.
      */
-    version_ids?: Array<string>;
+    version_ids?: Array<string> | null;
 };
 
 export type TransferAssetToStorageRequestSchema = {
-    all_versions?: boolean;
-    delete_only_from_source?: boolean;
-    delete_only_from_source_context?: SourceContext;
-    delete_original?: boolean;
+    all_versions?: boolean | null;
+    delete_only_from_source?: boolean | null;
+    delete_only_from_source_context?: SourceContext | null;
+    delete_original?: boolean | null;
     destination_directory_path?: string | null;
     /**
      * List of format names to transfer. If not specified, all formats will be transferred.
      */
-    formats?: Array<string>;
+    formats?: Array<string> | null;
     /**
      * ID of the object to transfer.
      */
@@ -3493,65 +3568,68 @@ export type TransferAssetToStorageRequestSchema = {
     /**
      * List of version IDs to transfer.
      */
-    version_ids?: Array<string>;
+    version_ids?: Array<string> | null;
 };
 
 export type TransferAssetToStorageSchema = {
     /**
      * If true, all versions of the asset will be transferred
      */
-    all_versions?: boolean;
-    destination_directory_path?: string;
-    /**
-     * List of format names to transfer. If not specified, all formats will be transferred.
-     */
-    formats?: Array<string>;
-    /**
-     * List of version IDs to transfer. If not specified, the latest version will be transferred.
-     */
-    version_ids?: Array<string>;
-};
-
-export type TransferBaseSchema = {
-    destination_directory_path?: string;
-};
-
-export type TransferCloudSchema = {
-    asset_id?: string;
-    asset_paths?: Array<string>;
-    readonly celery_task_id?: string;
-    collection_storage_id?: string;
-    component_ids?: Array<string>;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    delete_only_from_source_folder?: boolean;
-    readonly delete_original?: boolean;
-    readonly destination_directory_path?: string;
-    readonly destination_filename?: string;
-    readonly destination_storage_id?: string;
-    readonly id?: string;
-    readonly job_id?: string;
-    readonly original_file_set_id?: string;
-    original_storage_id?: string;
-    original_url?: string;
-    parent_job_id?: string;
-    readonly priority?: number;
-    readonly status?: 'D' | 'E' | 'Q' | 'U';
-    readonly success?: string;
-    readonly transfer_type?: string;
-    readonly user_id?: string;
-};
-
-export type TransferCollectionToStorageRequest = {
-    all_versions?: boolean;
-    delete_only_from_source?: boolean;
-    delete_only_from_source_context?: SourceContext;
-    delete_original?: boolean;
+    all_versions?: boolean | null;
     destination_directory_path?: string | null;
     /**
      * List of format names to transfer. If not specified, all formats will be transferred.
      */
-    formats?: Array<string>;
+    formats?: Array<string> | null;
+    /**
+     * List of version IDs to transfer. If not specified, the latest version will be transferred.
+     */
+    version_ids?: Array<string> | null;
+};
+
+export type TransferBaseSchema = {
+    destination_directory_path?: string | null;
+};
+
+export type TransferCloudSchema = {
+    asset_id?: string | null;
+    asset_paths?: Array<string> | null;
+    readonly celery_task_id?: string | null;
+    collection_storage_id?: string | null;
+    component_ids?: Array<string> | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    delete_only_from_source_folder?: boolean | null;
+    readonly delete_original?: boolean | null;
+    readonly destination_directory_path?: string | null;
+    readonly destination_filename?: string | null;
+    readonly destination_storage_id?: string | null;
+    readonly id?: string | null;
+    readonly job_id?: string | null;
+    job_steps?: {
+        [key: string]: unknown;
+    } | null;
+    readonly original_file_set_id?: string | null;
+    original_storage_id?: string | null;
+    original_url?: string | null;
+    parent_job_id?: string | null;
+    readonly priority?: number | null;
+    status?: 'D' | 'E' | 'Q' | 'U' | null;
+    readonly success?: string | null;
+    readonly transfer_type?: string | null;
+    readonly user_id?: string | null;
+};
+
+export type TransferCollectionToStorageRequest = {
+    all_versions?: boolean | null;
+    delete_only_from_source?: boolean | null;
+    delete_only_from_source_context?: SourceContext | null;
+    delete_original?: boolean | null;
+    destination_directory_path?: string | null;
+    /**
+     * List of format names to transfer. If not specified, all formats will be transferred.
+     */
+    formats?: Array<string> | null;
     /**
      * ID of the object to transfer.
      */
@@ -3559,24 +3637,24 @@ export type TransferCollectionToStorageRequest = {
     /**
      * Whether to keep the collection structure when transferring collections.
      */
-    keep_collection_structure?: boolean;
+    keep_collection_structure?: boolean | null;
     /**
      * Whether to keep the parent collection structure when transferring collections.
      */
-    keep_parent_collection_structure?: boolean;
+    keep_parent_collection_structure?: boolean | null;
     preferred_original_storage_id?: string | null;
 };
 
 export type TransferCollectionToStorageRequestSchema = {
-    all_versions?: boolean;
-    delete_only_from_source?: boolean;
-    delete_only_from_source_context?: SourceContext;
-    delete_original?: boolean;
+    all_versions?: boolean | null;
+    delete_only_from_source?: boolean | null;
+    delete_only_from_source_context?: SourceContext | null;
+    delete_original?: boolean | null;
     destination_directory_path?: string | null;
     /**
      * List of format names to transfer. If not specified, all formats will be transferred.
      */
-    formats?: Array<string>;
+    formats?: Array<string> | null;
     /**
      * ID of the object to transfer.
      */
@@ -3584,86 +3662,92 @@ export type TransferCollectionToStorageRequestSchema = {
     /**
      * Whether to keep the collection structure when transferring collections.
      */
-    keep_collection_structure?: boolean;
+    keep_collection_structure?: boolean | null;
     /**
      * Whether to keep the parent collection structure when transferring collections.
      */
-    keep_parent_collection_structure?: boolean;
+    keep_parent_collection_structure?: boolean | null;
     preferred_original_storage_id?: string | null;
 };
 
 export type TransferFormatToStorageSchema = {
-    destination_directory_path?: string;
-    destination_filename?: string;
+    destination_directory_path?: string | null;
+    destination_filename?: string | null;
 };
 
 export type TransferFromStorageReadSchema = {
-    readonly add_file_set?: boolean;
-    asset_id?: string;
-    asset_paths?: Array<string>;
-    collection_storage_id?: string;
-    component_ids?: Array<string>;
-    delete_local_file_set_after_upload?: boolean;
-    delete_only_from_source_folder?: boolean;
-    delete_source_file_set_after_download?: boolean;
-    destination_directory_path?: string;
-    readonly destination_file_set_name?: string;
-    destination_filename?: string;
-    destination_storage_id?: string;
-    destination_storage_method?: string;
-    readonly export_metadata_format?: string;
-    readonly export_metadata_view?: string;
-    readonly export_original?: boolean;
-    readonly export_posters?: boolean;
-    readonly export_proxy?: boolean;
-    readonly export_transcription_format?: string;
-    format_id?: string;
-    readonly id?: string;
-    readonly include_original_extension?: boolean;
-    job_id?: string;
-    original_file_set_id?: string;
-    original_storage_id?: string;
-    original_url?: string;
-    readonly overwrite?: boolean;
-    parent_job_id?: string;
-    temporary_file_set_source?: boolean;
-    readonly transfer_type?: string;
+    readonly add_file_set?: boolean | null;
+    asset_id?: string | null;
+    asset_paths?: Array<string> | null;
+    collection_storage_id?: string | null;
+    component_ids?: Array<string> | null;
+    delete_local_file_set_after_upload?: boolean | null;
+    delete_only_from_source_folder?: boolean | null;
+    delete_source_file_set_after_download?: boolean | null;
+    destination_directory_path?: string | null;
+    readonly destination_file_set_name?: string | null;
+    destination_filename?: string | null;
+    destination_storage_id?: string | null;
+    destination_storage_method?: string | null;
+    readonly export_metadata_format?: string | null;
+    readonly export_metadata_view?: string | null;
+    readonly export_original?: boolean | null;
+    readonly export_posters?: boolean | null;
+    readonly export_proxy?: boolean | null;
+    readonly export_transcription_format?: string | null;
+    format_id?: string | null;
+    readonly id?: string | null;
+    readonly include_original_extension?: boolean | null;
+    job_id?: string | null;
+    job_steps?: {
+        [key: string]: unknown;
+    } | null;
+    original_file_set_id?: string | null;
+    original_storage_id?: string | null;
+    original_url?: string | null;
+    readonly overwrite?: boolean | null;
+    parent_job_id?: string | null;
+    temporary_file_set_source?: boolean | null;
+    readonly transfer_type?: string | null;
 };
 
 export type TransferFromStorageSchema = {
-    asset_id?: string;
-    asset_paths?: Array<string>;
-    collection_storage_id?: string;
-    component_ids?: Array<string>;
-    delete_local_file_set_after_upload?: boolean;
-    delete_only_from_source_folder?: boolean;
-    delete_source_file_set_after_download?: boolean;
-    destination_directory_path?: string;
-    readonly destination_file_set_name?: string;
-    destination_filename?: string;
-    destination_storage_id?: string;
-    destination_storage_method?: string;
-    format_id?: string;
-    readonly id?: string;
-    job_id?: string;
-    original_file_set_id?: string;
-    original_storage_id?: string;
-    original_url?: string;
-    parent_job_id?: string;
-    temporary_file_set_source?: boolean;
-    readonly transfer_type?: string;
+    asset_id?: string | null;
+    asset_paths?: Array<string> | null;
+    collection_storage_id?: string | null;
+    component_ids?: Array<string> | null;
+    delete_local_file_set_after_upload?: boolean | null;
+    delete_only_from_source_folder?: boolean | null;
+    delete_source_file_set_after_download?: boolean | null;
+    destination_directory_path?: string | null;
+    readonly destination_file_set_name?: string | null;
+    destination_filename?: string | null;
+    destination_storage_id?: string | null;
+    destination_storage_method?: string | null;
+    format_id?: string | null;
+    readonly id?: string | null;
+    job_id?: string | null;
+    job_steps?: {
+        [key: string]: unknown;
+    } | null;
+    original_file_set_id?: string | null;
+    original_storage_id?: string | null;
+    original_url?: string | null;
+    parent_job_id?: string | null;
+    temporary_file_set_source?: boolean | null;
+    readonly transfer_type?: string | null;
 };
 
 export type TransferSavedSearchToStorageRequest = {
-    all_versions?: boolean;
-    delete_only_from_source?: boolean;
-    delete_only_from_source_context?: SourceContext;
-    delete_original?: boolean;
+    all_versions?: boolean | null;
+    delete_only_from_source?: boolean | null;
+    delete_only_from_source_context?: SourceContext | null;
+    delete_original?: boolean | null;
     destination_directory_path?: string | null;
     /**
      * List of format names to transfer. If not specified, all formats will be transferred.
      */
-    formats?: Array<string>;
+    formats?: Array<string> | null;
     /**
      * ID of the object to transfer.
      */
@@ -3672,15 +3756,15 @@ export type TransferSavedSearchToStorageRequest = {
 };
 
 export type TransferSavedSearchToStorageRequestSchema = {
-    all_versions?: boolean;
-    delete_only_from_source?: boolean;
-    delete_only_from_source_context?: SourceContext;
-    delete_original?: boolean;
+    all_versions?: boolean | null;
+    delete_only_from_source?: boolean | null;
+    delete_only_from_source_context?: SourceContext | null;
+    delete_original?: boolean | null;
     destination_directory_path?: string | null;
     /**
      * List of format names to transfer. If not specified, all formats will be transferred.
      */
-    formats?: Array<string>;
+    formats?: Array<string> | null;
     /**
      * ID of the object to transfer.
      */
@@ -3689,119 +3773,125 @@ export type TransferSavedSearchToStorageRequestSchema = {
 };
 
 export type TransferSignedUrlSchema = {
-    url?: string;
+    url?: string | null;
 };
 
 export type TransferToStorageBaseSchema = {
     /**
      * If true, all versions of the asset will be transferred
      */
-    all_versions?: boolean;
-    destination_directory_path?: string;
+    all_versions?: boolean | null;
+    destination_directory_path?: string | null;
     /**
      * List of format names to transfer. If not specified, all formats will be transferred.
      */
-    formats?: Array<string>;
+    formats?: Array<string> | null;
 };
 
 export type TransferToStorageReadSchema = {
-    readonly add_file_set?: boolean;
-    asset_id?: string;
-    asset_paths?: Array<string>;
-    collection_storage_id?: string;
-    component_ids?: Array<string>;
-    delete_only_from_source_folder?: boolean;
-    delete_remote_file_set_after_download?: boolean;
-    delete_source_file_set_after_download?: boolean;
-    destination_base_directory?: string;
+    readonly add_file_set?: boolean | null;
+    asset_id?: string | null;
+    asset_paths?: Array<string> | null;
+    collection_storage_id?: string | null;
+    component_ids?: Array<string> | null;
+    delete_only_from_source_folder?: boolean | null;
+    delete_remote_file_set_after_download?: boolean | null;
+    delete_source_file_set_after_download?: boolean | null;
+    destination_base_directory?: string | null;
     destination_directory_path: string;
     destination_file_set_name: string;
-    destination_filename?: string;
-    readonly export_metadata_format?: string;
-    readonly export_metadata_view?: string;
-    readonly export_original?: boolean;
-    readonly export_posters?: boolean;
-    readonly export_proxy?: boolean;
-    readonly export_transcription_format?: string;
-    file_set_id?: string;
-    format_id?: string;
-    readonly id?: string;
-    readonly include_original_extension?: boolean;
-    job_id?: string;
-    local_storage_id?: string;
-    original_storage_id?: string;
-    original_url?: string;
-    readonly overwrite?: boolean;
-    parent_job_id?: string;
-    temporary_file_set_source?: boolean;
-    readonly transfer_type?: string;
+    destination_filename?: string | null;
+    readonly export_metadata_format?: string | null;
+    readonly export_metadata_view?: string | null;
+    readonly export_original?: boolean | null;
+    readonly export_posters?: boolean | null;
+    readonly export_proxy?: boolean | null;
+    readonly export_transcription_format?: string | null;
+    file_set_id?: string | null;
+    format_id?: string | null;
+    readonly id?: string | null;
+    readonly include_original_extension?: boolean | null;
+    job_id?: string | null;
+    job_steps?: {
+        [key: string]: unknown;
+    } | null;
+    local_storage_id?: string | null;
+    original_storage_id?: string | null;
+    original_url?: string | null;
+    readonly overwrite?: boolean | null;
+    parent_job_id?: string | null;
+    temporary_file_set_source?: boolean | null;
+    readonly transfer_type?: string | null;
 };
 
 export type TransferToStorageSchema = {
-    asset_id?: string;
-    asset_paths?: Array<string>;
-    collection_storage_id?: string;
-    component_ids?: Array<string>;
-    delete_only_from_source_folder?: boolean;
-    delete_remote_file_set_after_download?: boolean;
-    delete_source_file_set_after_download?: boolean;
-    destination_base_directory?: string;
+    asset_id?: string | null;
+    asset_paths?: Array<string> | null;
+    collection_storage_id?: string | null;
+    component_ids?: Array<string> | null;
+    delete_only_from_source_folder?: boolean | null;
+    delete_remote_file_set_after_download?: boolean | null;
+    delete_source_file_set_after_download?: boolean | null;
+    destination_base_directory?: string | null;
     destination_directory_path: string;
     destination_file_set_name: string;
-    destination_filename?: string;
-    file_set_id?: string;
-    format_id?: string;
-    readonly id?: string;
-    job_id?: string;
-    local_storage_id?: string;
-    original_storage_id?: string;
-    original_url?: string;
-    parent_job_id?: string;
-    temporary_file_set_source?: boolean;
-    readonly transfer_type?: string;
+    destination_filename?: string | null;
+    file_set_id?: string | null;
+    format_id?: string | null;
+    readonly id?: string | null;
+    job_id?: string | null;
+    job_steps?: {
+        [key: string]: unknown;
+    } | null;
+    local_storage_id?: string | null;
+    original_storage_id?: string | null;
+    original_url?: string | null;
+    parent_job_id?: string | null;
+    temporary_file_set_source?: boolean | null;
+    readonly transfer_type?: string | null;
 };
 
 export type TransfersFromStorageSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<TransferFromStorageReadSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<TransferFromStorageReadSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type TransfersToStorageSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<TransferToStorageReadSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly scroll_id?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<TransferToStorageReadSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type UploadFilesSchema = {
-    asset_id?: string;
-    asset_title?: string;
-    collection_id?: string;
-    create_keyframes?: boolean;
+    asset_id?: string | null;
+    asset_title?: string | null;
+    collection_id?: string | null;
+    create_keyframes?: boolean | null;
     file_name: string;
     /**
      * Sequence cannot have more than 10000. Excess values will be stripped
      */
     format_metadata?: Array<{
         [key: string]: string;
-    }>;
-    format_name?: string;
+    }> | null;
+    format_name?: string | null;
     storage_id: string;
-    version_id?: string;
+    version_id?: string | null;
 };
 
 export type UploadIconikStorageGatewayLogsSchema = {
@@ -3809,10 +3899,10 @@ export type UploadIconikStorageGatewayLogsSchema = {
 };
 
 export type VantageSettingsSchema = {
-    exclude_patterns?: Array<string>;
+    exclude_patterns?: Array<string> | null;
     host: string;
-    include_patterns?: Array<string>;
-    local?: boolean;
+    include_patterns?: Array<string> | null;
+    local?: boolean | null;
     port: number;
     priority?: number | null;
     share_name: string;
@@ -3821,68 +3911,68 @@ export type VantageSettingsSchema = {
 };
 
 export type VideoBaseSchema = {
-    audio_bitrate?: number;
-    bitrate?: number;
+    audio_bitrate?: number | null;
+    bitrate?: number | null;
     edit_proxy_folder?: string | null;
-    enable_multi_channel_audio?: boolean;
-    exclude_patterns?: Array<string>;
+    enable_multi_channel_audio?: boolean | null;
+    exclude_patterns?: Array<string> | null;
     hdr_brightness?: number | null;
     hdr_contrast?: number | null;
     hdr_gamma?: number | null;
     hdr_saturation?: number | null;
     hdr_tonemap_desat?: number | null;
     hdr_tonemap_peak?: number | null;
-    include_patterns?: Array<string>;
-    local?: boolean;
-    merge_multichannel_audio_tracks?: boolean;
+    include_patterns?: Array<string> | null;
+    local?: boolean | null;
+    merge_multichannel_audio_tracks?: boolean | null;
     priority?: number | null;
-    scaling_method?: 'accurate_rnd' | 'area' | 'bicubic' | 'bicublin' | 'bilinear' | 'bitexact' | 'experimental' | 'fast_bilinear' | 'full_chroma_inp' | 'full_chroma_int' | 'gauss' | 'lanczos' | 'neighbor' | 'sinc' | 'spline';
-    width?: number;
+    scaling_method?: 'accurate_rnd' | 'area' | 'bicubic' | 'bicublin' | 'bilinear' | 'bitexact' | 'experimental' | 'fast_bilinear' | 'full_chroma_inp' | 'full_chroma_int' | 'gauss' | 'lanczos' | 'neighbor' | 'sinc' | 'spline' | null;
+    width?: number | null;
 };
 
 export type WatchFolderVideoTranscoderSchema = {
-    create_web_proxy_from_edit_proxy?: boolean;
-    edit_proxy_local_storage_path?: string;
-    edit_proxy_upload_storage_id?: string;
-    edit_proxy_upload_storage_path?: string;
-    exclude_patterns?: Array<string>;
+    create_web_proxy_from_edit_proxy?: boolean | null;
+    edit_proxy_local_storage_path?: string | null;
+    edit_proxy_upload_storage_id?: string | null;
+    edit_proxy_upload_storage_path?: string | null;
+    exclude_patterns?: Array<string> | null;
     file_grow_threshold: number;
-    include_patterns?: Array<string>;
-    keep_as_edit_proxy?: boolean;
-    keyframe_folder_name?: string;
-    keyframe_map_folder_name?: string;
-    local?: boolean;
+    include_patterns?: Array<string> | null;
+    keep_as_edit_proxy?: boolean | null;
+    keyframe_folder_name?: string | null;
+    keyframe_map_folder_name?: string | null;
+    local?: boolean | null;
     proxy_folder_name: string;
-    proxy_timeout?: number;
+    proxy_timeout?: number | null;
     /**
      * If enabled a soft link is used to add original to the watch folder, if disabled a hard link is used with a fallback to copy.
      */
-    use_symlink?: boolean;
+    use_symlink?: boolean | null;
     /**
      * A sub-folder is created with a unique name inside the watch folder per job.
      */
-    use_unique_sub_folder_workflow?: boolean;
+    use_unique_sub_folder_workflow?: boolean | null;
     watch_folder_location: string;
 };
 
 export type WildmokaSettingsSchema = {
-    audio_bitrate?: number;
-    bitrate?: number;
+    audio_bitrate?: number | null;
+    bitrate?: number | null;
     edit_proxy_folder?: string | null;
-    enable_multi_channel_audio?: boolean;
-    exclude_patterns?: Array<string>;
+    enable_multi_channel_audio?: boolean | null;
+    exclude_patterns?: Array<string> | null;
     hdr_brightness?: number | null;
     hdr_contrast?: number | null;
     hdr_gamma?: number | null;
     hdr_saturation?: number | null;
     hdr_tonemap_desat?: number | null;
     hdr_tonemap_peak?: number | null;
-    include_patterns?: Array<string>;
-    local?: boolean;
-    merge_multichannel_audio_tracks?: boolean;
+    include_patterns?: Array<string> | null;
+    local?: boolean | null;
+    merge_multichannel_audio_tracks?: boolean | null;
     priority?: number | null;
-    scaling_method?: 'accurate_rnd' | 'area' | 'bicubic' | 'bicublin' | 'bilinear' | 'bitexact' | 'experimental' | 'fast_bilinear' | 'full_chroma_inp' | 'full_chroma_int' | 'gauss' | 'lanczos' | 'neighbor' | 'sinc' | 'spline';
-    width?: number;
+    scaling_method?: 'accurate_rnd' | 'area' | 'bicubic' | 'bicublin' | 'bilinear' | 'bitexact' | 'experimental' | 'fast_bilinear' | 'full_chroma_inp' | 'full_chroma_int' | 'gauss' | 'lanczos' | 'neighbor' | 'sinc' | 'spline' | null;
+    width?: number | null;
     /**
      * Wildmoka API endpoint URL
      */
@@ -3902,14 +3992,14 @@ export type WildmokaSettingsSchema = {
     /**
      * List of video variants to prepare
      */
-    wm_video_variants?: Array<string>;
+    wm_video_variants?: Array<string> | null;
 };
 
 export type ZencoderSettingsSchema = {
     api_key: string;
-    exclude_patterns?: Array<string>;
-    include_patterns?: Array<string>;
-    local?: boolean;
+    exclude_patterns?: Array<string> | null;
+    include_patterns?: Array<string> | null;
+    local?: boolean | null;
     priority?: number | null;
 };
 
@@ -3919,10 +4009,13 @@ export type AnalysisProfileBaseSchemaWritable = {
 
 export type AnalysisProfileSchemaWritable = {
     analysis_service_account_id: string;
-    enabled?: boolean;
+    enabled?: boolean | null;
     media_type: 'face_image' | 'face_video' | 'image' | 'transcription' | 'video';
     name: string;
-    service_type?: 'AMAZON_REKOGNITION' | 'GOOGLE_VIDEO_INTELLIGENCE' | 'GOOGLE_VISION' | 'ICONIK' | 'ICONIK_FACE_RECOGNITION' | 'REV_AI';
+    service_type?: 'AMAZON_REKOGNITION' | 'GOOGLE_VIDEO_INTELLIGENCE' | 'GOOGLE_VISION' | 'ICONIK' | 'ICONIK_FACE_RECOGNITION' | 'REV_AI' | null;
+    settings?: {
+        [key: string]: unknown;
+    } | null;
 };
 
 export type AnalysisProfilesSchemaWritable = {
@@ -3949,10 +4042,16 @@ export type AnalysisServiceAccountsSchemaWritable = {
 
 export type AnalysisTranscriptionSettingsSchemaWritable = {
     analysis_service_account_id: string;
-    enabled?: boolean;
+    analysis_service_account_settings?: {
+        [key: string]: unknown;
+    } | null;
+    enabled?: boolean | null;
     media_type: 'face_image' | 'face_video' | 'image' | 'transcription' | 'video';
     name: string;
-    service_type?: 'AMAZON_REKOGNITION' | 'GOOGLE_VIDEO_INTELLIGENCE' | 'GOOGLE_VISION' | 'ICONIK' | 'ICONIK_FACE_RECOGNITION' | 'REV_AI';
+    service_type?: 'AMAZON_REKOGNITION' | 'GOOGLE_VIDEO_INTELLIGENCE' | 'GOOGLE_VISION' | 'ICONIK' | 'ICONIK_FACE_RECOGNITION' | 'REV_AI' | null;
+    settings?: {
+        [key: string]: unknown;
+    } | null;
 };
 
 export type AssetVersionKeyframesSchemaWritable = {
@@ -3961,50 +4060,50 @@ export type AssetVersionKeyframesSchemaWritable = {
 };
 
 export type AssetVersionsKeyframesSchemaWritable = {
-    objects?: Array<AssetVersionKeyframesSchemaWritable>;
+    objects?: Array<AssetVersionKeyframesSchemaWritable> | null;
 };
 
 export type CollectionKeyframeCreateSchemaWritable = {
-    collection_id?: string;
-    content_type?: string;
-    filename?: string;
+    collection_id?: string | null;
+    content_type?: string | null;
+    filename?: string | null;
     format?: string | null;
-    is_custom_keyframe?: boolean;
-    name?: string;
-    resolution?: ResolutionType;
+    is_custom_keyframe?: boolean | null;
+    name?: string | null;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    time_code?: TimeCodeType;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
 };
 
 export type CollectionKeyframeSchemaWritable = {
-    collection_id?: string;
-    filename?: string;
+    collection_id?: string | null;
+    filename?: string | null;
     format?: string | null;
-    is_custom_keyframe?: boolean;
-    name?: string;
-    resolution?: ResolutionType;
+    is_custom_keyframe?: boolean | null;
+    name?: string | null;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    time_code?: TimeCodeType;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
 };
 
 export type CollectionKeyframeUpdateSchemaWritable = {
-    filename?: string;
+    filename?: string | null;
     format?: string | null;
-    is_custom_keyframe?: boolean;
-    name?: string;
-    resolution?: ResolutionType;
+    is_custom_keyframe?: boolean | null;
+    name?: string | null;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    time_code?: TimeCodeType;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
 };
 
@@ -4013,34 +4112,37 @@ export type CollectionKeyframesSchemaWritable = {
 };
 
 export type CompleteExportToLocalStorageSchemaWritable = {
-    add_file_set?: boolean;
-    asset_id?: string;
-    asset_paths?: Array<string>;
-    collection_storage_id?: string;
-    component_ids?: Array<string>;
-    delete_only_from_source_folder?: boolean;
-    delete_remote_file_set_after_download?: boolean;
-    delete_source_file_set_after_download?: boolean;
-    destination_base_directory?: string;
+    add_file_set?: boolean | null;
+    asset_id?: string | null;
+    asset_paths?: Array<string> | null;
+    collection_storage_id?: string | null;
+    component_ids?: Array<string> | null;
+    delete_only_from_source_folder?: boolean | null;
+    delete_remote_file_set_after_download?: boolean | null;
+    delete_source_file_set_after_download?: boolean | null;
+    destination_base_directory?: string | null;
     destination_directory_path: string;
     destination_file_set_name: string;
-    destination_filename?: string;
-    export_metadata_format?: string;
-    export_metadata_view?: string;
-    export_original?: boolean;
-    export_posters?: boolean;
-    export_proxy?: boolean;
-    export_transcription_format?: string;
-    file_set_id?: string;
-    format_id?: string;
-    include_original_extension?: boolean;
-    job_id?: string;
-    local_storage_id?: string;
-    original_storage_id?: string;
-    original_url?: string;
-    overwrite?: boolean;
-    parent_job_id?: string;
-    temporary_file_set_source?: boolean;
+    destination_filename?: string | null;
+    export_metadata_format?: string | null;
+    export_metadata_view?: string | null;
+    export_original?: boolean | null;
+    export_posters?: boolean | null;
+    export_proxy?: boolean | null;
+    export_transcription_format?: string | null;
+    file_set_id?: string | null;
+    format_id?: string | null;
+    include_original_extension?: boolean | null;
+    job_id?: string | null;
+    job_steps?: {
+        [key: string]: unknown;
+    } | null;
+    local_storage_id?: string | null;
+    original_storage_id?: string | null;
+    original_url?: string | null;
+    overwrite?: boolean | null;
+    parent_job_id?: string | null;
+    temporary_file_set_source?: boolean | null;
 };
 
 export type ComponentSchemaWritable = {
@@ -4049,7 +4151,7 @@ export type ComponentSchemaWritable = {
      */
     metadata?: {
         [key: string]: string;
-    };
+    } | null;
     name: string;
     type: 'AUDIO' | 'EXIF' | 'GENERAL' | 'IMAGE' | 'IPTC' | 'MANIFEST' | 'NON_MEDIA' | 'OTHER' | 'TEXT' | 'VIDEO' | 'XMP';
 };
@@ -4059,86 +4161,88 @@ export type ComponentsSchemaWritable = {
 };
 
 export type ExportLocationSchemaWritable = {
-    description?: string;
-    export_metadata?: boolean;
-    export_original?: boolean;
-    export_posters?: boolean;
-    export_proxy?: boolean;
-    export_to_asset_folder?: boolean;
-    export_transcriptions?: boolean;
-    include_original_extension?: boolean;
-    metadata_format?: 'CSV' | 'JSON' | 'XML';
-    metadata_view?: string;
+    description?: string | null;
+    export_metadata?: boolean | null;
+    export_original?: boolean | null;
+    export_posters?: boolean | null;
+    export_proxy?: boolean | null;
+    export_to_asset_folder?: boolean | null;
+    export_transcriptions?: boolean | null;
+    include_original_extension?: boolean | null;
+    metadata_format?: 'CSV' | 'JSON' | 'XML' | null;
+    metadata_view?: string | null;
     name: string;
     path: string;
     storage_id: string;
-    transcode_profile_ids?: Array<string>;
-    transcription_format?: 'SRT' | 'WEBVTT';
+    transcode_profile_ids?: Array<string> | null;
+    transcription_format?: 'SRT' | 'WEBVTT' | null;
 };
 
 export type ExportLocationsSchemaWritable = {
-    [key: string]: unknown;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
 };
 
 export type FileBaseSchemaWritable = {
-    asset_id?: string;
+    asset_id?: string | null;
     checksum?: string | null;
     directory_path: string;
-    file_date_created?: string;
-    file_date_modified?: string;
-    file_set_id?: string;
-    format_id?: string;
+    file_date_created?: string | null;
+    file_date_modified?: string | null;
+    file_set_id?: string | null;
+    format_id?: string | null;
     /**
      * If not specified, name will be autogenerated based on `id` and `original_name`
      */
-    name?: string;
+    name?: string | null;
     original_name: string;
     parent_id?: string | null;
-    size?: number;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    template?: string;
-    template_engine?: 'JINJA2' | 'SIMPLE';
+    size?: number | null;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    template?: string | null;
+    template_engine?: 'JINJA2' | 'SIMPLE' | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
     user_id?: string | null;
-    version_id?: string;
+    version_id?: string | null;
 };
 
 export type FileCreateSchemaWritable = {
-    asset_id?: string;
+    asset_id?: string | null;
     checksum?: string | null;
-    content_type?: string;
+    content_type?: string | null;
     directory_path: string;
-    file_date_created?: string;
-    file_date_modified?: string;
-    file_set_id?: string;
-    format_id?: string;
+    file_date_created?: string | null;
+    file_date_modified?: string | null;
+    file_set_id?: string | null;
+    format_id?: string | null;
     /**
      * If not specified, name will be autogenerated based on `id` and `original_name`
      */
-    name?: string;
+    name?: string | null;
     original_name: string;
     parent_id?: string | null;
-    size?: number;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    template?: string;
-    template_engine?: 'JINJA2' | 'SIMPLE';
+    size?: number | null;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    template?: string | null;
+    template_engine?: 'JINJA2' | 'SIMPLE' | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
     user_id?: string | null;
-    version_id?: string;
+    version_id?: string | null;
 };
 
 export type FileDeletionFromLocalStorageSchemaWritable = {
-    directory_path?: string;
+    directory_path?: string | null;
     file_id: string;
-    file_type?: string;
+    file_type?: string | null;
     filename: string;
     job_id: string;
-    keep_source?: boolean;
+    keep_source?: boolean | null;
     storage_id: string;
-    template?: string;
-    template_engine?: string;
+    template?: string | null;
+    template_engine?: string | null;
 };
 
 export type FileDeletionsSchemaWritable = {
@@ -4146,97 +4250,97 @@ export type FileDeletionsSchemaWritable = {
 };
 
 export type FileElasticSchemaWritable = {
-    asset_id?: string;
+    asset_id?: string | null;
     checksum?: string | null;
     directory_path: string;
-    file_date_created?: string;
-    file_date_modified?: string;
-    file_set_id?: string;
-    format_id?: string;
+    file_date_created?: string | null;
+    file_date_modified?: string | null;
+    file_set_id?: string | null;
+    format_id?: string | null;
     /**
      * If not specified, name will be autogenerated based on `id` and `original_name`
      */
-    name?: string;
+    name?: string | null;
     original_name: string;
     parent_id?: string | null;
-    size?: number;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    template?: string;
-    template_engine?: 'JINJA2' | 'SIMPLE';
+    size?: number | null;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    template?: string | null;
+    template_engine?: 'JINJA2' | 'SIMPLE' | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
     user_id?: string | null;
-    version_id?: string;
+    version_id?: string | null;
 };
 
 export type FileSchemaWritable = {
-    asset_id?: string;
+    asset_id?: string | null;
     checksum?: string | null;
     directory_path: string;
-    file_date_created?: string;
-    file_date_modified?: string;
+    file_date_created?: string | null;
+    file_date_modified?: string | null;
     file_set_id: string;
-    format_id?: string;
+    format_id?: string | null;
     /**
      * If not specified, name will be autogenerated based on `id` and `original_name`
      */
-    name?: string;
+    name?: string | null;
     original_name: string;
     parent_id?: string | null;
-    size?: number;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    template?: string;
-    template_engine?: 'JINJA2' | 'SIMPLE';
+    size?: number | null;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    template?: string | null;
+    template_engine?: 'JINJA2' | 'SIMPLE' | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
     user_id?: string | null;
-    version_id?: string;
+    version_id?: string | null;
 };
 
 export type FileSetElasticSchemaWritable = {
-    archive_file_set_id?: string;
+    archive_file_set_id?: string | null;
     base_dir: string;
     component_ids: Array<string>;
-    date_deleted?: string;
+    date_deleted?: string | null;
     format_id: string;
-    is_archive?: boolean;
+    is_archive?: boolean | null;
     name: string;
-    original_storage_id?: string;
-    status?: 'ACTIVE' | 'ARCHIVED' | 'DELETED';
-    storage_id?: string;
-    type?: 'MANY_FILES' | 'REGULAR';
-    version_id?: string;
+    original_storage_id?: string | null;
+    status?: 'ACTIVE' | 'ARCHIVED' | 'DELETED' | null;
+    storage_id?: string | null;
+    type?: 'MANY_FILES' | 'REGULAR' | null;
+    version_id?: string | null;
 };
 
 export type FileSetSchemaWritable = {
-    archive_file_set_id?: string;
+    archive_file_set_id?: string | null;
     base_dir: string;
     component_ids: Array<string>;
-    date_deleted?: string;
+    date_deleted?: string | null;
     format_id: string;
-    is_archive?: boolean;
+    is_archive?: boolean | null;
     name: string;
-    original_storage_id?: string;
-    status?: 'ACTIVE' | 'ARCHIVED' | 'DELETED';
-    storage_id?: string;
-    type?: 'MANY_FILES' | 'REGULAR';
-    version_id?: string;
+    original_storage_id?: string | null;
+    status?: 'ACTIVE' | 'ARCHIVED' | 'DELETED' | null;
+    storage_id?: string | null;
+    type?: 'MANY_FILES' | 'REGULAR' | null;
+    version_id?: string | null;
 };
 
 export type FileSetSourceSchemaWritable = {
-    archive_file_set_id?: string;
+    archive_file_set_id?: string | null;
     base_dir: string;
     component_ids: Array<string>;
-    date_deleted?: string;
+    date_deleted?: string | null;
     format_id: string;
-    is_archive?: boolean;
+    is_archive?: boolean | null;
     name: string;
-    original_storage_id?: string;
-    status?: 'ACTIVE' | 'ARCHIVED' | 'DELETED';
+    original_storage_id?: string | null;
+    status?: 'ACTIVE' | 'ARCHIVED' | 'DELETED' | null;
     storage_id: string;
     storage_method: string;
-    type?: 'MANY_FILES' | 'REGULAR';
-    version_id?: string;
+    type?: 'MANY_FILES' | 'REGULAR' | null;
+    version_id?: string | null;
 };
 
 export type FileSetSourcesSchemaWritable = {
@@ -4244,7 +4348,9 @@ export type FileSetSourcesSchemaWritable = {
 };
 
 export type FileSetsElasticSchemaWritable = {
-    [key: string]: unknown;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
 };
 
 export type FileSetsSchemaWritable = {
@@ -4254,54 +4360,56 @@ export type FileSetsSchemaWritable = {
 export type FileSettingsSchemaWritable = {
     access_group_id?: string | null;
     acl_template_id?: string | null;
-    aggregate_identical_files?: boolean;
-    aggregate_ignore?: Array<string>;
-    aggregate_only_on_same_storage?: boolean;
-    allow_access_outside_scan_directories?: boolean;
-    asset_versions_suffix?: string;
-    auto_version_ignore?: Array<string>;
-    auto_version_ingest_throttle_value?: number;
-    delete?: boolean;
-    directory_assets_original_patterns?: Array<string>;
-    directory_assets_transcode_patterns?: Array<string>;
-    enable_auto_versioning?: boolean;
-    enable_collection_directory_mapping?: boolean;
-    enable_directory_assets?: boolean;
-    filename_is_external_id?: boolean;
-    folder_name_tags_metadata_field_name?: string;
+    aggregate_identical_files?: boolean | null;
+    aggregate_ignore?: Array<string> | null;
+    aggregate_only_on_same_storage?: boolean | null;
+    allow_access_outside_scan_directories?: boolean | null;
+    asset_versions_suffix?: string | null;
+    auto_version_ignore?: Array<string> | null;
+    auto_version_ingest_throttle_value?: number | null;
+    delete?: boolean | null;
+    directory_assets_original_patterns?: Array<string> | null;
+    directory_assets_transcode_patterns?: Array<string> | null;
+    enable_auto_versioning?: boolean | null;
+    enable_collection_directory_mapping?: boolean | null;
+    enable_directory_assets?: boolean | null;
+    filename_is_external_id?: boolean | null;
+    folder_name_tags_metadata_field_name?: string | null;
     folder_name_tags_metadata_view_id?: string | null;
-    growing_files_threshold?: number;
-    is_system?: boolean;
-    local_keyframe_creation?: boolean;
-    local_proxy_creation?: boolean;
-    metadata_conversion_url?: string;
+    growing_files_threshold?: number | null;
+    is_system?: boolean | null;
+    local_keyframe_creation?: boolean | null;
+    local_proxy_creation?: boolean | null;
+    metadata_conversion_url?: string | null;
     metadata_conversion_url_headers?: string | null;
     metadata_view_id?: string | null;
     mount_point: string;
     prio_dirs?: Array<PrioDir> | null;
     prio_patterns?: Array<PrioPattern> | null;
-    public_identity?: string;
-    read?: boolean;
-    remote_path?: string;
-    remote_storage_id?: string;
-    scan?: boolean;
-    scan_directories?: Array<string>;
-    scan_ignore?: Array<string>;
-    scan_include?: Array<string>;
-    scan_interval_seconds?: number;
-    sidecar_metadata_required?: boolean;
-    skip_upload_on_any_remote_copy_found?: boolean;
-    storage_addr?: string;
-    title_includes_extension?: boolean;
-    transcode_ignore?: Array<string>;
-    transcode_include?: Array<string>;
-    upload_files?: boolean;
-    upload_ignore?: Array<string>;
-    write?: boolean;
+    public_identity?: string | null;
+    read?: boolean | null;
+    remote_path?: string | null;
+    remote_storage_id?: string | null;
+    scan?: boolean | null;
+    scan_directories?: Array<string> | null;
+    scan_ignore?: Array<string> | null;
+    scan_include?: Array<string> | null;
+    scan_interval_seconds?: number | null;
+    sidecar_metadata_required?: boolean | null;
+    skip_upload_on_any_remote_copy_found?: boolean | null;
+    storage_addr?: string | null;
+    title_includes_extension?: boolean | null;
+    transcode_ignore?: Array<string> | null;
+    transcode_include?: Array<string> | null;
+    upload_files?: boolean | null;
+    upload_ignore?: Array<string> | null;
+    write?: boolean | null;
 };
 
 export type FilesElasticSchemaWritable = {
-    [key: string]: unknown;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
 };
 
 export type FilesSchemaWritable = {
@@ -4309,67 +4417,72 @@ export type FilesSchemaWritable = {
 };
 
 export type FilesetTransferBaseSchemaWritable = {
-    asset_id?: string;
-    asset_paths?: Array<string>;
-    collection_storage_id?: string;
-    component_ids?: Array<string>;
-    delete_only_from_source_folder?: boolean;
-    destination_filename?: string;
-    job_id?: string;
-    original_storage_id?: string;
-    original_url?: string;
-    parent_job_id?: string;
+    asset_id?: string | null;
+    asset_paths?: Array<string> | null;
+    collection_storage_id?: string | null;
+    component_ids?: Array<string> | null;
+    delete_only_from_source_folder?: boolean | null;
+    destination_filename?: string | null;
+    job_id?: string | null;
+    job_steps?: {
+        [key: string]: unknown;
+    } | null;
+    original_storage_id?: string | null;
+    original_url?: string | null;
+    parent_job_id?: string | null;
 };
 
 export type FormatArchiveSchemaWritable = {
-    delete_original?: boolean;
-    destination_directory_path?: string;
-    destination_storage_id?: string;
-    destination_storage_method?: string;
-    format_id?: string;
-    original_file_set_id?: string;
+    delete_original?: boolean | null;
+    destination_directory_path?: string | null;
+    destination_storage_id?: string | null;
+    destination_storage_method?: string | null;
+    format_id?: string | null;
+    original_file_set_id?: string | null;
 };
 
 export type FormatElasticSchemaWritable = {
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED';
-    components?: Array<ComponentSchemaWritable>;
-    date_deleted?: string;
-    external_references?: Array<ExternalReferences>;
-    is_online?: boolean;
+    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    components?: Array<ComponentSchemaWritable> | null;
+    date_deleted?: string | null;
+    external_references?: Array<ExternalReferences> | null;
+    is_online?: boolean | null;
     /**
      * Sequence cannot have more than 10000. Excess values will be stripped
      */
     metadata?: Array<{
         [key: string]: string;
-    }>;
+    }> | null;
     name: string;
-    status?: 'ACTIVE' | 'DELETED';
-    storage_methods?: Array<string>;
-    user_id?: string;
-    version_id?: string;
+    status?: 'ACTIVE' | 'DELETED' | null;
+    storage_methods?: Array<string> | null;
+    user_id?: string | null;
+    version_id?: string | null;
 };
 
 export type FormatSchemaWritable = {
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED';
-    components?: Array<ComponentSchemaWritable>;
-    date_deleted?: string;
-    external_references?: Array<ExternalReferences>;
-    is_online?: boolean;
+    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    components?: Array<ComponentSchemaWritable> | null;
+    date_deleted?: string | null;
+    external_references?: Array<ExternalReferences> | null;
+    is_online?: boolean | null;
     /**
      * Sequence cannot have more than 10000. Excess values will be stripped
      */
     metadata?: Array<{
         [key: string]: string;
-    }>;
+    }> | null;
     name: string;
-    status?: 'ACTIVE' | 'DELETED';
-    storage_methods?: Array<string>;
-    user_id?: string;
-    version_id?: string;
+    status?: 'ACTIVE' | 'DELETED' | null;
+    storage_methods?: Array<string> | null;
+    user_id?: string | null;
+    version_id?: string | null;
 };
 
 export type FormatsElasticSchemaWritable = {
-    [key: string]: unknown;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
 };
 
 export type FormatsSchemaWritable = {
@@ -4379,31 +4492,31 @@ export type FormatsSchemaWritable = {
 export type GatewayReportSchemaWritable = {
     await_checksum_files_number?: number | null;
     empty_files_number?: number | null;
-    error_log_lines?: Array<string>;
+    error_log_lines?: Array<string> | null;
     exported_files_number?: number | null;
     faulty_files_number?: number | null;
-    host_info?: string;
-    host_name?: string;
+    host_info?: string | null;
+    host_name?: string | null;
     ingested_files_number?: number | null;
     ingested_files_uploads_number?: number | null;
     ingesting_files_number?: number | null;
     last_scan_time?: number | null;
-    log_lines?: Array<string>;
+    log_lines?: Array<string> | null;
     missing_files_number?: number | null;
     scanned_files_number?: number | null;
     skipped_files_number?: number | null;
-    start_status?: 'FAILED' | 'SUCCESS';
-    start_status_message?: string;
-    status?: 'ERROR' | 'LIVE' | 'OFFLINE' | 'STOPPED' | 'UNKNOWN' | 'WARNING';
+    start_status?: 'FAILED' | 'SUCCESS' | null;
+    start_status_message?: string | null;
+    status?: 'ERROR' | 'LIVE' | 'OFFLINE' | 'STOPPED' | 'UNKNOWN' | 'WARNING' | null;
     total_files_number?: number | null;
     total_folders_number?: number | null;
-    version?: string;
+    version?: string | null;
     waiting_preview_transcode_jobs_number?: number | null;
     waiting_transcode_jobs_number?: number | null;
 };
 
 export type IconikStorageGatewayBaseSchemaWritable = {
-    description?: string;
+    description?: string | null;
     /**
      * Application toggle. If turned off ISG will enter idle state waiting to get enabled again.
      */
@@ -4420,7 +4533,7 @@ export type IconikStorageGatewayClusterReadSchemaWritable = {
      * Database connection URI
      */
     db_connection_uri: string;
-    description?: string;
+    description?: string | null;
     /**
      * Application toggle. If turned off ISG will enter idle state waiting to get enabled again.
      */
@@ -4429,12 +4542,13 @@ export type IconikStorageGatewayClusterReadSchemaWritable = {
     /**
      * Application configuration settings as key-value pairs
      */
-    settings?: IsgConfigClusterSettingsSchema;
+    settings?: IsgConfigClusterSettingsSchema | null;
+    status?: unknown;
     storage_ids: Array<string>;
     /**
      * The number of seconds jobs should remain invisible to other nodes
      */
-    visibility_timeout?: number;
+    visibility_timeout?: number | null;
 };
 
 export type IconikStorageGatewayClusterSchemaWritable = {
@@ -4442,7 +4556,7 @@ export type IconikStorageGatewayClusterSchemaWritable = {
      * Database connection URI
      */
     db_connection_uri: string;
-    description?: string;
+    description?: string | null;
     /**
      * Application toggle. If turned off ISG will enter idle state waiting to get enabled again.
      */
@@ -4451,19 +4565,23 @@ export type IconikStorageGatewayClusterSchemaWritable = {
     /**
      * Application configuration settings as key-value pairs
      */
-    settings?: IsgConfigClusterSettingsSchema;
+    settings?: IsgConfigClusterSettingsSchema | null;
+    status?: unknown;
     storage_ids: Array<string>;
     /**
      * The number of seconds jobs should remain invisible to other nodes
      */
-    visibility_timeout?: number;
+    visibility_timeout?: number | null;
 };
 
 export type IconikStorageGatewayClustersSchemaWritable = {
-    objects?: Array<IconikStorageGatewayClusterReadSchemaWritable>;
+    objects?: Array<IconikStorageGatewayClusterReadSchemaWritable> | null;
 };
 
 export type IconikStorageGatewayEventSchemaWritable = {
+    data?: {
+        [key: string]: unknown;
+    } | null;
     type: 'ABORT_COLLECTION_MAP' | 'ABORT_JOBS_BULK' | 'ASSET_MERGED' | 'COLLECTION_DELETED' | 'DELETE' | 'DOWNLOAD' | 'DOWNLOAD_ABORT' | 'DOWNLOAD_CHANGE_PRIORITY' | 'INGEST_UPLOAD' | 'MARK_MISSING_OUTSIDE_SCAN_DIRS' | 'REQUEST_COLLECTION_MAP' | 'RESET_INGEST_VALIDATION' | 'RESTART' | 'SCHEDULE_CHECKSUM_CALCULATION' | 'TRANSCODE' | 'TRANSCODE_ABORT' | 'TRANSCODE_CHANGE_PRIORITY' | 'UPLOAD' | 'UPLOAD_ABORT' | 'UPLOAD_CHANGE_PRIORITY';
 };
 
@@ -4472,76 +4590,78 @@ export type IconikStorageGatewayEventsSchemaWritable = {
 };
 
 export type IconikStorageGatewayReadWritable = {
-    cluster_id?: string;
-    description?: string;
+    cluster_id?: string | null;
+    description?: string | null;
     /**
      * Application toggle. If turned off ISG will enter idle state waiting to get enabled again.
      */
     enabled: boolean;
     name: string;
-    public_identity?: string;
+    public_identity?: string | null;
     /**
      * Set of roles this gateway can perform when part of cluster
      */
-    roles?: Array<'CHECKSUM' | 'MAIN' | 'TRANSCODE' | 'TRANSFER'>;
+    roles?: Array<'CHECKSUM' | 'MAIN' | 'TRANSCODE' | 'TRANSFER'> | null;
     /**
      * Application configuration settings as key-value pairs
      */
     settings?: IsgConfigSettingsSchema | null;
+    status?: unknown;
     /**
      * Server address for direct transfers between storage gateways
      */
-    storage_addr?: string;
+    storage_addr?: string | null;
     /**
      * Storage mount points mapped by storage ID
      */
     storages?: {
         [key: string]: IconikStorageGatewayStorageMap;
-    };
+    } | null;
 };
 
 export type IconikStorageGatewayReadSchemaWritable = {
-    cluster_id?: string;
-    description?: string;
+    cluster_id?: string | null;
+    description?: string | null;
     /**
      * Application toggle. If turned off ISG will enter idle state waiting to get enabled again.
      */
     enabled: boolean;
     name: string;
-    public_identity?: string;
+    public_identity?: string | null;
     /**
      * Set of roles this gateway can perform when part of cluster
      */
-    roles?: Array<'CHECKSUM' | 'MAIN' | 'TRANSCODE' | 'TRANSFER'>;
+    roles?: Array<'CHECKSUM' | 'MAIN' | 'TRANSCODE' | 'TRANSFER'> | null;
     /**
      * Application configuration settings as key-value pairs
      */
     settings?: IsgConfigSettingsSchema | null;
+    status?: unknown;
     /**
      * Server address for direct transfers between storage gateways
      */
-    storage_addr?: string;
+    storage_addr?: string | null;
     /**
      * Storage mount points mapped by storage ID
      */
     storages?: {
         [key: string]: IconikStorageGatewayStorageMap;
-    };
+    } | null;
 };
 
 export type IconikStorageGatewaySchemaWritable = {
-    cluster_id?: string;
-    description?: string;
+    cluster_id?: string | null;
+    description?: string | null;
     /**
      * Application toggle. If turned off ISG will enter idle state waiting to get enabled again.
      */
     enabled: boolean;
     name: string;
-    public_identity?: string;
+    public_identity?: string | null;
     /**
      * Set of roles this gateway can perform when part of cluster
      */
-    roles?: Array<'CHECKSUM' | 'MAIN' | 'TRANSCODE' | 'TRANSFER'>;
+    roles?: Array<'CHECKSUM' | 'MAIN' | 'TRANSCODE' | 'TRANSFER'> | null;
     /**
      * Application configuration settings as key-value pairs
      */
@@ -4549,97 +4669,97 @@ export type IconikStorageGatewaySchemaWritable = {
     /**
      * Server address for direct transfers between storage gateways
      */
-    storage_addr?: string;
+    storage_addr?: string | null;
     /**
      * Storage mount points mapped by storage ID
      */
     storages?: {
         [key: string]: IconikStorageGatewayStorageMap;
-    };
+    } | null;
 };
 
 export type IconikStorageGatewayTelemetryWritable = {
-    error_log_lines?: Array<string>;
-    host_info?: string;
-    host_ip?: string;
-    host_name?: string;
-    is_leader?: boolean;
-    log_lines?: Array<string>;
-    start_last_date?: string;
-    start_status?: 'FAILED' | 'SUCCESS';
-    start_status_message?: string;
-    status?: 'ERROR' | 'LIVE' | 'OFFLINE' | 'STOPPED' | 'UNKNOWN' | 'WARNING';
-    version?: string;
+    error_log_lines?: Array<string> | null;
+    host_info?: string | null;
+    host_ip?: string | null;
+    host_name?: string | null;
+    is_leader?: boolean | null;
+    log_lines?: Array<string> | null;
+    start_last_date?: string | null;
+    start_status?: 'FAILED' | 'SUCCESS' | null;
+    start_status_message?: string | null;
+    status?: 'ERROR' | 'LIVE' | 'OFFLINE' | 'STOPPED' | 'UNKNOWN' | 'WARNING' | null;
+    version?: string | null;
     worker_id: string;
 };
 
 export type IconikStorageGatewayTelemetrySchemaWritable = {
-    error_log_lines?: Array<string>;
-    host_info?: string;
-    host_ip?: string;
-    host_name?: string;
-    is_leader?: boolean;
-    log_lines?: Array<string>;
-    start_last_date?: string;
-    start_status?: 'FAILED' | 'SUCCESS';
-    start_status_message?: string;
-    status?: 'ERROR' | 'LIVE' | 'OFFLINE' | 'STOPPED' | 'UNKNOWN' | 'WARNING';
-    version?: string;
+    error_log_lines?: Array<string> | null;
+    host_info?: string | null;
+    host_ip?: string | null;
+    host_name?: string | null;
+    is_leader?: boolean | null;
+    log_lines?: Array<string> | null;
+    start_last_date?: string | null;
+    start_status?: 'FAILED' | 'SUCCESS' | null;
+    start_status_message?: string | null;
+    status?: 'ERROR' | 'LIVE' | 'OFFLINE' | 'STOPPED' | 'UNKNOWN' | 'WARNING' | null;
+    version?: string | null;
     worker_id: string;
 };
 
 export type IconikStorageGatewaysSchemaWritable = {
-    objects?: Array<IconikStorageGatewayReadSchemaWritable>;
+    objects?: Array<IconikStorageGatewayReadSchemaWritable> | null;
 };
 
 export type IconikStorageGatewaysTelemetrySchemaWritable = {
-    objects?: Array<IconikStorageGatewayTelemetrySchemaWritable>;
+    objects?: Array<IconikStorageGatewayTelemetrySchemaWritable> | null;
 };
 
 export type KeyframeWritable = {
     asset_id?: string | null;
     collection_id?: string | null;
-    filename?: string;
+    filename?: string | null;
     format?: string | null;
-    is_custom_keyframe?: boolean;
-    name?: string;
-    resolution?: ResolutionType;
+    is_custom_keyframe?: boolean | null;
+    name?: string | null;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    time_code?: TimeCodeType;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
     version_id?: string | null;
 };
 
 export type KeyframeBaseSchemaWritable = {
-    filename?: string;
+    filename?: string | null;
     format?: string | null;
-    is_custom_keyframe?: boolean;
-    name?: string;
-    resolution?: ResolutionType;
+    is_custom_keyframe?: boolean | null;
+    name?: string | null;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    time_code?: TimeCodeType;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
 };
 
 export type KeyframeCreateSchemaWritable = {
     asset_id?: string | null;
     collection_id?: string | null;
-    content_type?: string;
-    filename?: string;
+    content_type?: string | null;
+    filename?: string | null;
     format?: string | null;
-    is_custom_keyframe?: boolean;
-    name?: string;
-    resolution?: ResolutionType;
+    is_custom_keyframe?: boolean | null;
+    name?: string | null;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    time_code?: TimeCodeType;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
     version_id?: string | null;
 };
@@ -4647,36 +4767,36 @@ export type KeyframeCreateSchemaWritable = {
 export type KeyframeSchemaWritable = {
     asset_id?: string | null;
     collection_id?: string | null;
-    filename?: string;
+    filename?: string | null;
     format?: string | null;
-    is_custom_keyframe?: boolean;
-    name?: string;
-    resolution?: ResolutionType;
+    is_custom_keyframe?: boolean | null;
+    name?: string | null;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    time_code?: TimeCodeType;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
     version_id?: string | null;
 };
 
 export type KeyframeUpdateSchemaWritable = {
-    filename?: string;
+    filename?: string | null;
     format?: string | null;
-    is_custom_keyframe?: boolean;
-    name?: string;
-    resolution?: ResolutionType;
+    is_custom_keyframe?: boolean | null;
+    name?: string | null;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    time_code?: TimeCodeType;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
 };
 
 export type KeyframesSchemaWritable = {
-    objects?: Array<KeyframeSchemaWritable>;
+    objects?: Array<KeyframeSchemaWritable> | null;
 };
 
 export type MultiPartS3UrlPartSchemaWritable = {
@@ -4684,7 +4804,7 @@ export type MultiPartS3UrlPartSchemaWritable = {
      * base64-encoded md5 digest
      */
     checksum?: string | null;
-    part_number?: number;
+    part_number?: number | null;
 };
 
 export type MultiPartS3UrlPartsSchemaWritable = {
@@ -4697,46 +4817,46 @@ export type MultipartB2StartUploadWritable = {
 };
 
 export type PlaylistKeyframeCreateSchemaWritable = {
-    content_type?: string;
-    filename?: string;
+    content_type?: string | null;
+    filename?: string | null;
     format?: string | null;
-    is_custom_keyframe?: boolean;
-    name?: string;
-    playlist_id?: string;
-    resolution?: ResolutionType;
+    is_custom_keyframe?: boolean | null;
+    name?: string | null;
+    playlist_id?: string | null;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    time_code?: TimeCodeType;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
 };
 
 export type PlaylistKeyframeSchemaWritable = {
-    filename?: string;
+    filename?: string | null;
     format?: string | null;
-    is_custom_keyframe?: boolean;
-    name?: string;
-    playlist_id?: string;
-    resolution?: ResolutionType;
+    is_custom_keyframe?: boolean | null;
+    name?: string | null;
+    playlist_id?: string | null;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    time_code?: TimeCodeType;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
 };
 
 export type PlaylistKeyframeUpdateSchemaWritable = {
-    filename?: string;
+    filename?: string | null;
     format?: string | null;
-    is_custom_keyframe?: boolean;
-    name?: string;
-    resolution?: ResolutionType;
+    is_custom_keyframe?: boolean | null;
+    name?: string | null;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    time_code?: TimeCodeType;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
 };
 
@@ -4749,176 +4869,176 @@ export type ProxiesSchemaWritable = {
 };
 
 export type ProxyWritable = {
-    asset_id?: string;
-    audio_bitrate?: number;
+    asset_id?: string | null;
+    audio_bitrate?: number | null;
     audio_channels?: number | null;
-    bit_rate?: number;
-    codec?: string;
-    filename?: string;
-    format?: string;
+    bit_rate?: number | null;
+    codec?: string | null;
+    filename?: string | null;
+    format?: string | null;
     frame_rate?: string | null;
     is_drop_frame?: boolean | null;
     is_multichannel?: boolean | null;
-    name?: string;
+    name?: string | null;
     proxy_container_id?: string | null;
-    resolution?: ResolutionType;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
     start_time_code?: string | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
     version_id?: string | null;
 };
 
 export type ProxyBaseSchemaWritable = {
-    asset_id?: string;
-    audio_bitrate?: number;
+    asset_id?: string | null;
+    audio_bitrate?: number | null;
     audio_channels?: number | null;
-    bit_rate?: number;
-    codec?: string;
-    filename?: string;
-    format?: string;
+    bit_rate?: number | null;
+    codec?: string | null;
+    filename?: string | null;
+    format?: string | null;
     frame_rate?: string | null;
     is_drop_frame?: boolean | null;
     is_multichannel?: boolean | null;
-    name?: string;
-    resolution?: ResolutionType;
+    name?: string | null;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
     start_time_code?: string | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
     version_id?: string | null;
 };
 
 export type ProxyContainerByUserSchemaWritable = {
-    drm?: string;
-    fingerprint?: string;
-    watermark?: string;
+    drm?: string | null;
+    fingerprint?: string | null;
+    watermark?: string | null;
 };
 
 export type ProxyContainerSchemaWritable = {
-    drm?: string;
-    frame_count?: number;
-    frame_rate?: number;
+    drm?: string | null;
+    frame_count?: number | null;
+    frame_rate?: number | null;
     parent_container_id?: string | null;
-    segment_duration?: number;
+    segment_duration?: number | null;
     user_id?: string | null;
-    watermark?: string;
+    watermark?: string | null;
 };
 
 export type ProxyCreateSchemaWritable = {
-    asset_id?: string;
-    audio_bitrate?: number;
+    asset_id?: string | null;
+    audio_bitrate?: number | null;
     audio_channels?: number | null;
-    bit_rate?: number;
-    codec?: string;
-    content_type?: string;
-    filename?: string;
-    format?: string;
+    bit_rate?: number | null;
+    codec?: string | null;
+    content_type?: string | null;
+    filename?: string | null;
+    format?: string | null;
     frame_rate?: string | null;
     is_drop_frame?: boolean | null;
     is_multichannel?: boolean | null;
-    name?: string;
+    name?: string | null;
     proxy_container_id?: string | null;
-    resolution?: ResolutionType;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
     start_time_code?: string | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
     version_id?: string | null;
 };
 
 export type ProxyFileSchemaWritable = {
-    asset_id?: string;
+    asset_id?: string | null;
     checksum?: string | null;
     directory_path: string;
-    file_date_created?: string;
-    file_date_modified?: string;
-    file_set_id?: string;
-    format_id?: string;
+    file_date_created?: string | null;
+    file_date_modified?: string | null;
+    file_set_id?: string | null;
+    format_id?: string | null;
     /**
      * If not specified, name will be autogenerated based on `id` and `original_name`
      */
-    name?: string;
+    name?: string | null;
     original_name: string;
     parent_id?: string | null;
     proxy_sequence_type: string;
-    size?: number;
-    status?: 'CLOSED' | 'FAILED' | 'OPEN';
-    storage_id?: string;
-    template?: string;
-    template_engine?: 'JINJA2' | 'SIMPLE';
+    size?: number | null;
+    status?: 'CLOSED' | 'FAILED' | 'OPEN' | null;
+    storage_id?: string | null;
+    template?: string | null;
+    template_engine?: 'JINJA2' | 'SIMPLE' | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
     user_id?: string | null;
-    version_id?: string;
+    version_id?: string | null;
 };
 
 export type ProxySchemaWritable = {
-    asset_id?: string;
-    audio_bitrate?: number;
+    asset_id?: string | null;
+    audio_bitrate?: number | null;
     audio_channels?: number | null;
-    bit_rate?: number;
-    codec?: string;
-    filename?: string;
-    format?: string;
+    bit_rate?: number | null;
+    codec?: string | null;
+    filename?: string | null;
+    format?: string | null;
     frame_rate?: string | null;
     is_drop_frame?: boolean | null;
     is_multichannel?: boolean | null;
-    name?: string;
+    name?: string | null;
     proxy_container_id?: string | null;
-    resolution?: ResolutionType;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
     start_time_code?: string | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
     version_id?: string | null;
 };
 
 export type ProxyUpdateSchemaWritable = {
-    asset_id?: string;
-    audio_bitrate?: number;
+    asset_id?: string | null;
+    audio_bitrate?: number | null;
     audio_channels?: number | null;
-    bit_rate?: number;
-    codec?: string;
-    filename?: string;
-    format?: string;
+    bit_rate?: number | null;
+    codec?: string | null;
+    filename?: string | null;
+    format?: string | null;
     frame_rate?: string | null;
     is_drop_frame?: boolean | null;
     is_multichannel?: boolean | null;
-    name?: string;
-    resolution?: ResolutionType;
+    name?: string | null;
+    resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
     start_time_code?: string | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    version_id?: string;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    version_id?: string | null;
 };
 
 export type SequenceUpdateSchemaWritable = {
-    asset_id?: string;
+    asset_id?: string | null;
     checksum?: string | null;
     directory_path: string;
-    file_date_created?: string;
-    file_date_modified?: string;
-    file_set_id?: string;
-    format_id?: string;
+    file_date_created?: string | null;
+    file_date_modified?: string | null;
+    file_set_id?: string | null;
+    format_id?: string | null;
     /**
      * If not specified, name will be autogenerated based on `id` and `original_name`
      */
-    name?: string;
+    name?: string | null;
     original_name: string;
     parent_id?: string | null;
-    size?: number;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    template?: string;
-    template_engine?: 'JINJA2' | 'SIMPLE';
+    size?: number | null;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    template?: string | null;
+    template_engine?: 'JINJA2' | 'SIMPLE' | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
     user_id?: string | null;
-    version_id?: string;
+    version_id?: string | null;
 };
 
 export type StorageBaseSchemaWritable = {
@@ -4926,52 +5046,52 @@ export type StorageBaseSchemaWritable = {
 };
 
 export type StorageFileSchemaWritable = {
-    asset_id?: string;
+    asset_id?: string | null;
     checksum?: string | null;
-    destination_storage_id?: string;
+    destination_storage_id?: string | null;
     directory_path: string;
-    file_date_created?: string;
-    file_date_modified?: string;
-    file_set_id?: string;
-    format_id?: string;
+    file_date_created?: string | null;
+    file_date_modified?: string | null;
+    file_set_id?: string | null;
+    format_id?: string | null;
     /**
      * If not specified, name will be autogenerated based on `id` and `original_name`
      */
-    name?: string;
+    name?: string | null;
     original_name: string;
     parent_id?: string | null;
-    size?: number;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
+    size?: number | null;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
     /**
      * Deprecated field. Use destination_storage_id instead
      */
-    storage_id?: string;
-    template?: string;
-    template_engine?: 'JINJA2' | 'SIMPLE';
+    storage_id?: string | null;
+    template?: string | null;
+    template_engine?: 'JINJA2' | 'SIMPLE' | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
     user_id?: string | null;
-    version_id?: string;
+    version_id?: string | null;
 };
 
 export type StorageFileUpdateSchemaWritable = {
-    asset_id?: string;
+    asset_id?: string | null;
     checksum?: string | null;
     directory_path: string;
-    file_date_created?: string;
-    file_date_modified?: string;
-    file_set_id?: string;
-    format_id?: string;
+    file_date_created?: string | null;
+    file_date_modified?: string | null;
+    file_set_id?: string | null;
+    format_id?: string | null;
     name: string;
-    original_name?: string;
+    original_name?: string | null;
     parent_id?: string | null;
-    size?: number;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    template?: string;
-    template_engine?: 'JINJA2' | 'SIMPLE';
-    type?: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
+    size?: number | null;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    template?: string | null;
+    template_engine?: 'JINJA2' | 'SIMPLE' | null;
+    type?: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK' | null;
     user_id?: string | null;
-    version_id?: string;
+    version_id?: string | null;
 };
 
 export type StoragePrivateDataSchemaWritable = {
@@ -4981,7 +5101,7 @@ export type StoragePrivateDataSchemaWritable = {
     name: string;
     purpose: 'ARCHIVE' | 'EXPORTS' | 'FACES' | 'FILES' | 'KEYFRAMES' | 'PROXIES';
     scanner_status?: string | null;
-    status?: 'ACTIVE' | 'FAILING' | 'INACTIVE';
+    status?: 'ACTIVE' | 'FAILING' | 'INACTIVE' | null;
     status_message?: string | null;
 };
 
@@ -4992,7 +5112,7 @@ export type StorageReadSchemaWritable = {
     name: string;
     purpose: 'ARCHIVE' | 'EXPORTS' | 'FACES' | 'FILES' | 'KEYFRAMES' | 'PROXIES';
     scanner_status?: string | null;
-    status?: 'ACTIVE' | 'FAILING' | 'INACTIVE';
+    status?: 'ACTIVE' | 'FAILING' | 'INACTIVE' | null;
     status_message?: string | null;
 };
 
@@ -5003,29 +5123,31 @@ export type StorageSchemaWritable = {
     name: string;
     purpose: 'ARCHIVE' | 'EXPORTS' | 'FACES' | 'FILES' | 'KEYFRAMES' | 'PROXIES';
     scanner_status?: string | null;
-    status?: 'ACTIVE' | 'FAILING' | 'INACTIVE';
+    status?: 'ACTIVE' | 'FAILING' | 'INACTIVE' | null;
     status_message?: string | null;
 };
 
 export type StoragesReadSchemaWritable = {
-    [key: string]: unknown;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
 };
 
 export type SubtitleWritable = {
     closed_captions: boolean;
     format_id: string;
     language: string;
-    name?: string;
-    version_id?: string;
+    name?: string | null;
+    version_id?: string | null;
 };
 
 export type SubtitleSchemaWritable = {
     closed_captions: boolean;
-    content?: string;
+    content?: string | null;
     format_id: string;
     language: string;
-    name?: string;
-    version_id?: string;
+    name?: string | null;
+    version_id?: string | null;
 };
 
 export type SubtitlesSchemaWritable = {
@@ -5033,44 +5155,44 @@ export type SubtitlesSchemaWritable = {
 };
 
 export type TemporaryFileCreateSchemaWritable = {
-    asset_id?: string;
+    asset_id?: string | null;
     checksum?: string | null;
-    content_type?: string;
+    content_type?: string | null;
     directory_path: string;
-    file_date_created?: string;
-    file_date_modified?: string;
-    file_set_id?: string;
-    format_id?: string;
+    file_date_created?: string | null;
+    file_date_modified?: string | null;
+    file_set_id?: string | null;
+    format_id?: string | null;
     /**
      * If not specified, name will be autogenerated based on `id` and `original_name`
      */
-    name?: string;
+    name?: string | null;
     original_name: string;
     parent_id?: string | null;
-    size?: number;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
-    storage_id?: string;
-    template?: string;
-    template_engine?: 'JINJA2' | 'SIMPLE';
+    size?: number | null;
+    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    storage_id?: string | null;
+    template?: string | null;
+    template_engine?: 'JINJA2' | 'SIMPLE' | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
     user_id?: string | null;
-    version_id?: string;
+    version_id?: string | null;
 };
 
 export type TemporaryFileSetSchemaWritable = {
-    archive_file_set_id?: string;
+    archive_file_set_id?: string | null;
     base_dir: string;
     component_ids: Array<string>;
-    date_deleted?: string;
+    date_deleted?: string | null;
     format_id: string;
-    is_archive?: boolean;
+    is_archive?: boolean | null;
     job_id: string;
     name: string;
-    original_storage_id?: string;
-    status?: 'ACTIVE' | 'ARCHIVED' | 'DELETED';
-    storage_id?: string;
-    type?: 'MANY_FILES' | 'REGULAR';
-    version_id?: string;
+    original_storage_id?: string | null;
+    status?: 'ACTIVE' | 'ARCHIVED' | 'DELETED' | null;
+    storage_id?: string | null;
+    type?: 'MANY_FILES' | 'REGULAR' | null;
+    version_id?: string | null;
 };
 
 export type TranscoderBaseSchemaWritable = {
@@ -5078,9 +5200,12 @@ export type TranscoderBaseSchemaWritable = {
 };
 
 export type TranscoderByStorageReadSchemaWritable = {
-    name?: string;
-    storage_id?: string;
-    type?: 'EDITREADY' | 'EDIT_PROXY' | 'ELEMENTAL_MEDIACONVERT' | 'ELEMENTAL_SERVER' | 'ENCODING_COM' | 'FFMPEG' | 'FLICS' | 'ICONIK_EDGE_TRANSCODER' | 'IMAGEMAGICK' | 'LIBREOFFICE' | 'REDLINE' | 'TELESTREAM_CLOUD' | 'VANTAGE' | 'WATCH_FOLDER_VIDEO' | 'WILDMOKA' | 'ZENCODER';
+    name?: string | null;
+    settings?: {
+        [key: string]: unknown;
+    } | null;
+    storage_id?: string | null;
+    type?: 'EDITREADY' | 'EDIT_PROXY' | 'ELEMENTAL_MEDIACONVERT' | 'ELEMENTAL_SERVER' | 'ENCODING_COM' | 'FFMPEG' | 'FLICS' | 'ICONIK_EDGE_TRANSCODER' | 'IMAGEMAGICK' | 'LIBREOFFICE' | 'REDLINE' | 'TELESTREAM_CLOUD' | 'VANTAGE' | 'WATCH_FOLDER_VIDEO' | 'WILDMOKA' | 'ZENCODER' | null;
 };
 
 export type TranscoderCreateSchemaWritable = {
@@ -5108,108 +5233,128 @@ export type TranscoderUpdateSchemaWritable = {
 };
 
 export type TranscodersByStorageSchemaWritable = {
-    [key: string]: unknown;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
 };
 
 export type TranscodersSchemaWritable = {
-    [key: string]: unknown;
+    facets?: {
+        [key: string]: unknown;
+    } | null;
 };
 
 export type TransferCloudSchemaWritable = {
-    asset_id?: string;
-    asset_paths?: Array<string>;
-    collection_storage_id?: string;
-    component_ids?: Array<string>;
-    delete_only_from_source_folder?: boolean;
-    original_storage_id?: string;
-    original_url?: string;
-    parent_job_id?: string;
+    asset_id?: string | null;
+    asset_paths?: Array<string> | null;
+    collection_storage_id?: string | null;
+    component_ids?: Array<string> | null;
+    delete_only_from_source_folder?: boolean | null;
+    job_steps?: {
+        [key: string]: unknown;
+    } | null;
+    original_storage_id?: string | null;
+    original_url?: string | null;
+    parent_job_id?: string | null;
+    status?: unknown;
 };
 
 export type TransferFromStorageReadSchemaWritable = {
-    asset_id?: string;
-    asset_paths?: Array<string>;
-    collection_storage_id?: string;
-    component_ids?: Array<string>;
-    delete_local_file_set_after_upload?: boolean;
-    delete_only_from_source_folder?: boolean;
-    delete_source_file_set_after_download?: boolean;
-    destination_directory_path?: string;
-    destination_filename?: string;
-    destination_storage_id?: string;
-    destination_storage_method?: string;
-    format_id?: string;
-    job_id?: string;
-    original_file_set_id?: string;
-    original_storage_id?: string;
-    original_url?: string;
-    parent_job_id?: string;
-    temporary_file_set_source?: boolean;
+    asset_id?: string | null;
+    asset_paths?: Array<string> | null;
+    collection_storage_id?: string | null;
+    component_ids?: Array<string> | null;
+    delete_local_file_set_after_upload?: boolean | null;
+    delete_only_from_source_folder?: boolean | null;
+    delete_source_file_set_after_download?: boolean | null;
+    destination_directory_path?: string | null;
+    destination_filename?: string | null;
+    destination_storage_id?: string | null;
+    destination_storage_method?: string | null;
+    format_id?: string | null;
+    job_id?: string | null;
+    job_steps?: {
+        [key: string]: unknown;
+    } | null;
+    original_file_set_id?: string | null;
+    original_storage_id?: string | null;
+    original_url?: string | null;
+    parent_job_id?: string | null;
+    temporary_file_set_source?: boolean | null;
 };
 
 export type TransferFromStorageSchemaWritable = {
-    asset_id?: string;
-    asset_paths?: Array<string>;
-    collection_storage_id?: string;
-    component_ids?: Array<string>;
-    delete_local_file_set_after_upload?: boolean;
-    delete_only_from_source_folder?: boolean;
-    delete_source_file_set_after_download?: boolean;
-    destination_directory_path?: string;
-    destination_filename?: string;
-    destination_storage_id?: string;
-    destination_storage_method?: string;
-    format_id?: string;
-    job_id?: string;
-    original_file_set_id?: string;
-    original_storage_id?: string;
-    original_url?: string;
-    parent_job_id?: string;
-    temporary_file_set_source?: boolean;
+    asset_id?: string | null;
+    asset_paths?: Array<string> | null;
+    collection_storage_id?: string | null;
+    component_ids?: Array<string> | null;
+    delete_local_file_set_after_upload?: boolean | null;
+    delete_only_from_source_folder?: boolean | null;
+    delete_source_file_set_after_download?: boolean | null;
+    destination_directory_path?: string | null;
+    destination_filename?: string | null;
+    destination_storage_id?: string | null;
+    destination_storage_method?: string | null;
+    format_id?: string | null;
+    job_id?: string | null;
+    job_steps?: {
+        [key: string]: unknown;
+    } | null;
+    original_file_set_id?: string | null;
+    original_storage_id?: string | null;
+    original_url?: string | null;
+    parent_job_id?: string | null;
+    temporary_file_set_source?: boolean | null;
 };
 
 export type TransferToStorageReadSchemaWritable = {
-    asset_id?: string;
-    asset_paths?: Array<string>;
-    collection_storage_id?: string;
-    component_ids?: Array<string>;
-    delete_only_from_source_folder?: boolean;
-    delete_remote_file_set_after_download?: boolean;
-    delete_source_file_set_after_download?: boolean;
-    destination_base_directory?: string;
+    asset_id?: string | null;
+    asset_paths?: Array<string> | null;
+    collection_storage_id?: string | null;
+    component_ids?: Array<string> | null;
+    delete_only_from_source_folder?: boolean | null;
+    delete_remote_file_set_after_download?: boolean | null;
+    delete_source_file_set_after_download?: boolean | null;
+    destination_base_directory?: string | null;
     destination_directory_path: string;
     destination_file_set_name: string;
-    destination_filename?: string;
-    file_set_id?: string;
-    format_id?: string;
-    job_id?: string;
-    local_storage_id?: string;
-    original_storage_id?: string;
-    original_url?: string;
-    parent_job_id?: string;
-    temporary_file_set_source?: boolean;
+    destination_filename?: string | null;
+    file_set_id?: string | null;
+    format_id?: string | null;
+    job_id?: string | null;
+    job_steps?: {
+        [key: string]: unknown;
+    } | null;
+    local_storage_id?: string | null;
+    original_storage_id?: string | null;
+    original_url?: string | null;
+    parent_job_id?: string | null;
+    temporary_file_set_source?: boolean | null;
 };
 
 export type TransferToStorageSchemaWritable = {
-    asset_id?: string;
-    asset_paths?: Array<string>;
-    collection_storage_id?: string;
-    component_ids?: Array<string>;
-    delete_only_from_source_folder?: boolean;
-    delete_remote_file_set_after_download?: boolean;
-    delete_source_file_set_after_download?: boolean;
-    destination_base_directory?: string;
+    asset_id?: string | null;
+    asset_paths?: Array<string> | null;
+    collection_storage_id?: string | null;
+    component_ids?: Array<string> | null;
+    delete_only_from_source_folder?: boolean | null;
+    delete_remote_file_set_after_download?: boolean | null;
+    delete_source_file_set_after_download?: boolean | null;
+    destination_base_directory?: string | null;
     destination_directory_path: string;
     destination_file_set_name: string;
-    destination_filename?: string;
-    file_set_id?: string;
-    format_id?: string;
-    job_id?: string;
-    local_storage_id?: string;
-    original_storage_id?: string;
-    original_url?: string;
-    parent_job_id?: string;
-    temporary_file_set_source?: boolean;
+    destination_filename?: string | null;
+    file_set_id?: string | null;
+    format_id?: string | null;
+    job_id?: string | null;
+    job_steps?: {
+        [key: string]: unknown;
+    } | null;
+    local_storage_id?: string | null;
+    original_storage_id?: string | null;
+    original_url?: string | null;
+    parent_job_id?: string | null;
+    temporary_file_set_source?: boolean | null;
 };
 
 export type TransfersFromStorageSchemaWritable = {
@@ -12781,8 +12926,8 @@ export type PostDrmAssetsByAssetIdVersionsByVersionIdProxiesByProxyIdAuthRespons
      * Authentication token
      */
     200: {
-        server_url?: string;
-        token?: string;
+        server_url?: string | null;
+        token?: string | null;
     };
 };
 
@@ -14761,9 +14906,9 @@ export type PostStorageGatewaysByStorageGatewayIdLogsResponses = {
      * Returns upload URL details for storage gateway logs
      */
     201: {
-        method?: string;
-        path?: string;
-        upload_url?: string;
+        method?: string | null;
+        path?: string | null;
+        upload_url?: string | null;
     };
 };
 
@@ -15050,7 +15195,7 @@ export type GetStoragesIsgLatestVersionResponses = {
      * Returns version
      */
     200: {
-        version?: string;
+        version?: string | null;
     };
 };
 
@@ -15256,8 +15401,8 @@ export type PostStoragesVerificationsAccessResponses = {
      * Returns a document describing storage access
      */
     200: {
-        access_check?: boolean;
-        error_message?: string;
+        access_check?: boolean | null;
+        error_message?: string | null;
     };
 };
 
@@ -15309,15 +15454,15 @@ export type PostStoragesVerificationsPermissionsResponses = {
      * Returns a document describing storage permissions
      */
     200: {
-        cors?: boolean;
-        cors_error?: string;
-        delete_access?: boolean;
-        delete_access_error?: string;
-        error_message?: string;
-        read_access?: boolean;
-        read_access_error?: string;
-        write_access?: boolean;
-        write_access_error?: string;
+        cors?: boolean | null;
+        cors_error?: string | null;
+        delete_access?: boolean | null;
+        delete_access_error?: string | null;
+        error_message?: string | null;
+        read_access?: boolean | null;
+        read_access_error?: string | null;
+        write_access?: boolean | null;
+        write_access_error?: string | null;
     };
 };
 
@@ -16665,8 +16810,8 @@ export type PostStoragesByStorageIdLogsResponses = {
      * Returns upload_url and path for storage logs
      */
     200: {
-        path?: string;
-        upload_url?: string;
+        path?: string | null;
+        upload_url?: string | null;
     };
 };
 
@@ -17284,8 +17429,8 @@ export type GetStoragesByStorageIdVerificationsAccessResponses = {
      * Returns a document describing storage access
      */
     200: {
-        access_check?: boolean;
-        error_message?: string;
+        access_check?: boolean | null;
+        error_message?: string | null;
     };
 };
 
@@ -17332,15 +17477,15 @@ export type GetStoragesByStorageIdVerificationsPermissionsResponses = {
      * Returns a document describing storage permissions
      */
     200: {
-        cors?: boolean;
-        cors_error?: string;
-        delete_access?: boolean;
-        delete_access_error?: string;
-        error_message?: string;
-        read_access?: boolean;
-        read_access_error?: string;
-        write_access?: boolean;
-        write_access_error?: string;
+        cors?: boolean | null;
+        cors_error?: string | null;
+        delete_access?: boolean | null;
+        delete_access_error?: string | null;
+        error_message?: string | null;
+        read_access?: boolean | null;
+        read_access_error?: string | null;
+        write_access?: boolean | null;
+        write_access_error?: string | null;
     };
 };
 
@@ -17708,8 +17853,8 @@ export type PostTranscodersByTranscoderIdLogsResponses = {
      * Returns upload_url and path for transcoder logs
      */
     200: {
-        path?: string;
-        upload_url?: string;
+        path?: string | null;
+        upload_url?: string | null;
     };
 };
 

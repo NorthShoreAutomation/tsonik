@@ -13,79 +13,79 @@ export type BulkMetadataDeleteSchema = {
 };
 
 export type CollectionMetadataValuesBatchSchema = {
-    date_created?: string;
-    date_modified?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
     include_assets: boolean;
     include_collections: boolean;
     metadata_values: {
         [key: string]: MetadataFieldValueSchema;
     };
     object_ids: Array<string>;
-    object_type?: string;
+    object_type?: string | null;
 };
 
 export type CopySourceQueryParamsSchema = {
-    source_object_id?: string;
-    source_object_type?: string;
-    source_version_id?: string;
+    source_object_id?: string | null;
+    source_object_type?: string | null;
+    source_version_id?: string | null;
 };
 
 export type CreateMetadataValuesBatchSchema = {
-    asset_id?: string;
-    date_created?: string;
-    date_modified?: string;
+    asset_id?: string | null;
+    date_created?: string | null;
+    date_modified?: string | null;
     metadata_values_object_id_mapping: Array<MetadataValuesObjectId>;
     object_ids: Array<string>;
-    object_type?: string;
+    object_type?: string | null;
 };
 
 export type ExternalSourceFieldOptionsSchema = {
-    label?: string;
-    value?: string;
+    label?: string | null;
+    value?: string | null;
 };
 
 export type FacetFieldNamesSchema = {
-    objects?: Array<string>;
+    objects?: Array<string> | null;
 };
 
 export type FieldOptionsSchema = {
-    label?: string;
-    value?: string;
+    label?: string | null;
+    value?: string | null;
 };
 
 export type ListObjectsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type MetadataCategoriesSchema = {
-    readonly objects?: Array<MetadataCategory>;
+    readonly objects?: Array<MetadataCategory> | null;
 };
 
 export type MetadataCategory = {
-    date_created?: string;
-    date_modified?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
     label: string;
     name: string;
-    readonly object_type?: string;
-    view_ids?: Array<string>;
-    readonly views?: Array<MetadataView>;
+    readonly object_type?: string | null;
+    view_ids?: Array<string> | null;
+    readonly views?: Array<MetadataView> | null;
 };
 
 export type MetadataCategorySchema = {
-    date_created?: string;
-    date_modified?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
     label: string;
     name: string;
-    readonly object_type?: string;
-    view_ids?: Array<string>;
-    readonly views?: Array<MetadataView>;
+    readonly object_type?: string | null;
+    view_ids?: Array<string> | null;
+    readonly views?: Array<MetadataView> | null;
 };
 
 export type MetadataField = {
@@ -94,30 +94,30 @@ export type MetadataField = {
      */
     ai_prompt_description?: string | null;
     auto_set?: boolean | null;
-    date_created?: string;
-    date_modified?: string;
-    description?: string;
-    external_id?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
+    description?: string | null;
+    external_id?: string | null;
     field_type: string;
     hide_if_not_set?: boolean | null;
-    is_block_field?: boolean;
-    is_warning_field?: boolean;
+    is_block_field?: boolean | null;
+    is_warning_field?: boolean | null;
     label: string;
-    readonly mapped_field_name?: string;
-    max_value?: number;
-    min_value?: number;
-    multi?: boolean;
+    readonly mapped_field_name?: string | null;
+    max_value?: number | null;
+    min_value?: number | null;
+    multi?: boolean | null;
     readonly name: string;
-    options?: Array<FieldOptionsSchema>;
+    options?: Array<FieldOptionsSchema> | null;
     read_only?: boolean | null;
-    representative?: boolean;
+    representative?: boolean | null;
     required?: boolean | null;
-    sortable?: boolean;
+    sortable?: boolean | null;
     /**
      * Will be used to upload MetadataField's `options`. Cannot be set or used as long as `options` are set.  **Example**: The value is `https://external-url.com/foo/`. In that case `GET` request will be sent to `https://external-url.com/foo/?user_id=uuid1&view_id=uuid1&field_name=bar&view_name=user_view&system_domain_id=uuid1`. Please note that some query parameters were added by *iconik* to get values that were predefined in your system for each user [user_id] and view [view_id]. Metadata field name [field_name], view's name [view_name] and system domain identifier [system_domain_id] will be also passed in each request. *iconik* will successfully parse the response from that URL if it will be sent in JSON formatted string: `{"bar": [{"value": "1", "label": "1st"}, {"value": "2", "label": "2nd"}]}`
      */
     source_url?: string | null;
-    use_as_facet?: boolean;
+    use_as_facet?: boolean | null;
 };
 
 export type MetadataFieldBaseSchema = {
@@ -126,28 +126,28 @@ export type MetadataFieldBaseSchema = {
      */
     ai_prompt_description?: string | null;
     auto_set?: boolean | null;
-    date_created?: string;
-    date_modified?: string;
-    description?: string;
-    external_id?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
+    description?: string | null;
+    external_id?: string | null;
     field_type: string;
     hide_if_not_set?: boolean | null;
-    is_block_field?: boolean;
-    is_warning_field?: boolean;
-    readonly mapped_field_name?: string;
-    max_value?: number;
-    min_value?: number;
-    multi?: boolean;
-    options?: Array<FieldOptionsSchema>;
+    is_block_field?: boolean | null;
+    is_warning_field?: boolean | null;
+    readonly mapped_field_name?: string | null;
+    max_value?: number | null;
+    min_value?: number | null;
+    multi?: boolean | null;
+    options?: Array<FieldOptionsSchema> | null;
     read_only?: boolean | null;
-    representative?: boolean;
+    representative?: boolean | null;
     required?: boolean | null;
-    sortable?: boolean;
+    sortable?: boolean | null;
     /**
      * Will be used to upload MetadataField's `options`. Cannot be set or used as long as `options` are set.  **Example**: The value is `https://external-url.com/foo/`. In that case `GET` request will be sent to `https://external-url.com/foo/?user_id=uuid1&view_id=uuid1&field_name=bar&view_name=user_view&system_domain_id=uuid1`. Please note that some query parameters were added by *iconik* to get values that were predefined in your system for each user [user_id] and view [view_id]. Metadata field name [field_name], view's name [view_name] and system domain identifier [system_domain_id] will be also passed in each request. *iconik* will successfully parse the response from that URL if it will be sent in JSON formatted string: `{"bar": [{"value": "1", "label": "1st"}, {"value": "2", "label": "2nd"}]}`
      */
     source_url?: string | null;
-    use_as_facet?: boolean;
+    use_as_facet?: boolean | null;
 };
 
 export type MetadataFieldCreateSchema = {
@@ -156,30 +156,30 @@ export type MetadataFieldCreateSchema = {
      */
     ai_prompt_description?: string | null;
     auto_set?: boolean | null;
-    date_created?: string;
-    date_modified?: string;
-    description?: string;
-    external_id?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
+    description?: string | null;
+    external_id?: string | null;
     field_type: string;
     hide_if_not_set?: boolean | null;
-    is_block_field?: boolean;
-    is_warning_field?: boolean;
+    is_block_field?: boolean | null;
+    is_warning_field?: boolean | null;
     label: string;
-    readonly mapped_field_name?: string;
-    max_value?: number;
-    min_value?: number;
-    multi?: boolean;
+    readonly mapped_field_name?: string | null;
+    max_value?: number | null;
+    min_value?: number | null;
+    multi?: boolean | null;
     name: string;
-    options?: Array<FieldOptionsSchema>;
+    options?: Array<FieldOptionsSchema> | null;
     read_only?: boolean | null;
-    representative?: boolean;
+    representative?: boolean | null;
     required?: boolean | null;
-    sortable?: boolean;
+    sortable?: boolean | null;
     /**
      * Will be used to upload MetadataField's `options`. Cannot be set or used as long as `options` are set.  **Example**: The value is `https://external-url.com/foo/`. In that case `GET` request will be sent to `https://external-url.com/foo/?user_id=uuid1&view_id=uuid1&field_name=bar&view_name=user_view&system_domain_id=uuid1`. Please note that some query parameters were added by *iconik* to get values that were predefined in your system for each user [user_id] and view [view_id]. Metadata field name [field_name], view's name [view_name] and system domain identifier [system_domain_id] will be also passed in each request. *iconik* will successfully parse the response from that URL if it will be sent in JSON formatted string: `{"bar": [{"value": "1", "label": "1st"}, {"value": "2", "label": "2nd"}]}`
      */
     source_url?: string | null;
-    use_as_facet?: boolean;
+    use_as_facet?: boolean | null;
 };
 
 export type MetadataFieldMappingOptionSchema = {
@@ -191,19 +191,19 @@ export type MetadataFieldMappingOptionsSchema = {
 };
 
 export type MetadataFieldMappingSchema = {
-    readonly field_type?: string;
+    readonly field_type?: string | null;
     mapped_field_name: string;
     name: string;
 };
 
 export type MetadataFieldMappingUpdateSchema = {
-    readonly field_type?: string;
+    readonly field_type?: string | null;
     mapped_field_name: string;
-    readonly name?: string;
+    readonly name?: string | null;
 };
 
 export type MetadataFieldMappingsSchema = {
-    objects?: Array<MetadataFieldMappingSchema>;
+    objects?: Array<MetadataFieldMappingSchema> | null;
 };
 
 export type MetadataFieldSchema = {
@@ -212,57 +212,58 @@ export type MetadataFieldSchema = {
      */
     ai_prompt_description?: string | null;
     auto_set?: boolean | null;
-    date_created?: string;
-    date_modified?: string;
-    description?: string;
-    external_id?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
+    description?: string | null;
+    external_id?: string | null;
     field_type: string;
     hide_if_not_set?: boolean | null;
-    is_block_field?: boolean;
-    is_warning_field?: boolean;
+    is_block_field?: boolean | null;
+    is_warning_field?: boolean | null;
     label: string;
-    readonly mapped_field_name?: string;
-    max_value?: number;
-    min_value?: number;
-    multi?: boolean;
+    readonly mapped_field_name?: string | null;
+    max_value?: number | null;
+    min_value?: number | null;
+    multi?: boolean | null;
     readonly name: string;
-    options?: Array<FieldOptionsSchema>;
+    options?: Array<FieldOptionsSchema> | null;
     read_only?: boolean | null;
-    representative?: boolean;
+    representative?: boolean | null;
     required?: boolean | null;
-    sortable?: boolean;
+    sortable?: boolean | null;
     /**
      * Will be used to upload MetadataField's `options`. Cannot be set or used as long as `options` are set.  **Example**: The value is `https://external-url.com/foo/`. In that case `GET` request will be sent to `https://external-url.com/foo/?user_id=uuid1&view_id=uuid1&field_name=bar&view_name=user_view&system_domain_id=uuid1`. Please note that some query parameters were added by *iconik* to get values that were predefined in your system for each user [user_id] and view [view_id]. Metadata field name [field_name], view's name [view_name] and system domain identifier [system_domain_id] will be also passed in each request. *iconik* will successfully parse the response from that URL if it will be sent in JSON formatted string: `{"bar": [{"value": "1", "label": "1st"}, {"value": "2", "label": "2nd"}]}`
      */
     source_url?: string | null;
-    use_as_facet?: boolean;
+    use_as_facet?: boolean | null;
 };
 
 export type MetadataFieldValueSchema = {
     date_created?: string | null;
-    field_values?: Array<unknown>;
+    field_values?: Array<unknown> | null;
+    mode?: unknown;
 };
 
 export type MetadataFieldsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<MetadataFieldSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<MetadataFieldSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type MetadataValuesBatchSchema = {
-    date_created?: string;
-    date_modified?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
     metadata_values: {
         [key: string]: MetadataFieldValueSchema;
     };
     object_ids: Array<string>;
-    object_type?: string;
+    object_type?: string | null;
 };
 
 export type MetadataValuesObjectId = {
@@ -282,37 +283,37 @@ export type MetadataValuesObjectIdSchema = {
 export type MetadataValuesSchema = {
     date_created?: string | null;
     date_modified?: string | null;
-    job_id?: string;
+    job_id?: string | null;
     metadata_values: {
         [key: string]: MetadataFieldValueSchema;
     };
-    object_id?: string;
-    object_type?: string;
-    version_id?: string;
+    object_id?: string | null;
+    object_type?: string | null;
+    version_id?: string | null;
 };
 
 export type MetadataView = {
-    date_created?: string;
-    date_modified?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
     description?: string | null;
-    readonly id?: string;
+    readonly id?: string | null;
     name: string;
     view_fields: Array<MetadataField>;
 };
 
 export type MetadataViewCreateSchema = {
     description?: string | null;
-    readonly id?: string;
+    readonly id?: string | null;
     name: string;
     view_fields: Array<MetadataViewField>;
-    write_access_for_everyone?: boolean;
+    write_access_for_everyone?: boolean | null;
 };
 
 export type MetadataViewField = {
     auto_set?: boolean | null;
     hide_if_not_set?: boolean | null;
     label?: string | null;
-    readonly mapped_field_name?: string;
+    readonly mapped_field_name?: string | null;
     name: string;
     options?: Array<FieldOptionsSchema> | null;
     read_only?: boolean | null;
@@ -327,7 +328,7 @@ export type MetadataViewFieldSchema = {
     auto_set?: boolean | null;
     hide_if_not_set?: boolean | null;
     label?: string | null;
-    readonly mapped_field_name?: string;
+    readonly mapped_field_name?: string | null;
     name: string;
     options?: Array<FieldOptionsSchema> | null;
     read_only?: boolean | null;
@@ -339,36 +340,36 @@ export type MetadataViewFieldSchema = {
 };
 
 export type MetadataViewForListSchema = {
-    date_created?: string;
-    date_modified?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
     description?: string | null;
-    readonly id?: string;
+    readonly id?: string | null;
     name: string;
     view_fields: Array<MetadataViewFieldSchema>;
 };
 
 export type MetadataViewInputSchema = {
     description?: string | null;
-    readonly id?: string;
+    readonly id?: string | null;
     name: string;
     view_fields: Array<MetadataViewFieldSchema>;
 };
 
 export type MetadataViewSchema = {
-    date_created?: string;
-    date_modified?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
     description?: string | null;
-    readonly id?: string;
+    readonly id?: string | null;
     name: string;
     view_fields: Array<MetadataFieldSchema>;
 };
 
 export type MetadataViewsSchema = {
-    readonly objects?: Array<MetadataViewForListSchema>;
+    readonly objects?: Array<MetadataViewForListSchema> | null;
 };
 
 export type ReindexMetadataViewSchema = {
-    sync_to_another_dc?: boolean;
+    sync_to_another_dc?: boolean | null;
 };
 
 export type SegmentsCopyMapping = {
@@ -386,24 +387,24 @@ export type SegmentsCopyMappingSchema = {
 };
 
 export type CollectionMetadataValuesBatchSchemaWritable = {
-    date_created?: string;
-    date_modified?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
     include_assets: boolean;
     include_collections: boolean;
     metadata_values: {
         [key: string]: MetadataFieldValueSchemaWritable;
     };
     object_ids: Array<string>;
-    object_type?: string;
+    object_type?: string | null;
 };
 
 export type CreateMetadataValuesBatchSchemaWritable = {
-    asset_id?: string;
-    date_created?: string;
-    date_modified?: string;
+    asset_id?: string | null;
+    date_created?: string | null;
+    date_modified?: string | null;
     metadata_values_object_id_mapping: Array<MetadataValuesObjectIdWritable>;
     object_ids: Array<string>;
-    object_type?: string;
+    object_type?: string | null;
 };
 
 export type MetadataCategoriesSchemaWritable = {
@@ -411,19 +412,19 @@ export type MetadataCategoriesSchemaWritable = {
 };
 
 export type MetadataCategoryWritable = {
-    date_created?: string;
-    date_modified?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
     label: string;
     name: string;
-    view_ids?: Array<string>;
+    view_ids?: Array<string> | null;
 };
 
 export type MetadataCategorySchemaWritable = {
-    date_created?: string;
-    date_modified?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
     label: string;
     name: string;
-    view_ids?: Array<string>;
+    view_ids?: Array<string> | null;
 };
 
 export type MetadataFieldWritable = {
@@ -432,28 +433,28 @@ export type MetadataFieldWritable = {
      */
     ai_prompt_description?: string | null;
     auto_set?: boolean | null;
-    date_created?: string;
-    date_modified?: string;
-    description?: string;
-    external_id?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
+    description?: string | null;
+    external_id?: string | null;
     field_type: string;
     hide_if_not_set?: boolean | null;
-    is_block_field?: boolean;
-    is_warning_field?: boolean;
+    is_block_field?: boolean | null;
+    is_warning_field?: boolean | null;
     label: string;
-    max_value?: number;
-    min_value?: number;
-    multi?: boolean;
-    options?: Array<FieldOptionsSchema>;
+    max_value?: number | null;
+    min_value?: number | null;
+    multi?: boolean | null;
+    options?: Array<FieldOptionsSchema> | null;
     read_only?: boolean | null;
-    representative?: boolean;
+    representative?: boolean | null;
     required?: boolean | null;
-    sortable?: boolean;
+    sortable?: boolean | null;
     /**
      * Will be used to upload MetadataField's `options`. Cannot be set or used as long as `options` are set.  **Example**: The value is `https://external-url.com/foo/`. In that case `GET` request will be sent to `https://external-url.com/foo/?user_id=uuid1&view_id=uuid1&field_name=bar&view_name=user_view&system_domain_id=uuid1`. Please note that some query parameters were added by *iconik* to get values that were predefined in your system for each user [user_id] and view [view_id]. Metadata field name [field_name], view's name [view_name] and system domain identifier [system_domain_id] will be also passed in each request. *iconik* will successfully parse the response from that URL if it will be sent in JSON formatted string: `{"bar": [{"value": "1", "label": "1st"}, {"value": "2", "label": "2nd"}]}`
      */
     source_url?: string | null;
-    use_as_facet?: boolean;
+    use_as_facet?: boolean | null;
 };
 
 export type MetadataFieldBaseSchemaWritable = {
@@ -462,27 +463,27 @@ export type MetadataFieldBaseSchemaWritable = {
      */
     ai_prompt_description?: string | null;
     auto_set?: boolean | null;
-    date_created?: string;
-    date_modified?: string;
-    description?: string;
-    external_id?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
+    description?: string | null;
+    external_id?: string | null;
     field_type: string;
     hide_if_not_set?: boolean | null;
-    is_block_field?: boolean;
-    is_warning_field?: boolean;
-    max_value?: number;
-    min_value?: number;
-    multi?: boolean;
-    options?: Array<FieldOptionsSchema>;
+    is_block_field?: boolean | null;
+    is_warning_field?: boolean | null;
+    max_value?: number | null;
+    min_value?: number | null;
+    multi?: boolean | null;
+    options?: Array<FieldOptionsSchema> | null;
     read_only?: boolean | null;
-    representative?: boolean;
+    representative?: boolean | null;
     required?: boolean | null;
-    sortable?: boolean;
+    sortable?: boolean | null;
     /**
      * Will be used to upload MetadataField's `options`. Cannot be set or used as long as `options` are set.  **Example**: The value is `https://external-url.com/foo/`. In that case `GET` request will be sent to `https://external-url.com/foo/?user_id=uuid1&view_id=uuid1&field_name=bar&view_name=user_view&system_domain_id=uuid1`. Please note that some query parameters were added by *iconik* to get values that were predefined in your system for each user [user_id] and view [view_id]. Metadata field name [field_name], view's name [view_name] and system domain identifier [system_domain_id] will be also passed in each request. *iconik* will successfully parse the response from that URL if it will be sent in JSON formatted string: `{"bar": [{"value": "1", "label": "1st"}, {"value": "2", "label": "2nd"}]}`
      */
     source_url?: string | null;
-    use_as_facet?: boolean;
+    use_as_facet?: boolean | null;
 };
 
 export type MetadataFieldCreateSchemaWritable = {
@@ -491,29 +492,29 @@ export type MetadataFieldCreateSchemaWritable = {
      */
     ai_prompt_description?: string | null;
     auto_set?: boolean | null;
-    date_created?: string;
-    date_modified?: string;
-    description?: string;
-    external_id?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
+    description?: string | null;
+    external_id?: string | null;
     field_type: string;
     hide_if_not_set?: boolean | null;
-    is_block_field?: boolean;
-    is_warning_field?: boolean;
+    is_block_field?: boolean | null;
+    is_warning_field?: boolean | null;
     label: string;
-    max_value?: number;
-    min_value?: number;
-    multi?: boolean;
+    max_value?: number | null;
+    min_value?: number | null;
+    multi?: boolean | null;
     name: string;
-    options?: Array<FieldOptionsSchema>;
+    options?: Array<FieldOptionsSchema> | null;
     read_only?: boolean | null;
-    representative?: boolean;
+    representative?: boolean | null;
     required?: boolean | null;
-    sortable?: boolean;
+    sortable?: boolean | null;
     /**
      * Will be used to upload MetadataField's `options`. Cannot be set or used as long as `options` are set.  **Example**: The value is `https://external-url.com/foo/`. In that case `GET` request will be sent to `https://external-url.com/foo/?user_id=uuid1&view_id=uuid1&field_name=bar&view_name=user_view&system_domain_id=uuid1`. Please note that some query parameters were added by *iconik* to get values that were predefined in your system for each user [user_id] and view [view_id]. Metadata field name [field_name], view's name [view_name] and system domain identifier [system_domain_id] will be also passed in each request. *iconik* will successfully parse the response from that URL if it will be sent in JSON formatted string: `{"bar": [{"value": "1", "label": "1st"}, {"value": "2", "label": "2nd"}]}`
      */
     source_url?: string | null;
-    use_as_facet?: boolean;
+    use_as_facet?: boolean | null;
 };
 
 export type MetadataFieldMappingSchemaWritable = {
@@ -526,7 +527,7 @@ export type MetadataFieldMappingUpdateSchemaWritable = {
 };
 
 export type MetadataFieldMappingsSchemaWritable = {
-    objects?: Array<MetadataFieldMappingSchemaWritable>;
+    objects?: Array<MetadataFieldMappingSchemaWritable> | null;
 };
 
 export type MetadataFieldSchemaWritable = {
@@ -535,34 +536,34 @@ export type MetadataFieldSchemaWritable = {
      */
     ai_prompt_description?: string | null;
     auto_set?: boolean | null;
-    date_created?: string;
-    date_modified?: string;
-    description?: string;
-    external_id?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
+    description?: string | null;
+    external_id?: string | null;
     field_type: string;
     hide_if_not_set?: boolean | null;
-    is_block_field?: boolean;
-    is_warning_field?: boolean;
+    is_block_field?: boolean | null;
+    is_warning_field?: boolean | null;
     label: string;
-    max_value?: number;
-    min_value?: number;
-    multi?: boolean;
-    options?: Array<FieldOptionsSchema>;
+    max_value?: number | null;
+    min_value?: number | null;
+    multi?: boolean | null;
+    options?: Array<FieldOptionsSchema> | null;
     read_only?: boolean | null;
-    representative?: boolean;
+    representative?: boolean | null;
     required?: boolean | null;
-    sortable?: boolean;
+    sortable?: boolean | null;
     /**
      * Will be used to upload MetadataField's `options`. Cannot be set or used as long as `options` are set.  **Example**: The value is `https://external-url.com/foo/`. In that case `GET` request will be sent to `https://external-url.com/foo/?user_id=uuid1&view_id=uuid1&field_name=bar&view_name=user_view&system_domain_id=uuid1`. Please note that some query parameters were added by *iconik* to get values that were predefined in your system for each user [user_id] and view [view_id]. Metadata field name [field_name], view's name [view_name] and system domain identifier [system_domain_id] will be also passed in each request. *iconik* will successfully parse the response from that URL if it will be sent in JSON formatted string: `{"bar": [{"value": "1", "label": "1st"}, {"value": "2", "label": "2nd"}]}`
      */
     source_url?: string | null;
-    use_as_facet?: boolean;
+    use_as_facet?: boolean | null;
 };
 
 export type MetadataFieldValueSchemaWritable = {
     date_created?: string | null;
-    field_values?: Array<unknown>;
-    mode?: 'append' | 'delete' | 'overwrite';
+    field_values?: Array<unknown> | null;
+    mode?: 'append' | 'delete' | 'overwrite' | null;
 };
 
 export type MetadataFieldsSchemaWritable = {
@@ -570,13 +571,13 @@ export type MetadataFieldsSchemaWritable = {
 };
 
 export type MetadataValuesBatchSchemaWritable = {
-    date_created?: string;
-    date_modified?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
     metadata_values: {
         [key: string]: MetadataFieldValueSchemaWritable;
     };
     object_ids: Array<string>;
-    object_type?: string;
+    object_type?: string | null;
 };
 
 export type MetadataValuesObjectIdWritable = {
@@ -596,18 +597,18 @@ export type MetadataValuesObjectIdSchemaWritable = {
 export type MetadataValuesSchemaWritable = {
     date_created?: string | null;
     date_modified?: string | null;
-    job_id?: string;
+    job_id?: string | null;
     metadata_values: {
         [key: string]: MetadataFieldValueSchemaWritable;
     };
-    object_id?: string;
-    object_type?: string;
-    version_id?: string;
+    object_id?: string | null;
+    object_type?: string | null;
+    version_id?: string | null;
 };
 
 export type MetadataViewWritable = {
-    date_created?: string;
-    date_modified?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
     description?: string | null;
     name: string;
     view_fields: Array<MetadataFieldWritable>;
@@ -617,7 +618,7 @@ export type MetadataViewCreateSchemaWritable = {
     description?: string | null;
     name: string;
     view_fields: Array<MetadataViewFieldWritable>;
-    write_access_for_everyone?: boolean;
+    write_access_for_everyone?: boolean | null;
 };
 
 export type MetadataViewFieldWritable = {
@@ -649,8 +650,8 @@ export type MetadataViewFieldSchemaWritable = {
 };
 
 export type MetadataViewForListSchemaWritable = {
-    date_created?: string;
-    date_modified?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
     description?: string | null;
     name: string;
     view_fields: Array<MetadataViewFieldSchemaWritable>;
@@ -663,8 +664,8 @@ export type MetadataViewInputSchemaWritable = {
 };
 
 export type MetadataViewSchemaWritable = {
-    date_created?: string;
-    date_modified?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
     description?: string | null;
     name: string;
     view_fields: Array<MetadataFieldSchemaWritable>;
@@ -2197,11 +2198,11 @@ export type GetByObjectTypeByObjectIdResponses = {
      */
     200: {
         [key: string]: {
-            name?: string;
-            type?: string;
+            name?: string | null;
+            type?: string | null;
             values?: Array<{
-                value?: string;
-            }>;
+                value?: string | null;
+            }> | null;
         };
     };
 };

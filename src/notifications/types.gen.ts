@@ -5,25 +5,25 @@ export type ClientOptions = {
 };
 
 export type WebhookBaseSchema = {
-    date_created?: string;
-    date_modified?: string;
-    deleted_at?: string;
-    description?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
+    deleted_at?: string | null;
+    description?: string | null;
     /**
      * Type of events. Example assets, collections
      */
     event_type: string;
-    first_failed_at?: string;
+    first_failed_at?: string | null;
     /**
      * Define the key-value pairs your third party provider requires here
      */
     headers?: {
         [key: string]: string;
-    };
+    } | null;
     id: string;
-    last_error?: string;
-    last_payload?: string;
-    name?: string;
+    last_error?: string | null;
+    last_payload?: string | null;
+    name?: string | null;
     /**
      * ID of a particular object you want to subscribe on
      */
@@ -35,7 +35,7 @@ export type WebhookBaseSchema = {
     /**
      * Adding a query allows filtering out messages so webhooks will be called only if for messages that match this query.
      */
-    query?: string;
+    query?: string | null;
     /**
      * Realm of event. Example entity, contents, acls, metadata
      */
@@ -48,25 +48,25 @@ export type WebhookBaseSchema = {
 };
 
 export type WebhookCreateSchema = {
-    date_created?: string;
-    date_modified?: string;
-    deleted_at?: string;
-    description?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
+    deleted_at?: string | null;
+    description?: string | null;
     /**
      * Type of events. Example assets, collections
      */
     event_type: string;
-    first_failed_at?: string;
+    first_failed_at?: string | null;
     /**
      * Define the key-value pairs your third party provider requires here
      */
     headers?: {
         [key: string]: string;
-    };
-    readonly id?: string;
-    last_error?: string;
-    last_payload?: string;
-    name?: string;
+    } | null;
+    readonly id?: string | null;
+    last_error?: string | null;
+    last_payload?: string | null;
+    name?: string | null;
     /**
      * ID of a particular object you want to subscribe on
      */
@@ -78,7 +78,7 @@ export type WebhookCreateSchema = {
     /**
      * Adding a query allows filtering out messages so webhooks will be called only if for messages that match this query.
      */
-    query?: string;
+    query?: string | null;
     /**
      * Realm of event. Example entity, contents, acls, metadata
      */
@@ -91,20 +91,20 @@ export type WebhookCreateSchema = {
 };
 
 export type WebhookInternalSchema = {
-    date_created?: string;
-    date_modified?: string;
-    deleted_at?: string;
-    description?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
+    deleted_at?: string | null;
+    description?: string | null;
     /**
      * Type of events. Example assets, collections
      */
     event_type: string;
-    first_failed_at?: string;
-    headers?: string;
+    first_failed_at?: string | null;
+    headers?: string | null;
     id: string;
-    last_error?: string;
-    last_payload?: string;
-    name?: string;
+    last_error?: string | null;
+    last_payload?: string | null;
+    name?: string | null;
     /**
      * ID of a particular object you want to subscribe on
      */
@@ -116,7 +116,7 @@ export type WebhookInternalSchema = {
     /**
      * Adding a query allows filtering out messages so webhooks will be called only if for messages that match this query.
      */
-    query?: string;
+    query?: string | null;
     /**
      * Realm of event. Example entity, contents, acls, metadata
      */
@@ -129,25 +129,25 @@ export type WebhookInternalSchema = {
 };
 
 export type WebhookSchema = {
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    deleted_at?: string;
-    description?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    deleted_at?: string | null;
+    description?: string | null;
     /**
      * Type of events. Example assets, collections
      */
     event_type: string;
-    readonly first_failed_at?: string;
+    readonly first_failed_at?: string | null;
     /**
      * Define the key-value pairs your third party provider requires here
      */
     headers?: {
         [key: string]: string;
-    };
+    } | null;
     readonly id: string;
-    last_error?: string;
-    last_payload?: string;
-    name?: string;
+    last_error?: string | null;
+    last_payload?: string | null;
+    name?: string | null;
     /**
      * ID of a particular object you want to subscribe on
      */
@@ -159,7 +159,7 @@ export type WebhookSchema = {
     /**
      * Adding a query allows filtering out messages so webhooks will be called only if for messages that match this query.
      */
-    query?: string;
+    query?: string | null;
     /**
      * Realm of event. Example entity, contents, acls, metadata
      */
@@ -172,28 +172,28 @@ export type WebhookSchema = {
 };
 
 export type WebhooksSchema = {
-    objects?: Array<WebhookSchema>;
+    objects?: Array<WebhookSchema> | null;
 };
 
 export type WebhookCreateSchemaWritable = {
-    date_created?: string;
-    date_modified?: string;
-    deleted_at?: string;
-    description?: string;
+    date_created?: string | null;
+    date_modified?: string | null;
+    deleted_at?: string | null;
+    description?: string | null;
     /**
      * Type of events. Example assets, collections
      */
     event_type: string;
-    first_failed_at?: string;
+    first_failed_at?: string | null;
     /**
      * Define the key-value pairs your third party provider requires here
      */
     headers?: {
         [key: string]: string;
-    };
-    last_error?: string;
-    last_payload?: string;
-    name?: string;
+    } | null;
+    last_error?: string | null;
+    last_payload?: string | null;
+    name?: string | null;
     /**
      * ID of a particular object you want to subscribe on
      */
@@ -205,7 +205,7 @@ export type WebhookCreateSchemaWritable = {
     /**
      * Adding a query allows filtering out messages so webhooks will be called only if for messages that match this query.
      */
-    query?: string;
+    query?: string | null;
     /**
      * Realm of event. Example entity, contents, acls, metadata
      */
@@ -218,8 +218,8 @@ export type WebhookCreateSchemaWritable = {
 };
 
 export type WebhookSchemaWritable = {
-    deleted_at?: string;
-    description?: string;
+    deleted_at?: string | null;
+    description?: string | null;
     /**
      * Type of events. Example assets, collections
      */
@@ -229,10 +229,10 @@ export type WebhookSchemaWritable = {
      */
     headers?: {
         [key: string]: string;
-    };
-    last_error?: string;
-    last_payload?: string;
-    name?: string;
+    } | null;
+    last_error?: string | null;
+    last_payload?: string | null;
+    name?: string | null;
     /**
      * ID of a particular object you want to subscribe on
      */
@@ -244,7 +244,7 @@ export type WebhookSchemaWritable = {
     /**
      * Adding a query allows filtering out messages so webhooks will be called only if for messages that match this query.
      */
-    query?: string;
+    query?: string | null;
     /**
      * Realm of event. Example entity, contents, acls, metadata
      */
@@ -257,7 +257,7 @@ export type WebhookSchemaWritable = {
 };
 
 export type WebhooksSchemaWritable = {
-    objects?: Array<WebhookSchemaWritable>;
+    objects?: Array<WebhookSchemaWritable> | null;
 };
 
 export type GetWebhooksData = {

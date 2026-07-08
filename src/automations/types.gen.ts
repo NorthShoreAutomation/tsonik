@@ -13,7 +13,7 @@ export type AclUpdateSchema = {
 
 export type AddToCollectionActionParameters = {
     collection_id: string;
-    index_immediately?: boolean;
+    index_immediately?: boolean | null;
 };
 
 export type AddToCollectionActionSchema = {
@@ -22,8 +22,8 @@ export type AddToCollectionActionSchema = {
 };
 
 export type AnalyzeActionParameters = {
-    force?: boolean;
-    force_type?: 'APPEND' | 'OVERWRITE';
+    force?: boolean | null;
+    force_type?: 'APPEND' | 'OVERWRITE' | null;
 };
 
 export type AnalyzeActionSchema = {
@@ -32,13 +32,13 @@ export type AnalyzeActionSchema = {
 };
 
 export type ArchiveActionParameters = {
-    allow_duplicate_transfers?: boolean;
-    allow_host_transfer?: boolean;
-    delete_only_from_source_folder?: boolean;
-    delete_original?: boolean;
+    allow_duplicate_transfers?: boolean | null;
+    allow_host_transfer?: boolean | null;
+    delete_only_from_source_folder?: boolean | null;
+    delete_original?: boolean | null;
     destination_directory_path?: string | null;
     destination_storage_id: string;
-    keep_collection_structure?: boolean;
+    keep_collection_structure?: boolean | null;
     preferred_original_storage_id?: string | null;
 };
 
@@ -48,7 +48,7 @@ export type ArchiveActionSchema = {
 };
 
 export type AssetArchivedTriggerParameters = {
-    storage_id?: string;
+    storage_id?: string | null;
 };
 
 export type AssetArchivedTriggerSchema = {
@@ -67,7 +67,7 @@ export type AssetOnlineTriggerSchema = {
 };
 
 export type AssetRestoredTriggerParameters = {
-    storage_id?: string;
+    storage_id?: string | null;
 };
 
 export type AssetRestoredTriggerSchema = {
@@ -96,9 +96,9 @@ export type AssetTransferredToStorageTriggerSchema = {
 
 export type AutomationHistorySchema = {
     automation_id: string;
-    readonly date_executed?: string;
-    error_message?: string;
-    job_id?: string;
+    readonly date_executed?: string | null;
+    error_message?: string | null;
+    job_id?: string | null;
     object_id: string;
     object_type: string;
     status: 'FAILED' | 'SUCCEED';
@@ -108,41 +108,41 @@ export type AutomationHistorySchema = {
 
 export type AutomationInternalSchema = {
     actions: Array<AnalyzeActionSchema | ExtractFacesAction | CreatePublicationJobAction | ArchiveActionSchema | RestoreAction | ExportAction | UpdateAclAction | MetadataUpdateAction | TranscodeAction | TransferAction | RequestOriginalAction | AddToCollectionActionSchema | TranscribeAction | CreateShareAction | DeleteAction | DeleteFileSetAction | RestrictAssetAction | RemoveAssetRestrictionAction | RequestReviewAction | TriggerCustomAction>;
-    conditions?: Array<Condition>;
-    readonly created_by?: string;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    description?: string;
-    readonly id?: string;
-    readonly modified_by?: string;
+    conditions?: Array<Condition> | null;
+    readonly created_by?: string | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    description?: string | null;
+    readonly id?: string | null;
+    readonly modified_by?: string | null;
     name: string;
-    status?: 'ACTIVE' | 'INACTIVE';
-    readonly system_domain_id?: string;
+    status?: 'ACTIVE' | 'INACTIVE' | null;
+    readonly system_domain_id?: string | null;
     triggers: Array<Trigger>;
 };
 
 export type AutomationRunEstimateSchema = {
-    errors?: Array<string>;
+    errors?: Array<string> | null;
     facets?: {
         [key: string]: FacetSchema;
-    };
-    readonly total?: number;
+    } | null;
+    readonly total?: number | null;
 };
 
 export type AutomationSchema = {
     actions: [
         AnalyzeActionSchema | ExtractFacesAction | CreatePublicationJobAction | ArchiveActionSchema | RestoreAction | ExportAction | UpdateAclAction | MetadataUpdateAction | TranscodeAction | TransferAction | RequestOriginalAction | AddToCollectionActionSchema | TranscribeAction | CreateShareAction | DeleteAction | DeleteFileSetAction | RestrictAssetAction | RemoveAssetRestrictionAction | RequestReviewAction | TriggerCustomAction
     ];
-    conditions?: Array<Condition>;
-    readonly created_by?: string;
-    readonly date_created?: string;
-    readonly date_modified?: string;
-    description?: string;
-    readonly id?: string;
-    readonly modified_by?: string;
+    conditions?: Array<Condition> | null;
+    readonly created_by?: string | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    description?: string | null;
+    readonly id?: string | null;
+    readonly modified_by?: string | null;
     name: string;
-    status?: 'ACTIVE' | 'INACTIVE';
-    readonly system_domain_id?: string;
+    status?: 'ACTIVE' | 'INACTIVE' | null;
+    readonly system_domain_id?: string | null;
     triggers: Array<MetadataUpdateTrigger | AssetSharedTriggerSchema | SubtitleAddedTrigger | ReviewStatusChangedTrigger | AssetOnlineTriggerSchema | VersionOnlineTrigger | AssetTransferredToStorageTriggerSchema | AssetArchivedTriggerSchema | AssetRestoredTriggerSchema | CreatedAtTransitionTrigger | ModifiedAtTransitionTrigger | ObjectAddedToCollectionTrigger | ObjectRemovedFromCollectionTrigger>;
 };
 
@@ -154,52 +154,52 @@ export type AutomationStatsObjectSchema = {
 };
 
 export type AutomationStatsSchema = {
-    readonly objects?: Array<AutomationStatsObjectSchema>;
+    readonly objects?: Array<AutomationStatsObjectSchema> | null;
 };
 
 export type AutomationsInternalSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<AutomationInternalSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<AutomationInternalSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type AutomationsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly objects?: Array<AutomationSchema>;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<AutomationSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type BucketSchema = {
-    readonly doc_count?: number;
-    readonly key?: string;
+    readonly doc_count?: number | null;
+    readonly key?: string | null;
 };
 
 export type Condition = {
-    conditions?: Array<Condition>;
-    readonly filters?: Array<Condition>;
+    conditions?: Array<Condition> | null;
+    readonly filters?: Array<Condition> | null;
     operator: string;
-    path?: string;
-    terms?: Array<Term>;
+    path?: string | null;
+    terms?: Array<Term> | null;
 };
 
 export type ConditionSchema = {
-    conditions?: Array<ConditionSchema>;
-    readonly filters?: Array<ConditionSchema>;
+    conditions?: Array<ConditionSchema> | null;
+    readonly filters?: Array<ConditionSchema> | null;
     operator: string;
-    path?: string;
-    terms?: Array<Term>;
+    path?: string | null;
+    terms?: Array<Term> | null;
 };
 
 export type CreatePublicationJobAction = {
@@ -213,14 +213,14 @@ export type CreatePublicationJobActionSchema = {
 };
 
 export type CreatePublicationJobParameters = {
-    allow_transfer?: boolean;
+    allow_transfer?: boolean | null;
     metadata_overrides?: {
         [key: string]: unknown;
-    };
+    } | null;
     storage_id?: string | null;
     template: CreatePublicationTemplate;
     thumbnail?: CreatePublicationJobThumbnailKeyframe | null;
-    title?: string;
+    title?: string | null;
     user_id: string;
 };
 
@@ -233,7 +233,7 @@ export type CreatePublicationJobThumbnailKeyframe = {
 export type CreatePublicationTemplate = {
     data?: {
         [key: string]: unknown;
-    };
+    } | null;
     id: string;
 };
 
@@ -245,21 +245,21 @@ export type CreateShareAction = {
 export type CreateShareActionParameters = {
     allow_approving_comments: boolean;
     allow_comments: boolean;
-    allow_custom_actions?: boolean;
+    allow_custom_actions?: boolean | null;
     allow_download: boolean;
-    allow_download_proxy?: boolean;
+    allow_download_proxy?: boolean | null;
     allow_setting_approve_status: boolean;
-    allow_upload?: boolean;
-    allow_user_search_for_mentions?: boolean;
-    allow_view_transcriptions?: boolean;
-    allow_view_versions?: boolean;
+    allow_upload?: boolean | null;
+    allow_user_search_for_mentions?: boolean | null;
+    allow_view_transcriptions?: boolean | null;
+    allow_view_versions?: boolean | null;
     emails: Array<string>;
     expires_in_days?: number | null;
     readonly has_password?: unknown;
-    message?: string;
+    message?: string | null;
     metadata_views?: Array<string> | null;
-    show_watermark?: boolean;
-    title?: string;
+    show_watermark?: boolean | null;
+    title?: string | null;
     upload_storage_id?: string | null;
     user_id: string;
 };
@@ -267,21 +267,21 @@ export type CreateShareActionParameters = {
 export type CreateShareActionParametersSchema = {
     allow_approving_comments: boolean;
     allow_comments: boolean;
-    allow_custom_actions?: boolean;
+    allow_custom_actions?: boolean | null;
     allow_download: boolean;
-    allow_download_proxy?: boolean;
+    allow_download_proxy?: boolean | null;
     allow_setting_approve_status: boolean;
-    allow_upload?: boolean;
-    allow_user_search_for_mentions?: boolean;
-    allow_view_transcriptions?: boolean;
-    allow_view_versions?: boolean;
+    allow_upload?: boolean | null;
+    allow_user_search_for_mentions?: boolean | null;
+    allow_view_transcriptions?: boolean | null;
+    allow_view_versions?: boolean | null;
     emails: Array<string>;
     expires_in_days?: number | null;
     readonly has_password?: unknown;
-    message?: string;
+    message?: string | null;
     metadata_views?: Array<string> | null;
-    show_watermark?: boolean;
-    title?: string;
+    show_watermark?: boolean | null;
+    title?: string | null;
     upload_storage_id?: string | null;
     user_id: string;
 };
@@ -311,14 +311,14 @@ export type CreatedAtTransitionTriggerSchema = {
 export type DeleteAction = {
     parameters?: {
         [key: string]: unknown;
-    };
+    } | null;
     type: 'DELETE_ASSET';
 };
 
 export type DeleteActionSchema = {
     parameters?: {
         [key: string]: unknown;
-    };
+    } | null;
     type: 'DELETE_ASSET';
 };
 
@@ -348,7 +348,7 @@ export type ExportActionParameters = {
     export_to_asset_folder?: boolean | null;
     file_name?: string | null;
     format_id?: string | null;
-    metadata_format?: 'CSV' | 'JSON' | 'XML';
+    metadata_format?: 'CSV' | 'JSON' | 'XML' | null;
     metadata_view?: string | null;
     overwrite?: boolean | null;
     preferred_original_storage_id?: string | null;
@@ -373,37 +373,37 @@ export type ExtractFacesActionSchema = {
 export type ExtractFacesParameters = {
     face_image_analysis_profile_id?: string | null;
     face_video_analysis_profile_id?: string | null;
-    force?: boolean;
+    force?: boolean | null;
 };
 
 export type FacetSchema = {
-    buckets?: Array<BucketSchema>;
-    readonly doc_count_error_upper_bound?: number;
-    readonly sum_other_doc_count?: number;
+    buckets?: Array<BucketSchema> | null;
+    readonly doc_count_error_upper_bound?: number | null;
+    readonly sum_other_doc_count?: number | null;
 };
 
 export type ListObjectsSchema = {
-    readonly first_url?: string;
-    readonly last_url?: string;
-    readonly next_url?: string;
-    readonly page?: number;
-    readonly pages?: number;
-    readonly per_page?: number;
-    readonly prev_url?: string;
-    readonly total?: number;
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly total?: number | null;
 };
 
 export type MetadataFieldValueSchema = {
     field_values?: Array<{
         [key: string]: unknown;
-    }>;
+    }> | null;
 };
 
 export type MetadataFieldValueUpdateSchema = {
     field_values?: Array<{
         [key: string]: unknown;
-    }>;
-    mode?: 'append' | 'delete' | 'overwrite';
+    }> | null;
+    mode?: 'append' | 'delete' | 'overwrite' | null;
 };
 
 export type MetadataUpdateAction = {
@@ -478,21 +478,21 @@ export type ObjectRemovedFromCollectionTriggerSchema = {
 };
 
 export type RangeFilter = {
-    max?: string;
-    min?: string;
+    max?: string | null;
+    min?: string | null;
     /**
      * Format: +02:00. Results returned in UTC by default
      */
-    timezone?: string;
+    timezone?: string | null;
 };
 
 export type RangeFilterSchema = {
-    max?: string;
-    min?: string;
+    max?: string | null;
+    min?: string | null;
     /**
      * Format: +02:00. Results returned in UTC by default
      */
-    timezone?: string;
+    timezone?: string | null;
 };
 
 export type RemoveAssetRestrictionAction = {
@@ -502,7 +502,7 @@ export type RemoveAssetRestrictionAction = {
 
 export type RemoveAssetRestrictionActionParameters = {
     restrict_metadata_field: string;
-    warning_metadata_field?: string;
+    warning_metadata_field?: string | null;
 };
 
 export type RemoveAssetRestrictionActionSchema = {
@@ -526,12 +526,12 @@ export type RequestReviewAction = {
 };
 
 export type RequestReviewActionParameters = {
-    externals?: Array<string>;
-    groups?: Array<string>;
-    min_number?: number;
+    externals?: Array<string> | null;
+    groups?: Array<string> | null;
+    min_number?: number | null;
     share: CreateShareActionParameters;
-    status?: 'APPROVED' | 'MIXED' | 'N/A' | 'NOT_APPROVED' | 'REQUESTED';
-    users?: Array<string>;
+    status?: 'APPROVED' | 'MIXED' | 'N/A' | 'NOT_APPROVED' | 'REQUESTED' | null;
+    users?: Array<string> | null;
 };
 
 export type RequestReviewActionSchema = {
@@ -545,13 +545,13 @@ export type RestoreAction = {
 };
 
 export type RestoreActionParameters = {
-    allow_duplicate_transfers?: boolean;
-    allow_host_transfer?: boolean;
-    delete_only_from_source_folder?: boolean;
-    delete_original?: boolean;
+    allow_duplicate_transfers?: boolean | null;
+    allow_host_transfer?: boolean | null;
+    delete_only_from_source_folder?: boolean | null;
+    delete_original?: boolean | null;
     destination_directory_path?: string | null;
     destination_storage_id: string;
-    keep_collection_structure?: boolean;
+    keep_collection_structure?: boolean | null;
     preferred_original_storage_id?: string | null;
 };
 
@@ -567,8 +567,8 @@ export type RestrictAssetAction = {
 
 export type RestrictAssetActionParameters = {
     restrict_metadata_field: string;
-    warning?: string;
-    warning_metadata_field?: string;
+    warning?: string | null;
+    warning_metadata_field?: string | null;
 };
 
 export type RestrictAssetActionSchema = {
@@ -582,7 +582,7 @@ export type ReviewStatusChangedTrigger = {
 };
 
 export type ReviewStatusChangedTriggerParameters = {
-    statuses?: Array<'APPROVED' | 'MIXED' | 'N/A' | 'NOT_APPROVED' | 'REQUESTED'>;
+    statuses?: Array<'APPROVED' | 'MIXED' | 'N/A' | 'NOT_APPROVED' | 'REQUESTED'> | null;
 };
 
 export type ReviewStatusChangedTriggerSchema = {
@@ -606,27 +606,27 @@ export type SubtitleAddedTriggerSchema = {
 };
 
 export type Term = {
-    exists?: boolean;
+    exists?: boolean | null;
     external?: {
         [key: string]: unknown;
-    };
-    missing?: boolean;
+    } | null;
+    missing?: boolean | null;
     name: string;
-    range?: RangeFilter;
+    range?: RangeFilter | null;
     value?: unknown;
-    value_in?: Array<string>;
+    value_in?: Array<string> | null;
 };
 
 export type TermSchema = {
-    exists?: boolean;
+    exists?: boolean | null;
     external?: {
         [key: string]: unknown;
-    };
-    missing?: boolean;
+    } | null;
+    missing?: boolean | null;
     name: string;
-    range?: RangeFilterSchema;
+    range?: RangeFilterSchema | null;
     value?: unknown;
-    value_in?: Array<string>;
+    value_in?: Array<string> | null;
 };
 
 export type TranscodeAction = {
@@ -635,19 +635,19 @@ export type TranscodeAction = {
 };
 
 export type TranscodeActionParameters = {
-    format_name?: string;
-    prefer_any_cloud?: boolean;
-    preferred_storage_id?: string;
-    preferred_storage_method?: 'AZURE' | 'B2' | 'CUSTOM' | 'FILE' | 'FTP' | 'GCS' | 'HTTP' | 'PORTAL' | 'S3' | 'SFTP';
-    priority?: number;
+    format_name?: string | null;
+    prefer_any_cloud?: boolean | null;
+    preferred_storage_id?: string | null;
+    preferred_storage_method?: 'AZURE' | 'B2' | 'CUSTOM' | 'FILE' | 'FTP' | 'GCS' | 'HTTP' | 'PORTAL' | 'S3' | 'SFTP' | null;
+    priority?: number | null;
 };
 
 export type TranscodeActionParametersSchema = {
-    format_name?: string;
-    prefer_any_cloud?: boolean;
-    preferred_storage_id?: string;
-    preferred_storage_method?: 'AZURE' | 'B2' | 'CUSTOM' | 'FILE' | 'FTP' | 'GCS' | 'HTTP' | 'PORTAL' | 'S3' | 'SFTP';
-    priority?: number;
+    format_name?: string | null;
+    prefer_any_cloud?: boolean | null;
+    preferred_storage_id?: string | null;
+    preferred_storage_method?: 'AZURE' | 'B2' | 'CUSTOM' | 'FILE' | 'FTP' | 'GCS' | 'HTTP' | 'PORTAL' | 'S3' | 'SFTP' | null;
+    priority?: number | null;
 };
 
 export type TranscodeActionSchema = {
@@ -662,11 +662,11 @@ export type TranscribeAction = {
 
 export type TranscribeActionParameters = {
     engine?: string | null;
-    force?: boolean;
+    force?: boolean | null;
     language?: string | null;
     speakers?: number | null;
     summary?: boolean | null;
-    topics_extraction?: boolean;
+    topics_extraction?: boolean | null;
     translate_languages?: Array<string> | null;
 };
 
@@ -681,7 +681,7 @@ export type TransferAction = {
 };
 
 export type TransferActionParameters = {
-    allow_host_transfer?: boolean;
+    allow_host_transfer?: boolean | null;
     destination_directory_path?: string | null;
     destination_storage_id: string;
     format_name: string;
@@ -689,7 +689,7 @@ export type TransferActionParameters = {
 };
 
 export type TransferActionParametersSchema = {
-    allow_host_transfer?: boolean;
+    allow_host_transfer?: boolean | null;
     destination_directory_path?: string | null;
     destination_storage_id: string;
     format_name: string;
@@ -702,14 +702,14 @@ export type TransferActionSchema = {
 };
 
 export type Trigger = {
-    readonly date_created?: string;
-    readonly date_modified?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
     event_type: 'ASSETS' | 'COLLECTIONS';
-    execute_at?: string;
-    filters?: Array<Condition>;
+    execute_at?: string | null;
+    filters?: Array<Condition> | null;
     object_id?: string | null;
-    operations?: Array<'CREATE' | 'DELAYED_TRIGGER' | 'DELETE' | 'SHARE' | 'UPDATE'>;
-    realm?: 'ENTITY' | 'FILES' | 'FORMATS' | 'JOBS' | 'METADATA' | 'SHARES';
+    operations?: Array<'CREATE' | 'DELAYED_TRIGGER' | 'DELETE' | 'SHARE' | 'UPDATE'> | null;
+    realm?: 'ENTITY' | 'FILES' | 'FORMATS' | 'JOBS' | 'METADATA' | 'SHARES' | null;
     type: 'ARCHIVE' | 'ASSET_ONLINE' | 'ASSET_SHARE' | 'CREATED_AT_TRANSITION' | 'METADATA_UPDATE' | 'MODIFIED_AT_TRANSITION' | 'RESTORE' | 'TRANSFER_TO_STORAGE';
 };
 
@@ -723,7 +723,7 @@ export type TriggerCustomActionParameters = {
     context: 'ASSET' | 'ASSET_SUBCLIP' | 'BULK';
     metadata_values?: {
         [key: string]: MetadataFieldValueSchema;
-    };
+    } | null;
 };
 
 export type TriggerCustomActionSchema = {
@@ -732,19 +732,19 @@ export type TriggerCustomActionSchema = {
 };
 
 export type TriggerSchema = {
-    readonly date_created?: string;
-    readonly date_modified?: string;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
     event_type: 'ASSETS' | 'COLLECTIONS';
-    execute_at?: string;
-    filters?: Array<ConditionSchema>;
+    execute_at?: string | null;
+    filters?: Array<ConditionSchema> | null;
     object_id?: string | null;
-    operations?: Array<'CREATE' | 'DELAYED_TRIGGER' | 'DELETE' | 'SHARE' | 'UPDATE'>;
-    realm?: 'ENTITY' | 'FILES' | 'FORMATS' | 'JOBS' | 'METADATA' | 'SHARES';
+    operations?: Array<'CREATE' | 'DELAYED_TRIGGER' | 'DELETE' | 'SHARE' | 'UPDATE'> | null;
+    realm?: 'ENTITY' | 'FILES' | 'FORMATS' | 'JOBS' | 'METADATA' | 'SHARES' | null;
     type: 'ARCHIVE' | 'ASSET_ONLINE' | 'ASSET_SHARE' | 'CREATED_AT_TRANSITION' | 'METADATA_UPDATE' | 'MODIFIED_AT_TRANSITION' | 'RESTORE' | 'TRANSFER_TO_STORAGE';
 };
 
 export type TriggersSchema = {
-    readonly objects?: Array<TriggerSchema>;
+    readonly objects?: Array<TriggerSchema> | null;
 };
 
 export type UpdateAclAction = {
@@ -779,31 +779,31 @@ export type VersionOnlineTriggerSchema = {
 export type ActionSchemaBase = {
     parameters?: {
         [key: string]: unknown;
-    };
+    } | null;
 };
 
 export type ObjectCollectionTriggerParameters = {
     collection_ids: Array<string>;
-    include_subcollections?: boolean;
+    include_subcollections?: boolean | null;
     object_type: string;
 };
 
 export type ObjectCollectionTriggerParametersSchema = {
     collection_ids: Array<string>;
-    include_subcollections?: boolean;
+    include_subcollections?: boolean | null;
     object_type: string;
 };
 
 export type TriggerSchemaBase = {
     parameters?: {
         [key: string]: unknown;
-    };
+    } | null;
 };
 
 export type AutomationHistorySchemaWritable = {
     automation_id: string;
-    error_message?: string;
-    job_id?: string;
+    error_message?: string | null;
+    job_id?: string | null;
     object_id: string;
     object_type: string;
     status: 'FAILED' | 'SUCCEED';
@@ -813,28 +813,28 @@ export type AutomationHistorySchemaWritable = {
 
 export type AutomationInternalSchemaWritable = {
     actions: Array<AnalyzeActionSchema | ExtractFacesAction | CreatePublicationJobAction | ArchiveActionSchema | RestoreAction | ExportAction | UpdateAclAction | MetadataUpdateAction | TranscodeAction | TransferAction | RequestOriginalAction | AddToCollectionActionSchema | TranscribeAction | CreateShareActionWritable | DeleteAction | DeleteFileSetAction | RestrictAssetAction | RemoveAssetRestrictionAction | RequestReviewActionWritable | TriggerCustomAction>;
-    conditions?: Array<ConditionWritable>;
-    description?: string;
+    conditions?: Array<ConditionWritable> | null;
+    description?: string | null;
     name: string;
-    status?: 'ACTIVE' | 'INACTIVE';
+    status?: 'ACTIVE' | 'INACTIVE' | null;
     triggers: Array<TriggerWritable>;
 };
 
 export type AutomationRunEstimateSchemaWritable = {
-    errors?: Array<string>;
+    errors?: Array<string> | null;
     facets?: {
         [key: string]: FacetSchemaWritable;
-    };
+    } | null;
 };
 
 export type AutomationSchemaWritable = {
     actions: [
         AnalyzeActionSchema | ExtractFacesAction | CreatePublicationJobAction | ArchiveActionSchema | RestoreAction | ExportAction | UpdateAclAction | MetadataUpdateAction | TranscodeAction | TransferAction | RequestOriginalAction | AddToCollectionActionSchema | TranscribeAction | CreateShareActionWritable | DeleteAction | DeleteFileSetAction | RestrictAssetAction | RemoveAssetRestrictionAction | RequestReviewActionWritable | TriggerCustomAction
     ];
-    conditions?: Array<ConditionWritable>;
-    description?: string;
+    conditions?: Array<ConditionWritable> | null;
+    description?: string | null;
     name: string;
-    status?: 'ACTIVE' | 'INACTIVE';
+    status?: 'ACTIVE' | 'INACTIVE' | null;
     triggers: Array<MetadataUpdateTrigger | AssetSharedTriggerSchema | SubtitleAddedTrigger | ReviewStatusChangedTrigger | AssetOnlineTriggerSchema | VersionOnlineTrigger | AssetTransferredToStorageTriggerSchema | AssetArchivedTriggerSchema | AssetRestoredTriggerSchema | CreatedAtTransitionTrigger | ModifiedAtTransitionTrigger | ObjectAddedToCollectionTrigger | ObjectRemovedFromCollectionTrigger>;
 };
 
@@ -851,17 +851,17 @@ export type AutomationsSchemaWritable = {
 };
 
 export type ConditionWritable = {
-    conditions?: Array<ConditionWritable>;
+    conditions?: Array<ConditionWritable> | null;
     operator: string;
-    path?: string;
-    terms?: Array<Term>;
+    path?: string | null;
+    terms?: Array<Term> | null;
 };
 
 export type ConditionSchemaWritable = {
-    conditions?: Array<ConditionSchemaWritable>;
+    conditions?: Array<ConditionSchemaWritable> | null;
     operator: string;
-    path?: string;
-    terms?: Array<Term>;
+    path?: string | null;
+    terms?: Array<Term> | null;
 };
 
 export type CreateShareActionWritable = {
@@ -872,21 +872,21 @@ export type CreateShareActionWritable = {
 export type CreateShareActionParametersWritable = {
     allow_approving_comments: boolean;
     allow_comments: boolean;
-    allow_custom_actions?: boolean;
+    allow_custom_actions?: boolean | null;
     allow_download: boolean;
-    allow_download_proxy?: boolean;
+    allow_download_proxy?: boolean | null;
     allow_setting_approve_status: boolean;
-    allow_upload?: boolean;
-    allow_user_search_for_mentions?: boolean;
-    allow_view_transcriptions?: boolean;
-    allow_view_versions?: boolean;
+    allow_upload?: boolean | null;
+    allow_user_search_for_mentions?: boolean | null;
+    allow_view_transcriptions?: boolean | null;
+    allow_view_versions?: boolean | null;
     emails: Array<string>;
     expires_in_days?: number | null;
-    message?: string;
+    message?: string | null;
     metadata_views?: Array<string> | null;
     password?: string | null;
-    show_watermark?: boolean;
-    title?: string;
+    show_watermark?: boolean | null;
+    title?: string | null;
     upload_storage_id?: string | null;
     user_id: string;
 };
@@ -894,21 +894,21 @@ export type CreateShareActionParametersWritable = {
 export type CreateShareActionParametersSchemaWritable = {
     allow_approving_comments: boolean;
     allow_comments: boolean;
-    allow_custom_actions?: boolean;
+    allow_custom_actions?: boolean | null;
     allow_download: boolean;
-    allow_download_proxy?: boolean;
+    allow_download_proxy?: boolean | null;
     allow_setting_approve_status: boolean;
-    allow_upload?: boolean;
-    allow_user_search_for_mentions?: boolean;
-    allow_view_transcriptions?: boolean;
-    allow_view_versions?: boolean;
+    allow_upload?: boolean | null;
+    allow_user_search_for_mentions?: boolean | null;
+    allow_view_transcriptions?: boolean | null;
+    allow_view_versions?: boolean | null;
     emails: Array<string>;
     expires_in_days?: number | null;
-    message?: string;
+    message?: string | null;
     metadata_views?: Array<string> | null;
     password?: string | null;
-    show_watermark?: boolean;
-    title?: string;
+    show_watermark?: boolean | null;
+    title?: string | null;
     upload_storage_id?: string | null;
     user_id: string;
 };
@@ -919,7 +919,7 @@ export type CreateShareActionSchemaWritable = {
 };
 
 export type FacetSchemaWritable = {
-    buckets?: Array<unknown>;
+    buckets?: Array<unknown> | null;
 };
 
 export type RequestReviewActionWritable = {
@@ -928,12 +928,12 @@ export type RequestReviewActionWritable = {
 };
 
 export type RequestReviewActionParametersWritable = {
-    externals?: Array<string>;
-    groups?: Array<string>;
-    min_number?: number;
+    externals?: Array<string> | null;
+    groups?: Array<string> | null;
+    min_number?: number | null;
     share: CreateShareActionParametersWritable;
-    status?: 'APPROVED' | 'MIXED' | 'N/A' | 'NOT_APPROVED' | 'REQUESTED';
-    users?: Array<string>;
+    status?: 'APPROVED' | 'MIXED' | 'N/A' | 'NOT_APPROVED' | 'REQUESTED' | null;
+    users?: Array<string> | null;
 };
 
 export type RequestReviewActionSchemaWritable = {
@@ -943,21 +943,21 @@ export type RequestReviewActionSchemaWritable = {
 
 export type TriggerWritable = {
     event_type: 'ASSETS' | 'COLLECTIONS';
-    execute_at?: string;
-    filters?: Array<ConditionWritable>;
+    execute_at?: string | null;
+    filters?: Array<ConditionWritable> | null;
     object_id?: string | null;
-    operations?: Array<'CREATE' | 'DELAYED_TRIGGER' | 'DELETE' | 'SHARE' | 'UPDATE'>;
-    realm?: 'ENTITY' | 'FILES' | 'FORMATS' | 'JOBS' | 'METADATA' | 'SHARES';
+    operations?: Array<'CREATE' | 'DELAYED_TRIGGER' | 'DELETE' | 'SHARE' | 'UPDATE'> | null;
+    realm?: 'ENTITY' | 'FILES' | 'FORMATS' | 'JOBS' | 'METADATA' | 'SHARES' | null;
     type: 'ARCHIVE' | 'ASSET_ONLINE' | 'ASSET_SHARE' | 'CREATED_AT_TRANSITION' | 'METADATA_UPDATE' | 'MODIFIED_AT_TRANSITION' | 'RESTORE' | 'TRANSFER_TO_STORAGE';
 };
 
 export type TriggerSchemaWritable = {
     event_type: 'ASSETS' | 'COLLECTIONS';
-    execute_at?: string;
-    filters?: Array<ConditionSchemaWritable>;
+    execute_at?: string | null;
+    filters?: Array<ConditionSchemaWritable> | null;
     object_id?: string | null;
-    operations?: Array<'CREATE' | 'DELAYED_TRIGGER' | 'DELETE' | 'SHARE' | 'UPDATE'>;
-    realm?: 'ENTITY' | 'FILES' | 'FORMATS' | 'JOBS' | 'METADATA' | 'SHARES';
+    operations?: Array<'CREATE' | 'DELAYED_TRIGGER' | 'DELETE' | 'SHARE' | 'UPDATE'> | null;
+    realm?: 'ENTITY' | 'FILES' | 'FORMATS' | 'JOBS' | 'METADATA' | 'SHARES' | null;
     type: 'ARCHIVE' | 'ASSET_ONLINE' | 'ASSET_SHARE' | 'CREATED_AT_TRANSITION' | 'METADATA_UPDATE' | 'MODIFIED_AT_TRANSITION' | 'RESTORE' | 'TRANSFER_TO_STORAGE';
 };
 
