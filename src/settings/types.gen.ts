@@ -34,9 +34,11 @@ export type DashboardSchema = {
     collections_tree?: DashboardCollectionsTreeSchema | null;
     comments_feed?: DashboardCommentsFeedSchema | null;
     header?: DashboardHeaderSchema | null;
-    view_type?: 'card' | 'list' | null;
+    view_type?: DashboardSchemaViewType | null;
     widgets?: Array<DashboardWidget> | null;
 };
+
+export type DashboardSchemaViewType = 'card' | 'list';
 
 export type DashboardWidget = {
     expanded?: boolean | null;
@@ -84,8 +86,10 @@ export type FacetFieldSchema = {
 
 export type GlobalSettingsSchema = {
     debug?: boolean | null;
-    log_level?: 'CRITICAL' | 'DEBUG' | 'ERROR' | 'INFO' | 'NOTSET' | 'WARNING' | null;
+    log_level?: GlobalSettingsSchemaLogLevel | null;
 };
+
+export type GlobalSettingsSchemaLogLevel = 'CRITICAL' | 'DEBUG' | 'ERROR' | 'INFO' | 'NOTSET' | 'WARNING';
 
 export type GroupSettingPublicSchema = {
     acl_template_id?: string | null;
@@ -148,15 +152,19 @@ export type JobsDashboardWidget = {
     id?: string | null;
     options?: JobsWidgetOption | null;
     title?: string | null;
-    type?: 'JOBS_LIST' | 'JOBS_STATS_LIST' | null;
+    type?: JobsDashboardWidgetType | null;
 };
 
 export type JobsDashboardWidgetSchema = {
     id?: string | null;
     options?: JobsWidgetOption | null;
     title?: string | null;
-    type?: 'JOBS_LIST' | 'JOBS_STATS_LIST' | null;
+    type?: JobsDashboardWidgetSchemaType | null;
 };
+
+export type JobsDashboardWidgetSchemaType = 'JOBS_LIST' | 'JOBS_STATS_LIST';
+
+export type JobsDashboardWidgetType = 'JOBS_LIST' | 'JOBS_STATS_LIST';
 
 export type JobsWidgetOption = {
     columns?: Array<string> | null;
@@ -220,10 +228,7 @@ export type MergedSettingsSchema = {
     delete_grace_period?: number | null;
     readonly disable_billing_page?: boolean | null;
     readonly domain_has_preloaded_assets?: boolean | null;
-    /**
-     * DRM setting
-     */
-    drm?: 'none' | 'standard' | null;
+    drm?: MergedSettingsSchemaDrm | null;
     /**
      * Whether to require hardware DRM for playback when DRM is enabled
      */
@@ -290,12 +295,19 @@ export type MergedSettingsSchema = {
     update_saml_primary_group_on_login?: boolean | null;
     usage_history?: UsageHistory | null;
     use_asset_name_on_download?: boolean | null;
-    /**
-     * Watermark setting
-     */
-    watermark?: 'none' | 'standard' | null;
+    watermark?: MergedSettingsSchemaWatermark | null;
     watermark_options?: WatermarkOptionsType | null;
 };
+
+/**
+ * DRM setting
+ */
+export type MergedSettingsSchemaDrm = 'none' | 'standard';
+
+/**
+ * Watermark setting
+ */
+export type MergedSettingsSchemaWatermark = 'none' | 'standard';
 
 export type PasswordChecksType = {
     digits?: number | null;
@@ -325,13 +337,17 @@ export type SearchDisplayFieldSchema = {
 
 export type Sort = {
     name: string;
-    order?: 'asc' | 'desc' | null;
+    order?: SortOrder | null;
 };
+
+export type SortOrder = 'asc' | 'desc';
 
 export type SortSchema = {
     name: string;
-    order?: 'asc' | 'desc' | null;
+    order?: SortSchemaOrder | null;
 };
+
+export type SortSchemaOrder = 'asc' | 'desc';
 
 export type SystemSettingPublicSchema = {
     acl_template_id?: string | null;
@@ -371,10 +387,7 @@ export type SystemSettingPublicSchema = {
     delete_grace_period?: number | null;
     readonly disable_billing_page?: boolean | null;
     readonly domain_has_preloaded_assets?: boolean | null;
-    /**
-     * DRM setting
-     */
-    drm?: 'none' | 'standard' | null;
+    drm?: SystemSettingPublicSchemaDrm | null;
     /**
      * Whether to require hardware DRM for playback when DRM is enabled
      */
@@ -437,12 +450,19 @@ export type SystemSettingPublicSchema = {
     texts_metadata_field?: string | null;
     update_saml_primary_group_on_login?: boolean | null;
     use_asset_name_on_download?: boolean | null;
-    /**
-     * Watermark setting
-     */
-    watermark?: 'none' | 'standard' | null;
+    watermark?: SystemSettingPublicSchemaWatermark | null;
     watermark_options?: WatermarkOptionsType | null;
 };
+
+/**
+ * DRM setting
+ */
+export type SystemSettingPublicSchemaDrm = 'none' | 'standard';
+
+/**
+ * Watermark setting
+ */
+export type SystemSettingPublicSchemaWatermark = 'none' | 'standard';
 
 export type SystemSettingSchema = {
     acl_template_id?: string | null;
@@ -478,10 +498,7 @@ export type SystemSettingSchema = {
      * Grace period that indicate how long objects will live in recycle bin. Unit: hours
      */
     delete_grace_period?: number | null;
-    /**
-     * DRM setting
-     */
-    drm?: 'none' | 'standard' | null;
+    drm?: SystemSettingSchemaDrm | null;
     /**
      * Whether to require hardware DRM for playback when DRM is enabled
      */
@@ -541,12 +558,19 @@ export type SystemSettingSchema = {
     texts_metadata_field?: string | null;
     update_saml_primary_group_on_login?: boolean | null;
     use_asset_name_on_download?: boolean | null;
-    /**
-     * Watermark setting
-     */
-    watermark?: 'none' | 'standard' | null;
+    watermark?: SystemSettingSchemaWatermark | null;
     watermark_options?: WatermarkOptionsType | null;
 };
+
+/**
+ * DRM setting
+ */
+export type SystemSettingSchemaDrm = 'none' | 'standard';
+
+/**
+ * Watermark setting
+ */
+export type SystemSettingSchemaWatermark = 'none' | 'standard';
 
 export type UsageHistory = {
     widgets?: Array<UsageHistoryWidget> | null;
@@ -621,10 +645,10 @@ export type WatermarkOptionsType = {
     include_email?: boolean | null;
     include_ip_address?: boolean | null;
     shadow_opacity?: number | null;
-    show_for_groups?: 'all' | 'except' | 'selected_only' | null;
-    show_in_context?: 'proxies' | 'shares' | null;
+    show_for_groups?: WatermarkOptionsTypeShowForGroups | null;
+    show_in_context?: WatermarkOptionsTypeShowInContext | null;
     show_watermark?: boolean | null;
-    text_appearance?: 'bottom' | 'center' | 'top' | null;
+    text_appearance?: WatermarkOptionsTypeTextAppearance | null;
     text_opacity?: number | null;
 };
 
@@ -636,12 +660,24 @@ export type WatermarkOptionsTypeSchema = {
     include_email?: boolean | null;
     include_ip_address?: boolean | null;
     shadow_opacity?: number | null;
-    show_for_groups?: 'all' | 'except' | 'selected_only' | null;
-    show_in_context?: 'proxies' | 'shares' | null;
+    show_for_groups?: WatermarkOptionsTypeSchemaShowForGroups | null;
+    show_in_context?: WatermarkOptionsTypeSchemaShowInContext | null;
     show_watermark?: boolean | null;
-    text_appearance?: 'bottom' | 'center' | 'top' | null;
+    text_appearance?: WatermarkOptionsTypeSchemaTextAppearance | null;
     text_opacity?: number | null;
 };
+
+export type WatermarkOptionsTypeSchemaShowForGroups = 'all' | 'except' | 'selected_only';
+
+export type WatermarkOptionsTypeSchemaShowInContext = 'proxies' | 'shares';
+
+export type WatermarkOptionsTypeSchemaTextAppearance = 'bottom' | 'center' | 'top';
+
+export type WatermarkOptionsTypeShowForGroups = 'all' | 'except' | 'selected_only';
+
+export type WatermarkOptionsTypeShowInContext = 'proxies' | 'shares';
+
+export type WatermarkOptionsTypeTextAppearance = 'bottom' | 'center' | 'top';
 
 export type CorsHostSchemaWritable = {
     host: string;
@@ -724,10 +760,7 @@ export type MergedSettingsSchemaWritable = {
      * Grace period that indicate how long objects will live in recycle bin. Unit: hours
      */
     delete_grace_period?: number | null;
-    /**
-     * DRM setting
-     */
-    drm?: 'none' | 'standard' | null;
+    drm?: MergedSettingsSchemaDrm | null;
     /**
      * Whether to require hardware DRM for playback when DRM is enabled
      */
@@ -788,10 +821,7 @@ export type MergedSettingsSchemaWritable = {
     update_saml_primary_group_on_login?: boolean | null;
     usage_history?: UsageHistory | null;
     use_asset_name_on_download?: boolean | null;
-    /**
-     * Watermark setting
-     */
-    watermark?: 'none' | 'standard' | null;
+    watermark?: MergedSettingsSchemaWatermark | null;
     watermark_options?: WatermarkOptionsType | null;
 };
 
@@ -828,10 +858,7 @@ export type SystemSettingPublicSchemaWritable = {
      * Grace period that indicate how long objects will live in recycle bin. Unit: hours
      */
     delete_grace_period?: number | null;
-    /**
-     * DRM setting
-     */
-    drm?: 'none' | 'standard' | null;
+    drm?: SystemSettingPublicSchemaDrm | null;
     /**
      * Whether to require hardware DRM for playback when DRM is enabled
      */
@@ -889,10 +916,7 @@ export type SystemSettingPublicSchemaWritable = {
     texts_metadata_field?: string | null;
     update_saml_primary_group_on_login?: boolean | null;
     use_asset_name_on_download?: boolean | null;
-    /**
-     * Watermark setting
-     */
-    watermark?: 'none' | 'standard' | null;
+    watermark?: SystemSettingPublicSchemaWatermark | null;
     watermark_options?: WatermarkOptionsType | null;
 };
 
@@ -929,10 +953,7 @@ export type SystemSettingSchemaWritable = {
      * Grace period that indicate how long objects will live in recycle bin. Unit: hours
      */
     delete_grace_period?: number | null;
-    /**
-     * DRM setting
-     */
-    drm?: 'none' | 'standard' | null;
+    drm?: SystemSettingSchemaDrm | null;
     /**
      * Whether to require hardware DRM for playback when DRM is enabled
      */
@@ -990,10 +1011,7 @@ export type SystemSettingSchemaWritable = {
     texts_metadata_field?: string | null;
     update_saml_primary_group_on_login?: boolean | null;
     use_asset_name_on_download?: boolean | null;
-    /**
-     * Watermark setting
-     */
-    watermark?: 'none' | 'standard' | null;
+    watermark?: SystemSettingSchemaWatermark | null;
     watermark_options?: WatermarkOptionsType | null;
 };
 

@@ -280,7 +280,7 @@ export const postAssetsBulkKeyframes = <ThrowOnError extends boolean = false>(op
  * @deprecated
  */
 export const postAssetsExportLocationsByExportLocationId = <ThrowOnError extends boolean = false>(options: Options<PostAssetsExportLocationsByExportLocationIdData, ThrowOnError>): RequestResult<PostAssetsExportLocationsByExportLocationIdResponses, PostAssetsExportLocationsByExportLocationIdErrors, ThrowOnError> => (options.client ?? client).post<PostAssetsExportLocationsByExportLocationIdResponses, PostAssetsExportLocationsByExportLocationIdErrors, ThrowOnError>({
-    security: [{ name: 'App-ID', type: 'apiKey' }],
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
     url: '/v1/assets/export_locations/{export_location_id}/',
     ...options,
     headers: {

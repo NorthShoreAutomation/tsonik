@@ -122,7 +122,7 @@ export const deleteAppsByAppId = <ThrowOnError extends boolean = false>(options:
  *
  */
 export const getAppsByAppId = <ThrowOnError extends boolean = false>(options: Options<GetAppsByAppIdData, ThrowOnError>): RequestResult<GetAppsByAppIdResponses, GetAppsByAppIdErrors, ThrowOnError> => (options.client ?? client).get<GetAppsByAppIdResponses, GetAppsByAppIdErrors, ThrowOnError>({
-    security: [{ name: 'Auth-Token', type: 'apiKey' }],
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
     url: '/v1/apps/{app_id}/',
     ...options
 });

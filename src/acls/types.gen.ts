@@ -86,6 +86,8 @@ export type CreateAclsSchema = {
     user_ids?: Array<string> | null;
 };
 
+export type CreateAclsSchemaMode = 'APPEND' | 'OVERWRITE';
+
 export type CreateAclsSchemaMultiple = {
     group_ids?: Array<string> | null;
     mode?: unknown;
@@ -100,6 +102,8 @@ export type CreateAclsSchemaMultiple = {
     user_ids?: Array<string> | null;
 };
 
+export type CreateAclsSchemaMultipleMode = 'APPEND' | 'OVERWRITE';
+
 export type CreateBulkAclsSchema = {
     group_ids?: Array<string> | null;
     include_assets: boolean;
@@ -113,6 +117,8 @@ export type CreateBulkAclsSchema = {
     permissions: Array<string>;
     user_ids?: Array<string> | null;
 };
+
+export type CreateBulkAclsSchemaMode = 'APPEND' | 'OVERWRITE';
 
 export type CreateMultipleAclsSchema = {
     /**
@@ -300,7 +306,7 @@ export type CopyInheritedAclSchemaWritable = {
 
 export type CreateAclsSchemaWritable = {
     group_ids?: Array<unknown> | null;
-    mode?: 'APPEND' | 'OVERWRITE' | null;
+    mode?: CreateAclsSchemaMode | null;
     /**
      * The number of object_keys in the list is limited to a minimum of 0 and a maximum of 500
      */
@@ -311,7 +317,7 @@ export type CreateAclsSchemaWritable = {
 
 export type CreateAclsSchemaMultipleWritable = {
     group_ids?: Array<unknown> | null;
-    mode?: 'APPEND' | 'OVERWRITE' | null;
+    mode?: CreateAclsSchemaMultipleMode | null;
     /**
      * The number of object_keys in the list is limited to a minimum of 1 and a maximum of 1
      */
@@ -326,7 +332,7 @@ export type CreateBulkAclsSchemaWritable = {
     group_ids?: Array<string> | null;
     include_assets: boolean;
     include_collections: boolean;
-    mode?: 'APPEND' | 'OVERWRITE' | null;
+    mode?: CreateBulkAclsSchemaMode | null;
     /**
      * The number of object_ids in the list is limited to a minimum of 0 and a maximum of 500
      */

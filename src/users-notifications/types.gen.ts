@@ -23,10 +23,12 @@ export type DeviceTokenSchema = {
     readonly last_failed_at?: string | null;
     readonly last_used_at?: string | null;
     platform: 'android' | 'ios';
-    push_service?: 'apns' | 'fcm' | null;
+    push_service?: DeviceTokenSchemaPushService | null;
     readonly system_domain_id?: string | null;
     readonly user_id?: string | null;
 };
+
+export type DeviceTokenSchemaPushService = 'apns' | 'fcm';
 
 export type DeviceTokensQueryParamsSchema = {
     /**
@@ -75,18 +77,20 @@ export type NotificationSchema = {
     sender_id: string;
     share_id?: string | null;
     share_user_id?: string | null;
-    status?: 'QUEUED' | 'READ' | 'SENT' | null;
+    status?: NotificationSchemaStatus | null;
     sub_object_id?: string | null;
     sub_object_type?: string | null;
     readonly system_domain_id?: string | null;
     user_id?: string | null;
 };
 
+export type NotificationSchemaStatus = 'QUEUED' | 'READ' | 'SENT';
+
 export type NotificationSettingSchema = {
     enabled: boolean;
     readonly event_type: string;
     readonly object_type: string;
-    protocol?: 'email' | 'push' | 'web' | null;
+    protocol?: NotificationSettingSchemaProtocol | null;
     readonly recipient_id?: string | null;
     settings?: {
         [key: string]: unknown;
@@ -94,6 +98,8 @@ export type NotificationSettingSchema = {
     readonly sub_object_type?: string | null;
     readonly system_domain_id?: string | null;
 };
+
+export type NotificationSettingSchemaProtocol = 'email' | 'push' | 'web';
 
 export type NotificationSettingsSchema = {
     readonly first_url?: string | null;
@@ -161,12 +167,14 @@ export type SystemNotificationSchema = {
     sender_id: string;
     share_id?: string | null;
     share_user_id?: string | null;
-    status?: 'QUEUED' | 'READ' | 'SENT' | null;
+    status?: SystemNotificationSchemaStatus | null;
     sub_object_id?: string | null;
     sub_object_type?: string | null;
     system_domain_id: string;
     user_id?: string | null;
 };
+
+export type SystemNotificationSchemaStatus = 'QUEUED' | 'READ' | 'SENT';
 
 export type DeviceTokenSchemaWritable = {
     app_bundle_id?: string | null;
@@ -174,7 +182,7 @@ export type DeviceTokenSchemaWritable = {
     device_name?: string | null;
     device_token: string;
     platform: 'android' | 'ios';
-    push_service?: 'apns' | 'fcm' | null;
+    push_service?: DeviceTokenSchemaPushService | null;
 };
 
 export type DeviceTokensSchemaWritable = {
@@ -195,7 +203,7 @@ export type NotificationSchemaWritable = {
     sender_id: string;
     share_id?: string | null;
     share_user_id?: string | null;
-    status?: 'QUEUED' | 'READ' | 'SENT' | null;
+    status?: NotificationSchemaStatus | null;
     sub_object_id?: string | null;
     sub_object_type?: string | null;
     user_id?: string | null;
@@ -243,7 +251,7 @@ export type SystemNotificationSchemaWritable = {
     sender_id: string;
     share_id?: string | null;
     share_user_id?: string | null;
-    status?: 'QUEUED' | 'READ' | 'SENT' | null;
+    status?: SystemNotificationSchemaStatus | null;
     sub_object_id?: string | null;
     sub_object_type?: string | null;
     system_domain_id: string;
@@ -793,7 +801,7 @@ export type GetSubscriptionsResponses = {
     /**
      * Returns a subscription
      */
-    200: SubscriptionSchema;
+    200: SubscriptionsSchema;
 };
 
 export type GetSubscriptionsResponse = GetSubscriptionsResponses[keyof GetSubscriptionsResponses];

@@ -2872,7 +2872,7 @@ export const postSharesAuthLogin = <ThrowOnError extends boolean = false>(option
  * Check if a token is valid
  */
 export const getSharesAuthToken = <ThrowOnError extends boolean = false>(options: Options<GetSharesAuthTokenData, ThrowOnError>): RequestResult<GetSharesAuthTokenResponses, GetSharesAuthTokenErrors, ThrowOnError> => (options.client ?? client).get<GetSharesAuthTokenResponses, GetSharesAuthTokenErrors, ThrowOnError>({
-    security: [{ name: 'App-ID', type: 'apiKey' }],
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
     url: '/v1/shares/auth/token/',
     ...options
 });
@@ -2881,7 +2881,7 @@ export const getSharesAuthToken = <ThrowOnError extends boolean = false>(options
  * Refreshes a token for share
  */
 export const putSharesAuthToken = <ThrowOnError extends boolean = false>(options: Options<PutSharesAuthTokenData, ThrowOnError>): RequestResult<PutSharesAuthTokenResponses, PutSharesAuthTokenErrors, ThrowOnError> => (options.client ?? client).put<PutSharesAuthTokenResponses, PutSharesAuthTokenErrors, ThrowOnError>({
-    security: [{ name: 'App-ID', type: 'apiKey' }],
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
     url: '/v1/shares/auth/token/',
     ...options
 });

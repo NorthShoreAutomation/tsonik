@@ -65,11 +65,13 @@ export type AnalysisProfileSchema = {
     readonly is_default?: boolean | null;
     media_type: 'face_image' | 'face_video' | 'image' | 'transcription' | 'video';
     name: string;
-    service_type?: 'AMAZON_REKOGNITION' | 'GOOGLE_VIDEO_INTELLIGENCE' | 'GOOGLE_VISION' | 'ICONIK' | 'ICONIK_FACE_RECOGNITION' | 'REV_AI' | null;
+    service_type?: AnalysisProfileSchemaServiceType | null;
     settings?: {
         [key: string]: unknown;
     } | null;
 };
+
+export type AnalysisProfileSchemaServiceType = 'AMAZON_REKOGNITION' | 'GOOGLE_VIDEO_INTELLIGENCE' | 'GOOGLE_VISION' | 'ICONIK' | 'ICONIK_FACE_RECOGNITION' | 'REV_AI';
 
 export type AnalysisProfileServiceIdSchema = {
     analysis_service_account_id: string;
@@ -109,12 +111,18 @@ export type AnalysisServiceAccountReadSchema = {
     readonly id?: string | null;
     method: 'AMAZON' | 'GOOGLE_AI' | 'ICONIK' | 'REV_AI';
     name: string;
+    settings: {
+        [key: string]: unknown;
+    };
 };
 
 export type AnalysisServiceAccountSchema = {
     readonly id?: string | null;
     method: 'AMAZON' | 'GOOGLE_AI' | 'ICONIK' | 'REV_AI';
     name: string;
+    settings: {
+        [key: string]: unknown;
+    };
 };
 
 export type AnalysisServiceAccountsSchema = {
@@ -131,11 +139,13 @@ export type AnalysisTranscriptionSettingsSchema = {
     readonly is_default?: boolean | null;
     media_type: 'face_image' | 'face_video' | 'image' | 'transcription' | 'video';
     name: string;
-    service_type?: 'AMAZON_REKOGNITION' | 'GOOGLE_VIDEO_INTELLIGENCE' | 'GOOGLE_VISION' | 'ICONIK' | 'ICONIK_FACE_RECOGNITION' | 'REV_AI' | null;
+    service_type?: AnalysisTranscriptionSettingsSchemaServiceType | null;
     settings?: {
         [key: string]: unknown;
     } | null;
 };
+
+export type AnalysisTranscriptionSettingsSchemaServiceType = 'AMAZON_REKOGNITION' | 'GOOGLE_VIDEO_INTELLIGENCE' | 'GOOGLE_VISION' | 'ICONIK' | 'ICONIK_FACE_RECOGNITION' | 'REV_AI';
 
 export type ArchiveAssetFormatSchema = {
     delete_original?: boolean | null;
@@ -281,24 +291,28 @@ export type AssetBatchExportSchema = {
     assets: Array<AssetBatchExportItemSchema>;
     export_metadata?: boolean | null;
     export_to_asset_folder?: boolean | null;
-    metadata_format?: 'CSV' | 'JSON' | 'XML' | null;
+    metadata_format?: AssetBatchExportSchemaMetadataFormat | null;
     metadata_view?: string | null;
     overwrite?: boolean | null;
     preferred_original_storage_id?: string | null;
     transcode_profile_ids?: Array<string> | null;
 };
 
+export type AssetBatchExportSchemaMetadataFormat = 'CSV' | 'JSON' | 'XML';
+
 export type AssetExportSchema = {
     export_metadata?: boolean | null;
     export_to_asset_folder?: boolean | null;
     file_name?: string | null;
     format_id?: string | null;
-    metadata_format?: 'CSV' | 'JSON' | 'XML' | null;
+    metadata_format?: AssetExportSchemaMetadataFormat | null;
     metadata_view?: string | null;
     overwrite?: boolean | null;
     preferred_original_storage_id?: string | null;
     transcode_profile_ids?: Array<string> | null;
 };
+
+export type AssetExportSchemaMetadataFormat = 'CSV' | 'JSON' | 'XML';
 
 export type AssetLinkProxySchema = {
     asset_id: string;
@@ -397,11 +411,13 @@ export type B2SettingsSchema = {
 export type BaseExportSchema = {
     export_metadata?: boolean | null;
     export_to_asset_folder?: boolean | null;
-    metadata_format?: 'CSV' | 'JSON' | 'XML' | null;
+    metadata_format?: BaseExportSchemaMetadataFormat | null;
     metadata_view?: string | null;
     overwrite?: boolean | null;
     preferred_original_storage_id?: string | null;
 };
+
+export type BaseExportSchemaMetadataFormat = 'CSV' | 'JSON' | 'XML';
 
 export type BaseQueryParamsSchema = {
     /**
@@ -530,13 +546,15 @@ export type BulkFilesetExportSchema = {
     export_metadata?: boolean | null;
     export_to_asset_folder?: boolean | null;
     keep_collection_structure?: boolean | null;
-    metadata_format?: 'CSV' | 'JSON' | 'XML' | null;
+    metadata_format?: BulkFilesetExportSchemaMetadataFormat | null;
     metadata_view?: string | null;
     object_ids: Array<string>;
     object_type: 'assets' | 'collections';
     overwrite?: boolean | null;
     preferred_original_storage_id?: string | null;
 };
+
+export type BulkFilesetExportSchemaMetadataFormat = 'CSV' | 'JSON' | 'XML';
 
 export type BulkFilesetRestoreSchema = {
     allow_duplicate_transfers?: boolean | null;
@@ -598,9 +616,11 @@ export type BulkTranscodeSchema = {
     object_type: 'assets' | 'collections' | 'playlists' | 'saved_searches';
     prefer_any_cloud?: boolean | null;
     preferred_storage_id?: string | null;
-    preferred_storage_method?: 'AZURE' | 'B2' | 'CUSTOM' | 'FILE' | 'FTP' | 'GCS' | 'HTTP' | 'PORTAL' | 'S3' | 'SFTP' | null;
+    preferred_storage_method?: BulkTranscodeSchemaPreferredStorageMethod | null;
     priority?: number | null;
 };
+
+export type BulkTranscodeSchemaPreferredStorageMethod = 'AZURE' | 'B2' | 'CUSTOM' | 'FILE' | 'FTP' | 'GCS' | 'HTTP' | 'PORTAL' | 'S3' | 'SFTP';
 
 export type BulkTransferAssetRequestSchema = {
     /**
@@ -690,11 +710,13 @@ export type CollectionExportSchema = {
     export_metadata?: boolean | null;
     export_to_asset_folder?: boolean | null;
     keep_collection_structure?: boolean | null;
-    metadata_format?: 'CSV' | 'JSON' | 'XML' | null;
+    metadata_format?: CollectionExportSchemaMetadataFormat | null;
     metadata_view?: string | null;
     overwrite?: boolean | null;
     preferred_original_storage_id?: string | null;
 };
+
+export type CollectionExportSchemaMetadataFormat = 'CSV' | 'JSON' | 'XML';
 
 export type CollectionKeyframeCreateSchema = {
     collection_id?: string | null;
@@ -709,7 +731,7 @@ export type CollectionKeyframeCreateSchema = {
     resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: CollectionKeyframeCreateSchemaStatus | null;
     storage_id?: string | null;
     time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
@@ -720,6 +742,8 @@ export type CollectionKeyframeCreateSchema = {
     readonly upload_url?: string | null;
     readonly url?: string | null;
 };
+
+export type CollectionKeyframeCreateSchemaStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
 
 export type CollectionKeyframeSchema = {
     collection_id?: string | null;
@@ -734,12 +758,14 @@ export type CollectionKeyframeSchema = {
     resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: CollectionKeyframeSchemaStatus | null;
     storage_id?: string | null;
     time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
     readonly url?: string | null;
 };
+
+export type CollectionKeyframeSchemaStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
 
 export type CollectionKeyframeUpdateSchema = {
     readonly date_created?: string | null;
@@ -752,11 +778,13 @@ export type CollectionKeyframeUpdateSchema = {
     resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: CollectionKeyframeUpdateSchemaStatus | null;
     time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
     readonly url?: string | null;
 };
+
+export type CollectionKeyframeUpdateSchemaStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
 
 export type CollectionKeyframesSchema = {
     readonly first_url?: string | null;
@@ -941,9 +969,11 @@ export type EditReadyTranscoderSchema = {
     min_height?: number | null;
     min_width?: number | null;
     overwrite_edit_proxy?: boolean | null;
-    videocodec?: 'Apple_ProRes_422' | 'Apple_ProRes_422_HQ' | 'Apple_ProRes_422_LT' | 'Apple_ProRes_422_Proxy' | 'Apple_ProRes_4444' | null;
+    videocodec?: EditReadyTranscoderSchemaVideocodec | null;
     width: number;
 };
+
+export type EditReadyTranscoderSchemaVideocodec = 'Apple_ProRes_422' | 'Apple_ProRes_422_HQ' | 'Apple_ProRes_422_LT' | 'Apple_ProRes_422_Proxy' | 'Apple_ProRes_4444';
 
 export type ElementalMediaConvertSchema = {
     access_key: string;
@@ -1121,15 +1151,19 @@ export type ExportLocationSchema = {
     export_transcriptions?: boolean | null;
     readonly id?: string | null;
     include_original_extension?: boolean | null;
-    metadata_format?: 'CSV' | 'JSON' | 'XML' | null;
+    metadata_format?: ExportLocationSchemaMetadataFormat | null;
     metadata_view?: string | null;
     name: string;
     path: string;
     storage_id: string;
     readonly system_domain_id?: string | null;
     transcode_profile_ids?: Array<string> | null;
-    transcription_format?: 'SRT' | 'WEBVTT' | null;
+    transcription_format?: ExportLocationSchemaTranscriptionFormat | null;
 };
+
+export type ExportLocationSchemaMetadataFormat = 'CSV' | 'JSON' | 'XML';
+
+export type ExportLocationSchemaTranscriptionFormat = 'SRT' | 'WEBVTT';
 
 export type ExportLocationsSchema = {
     facets?: {
@@ -1221,9 +1255,11 @@ export type FFmpegSettingsSchema = {
     overlay_coordinates?: string | null;
     overlay_url?: string | null;
     priority?: number | null;
-    scaling_method?: 'accurate_rnd' | 'area' | 'bicubic' | 'bicublin' | 'bilinear' | 'bitexact' | 'experimental' | 'fast_bilinear' | 'full_chroma_inp' | 'full_chroma_int' | 'gauss' | 'lanczos' | 'neighbor' | 'sinc' | 'spline' | null;
+    scaling_method?: FFmpegSettingsSchemaScalingMethod | null;
     width?: number | null;
 };
+
+export type FFmpegSettingsSchemaScalingMethod = 'accurate_rnd' | 'area' | 'bicubic' | 'bicublin' | 'bilinear' | 'bitexact' | 'experimental' | 'fast_bilinear' | 'full_chroma_inp' | 'full_chroma_int' | 'gauss' | 'lanczos' | 'neighbor' | 'sinc' | 'spline';
 
 export type FileBaseSchema = {
     asset_id?: string | null;
@@ -1243,14 +1279,18 @@ export type FileBaseSchema = {
     original_name: string;
     parent_id?: string | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: FileBaseSchemaStatus | null;
     storage_id?: string | null;
     template?: string | null;
-    template_engine?: 'JINJA2' | 'SIMPLE' | null;
+    template_engine?: FileBaseSchemaTemplateEngine | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
     user_id?: string | null;
     version_id?: string | null;
 };
+
+export type FileBaseSchemaStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
+
+export type FileBaseSchemaTemplateEngine = 'JINJA2' | 'SIMPLE';
 
 export type FileCreateSchema = {
     asset_id?: string | null;
@@ -1271,11 +1311,11 @@ export type FileCreateSchema = {
     original_name: string;
     parent_id?: string | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: FileCreateSchemaStatus | null;
     storage_id?: string | null;
     readonly storage_method?: string | null;
     template?: string | null;
-    template_engine?: 'JINJA2' | 'SIMPLE' | null;
+    template_engine?: FileCreateSchemaTemplateEngine | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
     readonly upload_credentials?: {
         [key: string]: unknown;
@@ -1286,6 +1326,10 @@ export type FileCreateSchema = {
     user_id?: string | null;
     version_id?: string | null;
 };
+
+export type FileCreateSchemaStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
+
+export type FileCreateSchemaTemplateEngine = 'JINJA2' | 'SIMPLE';
 
 export type FileDeletionFromLocalStorageSchema = {
     readonly asset_id?: string | null;
@@ -1340,22 +1384,28 @@ export type FileElasticSchema = {
     original_name: string;
     parent_id?: string | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: FileElasticSchemaStatus | null;
     storage_id?: string | null;
     template?: string | null;
-    template_engine?: 'JINJA2' | 'SIMPLE' | null;
+    template_engine?: FileElasticSchemaTemplateEngine | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
     user_id?: string | null;
     version_id?: string | null;
 };
 
+export type FileElasticSchemaStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
+
+export type FileElasticSchemaTemplateEngine = 'JINJA2' | 'SIMPLE';
+
 export type FileExistenceCheckSchema = {
     directory_path: string;
     file_name: string;
-    file_type?: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK' | null;
+    file_type?: FileExistenceCheckSchemaFileType | null;
     template?: string | null;
     template_engine?: string | null;
 };
+
+export type FileExistenceCheckSchemaFileType = 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
 
 export type FileSchema = {
     asset_id?: string | null;
@@ -1378,12 +1428,12 @@ export type FileSchema = {
     original_name: string;
     parent_id?: string | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: FileSchemaStatus | null;
     storage_id?: string | null;
     readonly storage_method?: string | null;
     readonly system_domain_id?: string | null;
     template?: string | null;
-    template_engine?: 'JINJA2' | 'SIMPLE' | null;
+    template_engine?: FileSchemaTemplateEngine | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
     readonly upload_credentials?: {
         [key: string]: unknown;
@@ -1398,6 +1448,10 @@ export type FileSchema = {
     user_id?: string | null;
     version_id?: string | null;
 };
+
+export type FileSchemaStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
+
+export type FileSchemaTemplateEngine = 'JINJA2' | 'SIMPLE';
 
 export type FileSetElasticSchema = {
     archive_file_set_id?: string | null;
@@ -1414,11 +1468,15 @@ export type FileSetElasticSchema = {
     is_archive?: boolean | null;
     name: string;
     original_storage_id?: string | null;
-    status?: 'ACTIVE' | 'ARCHIVED' | 'DELETED' | null;
+    status?: FileSetElasticSchemaStatus | null;
     storage_id?: string | null;
-    type?: 'MANY_FILES' | 'REGULAR' | null;
+    type?: FileSetElasticSchemaType | null;
     version_id?: string | null;
 };
+
+export type FileSetElasticSchemaStatus = 'ACTIVE' | 'ARCHIVED' | 'DELETED';
+
+export type FileSetElasticSchemaType = 'MANY_FILES' | 'REGULAR';
 
 export type FileSetSchema = {
     archive_file_set_id?: string | null;
@@ -1435,11 +1493,15 @@ export type FileSetSchema = {
     is_archive?: boolean | null;
     name: string;
     original_storage_id?: string | null;
-    status?: 'ACTIVE' | 'ARCHIVED' | 'DELETED' | null;
+    status?: FileSetSchemaStatus | null;
     storage_id?: string | null;
-    type?: 'MANY_FILES' | 'REGULAR' | null;
+    type?: FileSetSchemaType | null;
     version_id?: string | null;
 };
+
+export type FileSetSchemaStatus = 'ACTIVE' | 'ARCHIVED' | 'DELETED';
+
+export type FileSetSchemaType = 'MANY_FILES' | 'REGULAR';
 
 export type FileSetSourceSchema = {
     archive_file_set_id?: string | null;
@@ -1456,12 +1518,16 @@ export type FileSetSourceSchema = {
     is_archive?: boolean | null;
     name: string;
     original_storage_id?: string | null;
-    status?: 'ACTIVE' | 'ARCHIVED' | 'DELETED' | null;
+    status?: FileSetSourceSchemaStatus | null;
     storage_id: string;
     storage_method: string;
-    type?: 'MANY_FILES' | 'REGULAR' | null;
+    type?: FileSetSourceSchemaType | null;
     version_id?: string | null;
 };
+
+export type FileSetSourceSchemaStatus = 'ACTIVE' | 'ARCHIVED' | 'DELETED';
+
+export type FileSetSourceSchemaType = 'MANY_FILES' | 'REGULAR';
 
 export type FileSetSourcesSchema = {
     readonly first_url?: string | null;
@@ -1557,8 +1623,10 @@ export type FileSettingsSchema = {
 
 export type FileShareUploadEditSchema = {
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: FileShareUploadEditSchemaStatus | null;
 };
+
+export type FileShareUploadEditSchemaStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
 
 export type FilesElasticSchema = {
     facets?: {
@@ -1641,7 +1709,7 @@ export type FormatDeleteArchiveSchema = {
 };
 
 export type FormatElasticSchema = {
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    archive_status?: FormatElasticSchemaArchiveStatus | null;
     readonly asset_id?: string | null;
     components?: Array<ComponentSchema> | null;
     readonly date_created?: string | null;
@@ -1658,12 +1726,16 @@ export type FormatElasticSchema = {
         [key: string]: string;
     }> | null;
     name: string;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: FormatElasticSchemaStatus | null;
     storage_methods?: Array<string> | null;
     user_id?: string | null;
     version_id?: string | null;
     readonly warnings?: Array<string> | null;
 };
+
+export type FormatElasticSchemaArchiveStatus = 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED';
+
+export type FormatElasticSchemaStatus = 'ACTIVE' | 'DELETED';
 
 export type FormatRestoreSchema = {
     destination_directory_path?: string | null;
@@ -1675,7 +1747,7 @@ export type FormatRestoreSchema = {
 };
 
 export type FormatSchema = {
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    archive_status?: FormatSchemaArchiveStatus | null;
     readonly asset_id?: string | null;
     components?: Array<ComponentSchema> | null;
     readonly date_created?: string | null;
@@ -1692,12 +1764,16 @@ export type FormatSchema = {
         [key: string]: string;
     }> | null;
     name: string;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: FormatSchemaStatus | null;
     storage_methods?: Array<string> | null;
     user_id?: string | null;
     version_id?: string | null;
     readonly warnings?: Array<string> | null;
 };
+
+export type FormatSchemaArchiveStatus = 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED';
+
+export type FormatSchemaStatus = 'ACTIVE' | 'DELETED';
 
 export type FormatsElasticSchema = {
     facets?: {
@@ -1759,9 +1835,9 @@ export type GatewayReportSchema = {
     scanned_files_number?: number | null;
     skipped_files_number?: number | null;
     readonly start_last_date?: string | null;
-    start_status?: 'FAILED' | 'SUCCESS' | null;
+    start_status?: GatewayReportSchemaStartStatus | null;
     start_status_message?: string | null;
-    status?: 'ERROR' | 'LIVE' | 'OFFLINE' | 'STOPPED' | 'UNKNOWN' | 'WARNING' | null;
+    status?: GatewayReportSchemaStatus | null;
     readonly storage_id?: string | null;
     total_files_number?: number | null;
     total_folders_number?: number | null;
@@ -1769,6 +1845,10 @@ export type GatewayReportSchema = {
     waiting_preview_transcode_jobs_number?: number | null;
     waiting_transcode_jobs_number?: number | null;
 };
+
+export type GatewayReportSchemaStartStatus = 'FAILED' | 'SUCCESS';
+
+export type GatewayReportSchemaStatus = 'ERROR' | 'LIVE' | 'OFFLINE' | 'STOPPED' | 'UNKNOWN' | 'WARNING';
 
 export type GatewayStatusSchema = {
     status?: string | null;
@@ -1885,7 +1965,7 @@ export type IconikStorageGatewayClusterReadSchema = {
      * Application configuration settings as key-value pairs
      */
     settings?: IsgConfigClusterSettingsSchema | null;
-    status?: 'ACTIVE' | 'ERROR' | 'OFFLINE' | 'STOPPED' | 'WARNING' | null;
+    status?: IconikStorageGatewayClusterReadSchemaStatus | null;
     storage_ids: Array<string>;
     /**
      * Total number of files
@@ -1905,6 +1985,8 @@ export type IconikStorageGatewayClusterReadSchema = {
     visibility_timeout?: number | null;
 };
 
+export type IconikStorageGatewayClusterReadSchemaStatus = 'ACTIVE' | 'ERROR' | 'OFFLINE' | 'STOPPED' | 'WARNING';
+
 export type IconikStorageGatewayClusterSchema = {
     readonly date_created?: string | null;
     readonly date_modified?: string | null;
@@ -1923,7 +2005,7 @@ export type IconikStorageGatewayClusterSchema = {
      * Application configuration settings as key-value pairs
      */
     settings?: IsgConfigClusterSettingsSchema | null;
-    status?: 'ACTIVE' | 'ERROR' | 'OFFLINE' | 'STOPPED' | 'WARNING' | null;
+    status?: IconikStorageGatewayClusterSchemaStatus | null;
     storage_ids: Array<string>;
     /**
      * Total number of files
@@ -1942,6 +2024,8 @@ export type IconikStorageGatewayClusterSchema = {
      */
     visibility_timeout?: number | null;
 };
+
+export type IconikStorageGatewayClusterSchemaStatus = 'ACTIVE' | 'ERROR' | 'OFFLINE' | 'STOPPED' | 'WARNING';
 
 export type IconikStorageGatewayClustersSchema = {
     readonly first_url?: string | null;
@@ -2005,7 +2089,7 @@ export type IconikStorageGatewayRead = {
      * Application configuration settings as key-value pairs
      */
     settings?: IsgConfigSettingsSchema | null;
-    status?: 'ACTIVE' | 'ERROR' | 'OFFLINE' | 'STOPPED' | 'WARNING' | null;
+    status?: IconikStorageGatewayReadStatus | null;
     /**
      * Server address for direct transfers between storage gateways
      */
@@ -2051,7 +2135,7 @@ export type IconikStorageGatewayReadSchema = {
      * Application configuration settings as key-value pairs
      */
     settings?: IsgConfigSettingsSchema | null;
-    status?: 'ACTIVE' | 'ERROR' | 'OFFLINE' | 'STOPPED' | 'WARNING' | null;
+    status?: IconikStorageGatewayReadSchemaStatus | null;
     /**
      * Server address for direct transfers between storage gateways
      */
@@ -2064,6 +2148,10 @@ export type IconikStorageGatewayReadSchema = {
     } | null;
     telemetry?: IconikStorageGatewayTelemetry | null;
 };
+
+export type IconikStorageGatewayReadSchemaStatus = 'ACTIVE' | 'ERROR' | 'OFFLINE' | 'STOPPED' | 'WARNING';
+
+export type IconikStorageGatewayReadStatus = 'ACTIVE' | 'ERROR' | 'OFFLINE' | 'STOPPED' | 'WARNING';
 
 export type IconikStorageGatewaySchema = {
     cluster_id?: string | null;
@@ -2112,9 +2200,9 @@ export type IconikStorageGatewayTelemetry = {
     host_name?: string | null;
     log_lines?: Array<string> | null;
     start_last_date?: string | null;
-    start_status?: 'FAILED' | 'SUCCESS' | null;
+    start_status?: IconikStorageGatewayTelemetryStartStatus | null;
     start_status_message?: string | null;
-    status?: 'ERROR' | 'LIVE' | 'OFFLINE' | 'STOPPED' | 'UNKNOWN' | 'WARNING' | null;
+    status?: IconikStorageGatewayTelemetryStatus | null;
     readonly storage_gateway_id?: string | null;
     version?: string | null;
     worker_id: string;
@@ -2127,13 +2215,21 @@ export type IconikStorageGatewayTelemetrySchema = {
     host_name?: string | null;
     log_lines?: Array<string> | null;
     start_last_date?: string | null;
-    start_status?: 'FAILED' | 'SUCCESS' | null;
+    start_status?: IconikStorageGatewayTelemetrySchemaStartStatus | null;
     start_status_message?: string | null;
-    status?: 'ERROR' | 'LIVE' | 'OFFLINE' | 'STOPPED' | 'UNKNOWN' | 'WARNING' | null;
+    status?: IconikStorageGatewayTelemetrySchemaStatus | null;
     readonly storage_gateway_id?: string | null;
     version?: string | null;
     worker_id: string;
 };
+
+export type IconikStorageGatewayTelemetrySchemaStartStatus = 'FAILED' | 'SUCCESS';
+
+export type IconikStorageGatewayTelemetrySchemaStatus = 'ERROR' | 'LIVE' | 'OFFLINE' | 'STOPPED' | 'UNKNOWN' | 'WARNING';
+
+export type IconikStorageGatewayTelemetryStartStatus = 'FAILED' | 'SUCCESS';
+
+export type IconikStorageGatewayTelemetryStatus = 'ERROR' | 'LIVE' | 'OFFLINE' | 'STOPPED' | 'UNKNOWN' | 'WARNING';
 
 export type IconikStorageGatewaysSchema = {
     readonly first_url?: string | null;
@@ -2197,7 +2293,7 @@ export type Keyframe = {
     resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: KeyframeStatus | null;
     storage_id?: string | null;
     readonly storage_method?: string | null;
     time_code?: TimeCodeType | null;
@@ -2222,11 +2318,13 @@ export type KeyframeBaseSchema = {
     resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: KeyframeBaseSchemaStatus | null;
     time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
     readonly url?: string | null;
 };
+
+export type KeyframeBaseSchemaStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
 
 export type KeyframeCreateSchema = {
     asset_id?: string | null;
@@ -2242,7 +2340,7 @@ export type KeyframeCreateSchema = {
     resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: KeyframeCreateSchemaStatus | null;
     storage_id?: string | null;
     readonly storage_method?: string | null;
     time_code?: TimeCodeType | null;
@@ -2255,6 +2353,8 @@ export type KeyframeCreateSchema = {
     readonly url?: string | null;
     version_id?: string | null;
 };
+
+export type KeyframeCreateSchemaStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
 
 export type KeyframeSchema = {
     asset_id?: string | null;
@@ -2270,7 +2370,7 @@ export type KeyframeSchema = {
     resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: KeyframeSchemaStatus | null;
     storage_id?: string | null;
     readonly storage_method?: string | null;
     time_code?: TimeCodeType | null;
@@ -2284,6 +2384,10 @@ export type KeyframeSchema = {
     version_id?: string | null;
 };
 
+export type KeyframeSchemaStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
+
+export type KeyframeStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
+
 export type KeyframeUpdateSchema = {
     readonly date_created?: string | null;
     readonly date_modified?: string | null;
@@ -2295,12 +2399,14 @@ export type KeyframeUpdateSchema = {
     resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: KeyframeUpdateSchemaStatus | null;
     storage_id?: string | null;
     time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
     readonly url?: string | null;
 };
+
+export type KeyframeUpdateSchemaStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
 
 export type KeyframesSchema = {
     readonly first_url?: string | null;
@@ -2434,7 +2540,7 @@ export type PlaylistKeyframeCreateSchema = {
     resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: PlaylistKeyframeCreateSchemaStatus | null;
     storage_id?: string | null;
     time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
@@ -2445,6 +2551,8 @@ export type PlaylistKeyframeCreateSchema = {
     readonly upload_url?: string | null;
     readonly url?: string | null;
 };
+
+export type PlaylistKeyframeCreateSchemaStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
 
 export type PlaylistKeyframeSchema = {
     readonly date_created?: string | null;
@@ -2459,12 +2567,14 @@ export type PlaylistKeyframeSchema = {
     resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: PlaylistKeyframeSchemaStatus | null;
     storage_id?: string | null;
     time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
     readonly url?: string | null;
 };
+
+export type PlaylistKeyframeSchemaStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
 
 export type PlaylistKeyframeUpdateSchema = {
     readonly date_created?: string | null;
@@ -2477,11 +2587,13 @@ export type PlaylistKeyframeUpdateSchema = {
     resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: PlaylistKeyframeUpdateSchemaStatus | null;
     time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
     readonly url?: string | null;
 };
+
+export type PlaylistKeyframeUpdateSchemaStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
 
 export type PlaylistKeyframesSchema = {
     readonly first_url?: string | null;
@@ -2559,7 +2671,7 @@ export type Proxy = {
     rotation?: number | null;
     size?: number | null;
     start_time_code?: string | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: ProxyStatus | null;
     storage_id?: string | null;
     readonly storage_method?: string | null;
     readonly upload_credentials?: {
@@ -2591,10 +2703,12 @@ export type ProxyBaseSchema = {
     rotation?: number | null;
     size?: number | null;
     start_time_code?: string | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: ProxyBaseSchemaStatus | null;
     readonly url?: string | null;
     version_id?: string | null;
 };
+
+export type ProxyBaseSchemaStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
 
 export type ProxyContainerByUserSchema = {
     readonly bit_profile?: number | null;
@@ -2648,7 +2762,7 @@ export type ProxyCreateSchema = {
     rotation?: number | null;
     size?: number | null;
     start_time_code?: string | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: ProxyCreateSchemaStatus | null;
     storage_id?: string | null;
     readonly storage_method?: string | null;
     readonly upload_credentials?: {
@@ -2659,6 +2773,8 @@ export type ProxyCreateSchema = {
     readonly url?: string | null;
     version_id?: string | null;
 };
+
+export type ProxyCreateSchemaStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
 
 export type ProxyDownloadUrlSchema = {
     readonly url?: string | null;
@@ -2683,14 +2799,18 @@ export type ProxyFileSchema = {
     parent_id?: string | null;
     proxy_sequence_type: string;
     size?: number | null;
-    status?: 'CLOSED' | 'FAILED' | 'OPEN' | null;
+    status?: ProxyFileSchemaStatus | null;
     storage_id?: string | null;
     template?: string | null;
-    template_engine?: 'JINJA2' | 'SIMPLE' | null;
+    template_engine?: ProxyFileSchemaTemplateEngine | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
     user_id?: string | null;
     version_id?: string | null;
 };
+
+export type ProxyFileSchemaStatus = 'CLOSED' | 'FAILED' | 'OPEN';
+
+export type ProxyFileSchemaTemplateEngine = 'JINJA2' | 'SIMPLE';
 
 export type ProxyFileUpdateSchema = {
     status: 'CLOSED' | 'FAILED' | 'OPEN';
@@ -2718,7 +2838,7 @@ export type ProxySchema = {
     rotation?: number | null;
     size?: number | null;
     start_time_code?: string | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: ProxySchemaStatus | null;
     storage_id?: string | null;
     readonly storage_method?: string | null;
     readonly upload_credentials?: {
@@ -2729,6 +2849,10 @@ export type ProxySchema = {
     readonly url?: string | null;
     version_id?: string | null;
 };
+
+export type ProxySchemaStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
+
+export type ProxyStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
 
 export type ProxyUpdateSchema = {
     asset_id?: string | null;
@@ -2750,11 +2874,13 @@ export type ProxyUpdateSchema = {
     rotation?: number | null;
     size?: number | null;
     start_time_code?: string | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: ProxyUpdateSchemaStatus | null;
     storage_id?: string | null;
     readonly url?: string | null;
     version_id?: string | null;
 };
+
+export type ProxyUpdateSchemaStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
 
 export type RedlineSchema = {
     default_lut3d_file?: string | null;
@@ -2762,18 +2888,24 @@ export type RedlineSchema = {
     edit_proxy_upload_storage_id?: string | null;
     edit_proxy_upload_storage_path?: string | null;
     exclude_patterns?: Array<string> | null;
-    format?: '' | 'Apple ProRes' | 'QT transcode' | null;
+    format?: RedlineSchemaFormat | null;
     include_patterns?: Array<string> | null;
     keep_redline_proxy?: boolean | null;
     local?: boolean | null;
     opencl_device_indexes?: Array<string> | null;
-    prcodec?: 'Apple_ProRes_422' | 'Apple_ProRes_422_HQ' | 'Apple_ProRes_422_LT' | 'Apple_ProRes_422_Proxy' | 'Apple_ProRes_4444' | 'Apple_ProRes_4444_XQ' | null;
+    prcodec?: RedlineSchemaPrcodec | null;
     priority?: number | null;
-    qt_codec?: '' | 'AVID_1080P_DNxHD_115/120_8-bit' | 'AVID_1080P_DNxHD_175/185_10-bit' | 'AVID_1080P_DNxHD_175/185_8-bit' | 'AVID_1080P_DNxHD_36_8-bit' | 'AVID_720P_DNxHD_120/145_8-bit' | 'AVID_720P_DNxHD_185/220_10-bit' | 'AVID_720P_DNxHD_185/220_8-bit' | 'AVID_720P_DNxHD_60/75_8-bit' | 'AVID_720P_DNxHD_90/110_10-bit' | 'AVID_720P_DNxHD_90/110_8-bit' | 'Apple_ProRes_422' | 'Apple_ProRes_422_HQ' | 'Apple_ProRes_422_LT' | 'Apple_ProRes_422_Proxy' | 'Apple_ProRes_4444' | 'H263' | 'H264' | null;
+    qt_codec?: RedlineSchemaQtCodec | null;
     render_resolution?: number | null;
     use_metadata_cube_file_in_proxy?: boolean | null;
     use_rmd?: number | null;
 };
+
+export type RedlineSchemaFormat = '' | 'Apple ProRes' | 'QT transcode';
+
+export type RedlineSchemaPrcodec = 'Apple_ProRes_422' | 'Apple_ProRes_422_HQ' | 'Apple_ProRes_422_LT' | 'Apple_ProRes_422_Proxy' | 'Apple_ProRes_4444' | 'Apple_ProRes_4444_XQ';
+
+export type RedlineSchemaQtCodec = '' | 'AVID_1080P_DNxHD_115/120_8-bit' | 'AVID_1080P_DNxHD_175/185_10-bit' | 'AVID_1080P_DNxHD_175/185_8-bit' | 'AVID_1080P_DNxHD_36_8-bit' | 'AVID_720P_DNxHD_120/145_8-bit' | 'AVID_720P_DNxHD_185/220_10-bit' | 'AVID_720P_DNxHD_185/220_8-bit' | 'AVID_720P_DNxHD_60/75_8-bit' | 'AVID_720P_DNxHD_90/110_10-bit' | 'AVID_720P_DNxHD_90/110_8-bit' | 'Apple_ProRes_422' | 'Apple_ProRes_422_HQ' | 'Apple_ProRes_422_LT' | 'Apple_ProRes_422_Proxy' | 'Apple_ProRes_4444' | 'H263' | 'H264';
 
 export type ReindexExportLocationSchema = {
     sync_to_another_dc?: boolean | null;
@@ -3021,14 +3153,18 @@ export type SequenceUpdateSchema = {
     original_name: string;
     parent_id?: string | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: SequenceUpdateSchemaStatus | null;
     storage_id?: string | null;
     template?: string | null;
-    template_engine?: 'JINJA2' | 'SIMPLE' | null;
+    template_engine?: SequenceUpdateSchemaTemplateEngine | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
     user_id?: string | null;
     version_id?: string | null;
 };
+
+export type SequenceUpdateSchemaStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
+
+export type SequenceUpdateSchemaTemplateEngine = 'JINJA2' | 'SIMPLE';
 
 export type SftpSettingsSchema = {
     address: string;
@@ -3091,18 +3227,22 @@ export type StorageFileSchema = {
     original_name: string;
     parent_id?: string | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: StorageFileSchemaStatus | null;
     /**
      * Deprecated field. Use destination_storage_id instead
      */
     storage_id?: string | null;
     template?: string | null;
-    template_engine?: 'JINJA2' | 'SIMPLE' | null;
+    template_engine?: StorageFileSchemaTemplateEngine | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
     readonly url?: string | null;
     user_id?: string | null;
     version_id?: string | null;
 };
+
+export type StorageFileSchemaStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
+
+export type StorageFileSchemaTemplateEngine = 'JINJA2' | 'SIMPLE';
 
 export type StorageFileUpdateSchema = {
     asset_id?: string | null;
@@ -3119,14 +3259,20 @@ export type StorageFileUpdateSchema = {
     original_name?: string | null;
     parent_id?: string | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: StorageFileUpdateSchemaStatus | null;
     storage_id?: string | null;
     template?: string | null;
-    template_engine?: 'JINJA2' | 'SIMPLE' | null;
-    type?: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK' | null;
+    template_engine?: StorageFileUpdateSchemaTemplateEngine | null;
+    type?: StorageFileUpdateSchemaType | null;
     user_id?: string | null;
     version_id?: string | null;
 };
+
+export type StorageFileUpdateSchemaStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
+
+export type StorageFileUpdateSchemaTemplateEngine = 'JINJA2' | 'SIMPLE';
+
+export type StorageFileUpdateSchemaType = 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
 
 export type StorageFilesDeleteBulkSchema = {
     /**
@@ -3187,10 +3333,15 @@ export type StoragePrivateDataSchema = {
     name: string;
     purpose: 'ARCHIVE' | 'EXPORTS' | 'FACES' | 'FILES' | 'KEYFRAMES' | 'PROXIES';
     scanner_status?: string | null;
-    status?: 'ACTIVE' | 'FAILING' | 'INACTIVE' | null;
+    settings: {
+        [key: string]: unknown;
+    };
+    status?: StoragePrivateDataSchemaStatus | null;
     status_message?: string | null;
     readonly version?: string | null;
 };
+
+export type StoragePrivateDataSchemaStatus = 'ACTIVE' | 'FAILING' | 'INACTIVE';
 
 export type StorageReadSchema = {
     readonly default?: boolean | null;
@@ -3202,12 +3353,17 @@ export type StorageReadSchema = {
     name: string;
     purpose: 'ARCHIVE' | 'EXPORTS' | 'FACES' | 'FILES' | 'KEYFRAMES' | 'PROXIES';
     scanner_status?: string | null;
-    status?: 'ACTIVE' | 'FAILING' | 'INACTIVE' | null;
+    settings: {
+        [key: string]: unknown;
+    };
+    status?: StorageReadSchemaStatus | null;
     status_message?: string | null;
     readonly storage_gateway_cluster_id?: string | null;
     readonly storage_gateway_ids?: Array<string> | null;
     readonly version?: string | null;
 };
+
+export type StorageReadSchemaStatus = 'ACTIVE' | 'FAILING' | 'INACTIVE';
 
 export type StorageScanSchema = {
     files?: Array<string> | null;
@@ -3227,10 +3383,15 @@ export type StorageSchema = {
     name: string;
     purpose: 'ARCHIVE' | 'EXPORTS' | 'FACES' | 'FILES' | 'KEYFRAMES' | 'PROXIES';
     scanner_status?: string | null;
-    status?: 'ACTIVE' | 'FAILING' | 'INACTIVE' | null;
+    settings: {
+        [key: string]: unknown;
+    };
+    status?: StorageSchemaStatus | null;
     status_message?: string | null;
     readonly version?: string | null;
 };
+
+export type StorageSchemaStatus = 'ACTIVE' | 'FAILING' | 'INACTIVE';
 
 export type StorageValidationSchema = {
     method: 'AZURE' | 'B2' | 'CUSTOM' | 'FILE' | 'FTP' | 'GCS' | 'HTTP' | 'PORTAL' | 'S3' | 'SFTP';
@@ -3351,11 +3512,11 @@ export type TemporaryFileCreateSchema = {
     parent_id?: string | null;
     readonly path_exist?: boolean | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: TemporaryFileCreateSchemaStatus | null;
     storage_id?: string | null;
     readonly storage_method?: string | null;
     template?: string | null;
-    template_engine?: 'JINJA2' | 'SIMPLE' | null;
+    template_engine?: TemporaryFileCreateSchemaTemplateEngine | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
     readonly upload_credentials?: {
         [key: string]: unknown;
@@ -3366,6 +3527,10 @@ export type TemporaryFileCreateSchema = {
     user_id?: string | null;
     version_id?: string | null;
 };
+
+export type TemporaryFileCreateSchemaStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
+
+export type TemporaryFileCreateSchemaTemplateEngine = 'JINJA2' | 'SIMPLE';
 
 export type TemporaryFileSetSchema = {
     archive_file_set_id?: string | null;
@@ -3383,11 +3548,15 @@ export type TemporaryFileSetSchema = {
     job_id: string;
     name: string;
     original_storage_id?: string | null;
-    status?: 'ACTIVE' | 'ARCHIVED' | 'DELETED' | null;
+    status?: TemporaryFileSetSchemaStatus | null;
     storage_id?: string | null;
-    type?: 'MANY_FILES' | 'REGULAR' | null;
+    type?: TemporaryFileSetSchemaType | null;
     version_id?: string | null;
 };
+
+export type TemporaryFileSetSchemaStatus = 'ACTIVE' | 'ARCHIVED' | 'DELETED';
+
+export type TemporaryFileSetSchemaType = 'MANY_FILES' | 'REGULAR';
 
 export type TimeBaseType = {
     denominator?: number | null;
@@ -3434,12 +3603,17 @@ export type TranscoderByStorageReadSchema = {
         [key: string]: unknown;
     } | null;
     storage_id?: string | null;
-    type?: 'EDITREADY' | 'EDIT_PROXY' | 'ELEMENTAL_MEDIACONVERT' | 'ELEMENTAL_SERVER' | 'ENCODING_COM' | 'FFMPEG' | 'FLICS' | 'ICONIK_EDGE_TRANSCODER' | 'IMAGEMAGICK' | 'LIBREOFFICE' | 'REDLINE' | 'TELESTREAM_CLOUD' | 'VANTAGE' | 'WATCH_FOLDER_VIDEO' | 'WILDMOKA' | 'ZENCODER' | null;
+    type?: TranscoderByStorageReadSchemaType | null;
 };
+
+export type TranscoderByStorageReadSchemaType = 'EDITREADY' | 'EDIT_PROXY' | 'ELEMENTAL_MEDIACONVERT' | 'ELEMENTAL_SERVER' | 'ENCODING_COM' | 'FFMPEG' | 'FLICS' | 'ICONIK_EDGE_TRANSCODER' | 'IMAGEMAGICK' | 'LIBREOFFICE' | 'REDLINE' | 'TELESTREAM_CLOUD' | 'VANTAGE' | 'WATCH_FOLDER_VIDEO' | 'WILDMOKA' | 'ZENCODER';
 
 export type TranscoderCreateSchema = {
     readonly id?: string | null;
     name: string;
+    settings: {
+        [key: string]: unknown;
+    };
     type: 'EDITREADY' | 'EDIT_PROXY' | 'ELEMENTAL_MEDIACONVERT' | 'ELEMENTAL_SERVER' | 'ENCODING_COM' | 'FFMPEG' | 'FLICS' | 'ICONIK_EDGE_TRANSCODER' | 'IMAGEMAGICK' | 'LIBREOFFICE' | 'REDLINE' | 'TELESTREAM_CLOUD' | 'VANTAGE' | 'WATCH_FOLDER_VIDEO' | 'WILDMOKA' | 'ZENCODER';
 };
 
@@ -3455,6 +3629,9 @@ export type TranscoderOptionsSchema = {
 export type TranscoderReadSchema = {
     readonly id?: string | null;
     name: string;
+    settings: {
+        [key: string]: unknown;
+    };
     readonly storages?: Array<StorageReadSchema> | null;
     type: 'EDITREADY' | 'EDIT_PROXY' | 'ELEMENTAL_MEDIACONVERT' | 'ELEMENTAL_SERVER' | 'ENCODING_COM' | 'FFMPEG' | 'FLICS' | 'ICONIK_EDGE_TRANSCODER' | 'IMAGEMAGICK' | 'LIBREOFFICE' | 'REDLINE' | 'TELESTREAM_CLOUD' | 'VANTAGE' | 'WATCH_FOLDER_VIDEO' | 'WILDMOKA' | 'ZENCODER';
 };
@@ -3462,6 +3639,9 @@ export type TranscoderReadSchema = {
 export type TranscoderSchema = {
     readonly id?: string | null;
     name: string;
+    settings: {
+        [key: string]: unknown;
+    };
     type: 'EDITREADY' | 'EDIT_PROXY' | 'ELEMENTAL_MEDIACONVERT' | 'ELEMENTAL_SERVER' | 'ENCODING_COM' | 'FFMPEG' | 'FLICS' | 'ICONIK_EDGE_TRANSCODER' | 'IMAGEMAGICK' | 'LIBREOFFICE' | 'REDLINE' | 'TELESTREAM_CLOUD' | 'VANTAGE' | 'WATCH_FOLDER_VIDEO' | 'WILDMOKA' | 'ZENCODER';
 };
 
@@ -3479,6 +3659,9 @@ export type TranscoderTokenSchema = {
 export type TranscoderUpdateSchema = {
     readonly id?: string | null;
     name: string;
+    settings: {
+        [key: string]: unknown;
+    };
     type: 'EDITREADY' | 'EDIT_PROXY' | 'ELEMENTAL_MEDIACONVERT' | 'ELEMENTAL_SERVER' | 'ENCODING_COM' | 'FFMPEG' | 'FLICS' | 'ICONIK_EDGE_TRANSCODER' | 'IMAGEMAGICK' | 'LIBREOFFICE' | 'REDLINE' | 'TELESTREAM_CLOUD' | 'VANTAGE' | 'WATCH_FOLDER_VIDEO' | 'WILDMOKA' | 'ZENCODER';
 };
 
@@ -3614,11 +3797,13 @@ export type TransferCloudSchema = {
     original_url?: string | null;
     parent_job_id?: string | null;
     readonly priority?: number | null;
-    status?: 'D' | 'E' | 'Q' | 'U' | null;
+    status?: TransferCloudSchemaStatus | null;
     readonly success?: string | null;
     readonly transfer_type?: string | null;
     readonly user_id?: string | null;
 };
+
+export type TransferCloudSchemaStatus = 'D' | 'E' | 'Q' | 'U';
 
 export type TransferCollectionToStorageRequest = {
     all_versions?: boolean | null;
@@ -3926,9 +4111,11 @@ export type VideoBaseSchema = {
     local?: boolean | null;
     merge_multichannel_audio_tracks?: boolean | null;
     priority?: number | null;
-    scaling_method?: 'accurate_rnd' | 'area' | 'bicubic' | 'bicublin' | 'bilinear' | 'bitexact' | 'experimental' | 'fast_bilinear' | 'full_chroma_inp' | 'full_chroma_int' | 'gauss' | 'lanczos' | 'neighbor' | 'sinc' | 'spline' | null;
+    scaling_method?: VideoBaseSchemaScalingMethod | null;
     width?: number | null;
 };
+
+export type VideoBaseSchemaScalingMethod = 'accurate_rnd' | 'area' | 'bicubic' | 'bicublin' | 'bilinear' | 'bitexact' | 'experimental' | 'fast_bilinear' | 'full_chroma_inp' | 'full_chroma_int' | 'gauss' | 'lanczos' | 'neighbor' | 'sinc' | 'spline';
 
 export type WatchFolderVideoTranscoderSchema = {
     create_web_proxy_from_edit_proxy?: boolean | null;
@@ -3971,7 +4158,7 @@ export type WildmokaSettingsSchema = {
     local?: boolean | null;
     merge_multichannel_audio_tracks?: boolean | null;
     priority?: number | null;
-    scaling_method?: 'accurate_rnd' | 'area' | 'bicubic' | 'bicublin' | 'bilinear' | 'bitexact' | 'experimental' | 'fast_bilinear' | 'full_chroma_inp' | 'full_chroma_int' | 'gauss' | 'lanczos' | 'neighbor' | 'sinc' | 'spline' | null;
+    scaling_method?: WildmokaSettingsSchemaScalingMethod | null;
     width?: number | null;
     /**
      * Wildmoka API endpoint URL
@@ -3995,6 +4182,8 @@ export type WildmokaSettingsSchema = {
     wm_video_variants?: Array<string> | null;
 };
 
+export type WildmokaSettingsSchemaScalingMethod = 'accurate_rnd' | 'area' | 'bicubic' | 'bicublin' | 'bilinear' | 'bitexact' | 'experimental' | 'fast_bilinear' | 'full_chroma_inp' | 'full_chroma_int' | 'gauss' | 'lanczos' | 'neighbor' | 'sinc' | 'spline';
+
 export type ZencoderSettingsSchema = {
     api_key: string;
     exclude_patterns?: Array<string> | null;
@@ -4012,7 +4201,7 @@ export type AnalysisProfileSchemaWritable = {
     enabled?: boolean | null;
     media_type: 'face_image' | 'face_video' | 'image' | 'transcription' | 'video';
     name: string;
-    service_type?: 'AMAZON_REKOGNITION' | 'GOOGLE_VIDEO_INTELLIGENCE' | 'GOOGLE_VISION' | 'ICONIK' | 'ICONIK_FACE_RECOGNITION' | 'REV_AI' | null;
+    service_type?: AnalysisProfileSchemaServiceType | null;
     settings?: {
         [key: string]: unknown;
     } | null;
@@ -4029,11 +4218,17 @@ export type AnalysisServiceAccountBaseSchemaWritable = {
 export type AnalysisServiceAccountReadSchemaWritable = {
     method: 'AMAZON' | 'GOOGLE_AI' | 'ICONIK' | 'REV_AI';
     name: string;
+    settings: {
+        [key: string]: unknown;
+    };
 };
 
 export type AnalysisServiceAccountSchemaWritable = {
     method: 'AMAZON' | 'GOOGLE_AI' | 'ICONIK' | 'REV_AI';
     name: string;
+    settings: {
+        [key: string]: unknown;
+    };
 };
 
 export type AnalysisServiceAccountsSchemaWritable = {
@@ -4048,7 +4243,7 @@ export type AnalysisTranscriptionSettingsSchemaWritable = {
     enabled?: boolean | null;
     media_type: 'face_image' | 'face_video' | 'image' | 'transcription' | 'video';
     name: string;
-    service_type?: 'AMAZON_REKOGNITION' | 'GOOGLE_VIDEO_INTELLIGENCE' | 'GOOGLE_VISION' | 'ICONIK' | 'ICONIK_FACE_RECOGNITION' | 'REV_AI' | null;
+    service_type?: AnalysisTranscriptionSettingsSchemaServiceType | null;
     settings?: {
         [key: string]: unknown;
     } | null;
@@ -4073,7 +4268,7 @@ export type CollectionKeyframeCreateSchemaWritable = {
     resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: CollectionKeyframeCreateSchemaStatus | null;
     storage_id?: string | null;
     time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
@@ -4088,7 +4283,7 @@ export type CollectionKeyframeSchemaWritable = {
     resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: CollectionKeyframeSchemaStatus | null;
     storage_id?: string | null;
     time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
@@ -4102,7 +4297,7 @@ export type CollectionKeyframeUpdateSchemaWritable = {
     resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: CollectionKeyframeUpdateSchemaStatus | null;
     time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
 };
@@ -4169,13 +4364,13 @@ export type ExportLocationSchemaWritable = {
     export_to_asset_folder?: boolean | null;
     export_transcriptions?: boolean | null;
     include_original_extension?: boolean | null;
-    metadata_format?: 'CSV' | 'JSON' | 'XML' | null;
+    metadata_format?: ExportLocationSchemaMetadataFormat | null;
     metadata_view?: string | null;
     name: string;
     path: string;
     storage_id: string;
     transcode_profile_ids?: Array<string> | null;
-    transcription_format?: 'SRT' | 'WEBVTT' | null;
+    transcription_format?: ExportLocationSchemaTranscriptionFormat | null;
 };
 
 export type ExportLocationsSchemaWritable = {
@@ -4199,10 +4394,10 @@ export type FileBaseSchemaWritable = {
     original_name: string;
     parent_id?: string | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: FileBaseSchemaStatus | null;
     storage_id?: string | null;
     template?: string | null;
-    template_engine?: 'JINJA2' | 'SIMPLE' | null;
+    template_engine?: FileBaseSchemaTemplateEngine | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
     user_id?: string | null;
     version_id?: string | null;
@@ -4224,10 +4419,10 @@ export type FileCreateSchemaWritable = {
     original_name: string;
     parent_id?: string | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: FileCreateSchemaStatus | null;
     storage_id?: string | null;
     template?: string | null;
-    template_engine?: 'JINJA2' | 'SIMPLE' | null;
+    template_engine?: FileCreateSchemaTemplateEngine | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
     user_id?: string | null;
     version_id?: string | null;
@@ -4264,10 +4459,10 @@ export type FileElasticSchemaWritable = {
     original_name: string;
     parent_id?: string | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: FileElasticSchemaStatus | null;
     storage_id?: string | null;
     template?: string | null;
-    template_engine?: 'JINJA2' | 'SIMPLE' | null;
+    template_engine?: FileElasticSchemaTemplateEngine | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
     user_id?: string | null;
     version_id?: string | null;
@@ -4288,10 +4483,10 @@ export type FileSchemaWritable = {
     original_name: string;
     parent_id?: string | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: FileSchemaStatus | null;
     storage_id?: string | null;
     template?: string | null;
-    template_engine?: 'JINJA2' | 'SIMPLE' | null;
+    template_engine?: FileSchemaTemplateEngine | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
     user_id?: string | null;
     version_id?: string | null;
@@ -4306,9 +4501,9 @@ export type FileSetElasticSchemaWritable = {
     is_archive?: boolean | null;
     name: string;
     original_storage_id?: string | null;
-    status?: 'ACTIVE' | 'ARCHIVED' | 'DELETED' | null;
+    status?: FileSetElasticSchemaStatus | null;
     storage_id?: string | null;
-    type?: 'MANY_FILES' | 'REGULAR' | null;
+    type?: FileSetElasticSchemaType | null;
     version_id?: string | null;
 };
 
@@ -4321,9 +4516,9 @@ export type FileSetSchemaWritable = {
     is_archive?: boolean | null;
     name: string;
     original_storage_id?: string | null;
-    status?: 'ACTIVE' | 'ARCHIVED' | 'DELETED' | null;
+    status?: FileSetSchemaStatus | null;
     storage_id?: string | null;
-    type?: 'MANY_FILES' | 'REGULAR' | null;
+    type?: FileSetSchemaType | null;
     version_id?: string | null;
 };
 
@@ -4336,10 +4531,10 @@ export type FileSetSourceSchemaWritable = {
     is_archive?: boolean | null;
     name: string;
     original_storage_id?: string | null;
-    status?: 'ACTIVE' | 'ARCHIVED' | 'DELETED' | null;
+    status?: FileSetSourceSchemaStatus | null;
     storage_id: string;
     storage_method: string;
-    type?: 'MANY_FILES' | 'REGULAR' | null;
+    type?: FileSetSourceSchemaType | null;
     version_id?: string | null;
 };
 
@@ -4442,7 +4637,7 @@ export type FormatArchiveSchemaWritable = {
 };
 
 export type FormatElasticSchemaWritable = {
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    archive_status?: FormatElasticSchemaArchiveStatus | null;
     components?: Array<ComponentSchemaWritable> | null;
     date_deleted?: string | null;
     external_references?: Array<ExternalReferences> | null;
@@ -4454,14 +4649,14 @@ export type FormatElasticSchemaWritable = {
         [key: string]: string;
     }> | null;
     name: string;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: FormatElasticSchemaStatus | null;
     storage_methods?: Array<string> | null;
     user_id?: string | null;
     version_id?: string | null;
 };
 
 export type FormatSchemaWritable = {
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    archive_status?: FormatSchemaArchiveStatus | null;
     components?: Array<ComponentSchemaWritable> | null;
     date_deleted?: string | null;
     external_references?: Array<ExternalReferences> | null;
@@ -4473,7 +4668,7 @@ export type FormatSchemaWritable = {
         [key: string]: string;
     }> | null;
     name: string;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: FormatSchemaStatus | null;
     storage_methods?: Array<string> | null;
     user_id?: string | null;
     version_id?: string | null;
@@ -4505,9 +4700,9 @@ export type GatewayReportSchemaWritable = {
     missing_files_number?: number | null;
     scanned_files_number?: number | null;
     skipped_files_number?: number | null;
-    start_status?: 'FAILED' | 'SUCCESS' | null;
+    start_status?: GatewayReportSchemaStartStatus | null;
     start_status_message?: string | null;
-    status?: 'ERROR' | 'LIVE' | 'OFFLINE' | 'STOPPED' | 'UNKNOWN' | 'WARNING' | null;
+    status?: GatewayReportSchemaStatus | null;
     total_files_number?: number | null;
     total_folders_number?: number | null;
     version?: string | null;
@@ -4686,9 +4881,9 @@ export type IconikStorageGatewayTelemetryWritable = {
     is_leader?: boolean | null;
     log_lines?: Array<string> | null;
     start_last_date?: string | null;
-    start_status?: 'FAILED' | 'SUCCESS' | null;
+    start_status?: IconikStorageGatewayTelemetryStartStatus | null;
     start_status_message?: string | null;
-    status?: 'ERROR' | 'LIVE' | 'OFFLINE' | 'STOPPED' | 'UNKNOWN' | 'WARNING' | null;
+    status?: IconikStorageGatewayTelemetryStatus | null;
     version?: string | null;
     worker_id: string;
 };
@@ -4701,9 +4896,9 @@ export type IconikStorageGatewayTelemetrySchemaWritable = {
     is_leader?: boolean | null;
     log_lines?: Array<string> | null;
     start_last_date?: string | null;
-    start_status?: 'FAILED' | 'SUCCESS' | null;
+    start_status?: IconikStorageGatewayTelemetrySchemaStartStatus | null;
     start_status_message?: string | null;
-    status?: 'ERROR' | 'LIVE' | 'OFFLINE' | 'STOPPED' | 'UNKNOWN' | 'WARNING' | null;
+    status?: IconikStorageGatewayTelemetrySchemaStatus | null;
     version?: string | null;
     worker_id: string;
 };
@@ -4726,7 +4921,7 @@ export type KeyframeWritable = {
     resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: KeyframeStatus | null;
     storage_id?: string | null;
     time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
@@ -4741,7 +4936,7 @@ export type KeyframeBaseSchemaWritable = {
     resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: KeyframeBaseSchemaStatus | null;
     time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
 };
@@ -4757,7 +4952,7 @@ export type KeyframeCreateSchemaWritable = {
     resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: KeyframeCreateSchemaStatus | null;
     storage_id?: string | null;
     time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
@@ -4774,7 +4969,7 @@ export type KeyframeSchemaWritable = {
     resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: KeyframeSchemaStatus | null;
     storage_id?: string | null;
     time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
@@ -4789,7 +4984,7 @@ export type KeyframeUpdateSchemaWritable = {
     resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: KeyframeUpdateSchemaStatus | null;
     storage_id?: string | null;
     time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
@@ -4826,7 +5021,7 @@ export type PlaylistKeyframeCreateSchemaWritable = {
     resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: PlaylistKeyframeCreateSchemaStatus | null;
     storage_id?: string | null;
     time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
@@ -4841,7 +5036,7 @@ export type PlaylistKeyframeSchemaWritable = {
     resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: PlaylistKeyframeSchemaStatus | null;
     storage_id?: string | null;
     time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
@@ -4855,7 +5050,7 @@ export type PlaylistKeyframeUpdateSchemaWritable = {
     resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: PlaylistKeyframeUpdateSchemaStatus | null;
     time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
 };
@@ -4885,7 +5080,7 @@ export type ProxyWritable = {
     rotation?: number | null;
     size?: number | null;
     start_time_code?: string | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: ProxyStatus | null;
     storage_id?: string | null;
     version_id?: string | null;
 };
@@ -4906,7 +5101,7 @@ export type ProxyBaseSchemaWritable = {
     rotation?: number | null;
     size?: number | null;
     start_time_code?: string | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: ProxyBaseSchemaStatus | null;
     version_id?: string | null;
 };
 
@@ -4944,7 +5139,7 @@ export type ProxyCreateSchemaWritable = {
     rotation?: number | null;
     size?: number | null;
     start_time_code?: string | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: ProxyCreateSchemaStatus | null;
     storage_id?: string | null;
     version_id?: string | null;
 };
@@ -4965,10 +5160,10 @@ export type ProxyFileSchemaWritable = {
     parent_id?: string | null;
     proxy_sequence_type: string;
     size?: number | null;
-    status?: 'CLOSED' | 'FAILED' | 'OPEN' | null;
+    status?: ProxyFileSchemaStatus | null;
     storage_id?: string | null;
     template?: string | null;
-    template_engine?: 'JINJA2' | 'SIMPLE' | null;
+    template_engine?: ProxyFileSchemaTemplateEngine | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
     user_id?: string | null;
     version_id?: string | null;
@@ -4991,7 +5186,7 @@ export type ProxySchemaWritable = {
     rotation?: number | null;
     size?: number | null;
     start_time_code?: string | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: ProxySchemaStatus | null;
     storage_id?: string | null;
     version_id?: string | null;
 };
@@ -5012,7 +5207,7 @@ export type ProxyUpdateSchemaWritable = {
     rotation?: number | null;
     size?: number | null;
     start_time_code?: string | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: ProxyUpdateSchemaStatus | null;
     storage_id?: string | null;
     version_id?: string | null;
 };
@@ -5032,10 +5227,10 @@ export type SequenceUpdateSchemaWritable = {
     original_name: string;
     parent_id?: string | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: SequenceUpdateSchemaStatus | null;
     storage_id?: string | null;
     template?: string | null;
-    template_engine?: 'JINJA2' | 'SIMPLE' | null;
+    template_engine?: SequenceUpdateSchemaTemplateEngine | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
     user_id?: string | null;
     version_id?: string | null;
@@ -5061,13 +5256,13 @@ export type StorageFileSchemaWritable = {
     original_name: string;
     parent_id?: string | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: StorageFileSchemaStatus | null;
     /**
      * Deprecated field. Use destination_storage_id instead
      */
     storage_id?: string | null;
     template?: string | null;
-    template_engine?: 'JINJA2' | 'SIMPLE' | null;
+    template_engine?: StorageFileSchemaTemplateEngine | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
     user_id?: string | null;
     version_id?: string | null;
@@ -5085,11 +5280,11 @@ export type StorageFileUpdateSchemaWritable = {
     original_name?: string | null;
     parent_id?: string | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: StorageFileUpdateSchemaStatus | null;
     storage_id?: string | null;
     template?: string | null;
-    template_engine?: 'JINJA2' | 'SIMPLE' | null;
-    type?: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK' | null;
+    template_engine?: StorageFileUpdateSchemaTemplateEngine | null;
+    type?: StorageFileUpdateSchemaType | null;
     user_id?: string | null;
     version_id?: string | null;
 };
@@ -5101,7 +5296,10 @@ export type StoragePrivateDataSchemaWritable = {
     name: string;
     purpose: 'ARCHIVE' | 'EXPORTS' | 'FACES' | 'FILES' | 'KEYFRAMES' | 'PROXIES';
     scanner_status?: string | null;
-    status?: 'ACTIVE' | 'FAILING' | 'INACTIVE' | null;
+    settings: {
+        [key: string]: unknown;
+    };
+    status?: StoragePrivateDataSchemaStatus | null;
     status_message?: string | null;
 };
 
@@ -5112,7 +5310,10 @@ export type StorageReadSchemaWritable = {
     name: string;
     purpose: 'ARCHIVE' | 'EXPORTS' | 'FACES' | 'FILES' | 'KEYFRAMES' | 'PROXIES';
     scanner_status?: string | null;
-    status?: 'ACTIVE' | 'FAILING' | 'INACTIVE' | null;
+    settings: {
+        [key: string]: unknown;
+    };
+    status?: StorageReadSchemaStatus | null;
     status_message?: string | null;
 };
 
@@ -5123,7 +5324,10 @@ export type StorageSchemaWritable = {
     name: string;
     purpose: 'ARCHIVE' | 'EXPORTS' | 'FACES' | 'FILES' | 'KEYFRAMES' | 'PROXIES';
     scanner_status?: string | null;
-    status?: 'ACTIVE' | 'FAILING' | 'INACTIVE' | null;
+    settings: {
+        [key: string]: unknown;
+    };
+    status?: StorageSchemaStatus | null;
     status_message?: string | null;
 };
 
@@ -5170,10 +5374,10 @@ export type TemporaryFileCreateSchemaWritable = {
     original_name: string;
     parent_id?: string | null;
     size?: number | null;
-    status?: 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED' | null;
+    status?: TemporaryFileCreateSchemaStatus | null;
     storage_id?: string | null;
     template?: string | null;
-    template_engine?: 'JINJA2' | 'SIMPLE' | null;
+    template_engine?: TemporaryFileCreateSchemaTemplateEngine | null;
     type: 'DIRECTORY' | 'FILE' | 'SEQUENCE' | 'SYMLINK';
     user_id?: string | null;
     version_id?: string | null;
@@ -5189,9 +5393,9 @@ export type TemporaryFileSetSchemaWritable = {
     job_id: string;
     name: string;
     original_storage_id?: string | null;
-    status?: 'ACTIVE' | 'ARCHIVED' | 'DELETED' | null;
+    status?: TemporaryFileSetSchemaStatus | null;
     storage_id?: string | null;
-    type?: 'MANY_FILES' | 'REGULAR' | null;
+    type?: TemporaryFileSetSchemaType | null;
     version_id?: string | null;
 };
 
@@ -5205,11 +5409,14 @@ export type TranscoderByStorageReadSchemaWritable = {
         [key: string]: unknown;
     } | null;
     storage_id?: string | null;
-    type?: 'EDITREADY' | 'EDIT_PROXY' | 'ELEMENTAL_MEDIACONVERT' | 'ELEMENTAL_SERVER' | 'ENCODING_COM' | 'FFMPEG' | 'FLICS' | 'ICONIK_EDGE_TRANSCODER' | 'IMAGEMAGICK' | 'LIBREOFFICE' | 'REDLINE' | 'TELESTREAM_CLOUD' | 'VANTAGE' | 'WATCH_FOLDER_VIDEO' | 'WILDMOKA' | 'ZENCODER' | null;
+    type?: TranscoderByStorageReadSchemaType | null;
 };
 
 export type TranscoderCreateSchemaWritable = {
     name: string;
+    settings: {
+        [key: string]: unknown;
+    };
     type: 'EDITREADY' | 'EDIT_PROXY' | 'ELEMENTAL_MEDIACONVERT' | 'ELEMENTAL_SERVER' | 'ENCODING_COM' | 'FFMPEG' | 'FLICS' | 'ICONIK_EDGE_TRANSCODER' | 'IMAGEMAGICK' | 'LIBREOFFICE' | 'REDLINE' | 'TELESTREAM_CLOUD' | 'VANTAGE' | 'WATCH_FOLDER_VIDEO' | 'WILDMOKA' | 'ZENCODER';
 };
 
@@ -5219,16 +5426,25 @@ export type TranscoderOptionsSchemaWritable = {
 
 export type TranscoderReadSchemaWritable = {
     name: string;
+    settings: {
+        [key: string]: unknown;
+    };
     type: 'EDITREADY' | 'EDIT_PROXY' | 'ELEMENTAL_MEDIACONVERT' | 'ELEMENTAL_SERVER' | 'ENCODING_COM' | 'FFMPEG' | 'FLICS' | 'ICONIK_EDGE_TRANSCODER' | 'IMAGEMAGICK' | 'LIBREOFFICE' | 'REDLINE' | 'TELESTREAM_CLOUD' | 'VANTAGE' | 'WATCH_FOLDER_VIDEO' | 'WILDMOKA' | 'ZENCODER';
 };
 
 export type TranscoderSchemaWritable = {
     name: string;
+    settings: {
+        [key: string]: unknown;
+    };
     type: 'EDITREADY' | 'EDIT_PROXY' | 'ELEMENTAL_MEDIACONVERT' | 'ELEMENTAL_SERVER' | 'ENCODING_COM' | 'FFMPEG' | 'FLICS' | 'ICONIK_EDGE_TRANSCODER' | 'IMAGEMAGICK' | 'LIBREOFFICE' | 'REDLINE' | 'TELESTREAM_CLOUD' | 'VANTAGE' | 'WATCH_FOLDER_VIDEO' | 'WILDMOKA' | 'ZENCODER';
 };
 
 export type TranscoderUpdateSchemaWritable = {
     name: string;
+    settings: {
+        [key: string]: unknown;
+    };
     type: 'EDITREADY' | 'EDIT_PROXY' | 'ELEMENTAL_MEDIACONVERT' | 'ELEMENTAL_SERVER' | 'ENCODING_COM' | 'FFMPEG' | 'FLICS' | 'ICONIK_EDGE_TRANSCODER' | 'IMAGEMAGICK' | 'LIBREOFFICE' | 'REDLINE' | 'TELESTREAM_CLOUD' | 'VANTAGE' | 'WATCH_FOLDER_VIDEO' | 'WILDMOKA' | 'ZENCODER';
 };
 
@@ -16490,7 +16706,7 @@ export type GetStoragesByStorageIdGatewayEventsResponses = {
     /**
      * Returns a gateway storage events
      */
-    201: IconikStorageGatewayEventsSchema;
+    200: IconikStorageGatewayEventsSchema;
 };
 
 export type GetStoragesByStorageIdGatewayEventsResponse = GetStoragesByStorageIdGatewayEventsResponses[keyof GetStoragesByStorageIdGatewayEventsResponses];

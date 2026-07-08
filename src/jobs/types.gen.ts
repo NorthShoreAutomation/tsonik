@@ -77,8 +77,10 @@ export type JobBaseSchema = {
 export type JobChildProgressSchema = {
     progress_processed?: number | null;
     progress_total?: number | null;
-    status?: 'ABORTED' | 'ABORT_PENDING' | 'DISCARDED' | 'FAILED' | 'FINISHED' | 'FINISHED_WITH_WARNING' | 'PAUSED' | 'PENDING_USER' | 'READY' | 'SKIPPED' | 'STARTED' | 'WAITING' | null;
+    status?: JobChildProgressSchemaStatus | null;
 };
+
+export type JobChildProgressSchemaStatus = 'ABORTED' | 'ABORT_PENDING' | 'DISCARDED' | 'FAILED' | 'FINISHED' | 'FINISHED_WITH_WARNING' | 'PAUSED' | 'PENDING_USER' | 'READY' | 'SKIPPED' | 'STARTED' | 'WAITING';
 
 export type JobCreateSchema = {
     action_context?: ActionContextSchema | null;
@@ -305,8 +307,10 @@ export type JobsBulkEditSchema = {
     metadata?: {
         [key: string]: unknown;
     } | null;
-    status?: 'ABORTED' | 'ABORT_PENDING' | 'DISCARDED' | 'FAILED' | 'FINISHED' | 'FINISHED_WITH_WARNING' | 'PAUSED' | 'PENDING_USER' | 'READY' | 'SKIPPED' | 'STARTED' | 'WAITING' | null;
+    status?: JobsBulkEditSchemaStatus | null;
 };
+
+export type JobsBulkEditSchemaStatus = 'ABORTED' | 'ABORT_PENDING' | 'DISCARDED' | 'FAILED' | 'FINISHED' | 'FINISHED_WITH_WARNING' | 'PAUSED' | 'PENDING_USER' | 'READY' | 'SKIPPED' | 'STARTED' | 'WAITING';
 
 export type JobsBulkParamsSchema = {
     _exists_?: Array<string> | null;

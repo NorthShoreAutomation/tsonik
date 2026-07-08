@@ -240,9 +240,13 @@ export type MetadataFieldSchema = {
 
 export type MetadataFieldValueSchema = {
     date_created?: string | null;
-    field_values?: Array<unknown> | null;
+    field_values?: Array<{
+        [key: string]: unknown;
+    }> | null;
     mode?: unknown;
 };
+
+export type MetadataFieldValueSchemaMode = 'append' | 'delete' | 'overwrite';
 
 export type MetadataFieldsSchema = {
     readonly first_url?: string | null;
@@ -562,8 +566,10 @@ export type MetadataFieldSchemaWritable = {
 
 export type MetadataFieldValueSchemaWritable = {
     date_created?: string | null;
-    field_values?: Array<unknown> | null;
-    mode?: 'append' | 'delete' | 'overwrite' | null;
+    field_values?: Array<{
+        [key: string]: unknown;
+    }> | null;
+    mode?: MetadataFieldValueSchemaMode | null;
 };
 
 export type MetadataFieldsSchemaWritable = {

@@ -10,9 +10,11 @@ export type AbortStorageTranscodeJobsSchema = {
 
 export type AnalyzeSchema = {
     force?: boolean | null;
-    force_type?: 'APPEND' | 'OVERWRITE' | null;
+    force_type?: AnalyzeSchemaForceType | null;
     service_name?: string | null;
 };
+
+export type AnalyzeSchemaForceType = 'APPEND' | 'OVERWRITE';
 
 export type AssetLinkData = {
     readonly site_name?: string | null;
@@ -30,11 +32,13 @@ export type BulkActionSchema = {
 
 export type BulkAnalyzeSchema = {
     force?: boolean | null;
-    force_type?: 'APPEND' | 'OVERWRITE' | null;
+    force_type?: BulkAnalyzeSchemaForceType | null;
     object_ids: Array<string>;
     object_type: 'assets' | 'collections' | 'saved_searches';
     profile_id?: string | null;
 };
+
+export type BulkAnalyzeSchemaForceType = 'APPEND' | 'OVERWRITE';
 
 export type BulkMetadataFillingSchema = {
     field_names: Array<string>;
@@ -376,12 +380,14 @@ export type MetadataFillingProposalSchema = {
     field_values?: unknown;
     job_id?: string | null;
     parent_job_id?: string | null;
-    review_status?: 'ACCEPTED' | 'PENDING_USER' | 'REJECTED' | null;
+    review_status?: MetadataFillingProposalSchemaReviewStatus | null;
     user_id?: string | null;
     version_id?: string | null;
     view_id?: string | null;
     warnings?: Array<string> | null;
 };
+
+export type MetadataFillingProposalSchemaReviewStatus = 'ACCEPTED' | 'PENDING_USER' | 'REJECTED';
 
 export type MetadataFillingResponseSchema = {
     errors?: Array<string> | null;
@@ -942,7 +948,7 @@ export type GetEdgeTranscodeWorkersResponses = {
     /**
      * Returns edge transcode workers
      */
-    201: EdgeTranscodeWorkersSchema;
+    200: EdgeTranscodeWorkersSchema;
 };
 
 export type GetEdgeTranscodeWorkersResponse = GetEdgeTranscodeWorkersResponses[keyof GetEdgeTranscodeWorkersResponses];
@@ -1074,7 +1080,7 @@ export type GetEdgeTranscodeWorkersByWorkerIdResponses = {
     /**
      * Returns a edge transcode worker
      */
-    201: EdgeTranscodeWorkerSchema;
+    200: EdgeTranscodeWorkerSchema;
 };
 
 export type GetEdgeTranscodeWorkersByWorkerIdResponse = GetEdgeTranscodeWorkersByWorkerIdResponses[keyof GetEdgeTranscodeWorkersByWorkerIdResponses];

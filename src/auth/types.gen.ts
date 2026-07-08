@@ -13,12 +13,16 @@ export type AppCreateSchema = {
     description?: string | null;
     readonly id?: string | null;
     name: string;
-    oauth_client_type?: 'confidential' | 'public' | null;
+    oauth_client_type?: AppCreateSchemaOauthClientType | null;
     redirect_uris?: Array<string> | null;
     readonly system_domain_id?: string | null;
-    type?: 'OAUTH' | 'PAT' | null;
+    type?: AppCreateSchemaType | null;
     url?: string | null;
 };
+
+export type AppCreateSchemaOauthClientType = 'confidential' | 'public';
+
+export type AppCreateSchemaType = 'OAUTH' | 'PAT';
 
 export type AppSchema = {
     allowed_scopes?: Array<string> | null;
@@ -28,12 +32,16 @@ export type AppSchema = {
     description?: string | null;
     readonly id?: string | null;
     name: string;
-    oauth_client_type?: 'confidential' | 'public' | null;
+    oauth_client_type?: AppSchemaOauthClientType | null;
     redirect_uris?: Array<string> | null;
     readonly system_domain_id?: string | null;
-    type?: 'OAUTH' | 'PAT' | null;
+    type?: AppSchemaType | null;
     url?: string | null;
 };
+
+export type AppSchemaOauthClientType = 'confidential' | 'public';
+
+export type AppSchemaType = 'OAUTH' | 'PAT';
 
 export type ApprovedAppInstanceSchema = {
     app_id: string;
@@ -58,12 +66,18 @@ export type Auth0SettingsSchema = {
     auth0_name: string;
     auth0_region: string;
     cert_fingerprint?: string | null;
-    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
-    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    cert_fingerprint_algorithm?: Auth0SettingsSchemaCertFingerprintAlgorithm | null;
+    digest_algorithm?: Auth0SettingsSchemaDigestAlgorithm | null;
     readonly domain_name?: string | null;
     idp_x509cert?: string | null;
-    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512' | null;
+    signature_algorithm?: Auth0SettingsSchemaSignatureAlgorithm | null;
 };
+
+export type Auth0SettingsSchemaCertFingerprintAlgorithm = 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
+
+export type Auth0SettingsSchemaDigestAlgorithm = 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
+
+export type Auth0SettingsSchemaSignatureAlgorithm = 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512';
 
 export type AutoLoginSchema = {
     app_id: string;
@@ -182,8 +196,8 @@ export type ForgotPasswordSchema = {
 
 export type GenericSettingsSchema = {
     cert_fingerprint?: string | null;
-    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
-    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    cert_fingerprint_algorithm?: GenericSettingsSchemaCertFingerprintAlgorithm | null;
+    digest_algorithm?: GenericSettingsSchemaDigestAlgorithm | null;
     readonly domain_name?: string | null;
     idp_entity_id: string;
     idp_sls_redirect_url?: string | null;
@@ -191,10 +205,16 @@ export type GenericSettingsSchema = {
     idp_x509cert?: string | null;
     name: string;
     name_id_encrypted?: boolean | null;
-    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512' | null;
+    signature_algorithm?: GenericSettingsSchemaSignatureAlgorithm | null;
     want_assertions_signed?: boolean | null;
     want_messages_signed?: boolean | null;
 };
+
+export type GenericSettingsSchemaCertFingerprintAlgorithm = 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
+
+export type GenericSettingsSchemaDigestAlgorithm = 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
+
+export type GenericSettingsSchemaSignatureAlgorithm = 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512';
 
 export type IdentityProviderBaseSchema = {
     readonly saml_settings?: {
@@ -204,12 +224,18 @@ export type IdentityProviderBaseSchema = {
 
 export type IdentityProviderBaseSettingsSchema = {
     cert_fingerprint?: string | null;
-    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
-    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    cert_fingerprint_algorithm?: IdentityProviderBaseSettingsSchemaCertFingerprintAlgorithm | null;
+    digest_algorithm?: IdentityProviderBaseSettingsSchemaDigestAlgorithm | null;
     readonly domain_name?: string | null;
     idp_x509cert?: string | null;
-    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512' | null;
+    signature_algorithm?: IdentityProviderBaseSettingsSchemaSignatureAlgorithm | null;
 };
+
+export type IdentityProviderBaseSettingsSchemaCertFingerprintAlgorithm = 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
+
+export type IdentityProviderBaseSettingsSchemaDigestAlgorithm = 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
+
+export type IdentityProviderBaseSettingsSchemaSignatureAlgorithm = 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512';
 
 export type IdentityProviderSchema = {
     readonly date_created?: string | null;
@@ -219,6 +245,9 @@ export type IdentityProviderSchema = {
     readonly saml_settings?: {
         [key: string]: unknown;
     } | null;
+    settings: {
+        [key: string]: unknown;
+    };
     type: 'GENERIC' | 'auth0.com' | 'okta.com' | 'onelogin.com';
     verbose_logging?: boolean | null;
 };
@@ -250,10 +279,12 @@ export type InternalTempTokenSchema = {
 
 export type InvitationResponseSchema = {
     auto_login?: boolean | null;
-    domain_status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING' | null;
+    domain_status?: InvitationResponseSchemaDomainStatus | null;
     login_data?: AutoLoginSchema | null;
     readonly user_id?: string | null;
 };
+
+export type InvitationResponseSchemaDomainStatus = 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING';
 
 export type ListObjectsSchema = {
     readonly first_url?: string | null;
@@ -353,27 +384,39 @@ export type OAuth2AuthorizeResponseSchema = {
 
 export type OktaSettingsSchema = {
     cert_fingerprint?: string | null;
-    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
-    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    cert_fingerprint_algorithm?: OktaSettingsSchemaCertFingerprintAlgorithm | null;
+    digest_algorithm?: OktaSettingsSchemaDigestAlgorithm | null;
     readonly domain_name?: string | null;
     idp_x509cert?: string | null;
     okta_app_id?: string | null;
     okta_name: string;
     okta_preview?: boolean | null;
     okta_sso?: string | null;
-    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512' | null;
+    signature_algorithm?: OktaSettingsSchemaSignatureAlgorithm | null;
 };
+
+export type OktaSettingsSchemaCertFingerprintAlgorithm = 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
+
+export type OktaSettingsSchemaDigestAlgorithm = 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
+
+export type OktaSettingsSchemaSignatureAlgorithm = 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512';
 
 export type OneloginSettingsSchema = {
     cert_fingerprint?: string | null;
-    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
-    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    cert_fingerprint_algorithm?: OneloginSettingsSchemaCertFingerprintAlgorithm | null;
+    digest_algorithm?: OneloginSettingsSchemaDigestAlgorithm | null;
     readonly domain_name?: string | null;
     idp_x509cert?: string | null;
     onelogin_client_id: string;
     onelogin_name: string;
-    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512' | null;
+    signature_algorithm?: OneloginSettingsSchemaSignatureAlgorithm | null;
 };
+
+export type OneloginSettingsSchemaCertFingerprintAlgorithm = 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
+
+export type OneloginSettingsSchemaDigestAlgorithm = 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
+
+export type OneloginSettingsSchemaSignatureAlgorithm = 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512';
 
 export type PasswordChecksSchema = {
     digits?: number | null;
@@ -414,7 +457,7 @@ export type RedirectInfoTypeSchema = {
 };
 
 export type ReferralCodeSchema = {
-    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025' | null;
+    billing_tier?: ReferralCodeSchemaBillingTier | null;
     code: string;
     credit_expiry_days?: number | null;
     do_not_delete?: boolean | null;
@@ -426,6 +469,8 @@ export type ReferralCodeSchema = {
     valid_to: string;
     value: number;
 };
+
+export type ReferralCodeSchemaBillingTier = 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025';
 
 export type ReferralCodesSchema = {
     readonly objects?: Array<ReferralCodeSchema> | null;
@@ -472,7 +517,7 @@ export type SystemDomainBaseSchema = {
 };
 
 export type SystemDomainBasicAdminSchema = {
-    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025' | null;
+    billing_tier?: SystemDomainBasicAdminSchemaBillingTier | null;
     readonly contract_end_date?: string | null;
     readonly country?: string | null;
     readonly date_created?: string | null;
@@ -481,26 +526,34 @@ export type SystemDomainBasicAdminSchema = {
     readonly id?: string | null;
     is_plg?: boolean | null;
     name: string;
-    type?: 'CUSTOMER' | 'INTERNAL' | 'PARTNER' | 'TRIAL' | null;
+    type?: SystemDomainBasicAdminSchemaType | null;
 };
 
+export type SystemDomainBasicAdminSchemaBillingTier = 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025';
+
+export type SystemDomainBasicAdminSchemaType = 'CUSTOMER' | 'INTERNAL' | 'PARTNER' | 'TRIAL';
+
 export type SystemDomainBasicSchema = {
-    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025' | null;
+    billing_tier?: SystemDomainBasicSchemaBillingTier | null;
     readonly country?: string | null;
     readonly date_created?: string | null;
     readonly features?: Array<string> | null;
     readonly id?: string | null;
     is_plg?: boolean | null;
     name: string;
-    type?: 'CUSTOMER' | 'INTERNAL' | 'PARTNER' | 'TRIAL' | null;
+    type?: SystemDomainBasicSchemaType | null;
 };
+
+export type SystemDomainBasicSchemaBillingTier = 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025';
+
+export type SystemDomainBasicSchemaType = 'CUSTOMER' | 'INTERNAL' | 'PARTNER' | 'TRIAL';
 
 export type SystemDomainFromReferralCodeSchema = {
     admin_email?: string | null;
     admin_first_name?: string | null;
     admin_last_name?: string | null;
     admin_password?: string | null;
-    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025' | null;
+    billing_tier?: SystemDomainFromReferralCodeSchemaBillingTier | null;
     country_code: string;
     readonly date_created?: string | null;
     readonly date_modified?: string | null;
@@ -509,6 +562,8 @@ export type SystemDomainFromReferralCodeSchema = {
     name: string;
 };
 
+export type SystemDomainFromReferralCodeSchemaBillingTier = 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025';
+
 export type SystemDomainFromTemplateSchema = {
     admin_email?: string | null;
     admin_first_name?: string | null;
@@ -516,25 +571,33 @@ export type SystemDomainFromTemplateSchema = {
     admin_last_name?: string | null;
     admin_password?: string | null;
     base_url?: string | null;
-    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025' | null;
+    billing_tier?: SystemDomainFromTemplateSchemaBillingTier | null;
     custom_terms?: boolean | null;
     readonly date_created?: string | null;
     readonly date_modified?: string | null;
     description?: string | null;
     readonly id?: string | null;
     name: string;
-    status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING' | null;
-    type?: 'CUSTOMER' | 'INTERNAL' | 'PARTNER' | 'TRIAL' | null;
+    status?: SystemDomainFromTemplateSchemaStatus | null;
+    type?: SystemDomainFromTemplateSchemaType | null;
 };
 
+export type SystemDomainFromTemplateSchemaBillingTier = 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025';
+
+export type SystemDomainFromTemplateSchemaStatus = 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING';
+
+export type SystemDomainFromTemplateSchemaType = 'CUSTOMER' | 'INTERNAL' | 'PARTNER' | 'TRIAL';
+
 export type SystemDomainProfileSchema = {
-    industry?: 'ADVERTISING_MARKETING_CREATIVE' | 'AUTOMOTIVE' | 'BROADCASTER_NETWORKS' | 'CONSTRUCTION_MANUFACTURING' | 'EDUCATION' | 'ENERGY_UTILITIES' | 'FAITH_RELIGIOUS_ORGS' | 'FINANCE' | 'GAME_STUDIOS_PUBLISHERS' | 'GOVERNMENT_PUBLIC_SECTOR' | 'HEALTHCARE' | 'HOSPITALITY_FITNESS_WELLNESS' | 'LIVE_PRODUCTION_EVENTS' | 'MEDIA_CONGLOMERATES' | 'NONPROFITS_NON_RELIGIOUS' | 'ONLINE_MEDIA' | 'OTHER' | 'PUBLISHERS_NEWSPAPERS' | 'RETAIL_CONSUMER_GOODS' | 'SOFTWARE_TECHNOLOGY' | 'SPORTS_RIGHTS_LEAGUES' | 'STUDIOS_CONTENT_PRODUCERS' | 'TELECOMMUNICATIONS' | null;
+    industry?: SystemDomainProfileSchemaIndustry | null;
 };
+
+export type SystemDomainProfileSchemaIndustry = 'ADVERTISING_MARKETING_CREATIVE' | 'AUTOMOTIVE' | 'BROADCASTER_NETWORKS' | 'CONSTRUCTION_MANUFACTURING' | 'EDUCATION' | 'ENERGY_UTILITIES' | 'FAITH_RELIGIOUS_ORGS' | 'FINANCE' | 'GAME_STUDIOS_PUBLISHERS' | 'GOVERNMENT_PUBLIC_SECTOR' | 'HEALTHCARE' | 'HOSPITALITY_FITNESS_WELLNESS' | 'LIVE_PRODUCTION_EVENTS' | 'MEDIA_CONGLOMERATES' | 'NONPROFITS_NON_RELIGIOUS' | 'ONLINE_MEDIA' | 'OTHER' | 'PUBLISHERS_NEWSPAPERS' | 'RETAIL_CONSUMER_GOODS' | 'SOFTWARE_TECHNOLOGY' | 'SPORTS_RIGHTS_LEAGUES' | 'STUDIOS_CONTENT_PRODUCERS' | 'TELECOMMUNICATIONS';
 
 export type SystemDomainSchema = {
     base_url: string;
     billing_limits?: BillingLimitsSchema | null;
-    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025' | null;
+    billing_tier?: SystemDomainSchemaBillingTier | null;
     readonly contract_end_date?: string | null;
     readonly country?: string | null;
     readonly creating_user_id?: string | null;
@@ -553,7 +616,7 @@ export type SystemDomainSchema = {
     readonly freeze_date?: string | null;
     has_preloaded_assets?: boolean | null;
     readonly id?: string | null;
-    industry?: 'ADVERTISING_MARKETING_CREATIVE' | 'AUTOMOTIVE' | 'BROADCASTER_NETWORKS' | 'CONSTRUCTION_MANUFACTURING' | 'EDUCATION' | 'ENERGY_UTILITIES' | 'FAITH_RELIGIOUS_ORGS' | 'FINANCE' | 'GAME_STUDIOS_PUBLISHERS' | 'GOVERNMENT_PUBLIC_SECTOR' | 'HEALTHCARE' | 'HOSPITALITY_FITNESS_WELLNESS' | 'LIVE_PRODUCTION_EVENTS' | 'MEDIA_CONGLOMERATES' | 'NONPROFITS_NON_RELIGIOUS' | 'ONLINE_MEDIA' | 'OTHER' | 'PUBLISHERS_NEWSPAPERS' | 'RETAIL_CONSUMER_GOODS' | 'SOFTWARE_TECHNOLOGY' | 'SPORTS_RIGHTS_LEAGUES' | 'STUDIOS_CONTENT_PRODUCERS' | 'TELECOMMUNICATIONS' | null;
+    industry?: SystemDomainSchemaIndustry | null;
     readonly invoice_end_of_month?: boolean | null;
     is_plg?: boolean | null;
     readonly is_template?: boolean | null;
@@ -568,16 +631,24 @@ export type SystemDomainSchema = {
     readonly primary_region?: string | null;
     readonly referral_code?: string | null;
     readonly sales_force_id?: string | null;
-    status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING' | null;
+    status?: SystemDomainSchemaStatus | null;
     readonly stripe_id?: string | null;
-    type?: 'CUSTOMER' | 'INTERNAL' | 'PARTNER' | 'TRIAL' | null;
+    type?: SystemDomainSchemaType | null;
     readonly warning_message?: string | null;
 };
+
+export type SystemDomainSchemaBillingTier = 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025';
+
+export type SystemDomainSchemaIndustry = 'ADVERTISING_MARKETING_CREATIVE' | 'AUTOMOTIVE' | 'BROADCASTER_NETWORKS' | 'CONSTRUCTION_MANUFACTURING' | 'EDUCATION' | 'ENERGY_UTILITIES' | 'FAITH_RELIGIOUS_ORGS' | 'FINANCE' | 'GAME_STUDIOS_PUBLISHERS' | 'GOVERNMENT_PUBLIC_SECTOR' | 'HEALTHCARE' | 'HOSPITALITY_FITNESS_WELLNESS' | 'LIVE_PRODUCTION_EVENTS' | 'MEDIA_CONGLOMERATES' | 'NONPROFITS_NON_RELIGIOUS' | 'ONLINE_MEDIA' | 'OTHER' | 'PUBLISHERS_NEWSPAPERS' | 'RETAIL_CONSUMER_GOODS' | 'SOFTWARE_TECHNOLOGY' | 'SPORTS_RIGHTS_LEAGUES' | 'STUDIOS_CONTENT_PRODUCERS' | 'TELECOMMUNICATIONS';
+
+export type SystemDomainSchemaStatus = 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING';
+
+export type SystemDomainSchemaType = 'CUSTOMER' | 'INTERNAL' | 'PARTNER' | 'TRIAL';
 
 export type SystemDomainSuperAdminSchema = {
     base_url: string;
     billing_limits?: BillingLimitsSchema | null;
-    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025' | null;
+    billing_tier?: SystemDomainSuperAdminSchemaBillingTier | null;
     contract_end_date?: string | null;
     country?: string | null;
     creating_user_id?: string | null;
@@ -596,7 +667,7 @@ export type SystemDomainSuperAdminSchema = {
     freeze_date?: string | null;
     has_preloaded_assets?: boolean | null;
     readonly id?: string | null;
-    industry?: 'ADVERTISING_MARKETING_CREATIVE' | 'AUTOMOTIVE' | 'BROADCASTER_NETWORKS' | 'CONSTRUCTION_MANUFACTURING' | 'EDUCATION' | 'ENERGY_UTILITIES' | 'FAITH_RELIGIOUS_ORGS' | 'FINANCE' | 'GAME_STUDIOS_PUBLISHERS' | 'GOVERNMENT_PUBLIC_SECTOR' | 'HEALTHCARE' | 'HOSPITALITY_FITNESS_WELLNESS' | 'LIVE_PRODUCTION_EVENTS' | 'MEDIA_CONGLOMERATES' | 'NONPROFITS_NON_RELIGIOUS' | 'ONLINE_MEDIA' | 'OTHER' | 'PUBLISHERS_NEWSPAPERS' | 'RETAIL_CONSUMER_GOODS' | 'SOFTWARE_TECHNOLOGY' | 'SPORTS_RIGHTS_LEAGUES' | 'STUDIOS_CONTENT_PRODUCERS' | 'TELECOMMUNICATIONS' | null;
+    industry?: SystemDomainSuperAdminSchemaIndustry | null;
     invoice_end_of_month?: boolean | null;
     is_plg?: boolean | null;
     is_template?: boolean | null;
@@ -610,11 +681,19 @@ export type SystemDomainSuperAdminSchema = {
     price_list?: string | null;
     referral_code?: string | null;
     sales_force_id?: string | null;
-    status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING' | null;
+    status?: SystemDomainSuperAdminSchemaStatus | null;
     stripe_id?: string | null;
-    type?: 'CUSTOMER' | 'INTERNAL' | 'PARTNER' | 'TRIAL' | null;
+    type?: SystemDomainSuperAdminSchemaType | null;
     warning_message?: string | null;
 };
+
+export type SystemDomainSuperAdminSchemaBillingTier = 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025';
+
+export type SystemDomainSuperAdminSchemaIndustry = 'ADVERTISING_MARKETING_CREATIVE' | 'AUTOMOTIVE' | 'BROADCASTER_NETWORKS' | 'CONSTRUCTION_MANUFACTURING' | 'EDUCATION' | 'ENERGY_UTILITIES' | 'FAITH_RELIGIOUS_ORGS' | 'FINANCE' | 'GAME_STUDIOS_PUBLISHERS' | 'GOVERNMENT_PUBLIC_SECTOR' | 'HEALTHCARE' | 'HOSPITALITY_FITNESS_WELLNESS' | 'LIVE_PRODUCTION_EVENTS' | 'MEDIA_CONGLOMERATES' | 'NONPROFITS_NON_RELIGIOUS' | 'ONLINE_MEDIA' | 'OTHER' | 'PUBLISHERS_NEWSPAPERS' | 'RETAIL_CONSUMER_GOODS' | 'SOFTWARE_TECHNOLOGY' | 'SPORTS_RIGHTS_LEAGUES' | 'STUDIOS_CONTENT_PRODUCERS' | 'TELECOMMUNICATIONS';
+
+export type SystemDomainSuperAdminSchemaStatus = 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING';
+
+export type SystemDomainSuperAdminSchemaType = 'CUSTOMER' | 'INTERNAL' | 'PARTNER' | 'TRIAL';
 
 export type SystemDomainWildmokaConfigSchema = {
     /**
@@ -696,12 +775,14 @@ export type TokenBaseSchema = {
     readonly is_super_admin_light?: boolean | null;
     readonly system_domain_id?: string | null;
     readonly system_domain_is_plg?: boolean | null;
-    system_domain_status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING' | null;
+    system_domain_status?: TokenBaseSchemaSystemDomainStatus | null;
     readonly system_domain_type?: string | null;
     readonly system_domain_warning_message?: string | null;
     readonly system_domains?: Array<string> | null;
     readonly user_id?: string | null;
 };
+
+export type TokenBaseSchemaSystemDomainStatus = 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING';
 
 export type TokenMultiplatformLoginSchema = {
     readonly app_id?: string | null;
@@ -717,7 +798,7 @@ export type TokenMultiplatformLoginSchema = {
     readonly is_super_admin_light?: boolean | null;
     readonly system_domain_id?: string | null;
     readonly system_domain_is_plg?: boolean | null;
-    system_domain_status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING' | null;
+    system_domain_status?: TokenMultiplatformLoginSchemaSystemDomainStatus | null;
     readonly system_domain_type?: string | null;
     readonly system_domain_warning_message?: string | null;
     readonly system_domains?: Array<string> | null;
@@ -727,6 +808,8 @@ export type TokenMultiplatformLoginSchema = {
     token?: string | null;
     readonly user_id?: string | null;
 };
+
+export type TokenMultiplatformLoginSchemaSystemDomainStatus = 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING';
 
 export type TokenOutputSchema = {
     readonly app_id?: string | null;
@@ -742,12 +825,14 @@ export type TokenOutputSchema = {
     readonly is_super_admin_light?: boolean | null;
     readonly system_domain_id?: string | null;
     readonly system_domain_is_plg?: boolean | null;
-    system_domain_status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING' | null;
+    system_domain_status?: TokenOutputSchemaSystemDomainStatus | null;
     readonly system_domain_type?: string | null;
     readonly system_domain_warning_message?: string | null;
     readonly system_domains?: Array<string> | null;
     readonly user_id?: string | null;
 };
+
+export type TokenOutputSchemaSystemDomainStatus = 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING';
 
 export type TokenSchema = {
     readonly app_id?: string | null;
@@ -763,13 +848,15 @@ export type TokenSchema = {
     readonly is_super_admin_light?: boolean | null;
     readonly system_domain_id?: string | null;
     readonly system_domain_is_plg?: boolean | null;
-    system_domain_status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING' | null;
+    system_domain_status?: TokenSchemaSystemDomainStatus | null;
     readonly system_domain_type?: string | null;
     readonly system_domain_warning_message?: string | null;
     readonly system_domains?: Array<string> | null;
     token: string;
     readonly user_id?: string | null;
 };
+
+export type TokenSchemaSystemDomainStatus = 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING';
 
 export type TokensSchema = {
     readonly first_url?: string | null;
@@ -823,9 +910,9 @@ export type AppCreateSchemaWritable = {
     default_user_id?: string | null;
     description?: string | null;
     name: string;
-    oauth_client_type?: 'confidential' | 'public' | null;
+    oauth_client_type?: AppCreateSchemaOauthClientType | null;
     redirect_uris?: Array<string> | null;
-    type?: 'OAUTH' | 'PAT' | null;
+    type?: AppCreateSchemaType | null;
     url?: string | null;
 };
 
@@ -834,7 +921,7 @@ export type AppSchemaWritable = {
     default_user_id?: string | null;
     description?: string | null;
     name: string;
-    oauth_client_type?: 'confidential' | 'public' | null;
+    oauth_client_type?: AppSchemaOauthClientType | null;
     redirect_uris?: Array<string> | null;
     type?: unknown;
     url?: string | null;
@@ -854,10 +941,10 @@ export type Auth0SettingsSchemaWritable = {
     auth0_name: string;
     auth0_region: string;
     cert_fingerprint?: string | null;
-    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
-    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    cert_fingerprint_algorithm?: Auth0SettingsSchemaCertFingerprintAlgorithm | null;
+    digest_algorithm?: Auth0SettingsSchemaDigestAlgorithm | null;
     idp_x509cert?: string | null;
-    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512' | null;
+    signature_algorithm?: Auth0SettingsSchemaSignatureAlgorithm | null;
 };
 
 export type CompleteInvitationSchemaWritable = {
@@ -878,28 +965,31 @@ export type ExternalAuthSchemaWritable = {
 
 export type GenericSettingsSchemaWritable = {
     cert_fingerprint?: string | null;
-    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
-    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    cert_fingerprint_algorithm?: GenericSettingsSchemaCertFingerprintAlgorithm | null;
+    digest_algorithm?: GenericSettingsSchemaDigestAlgorithm | null;
     idp_entity_id: string;
     idp_sls_redirect_url?: string | null;
     idp_sso_post_url: string;
     idp_x509cert?: string | null;
     name: string;
     name_id_encrypted?: boolean | null;
-    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512' | null;
+    signature_algorithm?: GenericSettingsSchemaSignatureAlgorithm | null;
     want_assertions_signed?: boolean | null;
     want_messages_signed?: boolean | null;
 };
 
 export type IdentityProviderBaseSettingsSchemaWritable = {
     cert_fingerprint?: string | null;
-    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
-    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    cert_fingerprint_algorithm?: IdentityProviderBaseSettingsSchemaCertFingerprintAlgorithm | null;
+    digest_algorithm?: IdentityProviderBaseSettingsSchemaDigestAlgorithm | null;
     idp_x509cert?: string | null;
-    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512' | null;
+    signature_algorithm?: IdentityProviderBaseSettingsSchemaSignatureAlgorithm | null;
 };
 
 export type IdentityProviderSchemaWritable = {
+    settings: {
+        [key: string]: unknown;
+    };
     type: 'GENERIC' | 'auth0.com' | 'okta.com' | 'onelogin.com';
     verbose_logging?: boolean | null;
 };
@@ -910,7 +1000,7 @@ export type IdentityProvidersSchemaWritable = {
 
 export type InvitationResponseSchemaWritable = {
     auto_login?: boolean | null;
-    domain_status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING' | null;
+    domain_status?: InvitationResponseSchemaDomainStatus | null;
     login_data?: AutoLoginSchema | null;
 };
 
@@ -933,24 +1023,24 @@ export type MultiPlatformDomainUserSystemSchemaWritable = {
 
 export type OktaSettingsSchemaWritable = {
     cert_fingerprint?: string | null;
-    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
-    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    cert_fingerprint_algorithm?: OktaSettingsSchemaCertFingerprintAlgorithm | null;
+    digest_algorithm?: OktaSettingsSchemaDigestAlgorithm | null;
     idp_x509cert?: string | null;
     okta_app_id?: string | null;
     okta_name: string;
     okta_preview?: boolean | null;
     okta_sso?: string | null;
-    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512' | null;
+    signature_algorithm?: OktaSettingsSchemaSignatureAlgorithm | null;
 };
 
 export type OneloginSettingsSchemaWritable = {
     cert_fingerprint?: string | null;
-    cert_fingerprint_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
-    digest_algorithm?: 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512' | null;
+    cert_fingerprint_algorithm?: OneloginSettingsSchemaCertFingerprintAlgorithm | null;
+    digest_algorithm?: OneloginSettingsSchemaDigestAlgorithm | null;
     idp_x509cert?: string | null;
     onelogin_client_id: string;
     onelogin_name: string;
-    signature_algorithm?: 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512' | null;
+    signature_algorithm?: OneloginSettingsSchemaSignatureAlgorithm | null;
 };
 
 export type ReferralCodesSchemaWritable = {
@@ -1002,7 +1092,7 @@ export type SystemDomainFromReferralCodeSchemaWritable = {
     admin_first_name?: string | null;
     admin_last_name?: string | null;
     admin_password?: string | null;
-    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025' | null;
+    billing_tier?: SystemDomainFromReferralCodeSchemaBillingTier | null;
     country_code: string;
     description?: string | null;
     name: string;
@@ -1014,22 +1104,22 @@ export type SystemDomainFromTemplateSchemaWritable = {
     admin_last_name?: string | null;
     admin_password?: string | null;
     base_url?: string | null;
-    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025' | null;
+    billing_tier?: SystemDomainFromTemplateSchemaBillingTier | null;
     custom_terms?: boolean | null;
     description?: string | null;
     name: string;
-    status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING' | null;
-    type?: 'CUSTOMER' | 'INTERNAL' | 'PARTNER' | 'TRIAL' | null;
+    status?: SystemDomainFromTemplateSchemaStatus | null;
+    type?: SystemDomainFromTemplateSchemaType | null;
 };
 
 export type SystemDomainSchemaWritable = {
     base_url: string;
     billing_limits?: BillingLimitsSchema | null;
-    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025' | null;
+    billing_tier?: SystemDomainSchemaBillingTier | null;
     description?: string | null;
     disable_cc_purchase?: boolean | null;
     has_preloaded_assets?: boolean | null;
-    industry?: 'ADVERTISING_MARKETING_CREATIVE' | 'AUTOMOTIVE' | 'BROADCASTER_NETWORKS' | 'CONSTRUCTION_MANUFACTURING' | 'EDUCATION' | 'ENERGY_UTILITIES' | 'FAITH_RELIGIOUS_ORGS' | 'FINANCE' | 'GAME_STUDIOS_PUBLISHERS' | 'GOVERNMENT_PUBLIC_SECTOR' | 'HEALTHCARE' | 'HOSPITALITY_FITNESS_WELLNESS' | 'LIVE_PRODUCTION_EVENTS' | 'MEDIA_CONGLOMERATES' | 'NONPROFITS_NON_RELIGIOUS' | 'ONLINE_MEDIA' | 'OTHER' | 'PUBLISHERS_NEWSPAPERS' | 'RETAIL_CONSUMER_GOODS' | 'SOFTWARE_TECHNOLOGY' | 'SPORTS_RIGHTS_LEAGUES' | 'STUDIOS_CONTENT_PRODUCERS' | 'TELECOMMUNICATIONS' | null;
+    industry?: SystemDomainSchemaIndustry | null;
     is_plg?: boolean | null;
     name: string;
     status?: unknown;
@@ -1039,7 +1129,7 @@ export type SystemDomainSchemaWritable = {
 export type SystemDomainSuperAdminSchemaWritable = {
     base_url: string;
     billing_limits?: BillingLimitsSchema | null;
-    billing_tier?: 'ENTERPRISE' | 'ENTERPRISE_LEGACY_2025' | 'PAYGO' | 'PRO' | 'PRO_LEGACY_2025' | null;
+    billing_tier?: SystemDomainSuperAdminSchemaBillingTier | null;
     contract_end_date?: string | null;
     country?: string | null;
     creating_user_id?: string | null;
@@ -1055,7 +1145,7 @@ export type SystemDomainSuperAdminSchemaWritable = {
     features?: Array<string> | null;
     freeze_date?: string | null;
     has_preloaded_assets?: boolean | null;
-    industry?: 'ADVERTISING_MARKETING_CREATIVE' | 'AUTOMOTIVE' | 'BROADCASTER_NETWORKS' | 'CONSTRUCTION_MANUFACTURING' | 'EDUCATION' | 'ENERGY_UTILITIES' | 'FAITH_RELIGIOUS_ORGS' | 'FINANCE' | 'GAME_STUDIOS_PUBLISHERS' | 'GOVERNMENT_PUBLIC_SECTOR' | 'HEALTHCARE' | 'HOSPITALITY_FITNESS_WELLNESS' | 'LIVE_PRODUCTION_EVENTS' | 'MEDIA_CONGLOMERATES' | 'NONPROFITS_NON_RELIGIOUS' | 'ONLINE_MEDIA' | 'OTHER' | 'PUBLISHERS_NEWSPAPERS' | 'RETAIL_CONSUMER_GOODS' | 'SOFTWARE_TECHNOLOGY' | 'SPORTS_RIGHTS_LEAGUES' | 'STUDIOS_CONTENT_PRODUCERS' | 'TELECOMMUNICATIONS' | null;
+    industry?: SystemDomainSuperAdminSchemaIndustry | null;
     invoice_end_of_month?: boolean | null;
     is_plg?: boolean | null;
     is_template?: boolean | null;
@@ -1068,9 +1158,9 @@ export type SystemDomainSuperAdminSchemaWritable = {
     price_list?: string | null;
     referral_code?: string | null;
     sales_force_id?: string | null;
-    status?: 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING' | null;
+    status?: SystemDomainSuperAdminSchemaStatus | null;
     stripe_id?: string | null;
-    type?: 'CUSTOMER' | 'INTERNAL' | 'PARTNER' | 'TRIAL' | null;
+    type?: SystemDomainSuperAdminSchemaType | null;
     warning_message?: string | null;
 };
 

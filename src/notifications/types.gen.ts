@@ -418,7 +418,7 @@ export type GetWebhooksByWebhookIdResponses = {
     /**
      * Returns a webhook by it's ID
      */
-    201: WebhookSchema;
+    200: WebhookSchema;
 };
 
 export type GetWebhooksByWebhookIdResponse = GetWebhooksByWebhookIdResponses[keyof GetWebhooksByWebhookIdResponses];

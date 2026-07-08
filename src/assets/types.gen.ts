@@ -9,10 +9,12 @@ export type ApprovalBySchema = {
     external?: string | null;
     readonly object_id?: string | null;
     readonly object_type?: string | null;
-    status?: 'APPROVED' | 'MIXED' | 'N/A' | 'NOT_APPROVED' | 'REQUESTED' | null;
+    status?: ApprovalBySchemaStatus | null;
     user?: string | null;
     readonly version_id?: string | null;
 };
+
+export type ApprovalBySchemaStatus = 'APPROVED' | 'MIXED' | 'N/A' | 'NOT_APPROVED' | 'REQUESTED';
 
 export type ApprovalJobSchema = {
     readonly job_id?: string | null;
@@ -29,12 +31,16 @@ export type ApprovalSchema = {
     request_date?: string | null;
     readonly requested_by?: string | null;
     share_id?: string | null;
-    status?: 'APPROVED' | 'MIXED' | 'N/A' | 'NOT_APPROVED' | 'REQUESTED' | null;
-    user_status?: 'APPROVED' | 'MIXED' | 'N/A' | 'NOT_APPROVED' | 'REQUESTED' | null;
+    status?: ApprovalSchemaStatus | null;
+    user_status?: ApprovalSchemaUserStatus | null;
     users?: Array<string> | null;
     readonly users_info?: Array<User> | null;
     readonly version_id?: string | null;
 };
+
+export type ApprovalSchemaStatus = 'APPROVED' | 'MIXED' | 'N/A' | 'NOT_APPROVED' | 'REQUESTED';
+
+export type ApprovalSchemaUserStatus = 'APPROVED' | 'MIXED' | 'N/A' | 'NOT_APPROVED' | 'REQUESTED';
 
 export type ApprovalsBySchema = {
     readonly first_url?: string | null;
@@ -51,8 +57,8 @@ export type ApprovalsBySchema = {
 };
 
 export type AssetBaseSchema = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: AssetBaseSchemaAnalyzeStatus | null;
+    archive_status?: AssetBaseSchemaArchiveStatus | null;
     category?: string | null;
     readonly created_by_user?: string | null;
     created_by_user_info?: User | null;
@@ -67,7 +73,7 @@ export type AssetBaseSchema = {
     deleted_by_user_info?: User | null;
     external_id?: string | null;
     external_link?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: AssetBaseSchemaFaceRecognitionStatus | null;
     readonly favoured?: boolean | null;
     has_unconfirmed_persons?: boolean | null;
     readonly id?: string | null;
@@ -80,19 +86,29 @@ export type AssetBaseSchema = {
     original_version_id?: string | null;
     person_ids?: Array<string> | null;
     site_name?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: AssetBaseSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     title: string;
-    type?: 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP' | null;
+    type?: AssetBaseSchemaType | null;
     readonly updated_by_user?: string | null;
     updated_by_user_info?: User | null;
     warning?: string | null;
 };
 
+export type AssetBaseSchemaAnalyzeStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type AssetBaseSchemaArchiveStatus = 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED';
+
+export type AssetBaseSchemaFaceRecognitionStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type AssetBaseSchemaStatus = 'ACTIVE' | 'DELETED';
+
+export type AssetBaseSchemaType = 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP';
+
 export type AssetCreateSchema = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: AssetCreateSchemaAnalyzeStatus | null;
+    archive_status?: AssetCreateSchemaArchiveStatus | null;
     category?: string | null;
     collection_id?: string | null;
     readonly created_by_user?: string | null;
@@ -108,7 +124,7 @@ export type AssetCreateSchema = {
     deleted_by_user_info?: User | null;
     external_id?: string | null;
     external_link?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: AssetCreateSchemaFaceRecognitionStatus | null;
     readonly favoured?: boolean | null;
     has_unconfirmed_persons?: boolean | null;
     readonly id?: string | null;
@@ -121,15 +137,25 @@ export type AssetCreateSchema = {
     original_version_id?: string | null;
     person_ids?: Array<string> | null;
     site_name?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: AssetCreateSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     title: string;
-    type?: 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP' | null;
+    type?: AssetCreateSchemaType | null;
     readonly updated_by_user?: string | null;
     updated_by_user_info?: User | null;
     warning?: string | null;
 };
+
+export type AssetCreateSchemaAnalyzeStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type AssetCreateSchemaArchiveStatus = 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED';
+
+export type AssetCreateSchemaFaceRecognitionStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type AssetCreateSchemaStatus = 'ACTIVE' | 'DELETED';
+
+export type AssetCreateSchemaType = 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP';
 
 export type AssetCreateSchemaTyped = ({
     type: 'ASSET';
@@ -138,8 +164,8 @@ export type AssetCreateSchemaTyped = ({
 } & AssetPostCreate);
 
 export type AssetEditSchema = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: AssetEditSchemaAnalyzeStatus | null;
+    archive_status?: AssetEditSchemaArchiveStatus | null;
     category?: string | null;
     created_by_user?: string | null;
     created_by_user_info?: User | null;
@@ -154,7 +180,7 @@ export type AssetEditSchema = {
     deleted_by_user_info?: User | null;
     external_id?: string | null;
     external_link?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: AssetEditSchemaFaceRecognitionStatus | null;
     readonly favoured?: boolean | null;
     has_unconfirmed_persons?: boolean | null;
     id: string;
@@ -167,15 +193,25 @@ export type AssetEditSchema = {
     original_version_id?: string | null;
     person_ids?: Array<string> | null;
     site_name?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: AssetEditSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     title?: string | null;
-    type?: 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP' | null;
+    type?: AssetEditSchemaType | null;
     readonly updated_by_user?: string | null;
     updated_by_user_info?: User | null;
     warning?: string | null;
 };
+
+export type AssetEditSchemaAnalyzeStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type AssetEditSchemaArchiveStatus = 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED';
+
+export type AssetEditSchemaFaceRecognitionStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type AssetEditSchemaStatus = 'ACTIVE' | 'DELETED';
+
+export type AssetEditSchemaType = 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP';
 
 export type AssetEditSchemaTyped = ({
     type: 'ASSET';
@@ -184,13 +220,13 @@ export type AssetEditSchemaTyped = ({
 } & AssetPostEdit);
 
 export type AssetElasticSchema = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    analyze_status?: AssetElasticSchemaAnalyzeStatus | null;
     /**
      * Unordered list of all ancestor collection ids
      */
     readonly ancestor_collections?: Array<string> | null;
     approval?: ApprovalSchema | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    archive_status?: AssetElasticSchemaArchiveStatus | null;
     category?: string | null;
     readonly comments_count?: number | null;
     readonly created_by_user?: string | null;
@@ -207,16 +243,22 @@ export type AssetElasticSchema = {
     readonly duration_milliseconds?: number | null;
     external_id?: string | null;
     external_link?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: AssetElasticSchemaFaceRecognitionStatus | null;
     readonly favoured?: boolean | null;
-    readonly files?: Array<unknown> | null;
-    readonly formats?: Array<unknown> | null;
+    readonly files?: Array<{
+        [key: string]: unknown;
+    }> | null;
+    readonly formats?: Array<{
+        [key: string]: unknown;
+    }> | null;
     readonly has_unconfirmed_persons?: boolean | null;
     readonly id?: string | null;
     readonly in_collections?: Array<string> | null;
     is_blocked?: boolean | null;
     is_online?: boolean | null;
-    readonly keyframes?: Array<unknown> | null;
+    readonly keyframes?: Array<{
+        [key: string]: unknown;
+    }> | null;
     readonly last_archive_restore_date?: string | null;
     limit_download_to_groups?: Array<string> | null;
     readonly media_type?: string | null;
@@ -229,20 +271,32 @@ export type AssetElasticSchema = {
     original_version_id?: string | null;
     readonly person_ids?: Array<string> | null;
     readonly position?: number | null;
-    readonly proxies?: Array<unknown> | null;
+    readonly proxies?: Array<{
+        [key: string]: unknown;
+    }> | null;
     readonly relations?: Array<RelationElastic> | null;
     site_name?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: AssetElasticSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     title: string;
-    type?: 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP' | null;
+    type?: AssetElasticSchemaType | null;
     readonly updated_by_user?: string | null;
     updated_by_user_info?: User | null;
     readonly versions?: Array<AssetVersion> | null;
     readonly versions_number?: number | null;
     warning?: string | null;
 };
+
+export type AssetElasticSchemaAnalyzeStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type AssetElasticSchemaArchiveStatus = 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED';
+
+export type AssetElasticSchemaFaceRecognitionStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type AssetElasticSchemaStatus = 'ACTIVE' | 'DELETED';
+
+export type AssetElasticSchemaType = 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP';
 
 export type AssetElasticSchemaTyped = ({
     type: 'ASSET';
@@ -342,8 +396,8 @@ export type AssetPersonChangeSchema = {
 };
 
 export type AssetPostCreate = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: AssetPostCreateAnalyzeStatus | null;
+    archive_status?: AssetPostCreateArchiveStatus | null;
     category?: string | null;
     clip_aspect_ratio?: string | null;
     clip_duration?: number | null;
@@ -368,7 +422,7 @@ export type AssetPostCreate = {
     destination_type?: string | null;
     external_id?: string | null;
     external_link?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: AssetPostCreateFaceRecognitionStatus | null;
     readonly favoured?: boolean | null;
     has_unconfirmed_persons?: boolean | null;
     readonly id?: string | null;
@@ -381,22 +435,30 @@ export type AssetPostCreate = {
     original_segment_id?: string | null;
     original_version_id?: string | null;
     person_ids?: Array<string> | null;
-    publication_status?: 'CANCELED' | 'FAILED' | 'PUBLISHED' | 'PUBLISHED_WITH_WARNING' | 'RUNNING' | 'SCHEDULED' | null;
+    publication_status?: AssetPostCreatePublicationStatus | null;
     site_name?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: AssetPostCreateStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     title: string;
-    type?: 'POST' | null;
+    type?: AssetPostCreateType | null;
     readonly updated_by_user?: string | null;
     updated_by_user_info?: User | null;
     views?: number | null;
     warning?: string | null;
 };
+
+export type AssetPostCreateAnalyzeStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type AssetPostCreateArchiveStatus = 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED';
+
+export type AssetPostCreateFaceRecognitionStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type AssetPostCreatePublicationStatus = 'CANCELED' | 'FAILED' | 'PUBLISHED' | 'PUBLISHED_WITH_WARNING' | 'RUNNING' | 'SCHEDULED';
 
 export type AssetPostCreateSchema = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: AssetPostCreateSchemaAnalyzeStatus | null;
+    archive_status?: AssetPostCreateSchemaArchiveStatus | null;
     category?: string | null;
     clip_aspect_ratio?: string | null;
     clip_duration?: number | null;
@@ -421,7 +483,7 @@ export type AssetPostCreateSchema = {
     destination_type?: string | null;
     external_id?: string | null;
     external_link?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: AssetPostCreateSchemaFaceRecognitionStatus | null;
     readonly favoured?: boolean | null;
     has_unconfirmed_persons?: boolean | null;
     readonly id?: string | null;
@@ -434,22 +496,38 @@ export type AssetPostCreateSchema = {
     original_segment_id?: string | null;
     original_version_id?: string | null;
     person_ids?: Array<string> | null;
-    publication_status?: 'CANCELED' | 'FAILED' | 'PUBLISHED' | 'PUBLISHED_WITH_WARNING' | 'RUNNING' | 'SCHEDULED' | null;
+    publication_status?: AssetPostCreateSchemaPublicationStatus | null;
     site_name?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: AssetPostCreateSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     title: string;
-    type?: 'POST' | null;
+    type?: AssetPostCreateSchemaType | null;
     readonly updated_by_user?: string | null;
     updated_by_user_info?: User | null;
     views?: number | null;
     warning?: string | null;
 };
+
+export type AssetPostCreateSchemaAnalyzeStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type AssetPostCreateSchemaArchiveStatus = 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED';
+
+export type AssetPostCreateSchemaFaceRecognitionStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type AssetPostCreateSchemaPublicationStatus = 'CANCELED' | 'FAILED' | 'PUBLISHED' | 'PUBLISHED_WITH_WARNING' | 'RUNNING' | 'SCHEDULED';
+
+export type AssetPostCreateSchemaStatus = 'ACTIVE' | 'DELETED';
+
+export type AssetPostCreateSchemaType = 'POST';
+
+export type AssetPostCreateStatus = 'ACTIVE' | 'DELETED';
+
+export type AssetPostCreateType = 'POST';
 
 export type AssetPostEdit = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: AssetPostEditAnalyzeStatus | null;
+    archive_status?: AssetPostEditArchiveStatus | null;
     category?: string | null;
     clip_aspect_ratio?: string | null;
     clip_duration?: number | null;
@@ -473,7 +551,7 @@ export type AssetPostEdit = {
     destination_type?: string | null;
     external_id?: string | null;
     external_link?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: AssetPostEditFaceRecognitionStatus | null;
     readonly favoured?: boolean | null;
     has_unconfirmed_persons?: boolean | null;
     id: string;
@@ -486,22 +564,30 @@ export type AssetPostEdit = {
     original_segment_id?: string | null;
     original_version_id?: string | null;
     person_ids?: Array<string> | null;
-    publication_status?: 'CANCELED' | 'FAILED' | 'PUBLISHED' | 'PUBLISHED_WITH_WARNING' | 'RUNNING' | 'SCHEDULED' | null;
+    publication_status?: AssetPostEditPublicationStatus | null;
     site_name?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: AssetPostEditStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     title?: string | null;
-    type?: 'POST' | null;
+    type?: AssetPostEditType | null;
     readonly updated_by_user?: string | null;
     updated_by_user_info?: User | null;
     views?: number | null;
     warning?: string | null;
 };
+
+export type AssetPostEditAnalyzeStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type AssetPostEditArchiveStatus = 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED';
+
+export type AssetPostEditFaceRecognitionStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type AssetPostEditPublicationStatus = 'CANCELED' | 'FAILED' | 'PUBLISHED' | 'PUBLISHED_WITH_WARNING' | 'RUNNING' | 'SCHEDULED';
 
 export type AssetPostEditSchema = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: AssetPostEditSchemaAnalyzeStatus | null;
+    archive_status?: AssetPostEditSchemaArchiveStatus | null;
     category?: string | null;
     clip_aspect_ratio?: string | null;
     clip_duration?: number | null;
@@ -525,7 +611,7 @@ export type AssetPostEditSchema = {
     destination_type?: string | null;
     external_id?: string | null;
     external_link?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: AssetPostEditSchemaFaceRecognitionStatus | null;
     readonly favoured?: boolean | null;
     has_unconfirmed_persons?: boolean | null;
     id: string;
@@ -538,27 +624,43 @@ export type AssetPostEditSchema = {
     original_segment_id?: string | null;
     original_version_id?: string | null;
     person_ids?: Array<string> | null;
-    publication_status?: 'CANCELED' | 'FAILED' | 'PUBLISHED' | 'PUBLISHED_WITH_WARNING' | 'RUNNING' | 'SCHEDULED' | null;
+    publication_status?: AssetPostEditSchemaPublicationStatus | null;
     site_name?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: AssetPostEditSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     title?: string | null;
-    type?: 'POST' | null;
+    type?: AssetPostEditSchemaType | null;
     readonly updated_by_user?: string | null;
     updated_by_user_info?: User | null;
     views?: number | null;
     warning?: string | null;
 };
+
+export type AssetPostEditSchemaAnalyzeStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type AssetPostEditSchemaArchiveStatus = 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED';
+
+export type AssetPostEditSchemaFaceRecognitionStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type AssetPostEditSchemaPublicationStatus = 'CANCELED' | 'FAILED' | 'PUBLISHED' | 'PUBLISHED_WITH_WARNING' | 'RUNNING' | 'SCHEDULED';
+
+export type AssetPostEditSchemaStatus = 'ACTIVE' | 'DELETED';
+
+export type AssetPostEditSchemaType = 'POST';
+
+export type AssetPostEditStatus = 'ACTIVE' | 'DELETED';
+
+export type AssetPostEditType = 'POST';
 
 export type AssetPostElastic = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    analyze_status?: AssetPostElasticAnalyzeStatus | null;
     /**
      * Unordered list of all ancestor collection ids
      */
     readonly ancestor_collections?: Array<string> | null;
     approval?: ApprovalSchema | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    archive_status?: AssetPostElasticArchiveStatus | null;
     category?: string | null;
     clip_aspect_ratio?: string | null;
     clip_duration?: number | null;
@@ -584,16 +686,22 @@ export type AssetPostElastic = {
     readonly duration_milliseconds?: number | null;
     external_id?: string | null;
     external_link?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: AssetPostElasticFaceRecognitionStatus | null;
     readonly favoured?: boolean | null;
-    readonly files?: Array<unknown> | null;
-    readonly formats?: Array<unknown> | null;
+    readonly files?: Array<{
+        [key: string]: unknown;
+    }> | null;
+    readonly formats?: Array<{
+        [key: string]: unknown;
+    }> | null;
     readonly has_unconfirmed_persons?: boolean | null;
     readonly id?: string | null;
     readonly in_collections?: Array<string> | null;
     is_blocked?: boolean | null;
     is_online?: boolean | null;
-    readonly keyframes?: Array<unknown> | null;
+    readonly keyframes?: Array<{
+        [key: string]: unknown;
+    }> | null;
     readonly last_archive_restore_date?: string | null;
     likes?: number | null;
     limit_download_to_groups?: Array<string> | null;
@@ -607,15 +715,17 @@ export type AssetPostElastic = {
     original_version_id?: string | null;
     readonly person_ids?: Array<string> | null;
     readonly position?: number | null;
-    readonly proxies?: Array<unknown> | null;
-    publication_status?: 'CANCELED' | 'FAILED' | 'PUBLISHED' | 'PUBLISHED_WITH_WARNING' | 'RUNNING' | 'SCHEDULED' | null;
+    readonly proxies?: Array<{
+        [key: string]: unknown;
+    }> | null;
+    publication_status?: AssetPostElasticPublicationStatus | null;
     readonly relations?: Array<RelationElastic> | null;
     site_name?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: AssetPostElasticStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     title: string;
-    type?: 'POST' | null;
+    type?: AssetPostElasticType | null;
     readonly updated_by_user?: string | null;
     updated_by_user_info?: User | null;
     readonly versions?: Array<AssetVersion> | null;
@@ -623,15 +733,23 @@ export type AssetPostElastic = {
     views?: number | null;
     warning?: string | null;
 };
+
+export type AssetPostElasticAnalyzeStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type AssetPostElasticArchiveStatus = 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED';
+
+export type AssetPostElasticFaceRecognitionStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type AssetPostElasticPublicationStatus = 'CANCELED' | 'FAILED' | 'PUBLISHED' | 'PUBLISHED_WITH_WARNING' | 'RUNNING' | 'SCHEDULED';
 
 export type AssetPostElasticSchema = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    analyze_status?: AssetPostElasticSchemaAnalyzeStatus | null;
     /**
      * Unordered list of all ancestor collection ids
      */
     readonly ancestor_collections?: Array<string> | null;
     approval?: ApprovalSchema | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    archive_status?: AssetPostElasticSchemaArchiveStatus | null;
     category?: string | null;
     clip_aspect_ratio?: string | null;
     clip_duration?: number | null;
@@ -657,16 +775,22 @@ export type AssetPostElasticSchema = {
     readonly duration_milliseconds?: number | null;
     external_id?: string | null;
     external_link?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: AssetPostElasticSchemaFaceRecognitionStatus | null;
     readonly favoured?: boolean | null;
-    readonly files?: Array<unknown> | null;
-    readonly formats?: Array<unknown> | null;
+    readonly files?: Array<{
+        [key: string]: unknown;
+    }> | null;
+    readonly formats?: Array<{
+        [key: string]: unknown;
+    }> | null;
     readonly has_unconfirmed_persons?: boolean | null;
     readonly id?: string | null;
     readonly in_collections?: Array<string> | null;
     is_blocked?: boolean | null;
     is_online?: boolean | null;
-    readonly keyframes?: Array<unknown> | null;
+    readonly keyframes?: Array<{
+        [key: string]: unknown;
+    }> | null;
     readonly last_archive_restore_date?: string | null;
     likes?: number | null;
     limit_download_to_groups?: Array<string> | null;
@@ -680,15 +804,17 @@ export type AssetPostElasticSchema = {
     original_version_id?: string | null;
     readonly person_ids?: Array<string> | null;
     readonly position?: number | null;
-    readonly proxies?: Array<unknown> | null;
-    publication_status?: 'CANCELED' | 'FAILED' | 'PUBLISHED' | 'PUBLISHED_WITH_WARNING' | 'RUNNING' | 'SCHEDULED' | null;
+    readonly proxies?: Array<{
+        [key: string]: unknown;
+    }> | null;
+    publication_status?: AssetPostElasticSchemaPublicationStatus | null;
     readonly relations?: Array<RelationElastic> | null;
     site_name?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: AssetPostElasticSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     title: string;
-    type?: 'POST' | null;
+    type?: AssetPostElasticSchemaType | null;
     readonly updated_by_user?: string | null;
     updated_by_user_info?: User | null;
     readonly versions?: Array<AssetVersion> | null;
@@ -697,9 +823,25 @@ export type AssetPostElasticSchema = {
     warning?: string | null;
 };
 
+export type AssetPostElasticSchemaAnalyzeStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type AssetPostElasticSchemaArchiveStatus = 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED';
+
+export type AssetPostElasticSchemaFaceRecognitionStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type AssetPostElasticSchemaPublicationStatus = 'CANCELED' | 'FAILED' | 'PUBLISHED' | 'PUBLISHED_WITH_WARNING' | 'RUNNING' | 'SCHEDULED';
+
+export type AssetPostElasticSchemaStatus = 'ACTIVE' | 'DELETED';
+
+export type AssetPostElasticSchemaType = 'POST';
+
+export type AssetPostElasticStatus = 'ACTIVE' | 'DELETED';
+
+export type AssetPostElasticType = 'POST';
+
 export type AssetPostSchema = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: AssetPostSchemaAnalyzeStatus | null;
+    archive_status?: AssetPostSchemaArchiveStatus | null;
     category?: string | null;
     clip_aspect_ratio?: string | null;
     clip_duration?: number | null;
@@ -723,7 +865,7 @@ export type AssetPostSchema = {
     destination_type?: string | null;
     external_id?: string | null;
     external_link?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: AssetPostSchemaFaceRecognitionStatus | null;
     readonly favoured?: boolean | null;
     has_unconfirmed_persons?: boolean | null;
     readonly id?: string | null;
@@ -737,13 +879,13 @@ export type AssetPostSchema = {
     original_segment_id?: string | null;
     original_version_id?: string | null;
     person_ids?: Array<string> | null;
-    publication_status?: 'CANCELED' | 'FAILED' | 'PUBLISHED' | 'PUBLISHED_WITH_WARNING' | 'RUNNING' | 'SCHEDULED' | null;
+    publication_status?: AssetPostSchemaPublicationStatus | null;
     site_name?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: AssetPostSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     title: string;
-    type?: 'POST' | null;
+    type?: AssetPostSchemaType | null;
     readonly updated_by_user?: string | null;
     updated_by_user_info?: User | null;
     readonly versions?: Array<AssetVersion> | null;
@@ -751,9 +893,21 @@ export type AssetPostSchema = {
     warning?: string | null;
 };
 
+export type AssetPostSchemaAnalyzeStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type AssetPostSchemaArchiveStatus = 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED';
+
+export type AssetPostSchemaFaceRecognitionStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type AssetPostSchemaPublicationStatus = 'CANCELED' | 'FAILED' | 'PUBLISHED' | 'PUBLISHED_WITH_WARNING' | 'RUNNING' | 'SCHEDULED';
+
+export type AssetPostSchemaStatus = 'ACTIVE' | 'DELETED';
+
+export type AssetPostSchemaType = 'POST';
+
 export type AssetSchema = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: AssetSchemaAnalyzeStatus | null;
+    archive_status?: AssetSchemaArchiveStatus | null;
     category?: string | null;
     readonly created_by_user?: string | null;
     created_by_user_info?: User | null;
@@ -768,7 +922,7 @@ export type AssetSchema = {
     deleted_by_user_info?: User | null;
     external_id?: string | null;
     external_link?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: AssetSchemaFaceRecognitionStatus | null;
     readonly favoured?: boolean | null;
     has_unconfirmed_persons?: boolean | null;
     readonly id?: string | null;
@@ -782,16 +936,26 @@ export type AssetSchema = {
     original_version_id?: string | null;
     person_ids?: Array<string> | null;
     site_name?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: AssetSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     title: string;
-    type?: 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP' | null;
+    type?: AssetSchemaType | null;
     readonly updated_by_user?: string | null;
     updated_by_user_info?: User | null;
     readonly versions?: Array<AssetVersion> | null;
     warning?: string | null;
 };
+
+export type AssetSchemaAnalyzeStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type AssetSchemaArchiveStatus = 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED';
+
+export type AssetSchemaFaceRecognitionStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type AssetSchemaStatus = 'ACTIVE' | 'DELETED';
+
+export type AssetSchemaType = 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP';
 
 export type AssetSchemaTyped = ({
     type: 'ASSET';
@@ -802,13 +966,15 @@ export type AssetSchemaTyped = ({
 export type AssetTranscriptionFromSubtitleSchema = {
     content?: string | null;
     delete_old_transcriptions?: boolean | null;
-    format?: 'SRT' | 'VTT' | 'WEBVTT' | null;
+    format?: AssetTranscriptionFromSubtitleSchemaFormat | null;
     language?: string | null;
     /**
      * Set to source subtitle_id or do not set and use the content fields instead
      */
     source_subtitle_id?: string | null;
 };
+
+export type AssetTranscriptionFromSubtitleSchemaFormat = 'SRT' | 'VTT' | 'WEBVTT';
 
 export type AssetTranscriptionPropertiesSchema = {
     readonly asset_id?: string | null;
@@ -826,21 +992,27 @@ export type AssetTranscriptionsPropertiesSchema = {
 };
 
 export type AssetVersion = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: AssetVersionAnalyzeStatus | null;
+    archive_status?: AssetVersionArchiveStatus | null;
     created_by_user?: string | null;
     created_by_user_info?: User | null;
     date_created?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: AssetVersionFaceRecognitionStatus | null;
     has_unconfirmed_persons?: boolean | null;
     readonly id?: string | null;
     is_online?: boolean | null;
     person_ids?: Array<string> | null;
-    status?: 'ACTIVE' | 'DELETED' | 'DELETING' | 'FAILED' | 'IN_PROGRESS' | null;
-    transcribe_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    status?: AssetVersionStatus | null;
+    transcribe_status?: AssetVersionTranscribeStatus | null;
     transcribed_languages?: Array<string> | null;
     version_number?: number | null;
 };
+
+export type AssetVersionAnalyzeStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type AssetVersionArchiveStatus = 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED';
+
+export type AssetVersionFaceRecognitionStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
 
 export type AssetVersionLookupSchema = {
     asset_id: string;
@@ -848,21 +1020,35 @@ export type AssetVersionLookupSchema = {
 };
 
 export type AssetVersionSchema = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: AssetVersionSchemaAnalyzeStatus | null;
+    archive_status?: AssetVersionSchemaArchiveStatus | null;
     created_by_user?: string | null;
     created_by_user_info?: User | null;
     date_created?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: AssetVersionSchemaFaceRecognitionStatus | null;
     has_unconfirmed_persons?: boolean | null;
     readonly id?: string | null;
     is_online?: boolean | null;
     person_ids?: Array<string> | null;
-    status?: 'ACTIVE' | 'DELETED' | 'DELETING' | 'FAILED' | 'IN_PROGRESS' | null;
-    transcribe_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    status?: AssetVersionSchemaStatus | null;
+    transcribe_status?: AssetVersionSchemaTranscribeStatus | null;
     transcribed_languages?: Array<string> | null;
     version_number?: number | null;
 };
+
+export type AssetVersionSchemaAnalyzeStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type AssetVersionSchemaArchiveStatus = 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED';
+
+export type AssetVersionSchemaFaceRecognitionStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type AssetVersionSchemaStatus = 'ACTIVE' | 'DELETED' | 'DELETING' | 'FAILED' | 'IN_PROGRESS';
+
+export type AssetVersionSchemaTranscribeStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type AssetVersionStatus = 'ACTIVE' | 'DELETED' | 'DELETING' | 'FAILED' | 'IN_PROGRESS';
+
+export type AssetVersionTranscribeStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
 
 export type AssetVersionsSchema = {
     asset_id: string;
@@ -1152,10 +1338,7 @@ export type BulkShareCreateSchema = {
     allow_view_transcriptions?: boolean | null;
     allow_view_versions?: boolean | null;
     readonly automatic_approval_share?: boolean | null;
-    /**
-     * DRM settings for the share
-     */
-    drm?: 'none' | 'standard' | null;
+    drm?: BulkShareCreateSchemaDrm | null;
     emails?: Array<string> | null;
     expires?: string | null;
     readonly id?: string | null;
@@ -1163,7 +1346,7 @@ export type BulkShareCreateSchema = {
     message?: string | null;
     metadata_views?: Array<string> | null;
     object_ids: Array<string>;
-    object_type?: 'assets' | null;
+    object_type?: BulkShareCreateSchemaObjectType | null;
     readonly owner_id?: string | null;
     password?: string | null;
     review_experience_public_beta?: boolean | null;
@@ -1173,11 +1356,20 @@ export type BulkShareCreateSchema = {
     system_domain_id?: string | null;
     title: string;
     upload_storage_id?: string | null;
-    /**
-     * Watermark settings for the share
-     */
-    watermark?: 'none' | 'standard' | null;
+    watermark?: BulkShareCreateSchemaWatermark | null;
 };
+
+/**
+ * DRM settings for the share
+ */
+export type BulkShareCreateSchemaDrm = 'none' | 'standard';
+
+export type BulkShareCreateSchemaObjectType = 'assets';
+
+/**
+ * Watermark settings for the share
+ */
+export type BulkShareCreateSchemaWatermark = 'none' | 'standard';
 
 export type BulkShareDeleteSchema = {
     share_ids: Array<string>;
@@ -1187,7 +1379,7 @@ export type CollectionBaseSchema = {
     category?: string | null;
     readonly created_by_user?: string | null;
     custom_keyframe?: string | null;
-    custom_order_status?: 'DISABLED' | 'ENABLED' | 'ENABLING' | null;
+    custom_order_status?: CollectionBaseSchemaCustomOrderStatus | null;
     custom_poster?: string | null;
     readonly deleted_by_user?: string | null;
     external_id?: string | null;
@@ -1196,7 +1388,9 @@ export type CollectionBaseSchema = {
     in_collections?: Array<string> | null;
     is_root?: boolean | null;
     keyframe_asset_ids?: Array<string> | null;
-    keyframes?: Array<unknown> | null;
+    keyframes?: Array<{
+        [key: string]: unknown;
+    }> | null;
     readonly metadata?: {
         [key: string]: unknown;
     } | null;
@@ -1206,10 +1400,20 @@ export type CollectionBaseSchema = {
     readonly permissions?: Array<string> | null;
     readonly position?: number | null;
     readonly project_id?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | 'HIDDEN' | null;
+    status?: CollectionBaseSchemaStatus | null;
     storage_id?: string | null;
     title: string;
 };
+
+export type CollectionBaseSchemaCustomOrderStatus = 'DISABLED' | 'ENABLED' | 'ENABLING';
+
+export type CollectionBaseSchemaStatus = 'ACTIVE' | 'DELETED' | 'HIDDEN';
+
+export type CollectionContentElasticSchema = ({
+    object_type: 'assets';
+} & AssetElasticSchema) | ({
+    object_type: 'collections';
+} & CollectionElasticSchema);
 
 export type CollectionContentInfoSchema = {
     readonly assets_count?: number | null;
@@ -1256,11 +1460,25 @@ export type CollectionContentSchema = {
     object_type: string;
 };
 
+export type CollectionContentsSchema = {
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<CollectionContentElasticSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly search_after?: Array<unknown> | null;
+    readonly total?: number | null;
+};
+
 export type CollectionElastic = {
     category?: string | null;
     readonly created_by_user?: string | null;
     custom_keyframe?: string | null;
-    custom_order_status?: 'DISABLED' | 'ENABLED' | 'ENABLING' | null;
+    custom_order_status?: CollectionElasticCustomOrderStatus | null;
     custom_poster?: string | null;
     readonly date_created?: string | null;
     readonly date_deleted?: string | null;
@@ -1273,7 +1491,9 @@ export type CollectionElastic = {
     in_collections?: Array<string> | null;
     is_root?: boolean | null;
     keyframe_asset_ids?: Array<string> | null;
-    keyframes?: Array<unknown> | null;
+    keyframes?: Array<{
+        [key: string]: unknown;
+    }> | null;
     readonly metadata?: {
         [key: string]: unknown;
     } | null;
@@ -1283,16 +1503,18 @@ export type CollectionElastic = {
     readonly permissions?: Array<string> | null;
     readonly position?: number | null;
     readonly project_id?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | 'HIDDEN' | null;
+    status?: CollectionElasticStatus | null;
     storage_id?: string | null;
     title: string;
 };
+
+export type CollectionElasticCustomOrderStatus = 'DISABLED' | 'ENABLED' | 'ENABLING';
 
 export type CollectionElasticSchema = {
     category?: string | null;
     readonly created_by_user?: string | null;
     custom_keyframe?: string | null;
-    custom_order_status?: 'DISABLED' | 'ENABLED' | 'ENABLING' | null;
+    custom_order_status?: CollectionElasticSchemaCustomOrderStatus | null;
     custom_poster?: string | null;
     readonly date_created?: string | null;
     readonly date_deleted?: string | null;
@@ -1305,7 +1527,9 @@ export type CollectionElasticSchema = {
     in_collections?: Array<string> | null;
     is_root?: boolean | null;
     keyframe_asset_ids?: Array<string> | null;
-    keyframes?: Array<unknown> | null;
+    keyframes?: Array<{
+        [key: string]: unknown;
+    }> | null;
     readonly metadata?: {
         [key: string]: unknown;
     } | null;
@@ -1315,10 +1539,16 @@ export type CollectionElasticSchema = {
     readonly permissions?: Array<string> | null;
     readonly position?: number | null;
     readonly project_id?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | 'HIDDEN' | null;
+    status?: CollectionElasticSchemaStatus | null;
     storage_id?: string | null;
     title: string;
 };
+
+export type CollectionElasticSchemaCustomOrderStatus = 'DISABLED' | 'ENABLED' | 'ENABLING';
+
+export type CollectionElasticSchemaStatus = 'ACTIVE' | 'DELETED' | 'HIDDEN';
+
+export type CollectionElasticStatus = 'ACTIVE' | 'DELETED' | 'HIDDEN';
 
 export type CollectionInputSchema = {
     category?: string | null;
@@ -1329,16 +1559,18 @@ export type CollectionInputSchema = {
     is_root?: boolean | null;
     keyframe_asset_ids?: Array<string> | null;
     parent_id?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | 'HIDDEN' | null;
+    status?: CollectionInputSchemaStatus | null;
     storage_id?: string | null;
     title: string;
 };
+
+export type CollectionInputSchemaStatus = 'ACTIVE' | 'DELETED' | 'HIDDEN';
 
 export type CollectionSchema = {
     category?: string | null;
     readonly created_by_user?: string | null;
     custom_keyframe?: string | null;
-    custom_order_status?: 'DISABLED' | 'ENABLED' | 'ENABLING' | null;
+    custom_order_status?: CollectionSchemaCustomOrderStatus | null;
     custom_poster?: string | null;
     readonly date_created?: string | null;
     readonly date_deleted?: string | null;
@@ -1351,7 +1583,9 @@ export type CollectionSchema = {
     in_collections?: Array<string> | null;
     is_root?: boolean | null;
     keyframe_asset_ids?: Array<string> | null;
-    keyframes?: Array<unknown> | null;
+    keyframes?: Array<{
+        [key: string]: unknown;
+    }> | null;
     readonly metadata?: {
         [key: string]: unknown;
     } | null;
@@ -1361,10 +1595,14 @@ export type CollectionSchema = {
     readonly permissions?: Array<string> | null;
     readonly position?: number | null;
     readonly project_id?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | 'HIDDEN' | null;
+    status?: CollectionSchemaStatus | null;
     storage_id?: string | null;
     title: string;
 };
+
+export type CollectionSchemaCustomOrderStatus = 'DISABLED' | 'ENABLED' | 'ENABLING';
+
+export type CollectionSchemaStatus = 'ACTIVE' | 'DELETED' | 'HIDDEN';
 
 export type CollectionSizeSchema = {
     id?: string | null;
@@ -1529,13 +1767,17 @@ export type CustomActionCreateSchema = {
     metadata_view?: string | null;
     publish_template_id?: string | null;
     read_access_for_everyone?: boolean | null;
-    status?: 'FAILING' | 'HEALTHY' | null;
+    status?: CustomActionCreateSchemaStatus | null;
     readonly system_domain_id?: string | null;
     title: string;
     transcoder_id?: string | null;
-    type?: 'OPEN' | 'POST' | 'PUBLISH' | null;
+    type?: CustomActionCreateSchemaType | null;
     url: string;
 };
+
+export type CustomActionCreateSchemaStatus = 'FAILING' | 'HEALTHY';
+
+export type CustomActionCreateSchemaType = 'OPEN' | 'POST' | 'PUBLISH';
 
 export type CustomActionSchema = {
     app_id?: string | null;
@@ -1551,13 +1793,17 @@ export type CustomActionSchema = {
     readonly last_error_date?: string | null;
     metadata_view?: string | null;
     publish_template_id?: string | null;
-    status?: 'FAILING' | 'HEALTHY' | null;
+    status?: CustomActionSchemaStatus | null;
     readonly system_domain_id?: string | null;
     title: string;
     transcoder_id?: string | null;
-    type?: 'OPEN' | 'POST' | 'PUBLISH' | null;
+    type?: CustomActionSchemaType | null;
     url: string;
 };
+
+export type CustomActionSchemaStatus = 'FAILING' | 'HEALTHY';
+
+export type CustomActionSchemaType = 'OPEN' | 'POST' | 'PUBLISH';
 
 export type CustomActionsSchema = {
     readonly objects?: Array<CustomActionSchema> | null;
@@ -1599,9 +1845,11 @@ export type DeleteQueueSchema = {
 
 export type DeleteSegmentsSchema = {
     segment_ids?: Array<string> | null;
-    segment_type?: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'TAG' | 'TRANSCRIPTION' | null;
+    segment_type?: DeleteSegmentsSchemaSegmentType | null;
     version_id?: string | null;
 };
+
+export type DeleteSegmentsSchemaSegmentType = 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'TAG' | 'TRANSCRIPTION';
 
 export type Drawing = {
     primitives?: Array<DrawingPrimitive> | null;
@@ -1675,7 +1923,7 @@ export type EditAssetSegment = {
      */
     share_id?: string | null;
     share_user_email?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: EditAssetSegmentStatus | null;
     readonly subclip_id?: string | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
@@ -1724,7 +1972,7 @@ export type EditAssetSegmentSchema = {
      */
     share_id?: string | null;
     share_user_email?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: EditAssetSegmentSchemaStatus | null;
     readonly subclip_id?: string | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
@@ -1739,39 +1987,63 @@ export type EditAssetSegmentSchema = {
     version_id?: string | null;
 };
 
+export type EditAssetSegmentSchemaStatus = 'ACTIVE' | 'DELETED';
+
+export type EditAssetSegmentStatus = 'ACTIVE' | 'DELETED';
+
 export type EditAssetVersion = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: EditAssetVersionAnalyzeStatus | null;
+    archive_status?: EditAssetVersionArchiveStatus | null;
     created_by_user?: string | null;
     created_by_user_info?: User | null;
     date_created?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: EditAssetVersionFaceRecognitionStatus | null;
     has_unconfirmed_persons?: boolean | null;
     id: string;
     is_online?: boolean | null;
     person_ids?: Array<string> | null;
-    status?: 'ACTIVE' | 'DELETED' | 'DELETING' | 'FAILED' | 'IN_PROGRESS' | null;
-    transcribe_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    status?: EditAssetVersionStatus | null;
+    transcribe_status?: EditAssetVersionTranscribeStatus | null;
     transcribed_languages?: Array<string> | null;
     version_number?: number | null;
 };
 
+export type EditAssetVersionAnalyzeStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type EditAssetVersionArchiveStatus = 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED';
+
+export type EditAssetVersionFaceRecognitionStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
 export type EditAssetVersionSchema = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: EditAssetVersionSchemaAnalyzeStatus | null;
+    archive_status?: EditAssetVersionSchemaArchiveStatus | null;
     created_by_user?: string | null;
     created_by_user_info?: User | null;
     date_created?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: EditAssetVersionSchemaFaceRecognitionStatus | null;
     has_unconfirmed_persons?: boolean | null;
     id: string;
     is_online?: boolean | null;
     person_ids?: Array<string> | null;
-    status?: 'ACTIVE' | 'DELETED' | 'DELETING' | 'FAILED' | 'IN_PROGRESS' | null;
-    transcribe_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    status?: EditAssetVersionSchemaStatus | null;
+    transcribe_status?: EditAssetVersionSchemaTranscribeStatus | null;
     transcribed_languages?: Array<string> | null;
     version_number?: number | null;
 };
+
+export type EditAssetVersionSchemaAnalyzeStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type EditAssetVersionSchemaArchiveStatus = 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED';
+
+export type EditAssetVersionSchemaFaceRecognitionStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type EditAssetVersionSchemaStatus = 'ACTIVE' | 'DELETED' | 'DELETING' | 'FAILED' | 'IN_PROGRESS';
+
+export type EditAssetVersionSchemaTranscribeStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type EditAssetVersionStatus = 'ACTIVE' | 'DELETED' | 'DELETING' | 'FAILED' | 'IN_PROGRESS';
+
+export type EditAssetVersionTranscribeStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
 
 export type EditPersonAssetVersionSchema = {
     asset_id: string;
@@ -1827,7 +2099,7 @@ export type EditSegmentForBulk = {
      */
     share_id?: string | null;
     share_user_email?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: EditSegmentForBulkStatus | null;
     readonly subclip_id?: string | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
@@ -1876,7 +2148,7 @@ export type EditSegmentForBulkSchema = {
      */
     share_id?: string | null;
     share_user_email?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: EditSegmentForBulkSchemaStatus | null;
     readonly subclip_id?: string | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
@@ -1890,6 +2162,10 @@ export type EditSegmentForBulkSchema = {
     readonly user_photo?: string | null;
     version_id?: string | null;
 };
+
+export type EditSegmentForBulkSchemaStatus = 'ACTIVE' | 'DELETED';
+
+export type EditSegmentForBulkStatus = 'ACTIVE' | 'DELETED';
 
 export type EditSegmentSchema = {
     readonly asset_id?: string | null;
@@ -1925,7 +2201,7 @@ export type EditSegmentSchema = {
      */
     share_id?: string | null;
     share_user_email?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: EditSegmentSchemaStatus | null;
     readonly subclip_id?: string | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
@@ -1939,6 +2215,8 @@ export type EditSegmentSchema = {
     readonly user_photo?: string | null;
     version_id?: string | null;
 };
+
+export type EditSegmentSchemaStatus = 'ACTIVE' | 'DELETED';
 
 export type FaceBoundingBox = {
     bounding_box?: Array<number> | null;
@@ -1981,8 +2259,10 @@ export type FavoritesSchema = {
 export type GetAssetsLatestVersionSchema = {
     include_in_progress?: boolean | null;
     object_ids: Array<string>;
-    object_type?: 'assets' | null;
+    object_type?: GetAssetsLatestVersionSchemaObjectType | null;
 };
+
+export type GetAssetsLatestVersionSchemaObjectType = 'assets';
 
 export type GetAssetsVersionsMetadataSchema = {
     /**
@@ -2006,10 +2286,7 @@ export type GetShareSchema = {
     allow_view_versions?: boolean | null;
     readonly automatic_approval_share?: boolean | null;
     readonly date_created?: string | null;
-    /**
-     * DRM settings for the share
-     */
-    drm?: 'none' | 'standard' | null;
+    drm?: GetShareSchemaDrm | null;
     expires?: string | null;
     readonly has_password?: boolean | null;
     readonly id?: string | null;
@@ -2018,7 +2295,7 @@ export type GetShareSchema = {
     readonly object_id?: string | null;
     readonly object_type?: string | null;
     readonly owner_id?: string | null;
-    population_status?: 'FINISHED' | 'POPULATING' | null;
+    population_status?: GetShareSchemaPopulationStatus | null;
     /**
      * Project ID if the share is created from a project
      */
@@ -2033,11 +2310,20 @@ export type GetShareSchema = {
     readonly upload_storage_presign_md5_checksum?: boolean | null;
     readonly url?: string | null;
     readonly users?: Array<ShareUser> | null;
-    /**
-     * Watermark settings for the share
-     */
-    watermark?: 'none' | 'standard' | null;
+    watermark?: GetShareSchemaWatermark | null;
 };
+
+/**
+ * DRM settings for the share
+ */
+export type GetShareSchemaDrm = 'none' | 'standard';
+
+export type GetShareSchemaPopulationStatus = 'FINISHED' | 'POPULATING';
+
+/**
+ * Watermark settings for the share
+ */
+export type GetShareSchemaWatermark = 'none' | 'standard';
 
 export type ListObjectsSchema = {
     readonly first_url?: string | null;
@@ -2078,9 +2364,11 @@ export type MagicLinkAllowlistListSchema = {
 };
 
 export type MagicLinkAllowlistUpdateSchema = {
-    entry_type?: 'domain' | 'email' | null;
+    entry_type?: MagicLinkAllowlistUpdateSchemaEntryType | null;
     value?: string | null;
 };
+
+export type MagicLinkAllowlistUpdateSchemaEntryType = 'domain' | 'email';
 
 export type MagicLinkCheckSettingSchema = {
     hash: string;
@@ -2129,10 +2417,12 @@ export type Playlist = {
     readonly id?: string | null;
     readonly item_count?: number | null;
     keyframe_asset_ids?: Array<string> | null;
-    keyframes?: Array<unknown> | null;
+    keyframes?: Array<{
+        [key: string]: unknown;
+    }> | null;
     name: string;
     project_id?: string | null;
-    status?: 'HIDDEN' | null;
+    status?: PlaylistStatus | null;
     readonly system_domain_id?: string | null;
 };
 
@@ -2144,12 +2434,16 @@ export type PlaylistBaseSchema = {
     readonly date_modified?: string | null;
     readonly id?: string | null;
     keyframe_asset_ids?: Array<string> | null;
-    keyframes?: Array<unknown> | null;
+    keyframes?: Array<{
+        [key: string]: unknown;
+    }> | null;
     name: string;
     project_id?: string | null;
-    status?: 'HIDDEN' | null;
+    status?: PlaylistBaseSchemaStatus | null;
     readonly system_domain_id?: string | null;
 };
+
+export type PlaylistBaseSchemaStatus = 'HIDDEN';
 
 export type PlaylistCreateSchema = {
     readonly created_by_user?: string | null;
@@ -2159,13 +2453,17 @@ export type PlaylistCreateSchema = {
     readonly date_modified?: string | null;
     readonly id?: string | null;
     keyframe_asset_ids?: Array<string> | null;
-    keyframes?: Array<unknown> | null;
+    keyframes?: Array<{
+        [key: string]: unknown;
+    }> | null;
     name: string;
     playlist_items?: Array<PlaylistItem> | null;
     project_id?: string | null;
-    status?: 'HIDDEN' | null;
+    status?: PlaylistCreateSchemaStatus | null;
     readonly system_domain_id?: string | null;
 };
+
+export type PlaylistCreateSchemaStatus = 'HIDDEN';
 
 export type PlaylistItem = {
     id?: string | null;
@@ -2180,13 +2478,13 @@ export type PlaylistItem = {
 };
 
 export type PlaylistItemElasticSchema = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    analyze_status?: PlaylistItemElasticSchemaAnalyzeStatus | null;
     /**
      * Unordered list of all ancestor collection ids
      */
     readonly ancestor_collections?: Array<string> | null;
     approval?: ApprovalSchema | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    archive_status?: PlaylistItemElasticSchemaArchiveStatus | null;
     category?: string | null;
     readonly comments_count?: number | null;
     readonly created_by_user?: string | null;
@@ -2203,16 +2501,22 @@ export type PlaylistItemElasticSchema = {
     readonly duration_milliseconds?: number | null;
     external_id?: string | null;
     external_link?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: PlaylistItemElasticSchemaFaceRecognitionStatus | null;
     readonly favoured?: boolean | null;
-    readonly files?: Array<unknown> | null;
-    readonly formats?: Array<unknown> | null;
+    readonly files?: Array<{
+        [key: string]: unknown;
+    }> | null;
+    readonly formats?: Array<{
+        [key: string]: unknown;
+    }> | null;
     readonly has_unconfirmed_persons?: boolean | null;
     readonly id?: string | null;
     readonly in_collections?: Array<string> | null;
     is_blocked?: boolean | null;
     is_online?: boolean | null;
-    readonly keyframes?: Array<unknown> | null;
+    readonly keyframes?: Array<{
+        [key: string]: unknown;
+    }> | null;
     readonly last_archive_restore_date?: string | null;
     limit_download_to_groups?: Array<string> | null;
     readonly media_type?: string | null;
@@ -2225,20 +2529,32 @@ export type PlaylistItemElasticSchema = {
     original_version_id?: string | null;
     readonly person_ids?: Array<string> | null;
     readonly position?: number | null;
-    readonly proxies?: Array<unknown> | null;
+    readonly proxies?: Array<{
+        [key: string]: unknown;
+    }> | null;
     readonly relations?: Array<RelationElastic> | null;
     site_name?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: PlaylistItemElasticSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     title: string;
-    type?: 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP' | null;
+    type?: PlaylistItemElasticSchemaType | null;
     readonly updated_by_user?: string | null;
     updated_by_user_info?: User | null;
     readonly versions?: Array<AssetVersionSchema> | null;
     readonly versions_number?: number | null;
     warning?: string | null;
 };
+
+export type PlaylistItemElasticSchemaAnalyzeStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type PlaylistItemElasticSchemaArchiveStatus = 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED';
+
+export type PlaylistItemElasticSchemaFaceRecognitionStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED';
+
+export type PlaylistItemElasticSchemaStatus = 'ACTIVE' | 'DELETED';
+
+export type PlaylistItemElasticSchemaType = 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP';
 
 export type PlaylistItemSchema = {
     id?: string | null;
@@ -2287,13 +2603,19 @@ export type PlaylistSchema = {
     readonly id?: string | null;
     readonly item_count?: number | null;
     keyframe_asset_ids?: Array<string> | null;
-    keyframes?: Array<unknown> | null;
+    keyframes?: Array<{
+        [key: string]: unknown;
+    }> | null;
     name: string;
     playlist_items?: Array<PlaylistItemSchema> | null;
     project_id?: string | null;
-    status?: 'HIDDEN' | null;
+    status?: PlaylistSchemaStatus | null;
     readonly system_domain_id?: string | null;
 };
+
+export type PlaylistSchemaStatus = 'HIDDEN';
+
+export type PlaylistStatus = 'HIDDEN';
 
 export type PlaylistsQueryParamsSchema = {
     /**
@@ -2336,9 +2658,11 @@ export type PortfolioBaseSchema = {
     readonly id?: string | null;
     name: string;
     playlist_id?: string | null;
-    status?: 'ACTIVE' | null;
+    status?: PortfolioBaseSchemaStatus | null;
     readonly system_domain_id?: string | null;
 };
+
+export type PortfolioBaseSchemaStatus = 'ACTIVE';
 
 export type PortfolioConfig = {
     theme: Theme;
@@ -2356,9 +2680,11 @@ export type PortfolioCreateSchema = {
     readonly id?: string | null;
     name: string;
     playlist_id: string;
-    status?: 'ACTIVE' | null;
+    status?: PortfolioCreateSchemaStatus | null;
     readonly system_domain_id?: string | null;
 };
+
+export type PortfolioCreateSchemaStatus = 'ACTIVE';
 
 export type PortfolioSchema = {
     config?: PortfolioConfigSchema | null;
@@ -2368,9 +2694,11 @@ export type PortfolioSchema = {
     readonly id?: string | null;
     name: string;
     playlist_id?: string | null;
-    status?: 'ACTIVE' | null;
+    status?: PortfolioSchemaStatus | null;
     readonly system_domain_id?: string | null;
 };
+
+export type PortfolioSchemaStatus = 'ACTIVE';
 
 export type PortfoliosQueryParamsSchema = {
     /**
@@ -2419,10 +2747,12 @@ export type ProjectBaseSchema = {
     readonly date_modified?: string | null;
     readonly id?: string | null;
     name: string;
-    status?: 'ACTIVE' | null;
+    status?: ProjectBaseSchemaStatus | null;
     storage_id?: string | null;
     readonly system_domain_id?: string | null;
 };
+
+export type ProjectBaseSchemaStatus = 'ACTIVE';
 
 export type ProjectCreateSchema = {
     /**
@@ -2438,10 +2768,12 @@ export type ProjectCreateSchema = {
     readonly date_modified?: string | null;
     readonly id?: string | null;
     name: string;
-    status?: 'ACTIVE' | null;
+    status?: ProjectCreateSchemaStatus | null;
     storage_id?: string | null;
     readonly system_domain_id?: string | null;
 };
+
+export type ProjectCreateSchemaStatus = 'ACTIVE';
 
 export type ProjectMemberBaseSchema = {
     readonly created_by_user?: string | null;
@@ -2501,10 +2833,12 @@ export type ProjectSchema = {
     readonly date_modified?: string | null;
     readonly id?: string | null;
     name: string;
-    status?: 'ACTIVE' | null;
+    status?: ProjectSchemaStatus | null;
     storage_id?: string | null;
     readonly system_domain_id?: string | null;
 };
+
+export type ProjectSchemaStatus = 'ACTIVE';
 
 export type ProjectsQueryParamsSchema = {
     /**
@@ -2858,7 +3192,7 @@ export type Segment = {
      */
     share_id?: string | null;
     share_user_email?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: SegmentStatus | null;
     readonly subclip_id?: string | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
@@ -2907,7 +3241,7 @@ export type SegmentBaseSchema = {
      */
     share_id?: string | null;
     share_user_email?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: SegmentBaseSchemaStatus | null;
     readonly subclip_id?: string | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
@@ -2921,6 +3255,8 @@ export type SegmentBaseSchema = {
     readonly user_photo?: string | null;
     version_id?: string | null;
 };
+
+export type SegmentBaseSchemaStatus = 'ACTIVE' | 'DELETED';
 
 export type SegmentElasticSchema = {
     readonly asset_id?: string | null;
@@ -2957,7 +3293,7 @@ export type SegmentElasticSchema = {
      */
     share_id?: string | null;
     share_user_email?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: SegmentElasticSchemaStatus | null;
     readonly subclip_id?: string | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
@@ -2971,6 +3307,8 @@ export type SegmentElasticSchema = {
     readonly user_photo?: string | null;
     version_id?: string | null;
 };
+
+export type SegmentElasticSchemaStatus = 'ACTIVE' | 'DELETED';
 
 export type SegmentQueryParamsSchema = {
     /**
@@ -3024,7 +3362,7 @@ export type SegmentSchema = {
      */
     share_id?: string | null;
     share_user_email?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: SegmentSchemaStatus | null;
     readonly subclip_id?: string | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
@@ -3038,6 +3376,10 @@ export type SegmentSchema = {
     readonly user_photo?: string | null;
     version_id?: string | null;
 };
+
+export type SegmentSchemaStatus = 'ACTIVE' | 'DELETED';
+
+export type SegmentStatus = 'ACTIVE' | 'DELETED';
 
 export type SegmentsSchema = {
     facets?: {
@@ -3163,10 +3505,7 @@ export type ShareBaseSchema = {
     allow_view_versions?: boolean | null;
     readonly automatic_approval_share?: boolean | null;
     readonly date_created?: string | null;
-    /**
-     * DRM settings for the share
-     */
-    drm?: 'none' | 'standard' | null;
+    drm?: ShareBaseSchemaDrm | null;
     expires?: string | null;
     readonly has_password?: boolean | null;
     readonly id?: string | null;
@@ -3175,7 +3514,7 @@ export type ShareBaseSchema = {
     readonly object_id?: string | null;
     readonly object_type?: string | null;
     readonly owner_id?: string | null;
-    population_status?: 'FINISHED' | 'POPULATING' | null;
+    population_status?: ShareBaseSchemaPopulationStatus | null;
     /**
      * Project ID if the share is created from a project
      */
@@ -3187,11 +3526,20 @@ export type ShareBaseSchema = {
     title?: string | null;
     upload_storage_id?: string | null;
     readonly url?: string | null;
-    /**
-     * Watermark settings for the share
-     */
-    watermark?: 'none' | 'standard' | null;
+    watermark?: ShareBaseSchemaWatermark | null;
 };
+
+/**
+ * DRM settings for the share
+ */
+export type ShareBaseSchemaDrm = 'none' | 'standard';
+
+export type ShareBaseSchemaPopulationStatus = 'FINISHED' | 'POPULATING';
+
+/**
+ * Watermark settings for the share
+ */
+export type ShareBaseSchemaWatermark = 'none' | 'standard';
 
 export type ShareCreateSchema = {
     allow_approving_comments: boolean;
@@ -3206,10 +3554,7 @@ export type ShareCreateSchema = {
     allow_view_transcriptions?: boolean | null;
     allow_view_versions?: boolean | null;
     automatic_approval_share?: boolean | null;
-    /**
-     * DRM settings for the share
-     */
-    drm?: 'none' | 'standard' | null;
+    drm?: ShareCreateSchemaDrm | null;
     emails: Array<string>;
     expires?: string | null;
     readonly id?: string | null;
@@ -3230,11 +3575,18 @@ export type ShareCreateSchema = {
     system_domain_id?: string | null;
     title?: string | null;
     upload_storage_id?: string | null;
-    /**
-     * Watermark settings for the share
-     */
-    watermark?: 'none' | 'standard' | null;
+    watermark?: ShareCreateSchemaWatermark | null;
 };
+
+/**
+ * DRM settings for the share
+ */
+export type ShareCreateSchemaDrm = 'none' | 'standard';
+
+/**
+ * Watermark settings for the share
+ */
+export type ShareCreateSchemaWatermark = 'none' | 'standard';
 
 export type ShareElasticSchema = {
     allow_approving_comments: boolean;
@@ -3253,10 +3605,7 @@ export type ShareElasticSchema = {
     } | null;
     readonly automatic_approval_share?: boolean | null;
     readonly date_created?: string | null;
-    /**
-     * DRM settings for the share
-     */
-    drm?: 'none' | 'standard' | null;
+    drm?: ShareElasticSchemaDrm | null;
     expires?: string | null;
     readonly has_password?: boolean | null;
     readonly id?: string | null;
@@ -3267,7 +3616,7 @@ export type ShareElasticSchema = {
     readonly object_type?: string | null;
     readonly owner_id?: string | null;
     readonly personal_url?: string | null;
-    population_status?: 'FINISHED' | 'POPULATING' | null;
+    population_status?: ShareElasticSchemaPopulationStatus | null;
     /**
      * Project ID if the share is created from a project
      */
@@ -3280,11 +3629,20 @@ export type ShareElasticSchema = {
     upload_storage_id?: string | null;
     readonly url?: string | null;
     readonly users?: Array<ShareUsersElastic> | null;
-    /**
-     * Watermark settings for the share
-     */
-    watermark?: 'none' | 'standard' | null;
+    watermark?: ShareElasticSchemaWatermark | null;
 };
+
+/**
+ * DRM settings for the share
+ */
+export type ShareElasticSchemaDrm = 'none' | 'standard';
+
+export type ShareElasticSchemaPopulationStatus = 'FINISHED' | 'POPULATING';
+
+/**
+ * Watermark settings for the share
+ */
+export type ShareElasticSchemaWatermark = 'none' | 'standard';
 
 export type ShareLoginSchema = {
     app_id?: string | null;
@@ -3308,21 +3666,25 @@ export type ShareOptionsBaseSchema = {
     allow_view_transcriptions?: boolean | null;
     allow_view_versions?: boolean | null;
     readonly automatic_approval_share?: boolean | null;
-    /**
-     * DRM settings for the share
-     */
-    drm?: 'none' | 'standard' | null;
+    drm?: ShareOptionsBaseSchemaDrm | null;
     is_approval?: boolean | null;
     metadata_views?: Array<string> | null;
     review_experience_public_beta?: boolean | null;
     show_existing_comments?: boolean | null;
     show_watermark?: boolean | null;
     upload_storage_id?: string | null;
-    /**
-     * Watermark settings for the share
-     */
-    watermark?: 'none' | 'standard' | null;
+    watermark?: ShareOptionsBaseSchemaWatermark | null;
 };
+
+/**
+ * DRM settings for the share
+ */
+export type ShareOptionsBaseSchemaDrm = 'none' | 'standard';
+
+/**
+ * Watermark settings for the share
+ */
+export type ShareOptionsBaseSchemaWatermark = 'none' | 'standard';
 
 export type ShareRoles = {
     readonly roles?: Array<string> | null;
@@ -3342,10 +3704,7 @@ export type ShareSchema = {
     allow_view_versions?: boolean | null;
     readonly automatic_approval_share?: boolean | null;
     readonly date_created?: string | null;
-    /**
-     * DRM settings for the share
-     */
-    drm?: 'none' | 'standard' | null;
+    drm?: ShareSchemaDrm | null;
     expires?: string | null;
     readonly has_password?: boolean | null;
     readonly id?: string | null;
@@ -3354,7 +3713,7 @@ export type ShareSchema = {
     readonly object_id?: string | null;
     readonly object_type?: string | null;
     readonly owner_id?: string | null;
-    population_status?: 'FINISHED' | 'POPULATING' | null;
+    population_status?: ShareSchemaPopulationStatus | null;
     /**
      * Project ID if the share is created from a project
      */
@@ -3366,11 +3725,20 @@ export type ShareSchema = {
     title?: string | null;
     upload_storage_id?: string | null;
     readonly url?: string | null;
-    /**
-     * Watermark settings for the share
-     */
-    watermark?: 'none' | 'standard' | null;
+    watermark?: ShareSchemaWatermark | null;
 };
+
+/**
+ * DRM settings for the share
+ */
+export type ShareSchemaDrm = 'none' | 'standard';
+
+export type ShareSchemaPopulationStatus = 'FINISHED' | 'POPULATING';
+
+/**
+ * Watermark settings for the share
+ */
+export type ShareSchemaWatermark = 'none' | 'standard';
 
 export type ShareTokenSchema = {
     readonly app_id: string;
@@ -3408,10 +3776,7 @@ export type ShareUrlCreateSchema = {
     allow_view_transcriptions?: boolean | null;
     allow_view_versions?: boolean | null;
     readonly automatic_approval_share?: boolean | null;
-    /**
-     * DRM settings for the share
-     */
-    drm?: 'none' | 'standard' | null;
+    drm?: ShareUrlCreateSchemaDrm | null;
     expires?: string | null;
     is_approval?: boolean | null;
     metadata_views?: Array<string> | null;
@@ -3425,11 +3790,18 @@ export type ShareUrlCreateSchema = {
     system_domain_id?: string | null;
     title?: string | null;
     upload_storage_id?: string | null;
-    /**
-     * Watermark settings for the share
-     */
-    watermark?: 'none' | 'standard' | null;
+    watermark?: ShareUrlCreateSchemaWatermark | null;
 };
+
+/**
+ * DRM settings for the share
+ */
+export type ShareUrlCreateSchemaDrm = 'none' | 'standard';
+
+/**
+ * Watermark settings for the share
+ */
+export type ShareUrlCreateSchemaWatermark = 'none' | 'standard';
 
 export type ShareUrlSchema = {
     allow_approving_comments: boolean;
@@ -3445,10 +3817,7 @@ export type ShareUrlSchema = {
     allow_view_versions?: boolean | null;
     readonly automatic_approval_share?: boolean | null;
     readonly date_created?: string | null;
-    /**
-     * DRM settings for the share
-     */
-    drm?: 'none' | 'standard' | null;
+    drm?: ShareUrlSchemaDrm | null;
     expires?: string | null;
     readonly has_password?: boolean | null;
     readonly id?: string | null;
@@ -3457,7 +3826,7 @@ export type ShareUrlSchema = {
     readonly object_id?: string | null;
     readonly object_type?: string | null;
     readonly owner_id?: string | null;
-    population_status?: 'FINISHED' | 'POPULATING' | null;
+    population_status?: ShareUrlSchemaPopulationStatus | null;
     /**
      * Project ID if the share is created from a project
      */
@@ -3469,11 +3838,20 @@ export type ShareUrlSchema = {
     title?: string | null;
     upload_storage_id?: string | null;
     url?: string | null;
-    /**
-     * Watermark settings for the share
-     */
-    watermark?: 'none' | 'standard' | null;
+    watermark?: ShareUrlSchemaWatermark | null;
 };
+
+/**
+ * DRM settings for the share
+ */
+export type ShareUrlSchemaDrm = 'none' | 'standard';
+
+export type ShareUrlSchemaPopulationStatus = 'FINISHED' | 'POPULATING';
+
+/**
+ * Watermark settings for the share
+ */
+export type ShareUrlSchemaWatermark = 'none' | 'standard';
 
 export type ShareUser = {
     readonly access_count?: number | null;
@@ -3585,10 +3963,12 @@ export type SynchronizeCollectionKeyframesSchema = {
 };
 
 export type Theme = {
-    base?: 'dark' | 'light' | null;
+    base?: ThemeBase | null;
     colors?: ThemeColors | null;
     typography?: ThemeTypography | null;
 };
+
+export type ThemeBase = 'dark' | 'light';
 
 export type ThemeColors = {
     primary?: string | null;
@@ -3603,10 +3983,12 @@ export type ThemeColorsSchema = {
 };
 
 export type ThemeSchema = {
-    base?: 'dark' | 'light' | null;
+    base?: ThemeSchemaBase | null;
     colors?: ThemeColorsSchema | null;
     typography?: ThemeTypography | null;
 };
+
+export type ThemeSchemaBase = 'dark' | 'light';
 
 export type ThemeTypography = {
     font_family?: string | null;
@@ -3685,7 +4067,7 @@ export type PublicationJobThumbnailSchemaBase = {
 export type ApprovalBySchemaWritable = {
     change_date?: string | null;
     external?: string | null;
-    status?: 'APPROVED' | 'MIXED' | 'N/A' | 'NOT_APPROVED' | 'REQUESTED' | null;
+    status?: ApprovalBySchemaStatus | null;
     user?: string | null;
 };
 
@@ -3696,7 +4078,7 @@ export type ApprovalSchemaWritable = {
     min_number?: number | null;
     request_date?: string | null;
     share_id?: string | null;
-    status?: 'APPROVED' | 'MIXED' | 'N/A' | 'NOT_APPROVED' | 'REQUESTED' | null;
+    status?: ApprovalSchemaStatus | null;
     user_status?: unknown;
     users?: Array<string> | null;
 };
@@ -3706,15 +4088,15 @@ export type ApprovalsBySchemaWritable = {
 };
 
 export type AssetBaseSchemaWritable = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: AssetBaseSchemaAnalyzeStatus | null;
+    archive_status?: AssetBaseSchemaArchiveStatus | null;
     category?: string | null;
     custom_keyframe?: string | null;
     custom_poster?: string | null;
     deleted_by_user_info?: unknown;
     external_id?: string | null;
     external_link?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: AssetBaseSchemaFaceRecognitionStatus | null;
     has_unconfirmed_persons?: boolean | null;
     is_blocked?: boolean | null;
     is_online?: boolean | null;
@@ -3724,17 +4106,17 @@ export type AssetBaseSchemaWritable = {
     original_version_id?: string | null;
     person_ids?: Array<string> | null;
     site_name?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: AssetBaseSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     title: string;
-    type?: 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP' | null;
+    type?: AssetBaseSchemaType | null;
     warning?: string | null;
 };
 
 export type AssetCreateSchemaWritable = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: AssetCreateSchemaAnalyzeStatus | null;
+    archive_status?: AssetCreateSchemaArchiveStatus | null;
     category?: string | null;
     collection_id?: string | null;
     custom_keyframe?: string | null;
@@ -3745,7 +4127,7 @@ export type AssetCreateSchemaWritable = {
     deleted_by_user_info?: unknown;
     external_id?: string | null;
     external_link?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: AssetCreateSchemaFaceRecognitionStatus | null;
     has_unconfirmed_persons?: boolean | null;
     is_blocked?: boolean | null;
     is_online?: boolean | null;
@@ -3755,11 +4137,11 @@ export type AssetCreateSchemaWritable = {
     original_version_id?: string | null;
     person_ids?: Array<string> | null;
     site_name?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: AssetCreateSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     title: string;
-    type?: 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP' | null;
+    type?: AssetCreateSchemaType | null;
     warning?: string | null;
 };
 
@@ -3770,8 +4152,8 @@ export type AssetCreateSchemaTypedWritable = ({
 } & AssetPostCreateWritable);
 
 export type AssetEditSchemaWritable = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: AssetEditSchemaAnalyzeStatus | null;
+    archive_status?: AssetEditSchemaArchiveStatus | null;
     category?: string | null;
     created_by_user?: string | null;
     custom_keyframe?: string | null;
@@ -3780,7 +4162,7 @@ export type AssetEditSchemaWritable = {
     deleted_by_user_info?: unknown;
     external_id?: string | null;
     external_link?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: AssetEditSchemaFaceRecognitionStatus | null;
     has_unconfirmed_persons?: boolean | null;
     id: string;
     is_blocked?: boolean | null;
@@ -3792,11 +4174,11 @@ export type AssetEditSchemaWritable = {
     original_version_id?: string | null;
     person_ids?: Array<string> | null;
     site_name?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: AssetEditSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     title?: string | null;
-    type?: 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP' | null;
+    type?: AssetEditSchemaType | null;
     warning?: string | null;
 };
 
@@ -3807,15 +4189,15 @@ export type AssetEditSchemaTypedWritable = ({
 } & AssetPostEditWritable);
 
 export type AssetElasticSchemaWritable = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: AssetElasticSchemaAnalyzeStatus | null;
+    archive_status?: AssetElasticSchemaArchiveStatus | null;
     category?: string | null;
     custom_keyframe?: string | null;
     custom_poster?: string | null;
     deleted_by_user_info?: unknown;
     external_id?: string | null;
     external_link?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: AssetElasticSchemaFaceRecognitionStatus | null;
     is_blocked?: boolean | null;
     is_online?: boolean | null;
     limit_download_to_groups?: Array<string> | null;
@@ -3823,11 +4205,11 @@ export type AssetElasticSchemaWritable = {
     original_segment_id?: string | null;
     original_version_id?: string | null;
     site_name?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: AssetElasticSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     title: string;
-    type?: 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP' | null;
+    type?: AssetElasticSchemaType | null;
     warning?: string | null;
 };
 
@@ -3884,8 +4266,8 @@ export type AssetOrCollectionSchemaWritable = ({
 } & CollectionElasticWritable);
 
 export type AssetPostCreateWritable = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: AssetPostCreateAnalyzeStatus | null;
+    archive_status?: AssetPostCreateArchiveStatus | null;
     category?: string | null;
     clip_aspect_ratio?: string | null;
     clip_duration?: number | null;
@@ -3905,7 +4287,7 @@ export type AssetPostCreateWritable = {
     destination_type?: string | null;
     external_id?: string | null;
     external_link?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: AssetPostCreateFaceRecognitionStatus | null;
     has_unconfirmed_persons?: boolean | null;
     is_blocked?: boolean | null;
     is_online?: boolean | null;
@@ -3915,20 +4297,20 @@ export type AssetPostCreateWritable = {
     original_segment_id?: string | null;
     original_version_id?: string | null;
     person_ids?: Array<string> | null;
-    publication_status?: 'CANCELED' | 'FAILED' | 'PUBLISHED' | 'PUBLISHED_WITH_WARNING' | 'RUNNING' | 'SCHEDULED' | null;
+    publication_status?: AssetPostCreatePublicationStatus | null;
     site_name?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: AssetPostCreateStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     title: string;
-    type?: 'POST' | null;
+    type?: AssetPostCreateType | null;
     views?: number | null;
     warning?: string | null;
 };
 
 export type AssetPostCreateSchemaWritable = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: AssetPostCreateSchemaAnalyzeStatus | null;
+    archive_status?: AssetPostCreateSchemaArchiveStatus | null;
     category?: string | null;
     clip_aspect_ratio?: string | null;
     clip_duration?: number | null;
@@ -3948,7 +4330,7 @@ export type AssetPostCreateSchemaWritable = {
     destination_type?: string | null;
     external_id?: string | null;
     external_link?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: AssetPostCreateSchemaFaceRecognitionStatus | null;
     has_unconfirmed_persons?: boolean | null;
     is_blocked?: boolean | null;
     is_online?: boolean | null;
@@ -3958,20 +4340,20 @@ export type AssetPostCreateSchemaWritable = {
     original_segment_id?: string | null;
     original_version_id?: string | null;
     person_ids?: Array<string> | null;
-    publication_status?: 'CANCELED' | 'FAILED' | 'PUBLISHED' | 'PUBLISHED_WITH_WARNING' | 'RUNNING' | 'SCHEDULED' | null;
+    publication_status?: AssetPostCreateSchemaPublicationStatus | null;
     site_name?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: AssetPostCreateSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     title: string;
-    type?: 'POST' | null;
+    type?: AssetPostCreateSchemaType | null;
     views?: number | null;
     warning?: string | null;
 };
 
 export type AssetPostEditWritable = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: AssetPostEditAnalyzeStatus | null;
+    archive_status?: AssetPostEditArchiveStatus | null;
     category?: string | null;
     clip_aspect_ratio?: string | null;
     clip_duration?: number | null;
@@ -3989,7 +4371,7 @@ export type AssetPostEditWritable = {
     destination_type?: string | null;
     external_id?: string | null;
     external_link?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: AssetPostEditFaceRecognitionStatus | null;
     has_unconfirmed_persons?: boolean | null;
     id: string;
     is_blocked?: boolean | null;
@@ -4001,20 +4383,20 @@ export type AssetPostEditWritable = {
     original_segment_id?: string | null;
     original_version_id?: string | null;
     person_ids?: Array<string> | null;
-    publication_status?: 'CANCELED' | 'FAILED' | 'PUBLISHED' | 'PUBLISHED_WITH_WARNING' | 'RUNNING' | 'SCHEDULED' | null;
+    publication_status?: AssetPostEditPublicationStatus | null;
     site_name?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: AssetPostEditStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     title?: string | null;
-    type?: 'POST' | null;
+    type?: AssetPostEditType | null;
     views?: number | null;
     warning?: string | null;
 };
 
 export type AssetPostEditSchemaWritable = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: AssetPostEditSchemaAnalyzeStatus | null;
+    archive_status?: AssetPostEditSchemaArchiveStatus | null;
     category?: string | null;
     clip_aspect_ratio?: string | null;
     clip_duration?: number | null;
@@ -4032,7 +4414,7 @@ export type AssetPostEditSchemaWritable = {
     destination_type?: string | null;
     external_id?: string | null;
     external_link?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: AssetPostEditSchemaFaceRecognitionStatus | null;
     has_unconfirmed_persons?: boolean | null;
     id: string;
     is_blocked?: boolean | null;
@@ -4044,20 +4426,20 @@ export type AssetPostEditSchemaWritable = {
     original_segment_id?: string | null;
     original_version_id?: string | null;
     person_ids?: Array<string> | null;
-    publication_status?: 'CANCELED' | 'FAILED' | 'PUBLISHED' | 'PUBLISHED_WITH_WARNING' | 'RUNNING' | 'SCHEDULED' | null;
+    publication_status?: AssetPostEditSchemaPublicationStatus | null;
     site_name?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: AssetPostEditSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     title?: string | null;
-    type?: 'POST' | null;
+    type?: AssetPostEditSchemaType | null;
     views?: number | null;
     warning?: string | null;
 };
 
 export type AssetPostElasticWritable = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: AssetPostElasticAnalyzeStatus | null;
+    archive_status?: AssetPostElasticArchiveStatus | null;
     category?: string | null;
     clip_aspect_ratio?: string | null;
     clip_duration?: number | null;
@@ -4073,7 +4455,7 @@ export type AssetPostElasticWritable = {
     destination_type?: string | null;
     external_id?: string | null;
     external_link?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: AssetPostElasticFaceRecognitionStatus | null;
     is_blocked?: boolean | null;
     is_online?: boolean | null;
     likes?: number | null;
@@ -4081,20 +4463,20 @@ export type AssetPostElasticWritable = {
     original_asset_id?: string | null;
     original_segment_id?: string | null;
     original_version_id?: string | null;
-    publication_status?: 'CANCELED' | 'FAILED' | 'PUBLISHED' | 'PUBLISHED_WITH_WARNING' | 'RUNNING' | 'SCHEDULED' | null;
+    publication_status?: AssetPostElasticPublicationStatus | null;
     site_name?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: AssetPostElasticStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     title: string;
-    type?: 'POST' | null;
+    type?: AssetPostElasticType | null;
     views?: number | null;
     warning?: string | null;
 };
 
 export type AssetPostElasticSchemaWritable = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: AssetPostElasticSchemaAnalyzeStatus | null;
+    archive_status?: AssetPostElasticSchemaArchiveStatus | null;
     category?: string | null;
     clip_aspect_ratio?: string | null;
     clip_duration?: number | null;
@@ -4110,7 +4492,7 @@ export type AssetPostElasticSchemaWritable = {
     destination_type?: string | null;
     external_id?: string | null;
     external_link?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: AssetPostElasticSchemaFaceRecognitionStatus | null;
     is_blocked?: boolean | null;
     is_online?: boolean | null;
     likes?: number | null;
@@ -4118,20 +4500,20 @@ export type AssetPostElasticSchemaWritable = {
     original_asset_id?: string | null;
     original_segment_id?: string | null;
     original_version_id?: string | null;
-    publication_status?: 'CANCELED' | 'FAILED' | 'PUBLISHED' | 'PUBLISHED_WITH_WARNING' | 'RUNNING' | 'SCHEDULED' | null;
+    publication_status?: AssetPostElasticSchemaPublicationStatus | null;
     site_name?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: AssetPostElasticSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     title: string;
-    type?: 'POST' | null;
+    type?: AssetPostElasticSchemaType | null;
     views?: number | null;
     warning?: string | null;
 };
 
 export type AssetPostSchemaWritable = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: AssetPostSchemaAnalyzeStatus | null;
+    archive_status?: AssetPostSchemaArchiveStatus | null;
     category?: string | null;
     clip_aspect_ratio?: string | null;
     clip_duration?: number | null;
@@ -4149,7 +4531,7 @@ export type AssetPostSchemaWritable = {
     destination_type?: string | null;
     external_id?: string | null;
     external_link?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: AssetPostSchemaFaceRecognitionStatus | null;
     has_unconfirmed_persons?: boolean | null;
     is_blocked?: boolean | null;
     is_online?: boolean | null;
@@ -4160,20 +4542,20 @@ export type AssetPostSchemaWritable = {
     original_segment_id?: string | null;
     original_version_id?: string | null;
     person_ids?: Array<string> | null;
-    publication_status?: 'CANCELED' | 'FAILED' | 'PUBLISHED' | 'PUBLISHED_WITH_WARNING' | 'RUNNING' | 'SCHEDULED' | null;
+    publication_status?: AssetPostSchemaPublicationStatus | null;
     site_name?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: AssetPostSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     title: string;
-    type?: 'POST' | null;
+    type?: AssetPostSchemaType | null;
     views?: number | null;
     warning?: string | null;
 };
 
 export type AssetSchemaWritable = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: AssetSchemaAnalyzeStatus | null;
+    archive_status?: AssetSchemaArchiveStatus | null;
     category?: string | null;
     custom_keyframe?: string | null;
     custom_poster?: string | null;
@@ -4182,7 +4564,7 @@ export type AssetSchemaWritable = {
     deleted_by_user_info?: unknown;
     external_id?: string | null;
     external_link?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: AssetSchemaFaceRecognitionStatus | null;
     has_unconfirmed_persons?: boolean | null;
     is_blocked?: boolean | null;
     is_online?: boolean | null;
@@ -4193,11 +4575,11 @@ export type AssetSchemaWritable = {
     original_version_id?: string | null;
     person_ids?: Array<string> | null;
     site_name?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: AssetSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     title: string;
-    type?: 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP' | null;
+    type?: AssetSchemaType | null;
     warning?: string | null;
 };
 
@@ -4219,33 +4601,33 @@ export type AssetTranscriptionsPropertiesSchemaWritable = {
 };
 
 export type AssetVersionWritable = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: AssetVersionAnalyzeStatus | null;
+    archive_status?: AssetVersionArchiveStatus | null;
     created_by_user?: string | null;
     created_by_user_info?: unknown;
     date_created?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: AssetVersionFaceRecognitionStatus | null;
     has_unconfirmed_persons?: boolean | null;
     is_online?: boolean | null;
     person_ids?: Array<string> | null;
-    status?: 'ACTIVE' | 'DELETED' | 'DELETING' | 'FAILED' | 'IN_PROGRESS' | null;
-    transcribe_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    status?: AssetVersionStatus | null;
+    transcribe_status?: AssetVersionTranscribeStatus | null;
     transcribed_languages?: Array<string> | null;
     version_number?: number | null;
 };
 
 export type AssetVersionSchemaWritable = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: AssetVersionSchemaAnalyzeStatus | null;
+    archive_status?: AssetVersionSchemaArchiveStatus | null;
     created_by_user?: string | null;
     created_by_user_info?: unknown;
     date_created?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: AssetVersionSchemaFaceRecognitionStatus | null;
     has_unconfirmed_persons?: boolean | null;
     is_online?: boolean | null;
     person_ids?: Array<string> | null;
-    status?: 'ACTIVE' | 'DELETED' | 'DELETING' | 'FAILED' | 'IN_PROGRESS' | null;
-    transcribe_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    status?: AssetVersionSchemaStatus | null;
+    transcribe_status?: AssetVersionSchemaTranscribeStatus | null;
     transcribed_languages?: Array<string> | null;
     version_number?: number | null;
 };
@@ -4300,10 +4682,7 @@ export type BulkShareCreateSchemaWritable = {
     allow_user_search_for_mentions?: boolean | null;
     allow_view_transcriptions?: boolean | null;
     allow_view_versions?: boolean | null;
-    /**
-     * DRM settings for the share
-     */
-    drm?: 'none' | 'standard' | null;
+    drm?: BulkShareCreateSchemaDrm | null;
     emails?: Array<string> | null;
     expires?: string | null;
     is_approval?: boolean | null;
@@ -4319,10 +4698,7 @@ export type BulkShareCreateSchemaWritable = {
     system_domain_id?: string | null;
     title: string;
     upload_storage_id?: string | null;
-    /**
-     * Watermark settings for the share
-     */
-    watermark?: 'none' | 'standard' | null;
+    watermark?: BulkShareCreateSchemaWatermark | null;
 };
 
 export type CollectionBaseSchemaWritable = {
@@ -4334,17 +4710,29 @@ export type CollectionBaseSchemaWritable = {
     in_collections?: Array<string> | null;
     is_root?: boolean | null;
     keyframe_asset_ids?: Array<string> | null;
-    keyframes?: Array<unknown> | null;
+    keyframes?: Array<{
+        [key: string]: unknown;
+    }> | null;
     parent_id?: string | null;
     parents?: Array<string> | null;
-    status?: 'ACTIVE' | 'DELETED' | 'HIDDEN' | null;
+    status?: CollectionBaseSchemaStatus | null;
     storage_id?: string | null;
     title: string;
 };
 
+export type CollectionContentElasticSchemaWritable = ({
+    object_type: 'assets';
+} & AssetElasticSchemaWritable) | ({
+    object_type: 'collections';
+} & CollectionElasticSchemaWritable);
+
 export type CollectionContentSchemaWritable = {
     object_id: string;
     object_type: string;
+};
+
+export type CollectionContentsSchemaWritable = {
+    [key: string]: unknown;
 };
 
 export type CollectionElasticWritable = {
@@ -4356,10 +4744,12 @@ export type CollectionElasticWritable = {
     in_collections?: Array<string> | null;
     is_root?: boolean | null;
     keyframe_asset_ids?: Array<string> | null;
-    keyframes?: Array<unknown> | null;
+    keyframes?: Array<{
+        [key: string]: unknown;
+    }> | null;
     parent_id?: string | null;
     parents?: Array<string> | null;
-    status?: 'ACTIVE' | 'DELETED' | 'HIDDEN' | null;
+    status?: CollectionElasticStatus | null;
     storage_id?: string | null;
     title: string;
 };
@@ -4373,10 +4763,12 @@ export type CollectionElasticSchemaWritable = {
     in_collections?: Array<string> | null;
     is_root?: boolean | null;
     keyframe_asset_ids?: Array<string> | null;
-    keyframes?: Array<unknown> | null;
+    keyframes?: Array<{
+        [key: string]: unknown;
+    }> | null;
     parent_id?: string | null;
     parents?: Array<string> | null;
-    status?: 'ACTIVE' | 'DELETED' | 'HIDDEN' | null;
+    status?: CollectionElasticSchemaStatus | null;
     storage_id?: string | null;
     title: string;
 };
@@ -4390,10 +4782,12 @@ export type CollectionSchemaWritable = {
     in_collections?: Array<string> | null;
     is_root?: boolean | null;
     keyframe_asset_ids?: Array<string> | null;
-    keyframes?: Array<unknown> | null;
+    keyframes?: Array<{
+        [key: string]: unknown;
+    }> | null;
     parent_id?: string | null;
     parents?: Array<string> | null;
-    status?: 'ACTIVE' | 'DELETED' | 'HIDDEN' | null;
+    status?: CollectionSchemaStatus | null;
     storage_id?: string | null;
     title: string;
 };
@@ -4435,10 +4829,10 @@ export type CustomActionCreateSchemaWritable = {
     metadata_view?: string | null;
     publish_template_id?: string | null;
     read_access_for_everyone?: boolean | null;
-    status?: 'FAILING' | 'HEALTHY' | null;
+    status?: CustomActionCreateSchemaStatus | null;
     title: string;
     transcoder_id?: string | null;
-    type?: 'OPEN' | 'POST' | 'PUBLISH' | null;
+    type?: CustomActionCreateSchemaType | null;
     url: string;
 };
 
@@ -4451,10 +4845,10 @@ export type CustomActionSchemaWritable = {
     } | null;
     metadata_view?: string | null;
     publish_template_id?: string | null;
-    status?: 'FAILING' | 'HEALTHY' | null;
+    status?: CustomActionSchemaStatus | null;
     title: string;
     transcoder_id?: string | null;
-    type?: 'OPEN' | 'POST' | 'PUBLISH' | null;
+    type?: CustomActionSchemaType | null;
     url: string;
 };
 
@@ -4491,7 +4885,7 @@ export type EditAssetSegmentWritable = {
      */
     share_id?: string | null;
     share_user_email?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: EditAssetSegmentStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     transcription?: TranscriptionType | null;
@@ -4529,7 +4923,7 @@ export type EditAssetSegmentSchemaWritable = {
      */
     share_id?: string | null;
     share_user_email?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: EditAssetSegmentSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     transcription?: TranscriptionType | null;
@@ -4539,35 +4933,35 @@ export type EditAssetSegmentSchemaWritable = {
 };
 
 export type EditAssetVersionWritable = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: EditAssetVersionAnalyzeStatus | null;
+    archive_status?: EditAssetVersionArchiveStatus | null;
     created_by_user?: string | null;
     created_by_user_info?: unknown;
     date_created?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: EditAssetVersionFaceRecognitionStatus | null;
     has_unconfirmed_persons?: boolean | null;
     id: string;
     is_online?: boolean | null;
     person_ids?: Array<string> | null;
-    status?: 'ACTIVE' | 'DELETED' | 'DELETING' | 'FAILED' | 'IN_PROGRESS' | null;
-    transcribe_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    status?: EditAssetVersionStatus | null;
+    transcribe_status?: EditAssetVersionTranscribeStatus | null;
     transcribed_languages?: Array<string> | null;
     version_number?: number | null;
 };
 
 export type EditAssetVersionSchemaWritable = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: EditAssetVersionSchemaAnalyzeStatus | null;
+    archive_status?: EditAssetVersionSchemaArchiveStatus | null;
     created_by_user?: string | null;
     created_by_user_info?: unknown;
     date_created?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: EditAssetVersionSchemaFaceRecognitionStatus | null;
     has_unconfirmed_persons?: boolean | null;
     id: string;
     is_online?: boolean | null;
     person_ids?: Array<string> | null;
-    status?: 'ACTIVE' | 'DELETED' | 'DELETING' | 'FAILED' | 'IN_PROGRESS' | null;
-    transcribe_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    status?: EditAssetVersionSchemaStatus | null;
+    transcribe_status?: EditAssetVersionSchemaTranscribeStatus | null;
     transcribed_languages?: Array<string> | null;
     version_number?: number | null;
 };
@@ -4609,7 +5003,7 @@ export type EditSegmentForBulkWritable = {
      */
     share_id?: string | null;
     share_user_email?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: EditSegmentForBulkStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     top_level?: boolean | null;
@@ -4652,7 +5046,7 @@ export type EditSegmentForBulkSchemaWritable = {
      */
     share_id?: string | null;
     share_user_email?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: EditSegmentForBulkSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     top_level?: boolean | null;
@@ -4691,7 +5085,7 @@ export type EditSegmentSchemaWritable = {
      */
     share_id?: string | null;
     share_user_email?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: EditSegmentSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     transcription?: TranscriptionType | null;
@@ -4716,10 +5110,7 @@ export type GetShareSchemaWritable = {
     allow_user_search_for_mentions?: boolean | null;
     allow_view_transcriptions?: boolean | null;
     allow_view_versions?: boolean | null;
-    /**
-     * DRM settings for the share
-     */
-    drm?: 'none' | 'standard' | null;
+    drm?: GetShareSchemaDrm | null;
     expires?: string | null;
     is_approval?: boolean | null;
     message?: string | null;
@@ -4734,10 +5125,7 @@ export type GetShareSchemaWritable = {
     show_watermark?: boolean | null;
     title?: string | null;
     upload_storage_id?: string | null;
-    /**
-     * Watermark settings for the share
-     */
-    watermark?: 'none' | 'standard' | null;
+    watermark?: GetShareSchemaWatermark | null;
 };
 
 export type MagicLinkAllowlistEntrySchemaWritable = {
@@ -4759,43 +5147,49 @@ export type PlaylistWritable = {
     custom_keyframe?: string | null;
     custom_poster?: string | null;
     keyframe_asset_ids?: Array<string> | null;
-    keyframes?: Array<unknown> | null;
+    keyframes?: Array<{
+        [key: string]: unknown;
+    }> | null;
     name: string;
     project_id?: string | null;
-    status?: 'HIDDEN' | null;
+    status?: PlaylistStatus | null;
 };
 
 export type PlaylistBaseSchemaWritable = {
     custom_keyframe?: string | null;
     custom_poster?: string | null;
     keyframe_asset_ids?: Array<string> | null;
-    keyframes?: Array<unknown> | null;
+    keyframes?: Array<{
+        [key: string]: unknown;
+    }> | null;
     name: string;
     project_id?: string | null;
-    status?: 'HIDDEN' | null;
+    status?: PlaylistBaseSchemaStatus | null;
 };
 
 export type PlaylistCreateSchemaWritable = {
     custom_keyframe?: string | null;
     custom_poster?: string | null;
     keyframe_asset_ids?: Array<string> | null;
-    keyframes?: Array<unknown> | null;
+    keyframes?: Array<{
+        [key: string]: unknown;
+    }> | null;
     name: string;
     playlist_items?: Array<PlaylistItem> | null;
     project_id?: string | null;
-    status?: 'HIDDEN' | null;
+    status?: PlaylistCreateSchemaStatus | null;
 };
 
 export type PlaylistItemElasticSchemaWritable = {
-    analyze_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
-    archive_status?: 'ARCHIVED' | 'ARCHIVING' | 'FAILED_TO_ARCHIVE' | 'NOT_ARCHIVED' | null;
+    analyze_status?: PlaylistItemElasticSchemaAnalyzeStatus | null;
+    archive_status?: PlaylistItemElasticSchemaArchiveStatus | null;
     category?: string | null;
     custom_keyframe?: string | null;
     custom_poster?: string | null;
     deleted_by_user_info?: unknown;
     external_id?: string | null;
     external_link?: string | null;
-    face_recognition_status?: 'DONE' | 'FAILED' | 'IN_PROGRESS' | 'N/A' | 'REQUESTED' | null;
+    face_recognition_status?: PlaylistItemElasticSchemaFaceRecognitionStatus | null;
     is_blocked?: boolean | null;
     is_online?: boolean | null;
     limit_download_to_groups?: Array<string> | null;
@@ -4803,11 +5197,11 @@ export type PlaylistItemElasticSchemaWritable = {
     original_segment_id?: string | null;
     original_version_id?: string | null;
     site_name?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: PlaylistItemElasticSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     title: string;
-    type?: 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP' | null;
+    type?: PlaylistItemElasticSchemaType | null;
     warning?: string | null;
 };
 
@@ -4819,11 +5213,13 @@ export type PlaylistSchemaWritable = {
     custom_keyframe?: string | null;
     custom_poster?: string | null;
     keyframe_asset_ids?: Array<string> | null;
-    keyframes?: Array<unknown> | null;
+    keyframes?: Array<{
+        [key: string]: unknown;
+    }> | null;
     name: string;
     playlist_items?: Array<PlaylistItemSchema> | null;
     project_id?: string | null;
-    status?: 'HIDDEN' | null;
+    status?: PlaylistSchemaStatus | null;
 };
 
 export type PlaylistsSchemaWritable = {
@@ -4834,21 +5230,21 @@ export type PortfolioBaseSchemaWritable = {
     config?: PortfolioConfig | null;
     name: string;
     playlist_id?: string | null;
-    status?: 'ACTIVE' | null;
+    status?: PortfolioBaseSchemaStatus | null;
 };
 
 export type PortfolioCreateSchemaWritable = {
     config?: PortfolioConfigSchema | null;
     name: string;
     playlist_id: string;
-    status?: 'ACTIVE' | null;
+    status?: PortfolioCreateSchemaStatus | null;
 };
 
 export type PortfolioSchemaWritable = {
     config?: PortfolioConfigSchema | null;
     name: string;
     playlist_id?: string | null;
-    status?: 'ACTIVE' | null;
+    status?: PortfolioSchemaStatus | null;
 };
 
 export type PortfoliosSchemaWritable = {
@@ -4858,7 +5254,7 @@ export type PortfoliosSchemaWritable = {
 export type ProjectBaseSchemaWritable = {
     collection_id: string;
     name: string;
-    status?: 'ACTIVE' | null;
+    status?: ProjectBaseSchemaStatus | null;
     storage_id?: string | null;
 };
 
@@ -4872,7 +5268,7 @@ export type ProjectCreateSchemaWritable = {
      */
     collection_parent_id?: string | null;
     name: string;
-    status?: 'ACTIVE' | null;
+    status?: ProjectCreateSchemaStatus | null;
     storage_id?: string | null;
 };
 
@@ -4886,7 +5282,7 @@ export type ProjectMemberCreateSchemaWritable = {
 export type ProjectSchemaWritable = {
     collection_id: string;
     name: string;
-    status?: 'ACTIVE' | null;
+    status?: ProjectSchemaStatus | null;
     storage_id?: string | null;
 };
 
@@ -4965,7 +5361,7 @@ export type SegmentWritable = {
      */
     share_id?: string | null;
     share_user_email?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: SegmentStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     top_level?: boolean | null;
@@ -5006,7 +5402,7 @@ export type SegmentBaseSchemaWritable = {
      */
     share_id?: string | null;
     share_user_email?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: SegmentBaseSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     top_level?: boolean | null;
@@ -5047,7 +5443,7 @@ export type SegmentElasticSchemaWritable = {
      */
     share_id?: string | null;
     share_user_email?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: SegmentElasticSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     top_level?: boolean | null;
@@ -5088,7 +5484,7 @@ export type SegmentSchemaWritable = {
      */
     share_id?: string | null;
     share_user_email?: string | null;
-    status?: 'ACTIVE' | 'DELETED' | null;
+    status?: SegmentSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
     top_level?: boolean | null;
@@ -5147,10 +5543,7 @@ export type ShareBaseSchemaWritable = {
     allow_user_search_for_mentions?: boolean | null;
     allow_view_transcriptions?: boolean | null;
     allow_view_versions?: boolean | null;
-    /**
-     * DRM settings for the share
-     */
-    drm?: 'none' | 'standard' | null;
+    drm?: ShareBaseSchemaDrm | null;
     expires?: string | null;
     is_approval?: boolean | null;
     message?: string | null;
@@ -5165,10 +5558,7 @@ export type ShareBaseSchemaWritable = {
     show_watermark?: boolean | null;
     title?: string | null;
     upload_storage_id?: string | null;
-    /**
-     * Watermark settings for the share
-     */
-    watermark?: 'none' | 'standard' | null;
+    watermark?: ShareBaseSchemaWatermark | null;
 };
 
 export type ShareCreateSchemaWritable = {
@@ -5184,10 +5574,7 @@ export type ShareCreateSchemaWritable = {
     allow_view_transcriptions?: boolean | null;
     allow_view_versions?: boolean | null;
     automatic_approval_share?: boolean | null;
-    /**
-     * DRM settings for the share
-     */
-    drm?: 'none' | 'standard' | null;
+    drm?: ShareCreateSchemaDrm | null;
     emails: Array<string>;
     expires?: string | null;
     is_approval?: boolean | null;
@@ -5206,10 +5593,7 @@ export type ShareCreateSchemaWritable = {
     system_domain_id?: string | null;
     title?: string | null;
     upload_storage_id?: string | null;
-    /**
-     * Watermark settings for the share
-     */
-    watermark?: 'none' | 'standard' | null;
+    watermark?: ShareCreateSchemaWatermark | null;
 };
 
 export type ShareElasticSchemaWritable = {
@@ -5224,10 +5608,7 @@ export type ShareElasticSchemaWritable = {
     allow_user_search_for_mentions?: boolean | null;
     allow_view_transcriptions?: boolean | null;
     allow_view_versions?: boolean | null;
-    /**
-     * DRM settings for the share
-     */
-    drm?: 'none' | 'standard' | null;
+    drm?: ShareElasticSchemaDrm | null;
     expires?: string | null;
     is_approval?: boolean | null;
     message?: string | null;
@@ -5243,10 +5624,7 @@ export type ShareElasticSchemaWritable = {
     show_watermark?: boolean | null;
     title?: string | null;
     upload_storage_id?: string | null;
-    /**
-     * Watermark settings for the share
-     */
-    watermark?: 'none' | 'standard' | null;
+    watermark?: ShareElasticSchemaWatermark | null;
 };
 
 export type ShareOptionsBaseSchemaWritable = {
@@ -5261,20 +5639,14 @@ export type ShareOptionsBaseSchemaWritable = {
     allow_user_search_for_mentions?: boolean | null;
     allow_view_transcriptions?: boolean | null;
     allow_view_versions?: boolean | null;
-    /**
-     * DRM settings for the share
-     */
-    drm?: 'none' | 'standard' | null;
+    drm?: ShareOptionsBaseSchemaDrm | null;
     is_approval?: boolean | null;
     metadata_views?: Array<string> | null;
     review_experience_public_beta?: boolean | null;
     show_existing_comments?: boolean | null;
     show_watermark?: boolean | null;
     upload_storage_id?: string | null;
-    /**
-     * Watermark settings for the share
-     */
-    watermark?: 'none' | 'standard' | null;
+    watermark?: ShareOptionsBaseSchemaWatermark | null;
 };
 
 export type ShareSchemaWritable = {
@@ -5289,10 +5661,7 @@ export type ShareSchemaWritable = {
     allow_user_search_for_mentions?: boolean | null;
     allow_view_transcriptions?: boolean | null;
     allow_view_versions?: boolean | null;
-    /**
-     * DRM settings for the share
-     */
-    drm?: 'none' | 'standard' | null;
+    drm?: ShareSchemaDrm | null;
     expires?: string | null;
     is_approval?: boolean | null;
     message?: string | null;
@@ -5307,10 +5676,7 @@ export type ShareSchemaWritable = {
     show_watermark?: boolean | null;
     title?: string | null;
     upload_storage_id?: string | null;
-    /**
-     * Watermark settings for the share
-     */
-    watermark?: 'none' | 'standard' | null;
+    watermark?: ShareSchemaWatermark | null;
 };
 
 export type ShareTokenSchemaWritable = {
@@ -5338,10 +5704,7 @@ export type ShareUrlCreateSchemaWritable = {
     allow_user_search_for_mentions?: boolean | null;
     allow_view_transcriptions?: boolean | null;
     allow_view_versions?: boolean | null;
-    /**
-     * DRM settings for the share
-     */
-    drm?: 'none' | 'standard' | null;
+    drm?: ShareUrlCreateSchemaDrm | null;
     expires?: string | null;
     is_approval?: boolean | null;
     metadata_views?: Array<string> | null;
@@ -5355,10 +5718,7 @@ export type ShareUrlCreateSchemaWritable = {
     system_domain_id?: string | null;
     title?: string | null;
     upload_storage_id?: string | null;
-    /**
-     * Watermark settings for the share
-     */
-    watermark?: 'none' | 'standard' | null;
+    watermark?: ShareUrlCreateSchemaWatermark | null;
 };
 
 export type ShareUrlSchemaWritable = {
@@ -5373,10 +5733,7 @@ export type ShareUrlSchemaWritable = {
     allow_user_search_for_mentions?: boolean | null;
     allow_view_transcriptions?: boolean | null;
     allow_view_versions?: boolean | null;
-    /**
-     * DRM settings for the share
-     */
-    drm?: 'none' | 'standard' | null;
+    drm?: ShareUrlSchemaDrm | null;
     expires?: string | null;
     is_approval?: boolean | null;
     message?: string | null;
@@ -5392,10 +5749,7 @@ export type ShareUrlSchemaWritable = {
     title?: string | null;
     upload_storage_id?: string | null;
     url?: string | null;
-    /**
-     * Watermark settings for the share
-     */
-    watermark?: 'none' | 'standard' | null;
+    watermark?: ShareUrlSchemaWatermark | null;
 };
 
 export type ShareUserWritable = {
@@ -6518,7 +6872,7 @@ export type GetAssetsByAssetIdHistoryByHistoryEntityIdResponses = {
     /**
      * Returns a created asset history entity
      */
-    201: AssetHistorySchema;
+    200: AssetHistorySchema;
 };
 
 export type GetAssetsByAssetIdHistoryByHistoryEntityIdResponse = GetAssetsByAssetIdHistoryByHistoryEntityIdResponses[keyof GetAssetsByAssetIdHistoryByHistoryEntityIdResponses];
@@ -9434,7 +9788,7 @@ export type GetCollectionsByCollectionIdContentsResponses = {
     /**
      * Returns a collections content
      */
-    200: AssetsSchema;
+    200: CollectionContentsSchema;
 };
 
 export type GetCollectionsByCollectionIdContentsResponse = GetCollectionsByCollectionIdContentsResponses[keyof GetCollectionsByCollectionIdContentsResponses];
@@ -10489,7 +10843,7 @@ export type GetCustomActionsByContextByActionIdResponses = {
     /**
      * Returns a created asset custom action
      */
-    201: CustomActionSchema;
+    200: CustomActionSchema;
 };
 
 export type GetCustomActionsByContextByActionIdResponse = GetCustomActionsByContextByActionIdResponses[keyof GetCustomActionsByContextByActionIdResponses];

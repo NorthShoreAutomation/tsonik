@@ -229,8 +229,10 @@ export type ListObjectsSchema = {
 
 export type MultiSelectFilterGroupSchema = {
     readonly items?: Array<string> | null;
-    modifier?: 'exclude_all_of' | 'exclude_any_of' | 'include_all_of' | 'include_any_of' | null;
+    modifier?: MultiSelectFilterGroupSchemaModifier | null;
 };
+
+export type MultiSelectFilterGroupSchemaModifier = 'exclude_all_of' | 'exclude_any_of' | 'include_all_of' | 'include_any_of';
 
 export type NltfContextSchema = {
     displayed_filters?: NltfDisplayedFilters | null;
@@ -340,7 +342,7 @@ export type SavedSearchCopyFromTemplateSchema = {
 };
 
 export type SavedSearchElasticSchema = {
-    criteria?: string | null;
+    criteria?: SearchCriteriaSaved | null;
     date_created?: string | null;
     date_modified?: string | null;
     readonly favoured?: boolean | null;
@@ -462,8 +464,12 @@ export type SavedSearchesSchema = {
 export type SearchContentInfoInternalSchema = {
     readonly assets_count?: number | null;
     readonly collections_count?: number | null;
-    media_formats?: Array<unknown> | null;
-    media_types?: Array<unknown> | null;
+    media_formats?: Array<{
+        [key: string]: unknown;
+    }> | null;
+    media_types?: Array<{
+        [key: string]: unknown;
+    }> | null;
     readonly storage_info?: Array<StorageContentInfo> | null;
     readonly title?: string | null;
     readonly total_duration_milliseconds?: number | null;
@@ -582,6 +588,9 @@ export type SearchDocumentsSchema = {
 };
 
 export type SearchHistory = {
+    criteria: {
+        [key: string]: unknown;
+    };
     readonly date_created?: string | null;
     id: string;
 };
@@ -600,6 +609,9 @@ export type SearchHistoryListSchema = {
 };
 
 export type SearchHistorySchema = {
+    criteria: {
+        [key: string]: unknown;
+    };
     readonly date_created?: string | null;
     id: string;
 };
@@ -764,7 +776,7 @@ export type SavedSearchWritable = {
 };
 
 export type SavedSearchElasticSchemaWritable = {
-    criteria?: string | null;
+    criteria?: SearchCriteriaSaved | null;
     date_created?: string | null;
     date_modified?: string | null;
     group_id?: string | null;
@@ -835,6 +847,9 @@ export type SearchDocumentsSchemaWritable = {
 };
 
 export type SearchHistoryWritable = {
+    criteria: {
+        [key: string]: unknown;
+    };
     id: string;
 };
 
@@ -843,6 +858,9 @@ export type SearchHistoryListSchemaWritable = {
 };
 
 export type SearchHistorySchemaWritable = {
+    criteria: {
+        [key: string]: unknown;
+    };
     id: string;
 };
 

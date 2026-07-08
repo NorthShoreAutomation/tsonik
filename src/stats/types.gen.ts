@@ -6,17 +6,21 @@ export type ClientOptions = {
 
 export type AssetUsageSchema = {
     asset_id: string;
-    asset_type?: 'ASSET' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'SEQUENCE' | null;
+    asset_type?: AssetUsageSchemaAssetType | null;
     date?: string | null;
     readonly id?: string | null;
     metadata?: string | null;
-    operation_source?: '' | 'COLLECTION' | 'DISCOVERY' | 'EXTERNAL_SHARE' | 'NOTIFICATION' | 'SEARCH' | 'SHARE' | null;
+    operation_source?: AssetUsageSchemaOperationSource | null;
     operation_type: 'APPROVE' | 'COMMENT' | 'CREATE' | 'DELETE' | 'EXIT' | 'PAUSE' | 'PLAY' | 'REFOCUS' | 'REJECT' | 'RENAME' | 'SEEK' | 'UNFOCUS' | 'VIEW';
     readonly system_domain_id?: string | null;
     system_name: string;
     time?: string | null;
     user_id: string;
 };
+
+export type AssetUsageSchemaAssetType = 'ASSET' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'SEQUENCE';
+
+export type AssetUsageSchemaOperationSource = '' | 'COLLECTION' | 'DISCOVERY' | 'EXTERNAL_SHARE' | 'NOTIFICATION' | 'SEARCH' | 'SHARE';
 
 export type AssetUsagesElasticSchema = {
     count?: number | null;
@@ -129,7 +133,7 @@ export type BillingSchema = {
     balance?: number | null;
     consumption_subtype?: string | null;
     consumption_type?: string | null;
-    currency?: 'EUR' | 'USD' | null;
+    currency?: BillingSchemaCurrency | null;
     date?: string | null;
     expiration_date?: string | null;
     readonly id?: string | null;
@@ -138,6 +142,8 @@ export type BillingSchema = {
     system_domain_id: string;
     value: number;
 };
+
+export type BillingSchemaCurrency = 'EUR' | 'USD';
 
 export type BillingSettingsSchema = {
     auto_refill_amount?: number | null;
@@ -150,10 +156,12 @@ export type BillingStatsSchema = {
     invoice_end_of_month?: boolean | null;
     new_billing_enabled?: boolean | null;
     stripe_id?: boolean | null;
-    system_domain_status?: 'EUR' | 'USD' | null;
+    system_domain_status?: BillingStatsSchemaSystemDomainStatus | null;
     system_domain_type: string;
     system_domain_warning_message: string;
 };
+
+export type BillingStatsSchemaSystemDomainStatus = 'EUR' | 'USD';
 
 export type BillingsSchema = {
     readonly first_url?: string | null;
@@ -172,13 +180,15 @@ export type CollectionUsageSchema = {
     date?: string | null;
     readonly id?: string | null;
     metadata?: string | null;
-    operation_source?: 'COLLECTION' | 'NOTIFICATION' | 'SEARCH' | null;
+    operation_source?: CollectionUsageSchemaOperationSource | null;
     operation_type: 'CREATE' | 'DELETE' | 'RENAME' | 'VIEW';
     system_domain_id?: string | null;
     system_name: string;
     time?: string | null;
     user_id: string;
 };
+
+export type CollectionUsageSchemaOperationSource = 'COLLECTION' | 'NOTIFICATION' | 'SEARCH';
 
 export type CollectionUsagesElasticSchema = {
     count?: number | null;
@@ -247,12 +257,18 @@ export type LogsRecipientReadSchema = {
     readonly id?: string | null;
     method: 'AMAZON' | 'GOOGLE';
     name: string;
+    settings: {
+        [key: string]: unknown;
+    };
 };
 
 export type LogsRecipientSchema = {
     readonly id?: string | null;
     method: 'AMAZON' | 'GOOGLE';
     name: string;
+    settings: {
+        [key: string]: unknown;
+    };
 };
 
 export type LogsRecipientsSchema = {
@@ -363,7 +379,7 @@ export type TranscoderUsageSchema = {
     job_id?: string | null;
     object_id?: string | null;
     object_type?: string | null;
-    operation_type?: 'ANALYZE' | 'CONFORM' | 'EXTRACT_AUDIO' | 'EXTRACT_IMAGE' | 'FACE_RECOGNITION_IMAGE' | 'FACE_RECOGNITION_VIDEO' | 'MEDIAINFO' | 'TRANSCODE' | 'TRANSCODE_AUDIO' | 'TRANSCODE_IMAGE' | 'TRANSCODE_KEYFRAMES' | 'TRANSCODE_VIDEO' | 'TRANSCRIBE' | 'TRANSCRIBE_HUMAN' | null;
+    operation_type?: TranscoderUsageSchemaOperationType | null;
     percent_done?: number | null;
     source_bytes?: number | null;
     status: 'ABORTED' | 'FAILED' | 'FINISHED';
@@ -373,6 +389,8 @@ export type TranscoderUsageSchema = {
     transcoder_type: 'AMAZON_REKOGNITION_IMAGE' | 'AMAZON_REKOGNITION_VIDEO' | 'AMAZON_TRANSCRIBE' | 'COLLECTION_KEYFRAMES' | 'ELEMENTAL_MEDIACONVERT' | 'ELEMENTAL_SERVER' | 'ENCODING_COM' | 'FACE_RECOGNITION' | 'FFMPEG' | 'FFMPEG_FIRST_FRAME' | 'FLICS' | 'GCVI_TRANSCRIPTION' | 'GOOGLE_VIDEO_INTELLIGENCE' | 'GOOGLE_VISION' | 'ICONIK_EDGE_TRANSCODER' | 'IMAGEMAGICK' | 'LIBREOFFICE' | 'MEDIAINFO' | 'NONE' | 'OPEN_GRAPH' | 'REV_AI_TRANSCRIPTION' | 'SUBTITLES' | 'TELESTREAM_CLOUD' | 'VANTAGE' | 'WILDMOKA' | 'ZENCODER';
 };
 
+export type TranscoderUsageSchemaOperationType = 'ANALYZE' | 'CONFORM' | 'EXTRACT_AUDIO' | 'EXTRACT_IMAGE' | 'FACE_RECOGNITION_IMAGE' | 'FACE_RECOGNITION_VIDEO' | 'MEDIAINFO' | 'TRANSCODE' | 'TRANSCODE_AUDIO' | 'TRANSCODE_IMAGE' | 'TRANSCODE_KEYFRAMES' | 'TRANSCODE_VIDEO' | 'TRANSCRIBE' | 'TRANSCRIBE_HUMAN';
+
 export type TranscoderUsagesElasticSchema = {
     count?: number | null;
     date?: string | null;
@@ -380,11 +398,13 @@ export type TranscoderUsagesElasticSchema = {
     duration_seconds?: number | null;
     readonly id?: string | null;
     is_user_transcoder?: boolean | null;
-    operation_type?: 'ANALYZE' | 'CONFORM' | 'EXTRACT_AUDIO' | 'EXTRACT_IMAGE' | 'FACE_RECOGNITION_IMAGE' | 'FACE_RECOGNITION_VIDEO' | 'MEDIAINFO' | 'TRANSCODE' | 'TRANSCODE_AUDIO' | 'TRANSCODE_IMAGE' | 'TRANSCODE_KEYFRAMES' | 'TRANSCODE_VIDEO' | 'TRANSCRIBE' | 'TRANSCRIBE_HUMAN' | null;
+    operation_type?: TranscoderUsagesElasticSchemaOperationType | null;
     source_bytes?: number | null;
     system_domain_id?: string | null;
     transcoder_type: 'AMAZON_REKOGNITION_IMAGE' | 'AMAZON_REKOGNITION_VIDEO' | 'AMAZON_TRANSCRIBE' | 'COLLECTION_KEYFRAMES' | 'ELEMENTAL_MEDIACONVERT' | 'ELEMENTAL_SERVER' | 'ENCODING_COM' | 'FACE_RECOGNITION' | 'FFMPEG' | 'FFMPEG_FIRST_FRAME' | 'FLICS' | 'GCVI_TRANSCRIPTION' | 'GOOGLE_VIDEO_INTELLIGENCE' | 'GOOGLE_VISION' | 'ICONIK_EDGE_TRANSCODER' | 'IMAGEMAGICK' | 'LIBREOFFICE' | 'MEDIAINFO' | 'NONE' | 'OPEN_GRAPH' | 'REV_AI_TRANSCRIPTION' | 'SUBTITLES' | 'TELESTREAM_CLOUD' | 'VANTAGE' | 'WILDMOKA' | 'ZENCODER';
 };
+
+export type TranscoderUsagesElasticSchemaOperationType = 'ANALYZE' | 'CONFORM' | 'EXTRACT_AUDIO' | 'EXTRACT_IMAGE' | 'FACE_RECOGNITION_IMAGE' | 'FACE_RECOGNITION_VIDEO' | 'MEDIAINFO' | 'TRANSCODE' | 'TRANSCODE_AUDIO' | 'TRANSCODE_IMAGE' | 'TRANSCODE_KEYFRAMES' | 'TRANSCODE_VIDEO' | 'TRANSCRIBE' | 'TRANSCRIBE_HUMAN';
 
 export type TranscoderUsagesSchema = {
     readonly first_url?: string | null;
@@ -485,10 +505,10 @@ export type UserUsagesSchema = {
 
 export type AssetUsageSchemaWritable = {
     asset_id: string;
-    asset_type?: 'ASSET' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'SEQUENCE' | null;
+    asset_type?: AssetUsageSchemaAssetType | null;
     date?: string | null;
     metadata?: string | null;
-    operation_source?: '' | 'COLLECTION' | 'DISCOVERY' | 'EXTERNAL_SHARE' | 'NOTIFICATION' | 'SEARCH' | 'SHARE' | null;
+    operation_source?: AssetUsageSchemaOperationSource | null;
     operation_type: 'APPROVE' | 'COMMENT' | 'CREATE' | 'DELETE' | 'EXIT' | 'PAUSE' | 'PLAY' | 'REFOCUS' | 'REJECT' | 'RENAME' | 'SEEK' | 'UNFOCUS' | 'VIEW';
     system_name: string;
     time?: string | null;
@@ -519,7 +539,7 @@ export type BillingSchemaWritable = {
     balance?: number | null;
     consumption_subtype?: string | null;
     consumption_type?: string | null;
-    currency?: 'EUR' | 'USD' | null;
+    currency?: BillingSchemaCurrency | null;
     date?: string | null;
     expiration_date?: string | null;
     label: string;
@@ -536,7 +556,7 @@ export type CollectionUsageSchemaWritable = {
     collection_id: string;
     date?: string | null;
     metadata?: string | null;
-    operation_source?: 'COLLECTION' | 'NOTIFICATION' | 'SEARCH' | null;
+    operation_source?: CollectionUsageSchemaOperationSource | null;
     operation_type: 'CREATE' | 'DELETE' | 'RENAME' | 'VIEW';
     system_domain_id?: string | null;
     system_name: string;
@@ -561,11 +581,17 @@ export type CreditsSchemaWritable = {
 export type LogsRecipientReadSchemaWritable = {
     method: 'AMAZON' | 'GOOGLE';
     name: string;
+    settings: {
+        [key: string]: unknown;
+    };
 };
 
 export type LogsRecipientSchemaWritable = {
     method: 'AMAZON' | 'GOOGLE';
     name: string;
+    settings: {
+        [key: string]: unknown;
+    };
 };
 
 export type LogsRecipientsSchemaWritable = {
@@ -630,7 +656,7 @@ export type TranscoderUsageSchemaWritable = {
     job_id?: string | null;
     object_id?: string | null;
     object_type?: string | null;
-    operation_type?: 'ANALYZE' | 'CONFORM' | 'EXTRACT_AUDIO' | 'EXTRACT_IMAGE' | 'FACE_RECOGNITION_IMAGE' | 'FACE_RECOGNITION_VIDEO' | 'MEDIAINFO' | 'TRANSCODE' | 'TRANSCODE_AUDIO' | 'TRANSCODE_IMAGE' | 'TRANSCODE_KEYFRAMES' | 'TRANSCODE_VIDEO' | 'TRANSCRIBE' | 'TRANSCRIBE_HUMAN' | null;
+    operation_type?: TranscoderUsageSchemaOperationType | null;
     percent_done?: number | null;
     source_bytes?: number | null;
     status: 'ABORTED' | 'FAILED' | 'FINISHED';
@@ -645,7 +671,7 @@ export type TranscoderUsagesElasticSchemaWritable = {
     destination_bytes?: number | null;
     duration_seconds?: number | null;
     is_user_transcoder?: boolean | null;
-    operation_type?: 'ANALYZE' | 'CONFORM' | 'EXTRACT_AUDIO' | 'EXTRACT_IMAGE' | 'FACE_RECOGNITION_IMAGE' | 'FACE_RECOGNITION_VIDEO' | 'MEDIAINFO' | 'TRANSCODE' | 'TRANSCODE_AUDIO' | 'TRANSCODE_IMAGE' | 'TRANSCODE_KEYFRAMES' | 'TRANSCODE_VIDEO' | 'TRANSCRIBE' | 'TRANSCRIBE_HUMAN' | null;
+    operation_type?: TranscoderUsagesElasticSchemaOperationType | null;
     source_bytes?: number | null;
     system_domain_id?: string | null;
     transcoder_type: 'AMAZON_REKOGNITION_IMAGE' | 'AMAZON_REKOGNITION_VIDEO' | 'AMAZON_TRANSCRIBE' | 'COLLECTION_KEYFRAMES' | 'ELEMENTAL_MEDIACONVERT' | 'ELEMENTAL_SERVER' | 'ENCODING_COM' | 'FACE_RECOGNITION' | 'FFMPEG' | 'FFMPEG_FIRST_FRAME' | 'FLICS' | 'GCVI_TRANSCRIPTION' | 'GOOGLE_VIDEO_INTELLIGENCE' | 'GOOGLE_VISION' | 'ICONIK_EDGE_TRANSCODER' | 'IMAGEMAGICK' | 'LIBREOFFICE' | 'MEDIAINFO' | 'NONE' | 'OPEN_GRAPH' | 'REV_AI_TRANSCRIPTION' | 'SUBTITLES' | 'TELESTREAM_CLOUD' | 'VANTAGE' | 'WILDMOKA' | 'ZENCODER';
@@ -1102,7 +1128,7 @@ export type GetBillingCreditsPriceResponses = {
     /**
      * Credits entered
      */
-    201: CreditsSchema;
+    200: CreditsSchema;
 };
 
 export type GetBillingCreditsPriceResponse = GetBillingCreditsPriceResponses[keyof GetBillingCreditsPriceResponses];
@@ -1194,7 +1220,7 @@ export type GetBillingCustomerResponses = {
     /**
      * Usage entered
      */
-    201: BillingSchema;
+    200: BillingSchema;
 };
 
 export type GetBillingCustomerResponse = GetBillingCustomerResponses[keyof GetBillingCustomerResponses];
@@ -2208,7 +2234,7 @@ export type GetOrdwayBillingCustomerResponses = {
     /**
      * Usage entered
      */
-    201: BillingSchema;
+    200: BillingSchema;
 };
 
 export type GetOrdwayBillingCustomerResponse = GetOrdwayBillingCustomerResponses[keyof GetOrdwayBillingCustomerResponses];

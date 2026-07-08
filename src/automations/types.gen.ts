@@ -23,8 +23,10 @@ export type AddToCollectionActionSchema = {
 
 export type AnalyzeActionParameters = {
     force?: boolean | null;
-    force_type?: 'APPEND' | 'OVERWRITE' | null;
+    force_type?: AnalyzeActionParametersForceType | null;
 };
+
+export type AnalyzeActionParametersForceType = 'APPEND' | 'OVERWRITE';
 
 export type AnalyzeActionSchema = {
     parameters: AnalyzeActionParameters;
@@ -116,10 +118,12 @@ export type AutomationInternalSchema = {
     readonly id?: string | null;
     readonly modified_by?: string | null;
     name: string;
-    status?: 'ACTIVE' | 'INACTIVE' | null;
+    status?: AutomationInternalSchemaStatus | null;
     readonly system_domain_id?: string | null;
     triggers: Array<Trigger>;
 };
+
+export type AutomationInternalSchemaStatus = 'ACTIVE' | 'INACTIVE';
 
 export type AutomationRunEstimateSchema = {
     errors?: Array<string> | null;
@@ -131,7 +135,47 @@ export type AutomationRunEstimateSchema = {
 
 export type AutomationSchema = {
     actions: [
-        AnalyzeActionSchema | ExtractFacesAction | CreatePublicationJobAction | ArchiveActionSchema | RestoreAction | ExportAction | UpdateAclAction | MetadataUpdateAction | TranscodeAction | TransferAction | RequestOriginalAction | AddToCollectionActionSchema | TranscribeAction | CreateShareAction | DeleteAction | DeleteFileSetAction | RestrictAssetAction | RemoveAssetRestrictionAction | RequestReviewAction | TriggerCustomAction
+        ({
+            type: 'ANALYZE';
+        } & AnalyzeActionSchema) | ({
+            type: 'EXTRACT_FACES';
+        } & ExtractFacesAction) | ({
+            type: 'CREATE_PUBLICATION_JOB';
+        } & CreatePublicationJobAction) | ({
+            type: 'ARCHIVE';
+        } & ArchiveActionSchema) | ({
+            type: 'RESTORE';
+        } & RestoreAction) | ({
+            type: 'EXPORT';
+        } & ExportAction) | ({
+            type: 'UPDATE_ACL';
+        } & UpdateAclAction) | ({
+            type: 'METADATA_UPDATE';
+        } & MetadataUpdateAction) | ({
+            type: 'TRANSCODE';
+        } & TranscodeAction) | ({
+            type: 'TRANSFER';
+        } & TransferAction) | ({
+            type: 'REQUEST_ORIGINAL';
+        } & RequestOriginalAction) | ({
+            type: 'ADD_TO_COLLECTION';
+        } & AddToCollectionActionSchema) | ({
+            type: 'TRANSCRIBE';
+        } & TranscribeAction) | ({
+            type: 'CREATE_SHARE';
+        } & CreateShareAction) | ({
+            type: 'DELETE_ASSET';
+        } & DeleteAction) | ({
+            type: 'DELETE_FILE_SET';
+        } & DeleteFileSetAction) | ({
+            type: 'RESTRICT_ASSET';
+        } & RestrictAssetAction) | ({
+            type: 'REMOVE_ASSET_RESTRICTION';
+        } & RemoveAssetRestrictionAction) | ({
+            type: 'REQUEST_REVIEW';
+        } & RequestReviewAction) | ({
+            type: 'CUSTOM_ACTION';
+        } & TriggerCustomAction)
     ];
     conditions?: Array<Condition> | null;
     readonly created_by?: string | null;
@@ -141,10 +185,12 @@ export type AutomationSchema = {
     readonly id?: string | null;
     readonly modified_by?: string | null;
     name: string;
-    status?: 'ACTIVE' | 'INACTIVE' | null;
+    status?: AutomationSchemaStatus | null;
     readonly system_domain_id?: string | null;
     triggers: Array<MetadataUpdateTrigger | AssetSharedTriggerSchema | SubtitleAddedTrigger | ReviewStatusChangedTrigger | AssetOnlineTriggerSchema | VersionOnlineTrigger | AssetTransferredToStorageTriggerSchema | AssetArchivedTriggerSchema | AssetRestoredTriggerSchema | CreatedAtTransitionTrigger | ModifiedAtTransitionTrigger | ObjectAddedToCollectionTrigger | ObjectRemovedFromCollectionTrigger>;
 };
+
+export type AutomationSchemaStatus = 'ACTIVE' | 'INACTIVE';
 
 export type AutomationStatsObjectSchema = {
     name: string;
@@ -348,12 +394,14 @@ export type ExportActionParameters = {
     export_to_asset_folder?: boolean | null;
     file_name?: string | null;
     format_id?: string | null;
-    metadata_format?: 'CSV' | 'JSON' | 'XML' | null;
+    metadata_format?: ExportActionParametersMetadataFormat | null;
     metadata_view?: string | null;
     overwrite?: boolean | null;
     preferred_original_storage_id?: string | null;
     transcode_profile_ids?: Array<string> | null;
 };
+
+export type ExportActionParametersMetadataFormat = 'CSV' | 'JSON' | 'XML';
 
 export type ExportActionSchema = {
     parameters: ExportActionParameters;
@@ -403,8 +451,10 @@ export type MetadataFieldValueUpdateSchema = {
     field_values?: Array<{
         [key: string]: unknown;
     }> | null;
-    mode?: 'append' | 'delete' | 'overwrite' | null;
+    mode?: MetadataFieldValueUpdateSchemaMode | null;
 };
+
+export type MetadataFieldValueUpdateSchemaMode = 'append' | 'delete' | 'overwrite';
 
 export type MetadataUpdateAction = {
     parameters: MetadataUpdateActionParameters;
@@ -530,9 +580,11 @@ export type RequestReviewActionParameters = {
     groups?: Array<string> | null;
     min_number?: number | null;
     share: CreateShareActionParameters;
-    status?: 'APPROVED' | 'MIXED' | 'N/A' | 'NOT_APPROVED' | 'REQUESTED' | null;
+    status?: RequestReviewActionParametersStatus | null;
     users?: Array<string> | null;
 };
+
+export type RequestReviewActionParametersStatus = 'APPROVED' | 'MIXED' | 'N/A' | 'NOT_APPROVED' | 'REQUESTED';
 
 export type RequestReviewActionSchema = {
     parameters: RequestReviewActionParameters;
@@ -638,17 +690,21 @@ export type TranscodeActionParameters = {
     format_name?: string | null;
     prefer_any_cloud?: boolean | null;
     preferred_storage_id?: string | null;
-    preferred_storage_method?: 'AZURE' | 'B2' | 'CUSTOM' | 'FILE' | 'FTP' | 'GCS' | 'HTTP' | 'PORTAL' | 'S3' | 'SFTP' | null;
+    preferred_storage_method?: TranscodeActionParametersPreferredStorageMethod | null;
     priority?: number | null;
 };
+
+export type TranscodeActionParametersPreferredStorageMethod = 'AZURE' | 'B2' | 'CUSTOM' | 'FILE' | 'FTP' | 'GCS' | 'HTTP' | 'PORTAL' | 'S3' | 'SFTP';
 
 export type TranscodeActionParametersSchema = {
     format_name?: string | null;
     prefer_any_cloud?: boolean | null;
     preferred_storage_id?: string | null;
-    preferred_storage_method?: 'AZURE' | 'B2' | 'CUSTOM' | 'FILE' | 'FTP' | 'GCS' | 'HTTP' | 'PORTAL' | 'S3' | 'SFTP' | null;
+    preferred_storage_method?: TranscodeActionParametersSchemaPreferredStorageMethod | null;
     priority?: number | null;
 };
+
+export type TranscodeActionParametersSchemaPreferredStorageMethod = 'AZURE' | 'B2' | 'CUSTOM' | 'FILE' | 'FTP' | 'GCS' | 'HTTP' | 'PORTAL' | 'S3' | 'SFTP';
 
 export type TranscodeActionSchema = {
     parameters: TranscodeActionParametersSchema;
@@ -709,7 +765,7 @@ export type Trigger = {
     filters?: Array<Condition> | null;
     object_id?: string | null;
     operations?: Array<'CREATE' | 'DELAYED_TRIGGER' | 'DELETE' | 'SHARE' | 'UPDATE'> | null;
-    realm?: 'ENTITY' | 'FILES' | 'FORMATS' | 'JOBS' | 'METADATA' | 'SHARES' | null;
+    realm?: TriggerRealm | null;
     type: 'ARCHIVE' | 'ASSET_ONLINE' | 'ASSET_SHARE' | 'CREATED_AT_TRANSITION' | 'METADATA_UPDATE' | 'MODIFIED_AT_TRANSITION' | 'RESTORE' | 'TRANSFER_TO_STORAGE';
 };
 
@@ -731,6 +787,8 @@ export type TriggerCustomActionSchema = {
     type: 'CUSTOM_ACTION';
 };
 
+export type TriggerRealm = 'ENTITY' | 'FILES' | 'FORMATS' | 'JOBS' | 'METADATA' | 'SHARES';
+
 export type TriggerSchema = {
     readonly date_created?: string | null;
     readonly date_modified?: string | null;
@@ -739,9 +797,11 @@ export type TriggerSchema = {
     filters?: Array<ConditionSchema> | null;
     object_id?: string | null;
     operations?: Array<'CREATE' | 'DELAYED_TRIGGER' | 'DELETE' | 'SHARE' | 'UPDATE'> | null;
-    realm?: 'ENTITY' | 'FILES' | 'FORMATS' | 'JOBS' | 'METADATA' | 'SHARES' | null;
+    realm?: TriggerSchemaRealm | null;
     type: 'ARCHIVE' | 'ASSET_ONLINE' | 'ASSET_SHARE' | 'CREATED_AT_TRANSITION' | 'METADATA_UPDATE' | 'MODIFIED_AT_TRANSITION' | 'RESTORE' | 'TRANSFER_TO_STORAGE';
 };
+
+export type TriggerSchemaRealm = 'ENTITY' | 'FILES' | 'FORMATS' | 'JOBS' | 'METADATA' | 'SHARES';
 
 export type TriggersSchema = {
     readonly objects?: Array<TriggerSchema> | null;
@@ -816,7 +876,7 @@ export type AutomationInternalSchemaWritable = {
     conditions?: Array<ConditionWritable> | null;
     description?: string | null;
     name: string;
-    status?: 'ACTIVE' | 'INACTIVE' | null;
+    status?: AutomationInternalSchemaStatus | null;
     triggers: Array<TriggerWritable>;
 };
 
@@ -829,12 +889,52 @@ export type AutomationRunEstimateSchemaWritable = {
 
 export type AutomationSchemaWritable = {
     actions: [
-        AnalyzeActionSchema | ExtractFacesAction | CreatePublicationJobAction | ArchiveActionSchema | RestoreAction | ExportAction | UpdateAclAction | MetadataUpdateAction | TranscodeAction | TransferAction | RequestOriginalAction | AddToCollectionActionSchema | TranscribeAction | CreateShareActionWritable | DeleteAction | DeleteFileSetAction | RestrictAssetAction | RemoveAssetRestrictionAction | RequestReviewActionWritable | TriggerCustomAction
+        ({
+            type: 'ANALYZE';
+        } & AnalyzeActionSchema) | ({
+            type: 'EXTRACT_FACES';
+        } & ExtractFacesAction) | ({
+            type: 'CREATE_PUBLICATION_JOB';
+        } & CreatePublicationJobAction) | ({
+            type: 'ARCHIVE';
+        } & ArchiveActionSchema) | ({
+            type: 'RESTORE';
+        } & RestoreAction) | ({
+            type: 'EXPORT';
+        } & ExportAction) | ({
+            type: 'UPDATE_ACL';
+        } & UpdateAclAction) | ({
+            type: 'METADATA_UPDATE';
+        } & MetadataUpdateAction) | ({
+            type: 'TRANSCODE';
+        } & TranscodeAction) | ({
+            type: 'TRANSFER';
+        } & TransferAction) | ({
+            type: 'REQUEST_ORIGINAL';
+        } & RequestOriginalAction) | ({
+            type: 'ADD_TO_COLLECTION';
+        } & AddToCollectionActionSchema) | ({
+            type: 'TRANSCRIBE';
+        } & TranscribeAction) | ({
+            type: 'CREATE_SHARE';
+        } & CreateShareActionWritable) | ({
+            type: 'DELETE_ASSET';
+        } & DeleteAction) | ({
+            type: 'DELETE_FILE_SET';
+        } & DeleteFileSetAction) | ({
+            type: 'RESTRICT_ASSET';
+        } & RestrictAssetAction) | ({
+            type: 'REMOVE_ASSET_RESTRICTION';
+        } & RemoveAssetRestrictionAction) | ({
+            type: 'REQUEST_REVIEW';
+        } & RequestReviewActionWritable) | ({
+            type: 'CUSTOM_ACTION';
+        } & TriggerCustomAction)
     ];
     conditions?: Array<ConditionWritable> | null;
     description?: string | null;
     name: string;
-    status?: 'ACTIVE' | 'INACTIVE' | null;
+    status?: AutomationSchemaStatus | null;
     triggers: Array<MetadataUpdateTrigger | AssetSharedTriggerSchema | SubtitleAddedTrigger | ReviewStatusChangedTrigger | AssetOnlineTriggerSchema | VersionOnlineTrigger | AssetTransferredToStorageTriggerSchema | AssetArchivedTriggerSchema | AssetRestoredTriggerSchema | CreatedAtTransitionTrigger | ModifiedAtTransitionTrigger | ObjectAddedToCollectionTrigger | ObjectRemovedFromCollectionTrigger>;
 };
 
@@ -932,7 +1032,7 @@ export type RequestReviewActionParametersWritable = {
     groups?: Array<string> | null;
     min_number?: number | null;
     share: CreateShareActionParametersWritable;
-    status?: 'APPROVED' | 'MIXED' | 'N/A' | 'NOT_APPROVED' | 'REQUESTED' | null;
+    status?: RequestReviewActionParametersStatus | null;
     users?: Array<string> | null;
 };
 
@@ -947,7 +1047,7 @@ export type TriggerWritable = {
     filters?: Array<ConditionWritable> | null;
     object_id?: string | null;
     operations?: Array<'CREATE' | 'DELAYED_TRIGGER' | 'DELETE' | 'SHARE' | 'UPDATE'> | null;
-    realm?: 'ENTITY' | 'FILES' | 'FORMATS' | 'JOBS' | 'METADATA' | 'SHARES' | null;
+    realm?: TriggerRealm | null;
     type: 'ARCHIVE' | 'ASSET_ONLINE' | 'ASSET_SHARE' | 'CREATED_AT_TRANSITION' | 'METADATA_UPDATE' | 'MODIFIED_AT_TRANSITION' | 'RESTORE' | 'TRANSFER_TO_STORAGE';
 };
 
@@ -957,7 +1057,7 @@ export type TriggerSchemaWritable = {
     filters?: Array<ConditionSchemaWritable> | null;
     object_id?: string | null;
     operations?: Array<'CREATE' | 'DELAYED_TRIGGER' | 'DELETE' | 'SHARE' | 'UPDATE'> | null;
-    realm?: 'ENTITY' | 'FILES' | 'FORMATS' | 'JOBS' | 'METADATA' | 'SHARES' | null;
+    realm?: TriggerSchemaRealm | null;
     type: 'ARCHIVE' | 'ASSET_ONLINE' | 'ASSET_SHARE' | 'CREATED_AT_TRANSITION' | 'METADATA_UPDATE' | 'MODIFIED_AT_TRANSITION' | 'RESTORE' | 'TRANSFER_TO_STORAGE';
 };
 

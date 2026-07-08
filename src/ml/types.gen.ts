@@ -116,8 +116,10 @@ export type DeletePersonSchema = {
 export type EmbeddingBaseSchema = {
     readonly date_created?: string | null;
     embedding_vector?: Array<number> | null;
-    type?: 'AUGMENTED' | 'NORMAL' | null;
+    type?: EmbeddingBaseSchemaType | null;
 };
+
+export type EmbeddingBaseSchemaType = 'AUGMENTED' | 'NORMAL';
 
 export type EmbeddingByFaceSchema = {
     readonly date_created?: string | null;
@@ -125,8 +127,10 @@ export type EmbeddingByFaceSchema = {
     readonly face_id?: string | null;
     readonly id?: string | null;
     readonly system_domain_id?: string | null;
-    type?: 'AUGMENTED' | 'NORMAL' | null;
+    type?: EmbeddingByFaceSchemaType | null;
 };
+
+export type EmbeddingByFaceSchemaType = 'AUGMENTED' | 'NORMAL';
 
 export type EmbeddingByPersonSchema = {
     readonly date_created?: string | null;
@@ -134,8 +138,10 @@ export type EmbeddingByPersonSchema = {
     readonly id?: string | null;
     readonly person_id?: string | null;
     readonly system_domain_id?: string | null;
-    type?: 'AUGMENTED' | 'NORMAL' | null;
+    type?: EmbeddingByPersonSchemaType | null;
 };
+
+export type EmbeddingByPersonSchemaType = 'AUGMENTED' | 'NORMAL';
 
 export type EmbeddingByStatusSchema = {
     readonly date_created?: string | null;
@@ -143,10 +149,14 @@ export type EmbeddingByStatusSchema = {
     embedding_vector?: Array<number> | null;
     readonly id?: string | null;
     person_id?: string | null;
-    status?: 'NEW' | 'SYSTEM_CONFIRMED' | 'UNCONFIRMED' | 'USER_CONFIRMED' | null;
+    status?: EmbeddingByStatusSchemaStatus | null;
     readonly system_domain_id?: string | null;
-    type?: 'AUGMENTED' | 'NORMAL' | null;
+    type?: EmbeddingByStatusSchemaType | null;
 };
+
+export type EmbeddingByStatusSchemaStatus = 'NEW' | 'SYSTEM_CONFIRMED' | 'UNCONFIRMED' | 'USER_CONFIRMED';
+
+export type EmbeddingByStatusSchemaType = 'AUGMENTED' | 'NORMAL';
 
 export type EmbeddingSchema = {
     readonly date_created?: string | null;
@@ -154,10 +164,14 @@ export type EmbeddingSchema = {
     embedding_vector?: Array<number> | null;
     readonly id?: string | null;
     person_id?: string | null;
-    status?: 'NEW' | 'SYSTEM_CONFIRMED' | 'UNCONFIRMED' | 'USER_CONFIRMED' | null;
+    status?: EmbeddingSchemaStatus | null;
     readonly system_domain_id?: string | null;
-    type?: 'AUGMENTED' | 'NORMAL' | null;
+    type?: EmbeddingSchemaType | null;
 };
+
+export type EmbeddingSchemaStatus = 'NEW' | 'SYSTEM_CONFIRMED' | 'UNCONFIRMED' | 'USER_CONFIRMED';
+
+export type EmbeddingSchemaType = 'AUGMENTED' | 'NORMAL';
 
 export type Face = {
     asset_id?: string | null;
@@ -174,7 +188,7 @@ export type Face = {
     readonly image_url?: string | null;
     landmarks?: Array<FaceLandmarkSchema> | null;
     readonly person_id?: string | null;
-    status?: 'NEW' | 'SYSTEM_CONFIRMED' | 'UNCONFIRMED' | 'USER_CONFIRMED' | null;
+    status?: FaceStatus | null;
     storage_id?: string | null;
     readonly system_domain_id?: string | null;
     timestamp_ms?: number | null;
@@ -190,9 +204,11 @@ export type FaceBaseSchema = {
     embedding_id?: string | null;
     filename?: string | null;
     readonly image_url?: string | null;
-    status?: 'NEW' | 'SYSTEM_CONFIRMED' | 'UNCONFIRMED' | 'USER_CONFIRMED' | null;
+    status?: FaceBaseSchemaStatus | null;
     storage_id?: string | null;
 };
+
+export type FaceBaseSchemaStatus = 'NEW' | 'SYSTEM_CONFIRMED' | 'UNCONFIRMED' | 'USER_CONFIRMED';
 
 export type FaceByAssetAndVersionSchema = {
     readonly asset_id?: string | null;
@@ -206,11 +222,13 @@ export type FaceByAssetAndVersionSchema = {
     readonly id?: string | null;
     readonly image_url?: string | null;
     readonly person_id?: string | null;
-    status?: 'NEW' | 'SYSTEM_CONFIRMED' | 'UNCONFIRMED' | 'USER_CONFIRMED' | null;
+    status?: FaceByAssetAndVersionSchemaStatus | null;
     storage_id?: string | null;
     readonly system_domain_id?: string | null;
     readonly version_id?: string | null;
 };
+
+export type FaceByAssetAndVersionSchemaStatus = 'NEW' | 'SYSTEM_CONFIRMED' | 'UNCONFIRMED' | 'USER_CONFIRMED';
 
 export type FaceByPersonSchema = {
     augmented_embedding_ids?: Array<string> | null;
@@ -223,10 +241,12 @@ export type FaceByPersonSchema = {
     readonly id?: string | null;
     readonly image_url?: string | null;
     readonly person_id?: string | null;
-    status?: 'NEW' | 'SYSTEM_CONFIRMED' | 'UNCONFIRMED' | 'USER_CONFIRMED' | null;
+    status?: FaceByPersonSchemaStatus | null;
     storage_id?: string | null;
     readonly system_domain_id?: string | null;
 };
+
+export type FaceByPersonSchemaStatus = 'NEW' | 'SYSTEM_CONFIRMED' | 'UNCONFIRMED' | 'USER_CONFIRMED';
 
 export type FaceLandmarkSchema = {
     x?: number | null;
@@ -252,12 +272,16 @@ export type FaceSchema = {
     readonly image_url?: string | null;
     landmarks?: Array<FaceLandmarkSchema> | null;
     readonly person_id?: string | null;
-    status?: 'NEW' | 'SYSTEM_CONFIRMED' | 'UNCONFIRMED' | 'USER_CONFIRMED' | null;
+    status?: FaceSchemaStatus | null;
     storage_id?: string | null;
     readonly system_domain_id?: string | null;
     timestamp_ms?: number | null;
     version_id?: string | null;
 };
+
+export type FaceSchemaStatus = 'NEW' | 'SYSTEM_CONFIRMED' | 'UNCONFIRMED' | 'USER_CONFIRMED';
+
+export type FaceStatus = 'NEW' | 'SYSTEM_CONFIRMED' | 'UNCONFIRMED' | 'USER_CONFIRMED';
 
 export type JobsPrioritySchema = {
     job_ids: Array<string>;
@@ -524,31 +548,31 @@ export type BulkPersonByAssetAndVersionSchemaWritable = {
 
 export type EmbeddingBaseSchemaWritable = {
     embedding_vector?: Array<number> | null;
-    type?: 'AUGMENTED' | 'NORMAL' | null;
+    type?: EmbeddingBaseSchemaType | null;
 };
 
 export type EmbeddingByFaceSchemaWritable = {
     embedding_vector?: Array<number> | null;
-    type?: 'AUGMENTED' | 'NORMAL' | null;
+    type?: EmbeddingByFaceSchemaType | null;
 };
 
 export type EmbeddingByPersonSchemaWritable = {
     embedding_vector?: Array<number> | null;
-    type?: 'AUGMENTED' | 'NORMAL' | null;
+    type?: EmbeddingByPersonSchemaType | null;
 };
 
 export type EmbeddingByStatusSchemaWritable = {
     embedding_vector?: Array<number> | null;
     person_id?: string | null;
-    status?: 'NEW' | 'SYSTEM_CONFIRMED' | 'UNCONFIRMED' | 'USER_CONFIRMED' | null;
-    type?: 'AUGMENTED' | 'NORMAL' | null;
+    status?: EmbeddingByStatusSchemaStatus | null;
+    type?: EmbeddingByStatusSchemaType | null;
 };
 
 export type EmbeddingSchemaWritable = {
     embedding_vector?: Array<number> | null;
     person_id?: string | null;
-    status?: 'NEW' | 'SYSTEM_CONFIRMED' | 'UNCONFIRMED' | 'USER_CONFIRMED' | null;
-    type?: 'AUGMENTED' | 'NORMAL' | null;
+    status?: EmbeddingSchemaStatus | null;
+    type?: EmbeddingSchemaType | null;
 };
 
 export type FaceWritable = {
@@ -560,7 +584,7 @@ export type FaceWritable = {
     embedding_id?: string | null;
     filename?: string | null;
     landmarks?: Array<FaceLandmarkSchema> | null;
-    status?: 'NEW' | 'SYSTEM_CONFIRMED' | 'UNCONFIRMED' | 'USER_CONFIRMED' | null;
+    status?: FaceStatus | null;
     storage_id?: string | null;
     timestamp_ms?: number | null;
     version_id?: string | null;
@@ -571,7 +595,7 @@ export type FaceBaseSchemaWritable = {
     directory_path?: string | null;
     embedding_id?: string | null;
     filename?: string | null;
-    status?: 'NEW' | 'SYSTEM_CONFIRMED' | 'UNCONFIRMED' | 'USER_CONFIRMED' | null;
+    status?: FaceBaseSchemaStatus | null;
     storage_id?: string | null;
 };
 
@@ -580,7 +604,7 @@ export type FaceByAssetAndVersionSchemaWritable = {
     directory_path?: string | null;
     embedding_id?: string | null;
     filename?: string | null;
-    status?: 'NEW' | 'SYSTEM_CONFIRMED' | 'UNCONFIRMED' | 'USER_CONFIRMED' | null;
+    status?: FaceByAssetAndVersionSchemaStatus | null;
     storage_id?: string | null;
 };
 
@@ -589,7 +613,7 @@ export type FaceByPersonSchemaWritable = {
     directory_path?: string | null;
     embedding_id?: string | null;
     filename?: string | null;
-    status?: 'NEW' | 'SYSTEM_CONFIRMED' | 'UNCONFIRMED' | 'USER_CONFIRMED' | null;
+    status?: FaceByPersonSchemaStatus | null;
     storage_id?: string | null;
 };
 
@@ -606,7 +630,7 @@ export type FaceSchemaWritable = {
     embedding_id?: string | null;
     filename?: string | null;
     landmarks?: Array<FaceLandmarkSchema> | null;
-    status?: 'NEW' | 'SYSTEM_CONFIRMED' | 'UNCONFIRMED' | 'USER_CONFIRMED' | null;
+    status?: FaceSchemaStatus | null;
     storage_id?: string | null;
     timestamp_ms?: number | null;
     version_id?: string | null;
