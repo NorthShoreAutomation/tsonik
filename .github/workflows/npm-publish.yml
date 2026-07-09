@@ -1,33 +1,56 @@
+# Publishes tsonik to npm via OIDC Trusted Publishing — no NPM_TOKEN secret.
+#
+# One-time setup on npmjs.com (required before the first tag can publish):
+#   package "tsonik" -> Settings -> Publishing access -> Trusted Publisher:
+#     Publisher:           GitHub Actions
+#     Organization/user:   NorthShoreAutomation
+#     Repository:          tsonik
+#     Workflow filename:   npm-publish.yml
+#     Environment:         (leave blank)
+#
+# Release flow: push a tag vX.Y.Z. It must match package.json's version (the
+# iconik-sdk-generator repo owns the version) or the job fails. On match the
+# job builds, publishes with provenance, and creates the GitHub release.
+
 name: Publish to NPM
 
 on:
-  release:
-    types: [created]
+  push:
+    tags: [ 'v*' ]
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write  # npm trusted publishing (OIDC) + provenance
+      contents: write  # create the GitHub release
     steps:
       - uses: actions/checkout@v7
+
       - uses: actions/setup-node@v6
         with:
-          node-version: '20.x'
+          node-version: '24'
           registry-url: 'https://registry.npmjs.org'
-      
+
+      - name: Update npm (OIDC publish needs npm >= 11.5.1)
+        run: npm install -g npm@latest && npm --version
+
+      - name: Verify tag matches package.json version
+        run: |
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          PKG_VERSION="$(node -p "require('./package.json').version")"
+          if [ "$TAG_VERSION" != "$PKG_VERSION" ]; then
+            echo "::error::Tag v${TAG_VERSION} does not match package.json version ${PKG_VERSION}. Retag, or regenerate the package with the right version."
+            exit 1
+          fi
+
       - name: Install dependencies
         run: npm ci
-      
-      - name: Run tests
-        run: npm test
-        env:
-          ICONIK_APP_ID: ${{ secrets.ICONIK_APP_ID }}
-          ICONIK_AUTH_TOKEN: ${{ secrets.ICONIK_AUTH_TOKEN }}
-          ICONIK_BASE_URL: ${{ secrets.ICONIK_BASE_URL }}
-      
-      - name: Build
-        run: npm run build
-      
-      - name: Publish
+
+      - name: Publish (OIDC trusted publishing; prepublishOnly runs tsc)
         run: npm publish
+
+      - name: Create GitHub release
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --generate-notes --verify-tag

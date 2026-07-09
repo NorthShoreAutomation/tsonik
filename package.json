@@ -1,93 +1,89 @@
 {
   "name": "tsonik",
-  "version": "1.10.0",
-  "description": "A TypeScript client library for the Iconik API based on Swagger documentation",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "rimraf dist && tsc",
-    "dev": "tsc --watch",
-    "prepublishOnly": "npm run lint && npm test && npm run build",
-    "size": "size-limit",
-    "analyze": "size-limit --why",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "security": "npm audit --audit-level=high",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "test:unit": "jest --testPathIgnorePatterns=integration",
-    "test:jobs": "jest --testPathPattern=resources.test.ts --testNamePattern=JobResource",
-    "test:assets": "jest --testPathPattern=assets",
-    "test:collections": "jest --testPathPattern=collections",
-    "test:integration": "jest --config jest.integration.config.js",
-    "test:integration:watch": "jest --config jest.integration.config.js --watch",
-    "test:integration:jobs": "jest --config jest.integration.config.js --testPathPattern=jobs.integration",
-    "test:integration:assets": "jest --config jest.integration.config.js --testPathPattern=assets.integration",
-    "test:integration:collections": "jest --config jest.integration.config.js --testPathPattern=collections.integration",
-    "test:integration:filesets": "jest --config jest.integration.config.js --testPathPattern=filesets.integration",
-    "test:integration:files": "jest --config jest.integration.config.js --testPathPattern=files.integration",
-    "test:integration:formats": "jest --config jest.integration.config.js --testPathPattern=formats.integration",
-    "test:integration:metadata": "jest --config jest.integration.config.js --testPathPattern=metadata.integration",
-    "test:integration:search": "jest --config jest.integration.config.js --testPathPattern=search.integration",
-    "test:all": "npm run test && npm run test:integration",
-    "lint": "eslint src/**/*.ts",
-    "lint:fix": "eslint src/**/*.ts --fix",
-    "prepare": "npm run build"
-  },
-  "keywords": [
-    "iconik",
-    "api",
-    "client",
-    "typescript",
-    "swagger",
-    "media",
-    "asset-management"
-  ],
-  "author": "Brant Goddard",
+  "version": "2.0.0",
+  "description": "Complete generated TypeScript SDK for the iconik media management API (15 services)",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/NorthShoreAutomation/tsonik.git"
+    "url": "git+https://github.com/NorthShoreAutomation/tsonik.git"
   },
-  "bugs": {
-    "url": "https://github.com/NorthShoreAutomation/tsonik/issues"
-  },
-  "homepage": "https://github.com/NorthShoreAutomation/tsonik#readme",
-  "engines": {
-    "node": ">=14.0.0"
-  },
+  "homepage": "https://github.com/NorthShoreAutomation/tsonik",
+  "type": "module",
+  "sideEffects": false,
   "files": [
-    "dist/**/*",
-    "README.md",
-    "LICENSE"
+    "dist"
   ],
-  "size-limit": [
-    {
-      "path": "dist/index.js",
-      "limit": "100 KB"
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./acls": {
+      "types": "./dist/acls/index.d.ts",
+      "default": "./dist/acls/index.js"
+    },
+    "./assets": {
+      "types": "./dist/assets/index.d.ts",
+      "default": "./dist/assets/index.js"
+    },
+    "./auth": {
+      "types": "./dist/auth/index.d.ts",
+      "default": "./dist/auth/index.js"
+    },
+    "./automations": {
+      "types": "./dist/automations/index.d.ts",
+      "default": "./dist/automations/index.js"
+    },
+    "./files": {
+      "types": "./dist/files/index.d.ts",
+      "default": "./dist/files/index.js"
+    },
+    "./jobs": {
+      "types": "./dist/jobs/index.d.ts",
+      "default": "./dist/jobs/index.js"
+    },
+    "./metadata": {
+      "types": "./dist/metadata/index.d.ts",
+      "default": "./dist/metadata/index.js"
+    },
+    "./ml": {
+      "types": "./dist/ml/index.d.ts",
+      "default": "./dist/ml/index.js"
+    },
+    "./notifications": {
+      "types": "./dist/notifications/index.d.ts",
+      "default": "./dist/notifications/index.js"
+    },
+    "./search": {
+      "types": "./dist/search/index.d.ts",
+      "default": "./dist/search/index.js"
+    },
+    "./settings": {
+      "types": "./dist/settings/index.d.ts",
+      "default": "./dist/settings/index.js"
+    },
+    "./stats": {
+      "types": "./dist/stats/index.d.ts",
+      "default": "./dist/stats/index.js"
+    },
+    "./transcode": {
+      "types": "./dist/transcode/index.d.ts",
+      "default": "./dist/transcode/index.js"
+    },
+    "./users-notifications": {
+      "types": "./dist/users-notifications/index.d.ts",
+      "default": "./dist/users-notifications/index.js"
+    },
+    "./users": {
+      "types": "./dist/users/index.d.ts",
+      "default": "./dist/users/index.js"
     }
-  ],
-  "dependencies": {
-    "axios": "^1.6.2",
-    "p-retry": "^6.2.1"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "tsc"
   },
   "devDependencies": {
-    "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/git": "^10.0.1",
-    "@size-limit/preset-small-lib": "^12.1.0",
-    "@types/jest": "^30.0.0",
-    "@types/node": "^26.1.0",
-    "@types/p-retry": "^3.0.0",
-    "@typescript-eslint/eslint-plugin": "^6.12.0",
-    "@typescript-eslint/parser": "^6.12.0",
-    "dotenv": "^17.1.0",
-    "eslint": "^8.54.0",
-    "jest": "^30.4.2",
-    "rimraf": "^6.1.3",
-    "semantic-release": "^25.0.5",
-    "size-limit": "^12.1.0",
-    "ts-jest": "^29.1.1",
-    "typedoc": "^0.28.19",
-    "typescript": "^5.3.2"
+    "typescript": "5.9.3"
   }
 }
