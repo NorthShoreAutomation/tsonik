@@ -11013,8 +11013,10 @@ export type PostDeleteQueueCollectionsResponses = {
     /**
      * Without body
      */
-    201: unknown;
+    204: void;
 };
+
+export type PostDeleteQueueCollectionsResponse = PostDeleteQueueCollectionsResponses[keyof PostDeleteQueueCollectionsResponses];
 
 export type PostDeleteQueueCollectionsPurgeData = {
     /**
@@ -11053,8 +11055,10 @@ export type PostDeleteQueueCollectionsPurgeResponses = {
     /**
      * Without body
      */
-    201: unknown;
+    204: void;
 };
+
+export type PostDeleteQueueCollectionsPurgeResponse = PostDeleteQueueCollectionsPurgeResponses[keyof PostDeleteQueueCollectionsPurgeResponses];
 
 export type PostDeleteQueueCollectionsPurgeAllData = {
     body?: never;
@@ -14116,6 +14120,10 @@ export type DeleteSharesBulkError = DeleteSharesBulkErrors[keyof DeleteSharesBul
 
 export type DeleteSharesBulkResponses = {
     /**
+     * Accepted
+     */
+    202: unknown;
+    /**
      * Without body
      */
     204: void;
@@ -15409,6 +15417,10 @@ export type DeleteByObjectTypeByObjectIdSharesByShareIdUsersByShareUserIdErrors 
 export type DeleteByObjectTypeByObjectIdSharesByShareIdUsersByShareUserIdError = DeleteByObjectTypeByObjectIdSharesByShareIdUsersByShareUserIdErrors[keyof DeleteByObjectTypeByObjectIdSharesByShareIdUsersByShareUserIdErrors];
 
 export type DeleteByObjectTypeByObjectIdSharesByShareIdUsersByShareUserIdResponses = {
+    /**
+     * OK
+     */
+    200: unknown;
     /**
      * No body
      */

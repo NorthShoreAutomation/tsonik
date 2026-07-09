@@ -2123,8 +2123,13 @@ export type PostSearchSavedGroupsByGroupIdReindexResponses = {
     /**
      * Returns a job info
      */
-    200: unknown;
+    201: {
+        job_id?: string | null;
+        status?: string | null;
+    };
 };
+
+export type PostSearchSavedGroupsByGroupIdReindexResponse = PostSearchSavedGroupsByGroupIdReindexResponses[keyof PostSearchSavedGroupsByGroupIdReindexResponses];
 
 export type DeleteSearchSavedBySearchIdData = {
     body?: never;
@@ -2466,8 +2471,13 @@ export type PostSearchSavedBySearchIdReindexResponses = {
     /**
      * Returns a job
      */
-    200: unknown;
+    201: {
+        job_id?: string | null;
+        status?: string | null;
+    };
 };
+
+export type PostSearchSavedBySearchIdReindexResponse = PostSearchSavedBySearchIdReindexResponses[keyof PostSearchSavedBySearchIdReindexResponses];
 
 export type PostSearchSuggestData = {
     /**

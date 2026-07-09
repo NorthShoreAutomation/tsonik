@@ -1666,7 +1666,7 @@ export type PostAppsByAppIdTokenResponses = {
     /**
      * Returns an application token
      */
-    200: TokenSchema;
+    201: TokenSchema;
 };
 
 export type PostAppsByAppIdTokenResponse = PostAppsByAppIdTokenResponses[keyof PostAppsByAppIdTokenResponses];
