@@ -2088,7 +2088,12 @@ export type GetSearchSavedGroupsResponses = {
 export type GetSearchSavedGroupsResponse = GetSearchSavedGroupsResponses[keyof GetSearchSavedGroupsResponses];
 
 export type PostSearchSavedGroupsByGroupIdReindexData = {
-    body?: never;
+    /**
+     * empty reindex body
+     */
+    body: {
+        [key: string]: unknown;
+    };
     path: {
         group_id: string;
     };

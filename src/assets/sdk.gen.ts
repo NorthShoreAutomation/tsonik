@@ -403,7 +403,11 @@ export const getAssetsByAssetIdHistoryByHistoryEntityId = <ThrowOnError extends 
 export const postAssetsByAssetIdHistoryByHistoryEntityIdReindex = <ThrowOnError extends boolean = false>(options: Options<PostAssetsByAssetIdHistoryByHistoryEntityIdReindexData, ThrowOnError>): RequestResult<PostAssetsByAssetIdHistoryByHistoryEntityIdReindexResponses, PostAssetsByAssetIdHistoryByHistoryEntityIdReindexErrors, ThrowOnError> => (options.client ?? client).post<PostAssetsByAssetIdHistoryByHistoryEntityIdReindexResponses, PostAssetsByAssetIdHistoryByHistoryEntityIdReindexErrors, ThrowOnError>({
     security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
     url: '/v1/assets/{asset_id}/history/{history_entity_id}/reindex/',
-    ...options
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
 });
 
 /**
@@ -1439,7 +1443,11 @@ export const postCollectionsByCollectionIdReindex = <ThrowOnError extends boolea
 export const postCollectionsByCollectionIdReindexContents = <ThrowOnError extends boolean = false>(options: Options<PostCollectionsByCollectionIdReindexContentsData, ThrowOnError>): RequestResult<PostCollectionsByCollectionIdReindexContentsResponses, PostCollectionsByCollectionIdReindexContentsErrors, ThrowOnError> => (options.client ?? client).post<PostCollectionsByCollectionIdReindexContentsResponses, PostCollectionsByCollectionIdReindexContentsErrors, ThrowOnError>({
     security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
     url: '/v1/collections/{collection_id}/reindex/contents/',
-    ...options
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
 });
 
 /**

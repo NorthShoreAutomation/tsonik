@@ -6790,7 +6790,12 @@ export type GetAssetsByAssetIdHistoryByHistoryEntityIdResponses = {
 export type GetAssetsByAssetIdHistoryByHistoryEntityIdResponse = GetAssetsByAssetIdHistoryByHistoryEntityIdResponses[keyof GetAssetsByAssetIdHistoryByHistoryEntityIdResponses];
 
 export type PostAssetsByAssetIdHistoryByHistoryEntityIdReindexData = {
-    body?: never;
+    /**
+     * empty reindex body
+     */
+    body: {
+        [key: string]: unknown;
+    };
     path: {
         asset_id: string;
         history_entity_id: string;
@@ -9923,7 +9928,12 @@ export type PostCollectionsByCollectionIdReindexResponses = {
 };
 
 export type PostCollectionsByCollectionIdReindexContentsData = {
-    body?: never;
+    /**
+     * empty reindex body
+     */
+    body: {
+        [key: string]: unknown;
+    };
     path: {
         collection_id: string;
     };
@@ -10428,7 +10438,7 @@ export type DeleteCustomActionsByContextByActionIdResponses = {
     /**
      * Without body
      */
-    204: CustomActionSchema;
+    204: void;
 };
 
 export type DeleteCustomActionsByContextByActionIdResponse = DeleteCustomActionsByContextByActionIdResponses[keyof DeleteCustomActionsByContextByActionIdResponses];

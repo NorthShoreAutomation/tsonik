@@ -483,7 +483,11 @@ export const getSearchSavedGroups = <ThrowOnError extends boolean = false>(optio
 export const postSearchSavedGroupsByGroupIdReindex = <ThrowOnError extends boolean = false>(options: Options<PostSearchSavedGroupsByGroupIdReindexData, ThrowOnError>): RequestResult<PostSearchSavedGroupsByGroupIdReindexResponses, PostSearchSavedGroupsByGroupIdReindexErrors, ThrowOnError> => (options.client ?? client).post<PostSearchSavedGroupsByGroupIdReindexResponses, PostSearchSavedGroupsByGroupIdReindexErrors, ThrowOnError>({
     security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
     url: '/v1/search/saved/groups/{group_id}/reindex/',
-    ...options
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
 });
 
 /**

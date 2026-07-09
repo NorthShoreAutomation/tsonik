@@ -231,7 +231,11 @@ export const postGroupsByGroupIdLogo = <ThrowOnError extends boolean = false>(op
 export const postGroupsByGroupIdReindex = <ThrowOnError extends boolean = false>(options: Options<PostGroupsByGroupIdReindexData, ThrowOnError>): RequestResult<PostGroupsByGroupIdReindexResponses, PostGroupsByGroupIdReindexErrors, ThrowOnError> => (options.client ?? client).post<PostGroupsByGroupIdReindexResponses, PostGroupsByGroupIdReindexErrors, ThrowOnError>({
     security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
     url: '/v1/groups/{group_id}/reindex/',
-    ...options
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
 });
 
 /**
@@ -925,7 +929,11 @@ export const postUsersByUserIdPhoto = <ThrowOnError extends boolean = false>(opt
 export const postUsersByUserIdReindex = <ThrowOnError extends boolean = false>(options: Options<PostUsersByUserIdReindexData, ThrowOnError>): RequestResult<PostUsersByUserIdReindexResponses, PostUsersByUserIdReindexErrors, ThrowOnError> => (options.client ?? client).post<PostUsersByUserIdReindexResponses, PostUsersByUserIdReindexErrors, ThrowOnError>({
     security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
     url: '/v1/users/{user_id}/reindex/',
-    ...options
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
 });
 
 /**

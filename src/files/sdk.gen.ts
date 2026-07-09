@@ -855,7 +855,11 @@ export const postAssetsByAssetIdFilesByFileIdMultipartUrlS3Part = <ThrowOnError 
 export const postAssetsByAssetIdFilesByFileIdReindex = <ThrowOnError extends boolean = false>(options: Options<PostAssetsByAssetIdFilesByFileIdReindexData, ThrowOnError>): RequestResult<PostAssetsByAssetIdFilesByFileIdReindexResponses, PostAssetsByAssetIdFilesByFileIdReindexErrors, ThrowOnError> => (options.client ?? client).post<PostAssetsByAssetIdFilesByFileIdReindexResponses, PostAssetsByAssetIdFilesByFileIdReindexErrors, ThrowOnError>({
     security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
     url: '/v1/assets/{asset_id}/files/{file_id}/reindex/',
-    ...options
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
 });
 
 /**
@@ -2606,7 +2610,11 @@ export const postExportLocationsByExportLocationIdBulkExport = <ThrowOnError ext
 export const postExportLocationsByExportLocationIdReindex = <ThrowOnError extends boolean = false>(options: Options<PostExportLocationsByExportLocationIdReindexData, ThrowOnError>): RequestResult<PostExportLocationsByExportLocationIdReindexResponses, PostExportLocationsByExportLocationIdReindexErrors, ThrowOnError> => (options.client ?? client).post<PostExportLocationsByExportLocationIdReindexResponses, PostExportLocationsByExportLocationIdReindexErrors, ThrowOnError>({
     security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
     url: '/v1/export_locations/{export_location_id}/reindex/',
-    ...options
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
 });
 
 /**
@@ -3187,10 +3195,14 @@ export const postStorages = <ThrowOnError extends boolean = false>(options: Opti
  * - can_reindex_storages
  *
  */
-export const postStoragesFilesReindex = <ThrowOnError extends boolean = false>(options?: Options<PostStoragesFilesReindexData, ThrowOnError>): RequestResult<PostStoragesFilesReindexResponses, PostStoragesFilesReindexErrors, ThrowOnError> => (options?.client ?? client).post<PostStoragesFilesReindexResponses, PostStoragesFilesReindexErrors, ThrowOnError>({
+export const postStoragesFilesReindex = <ThrowOnError extends boolean = false>(options: Options<PostStoragesFilesReindexData, ThrowOnError>): RequestResult<PostStoragesFilesReindexResponses, PostStoragesFilesReindexErrors, ThrowOnError> => (options.client ?? client).post<PostStoragesFilesReindexResponses, PostStoragesFilesReindexErrors, ThrowOnError>({
     security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
     url: '/v1/storages/files/reindex/',
-    ...options
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
 });
 
 /**
@@ -3243,10 +3255,14 @@ export const getStoragesMatchingByPurposeMethodByMethod = <ThrowOnError extends 
  * - can_reindex_storages
  *
  */
-export const postStoragesReindex = <ThrowOnError extends boolean = false>(options?: Options<PostStoragesReindexData, ThrowOnError>): RequestResult<PostStoragesReindexResponses, PostStoragesReindexErrors, ThrowOnError> => (options?.client ?? client).post<PostStoragesReindexResponses, PostStoragesReindexErrors, ThrowOnError>({
+export const postStoragesReindex = <ThrowOnError extends boolean = false>(options: Options<PostStoragesReindexData, ThrowOnError>): RequestResult<PostStoragesReindexResponses, PostStoragesReindexErrors, ThrowOnError> => (options.client ?? client).post<PostStoragesReindexResponses, PostStoragesReindexErrors, ThrowOnError>({
     security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
     url: '/v1/storages/reindex/',
-    ...options
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
 });
 
 /**
@@ -3604,7 +3620,11 @@ export const putStoragesByStorageIdFiles = <ThrowOnError extends boolean = false
 export const postStoragesByStorageIdFilesReindex = <ThrowOnError extends boolean = false>(options: Options<PostStoragesByStorageIdFilesReindexData, ThrowOnError>): RequestResult<PostStoragesByStorageIdFilesReindexResponses, PostStoragesByStorageIdFilesReindexErrors, ThrowOnError> => (options.client ?? client).post<PostStoragesByStorageIdFilesReindexResponses, PostStoragesByStorageIdFilesReindexErrors, ThrowOnError>({
     security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
     url: '/v1/storages/{storage_id}/files/reindex/',
-    ...options
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
 });
 
 /**
@@ -3618,7 +3638,11 @@ export const postStoragesByStorageIdFilesReindex = <ThrowOnError extends boolean
 export const postStoragesByStorageIdFilesByFileIdReindex = <ThrowOnError extends boolean = false>(options: Options<PostStoragesByStorageIdFilesByFileIdReindexData, ThrowOnError>): RequestResult<PostStoragesByStorageIdFilesByFileIdReindexResponses, PostStoragesByStorageIdFilesByFileIdReindexErrors, ThrowOnError> => (options.client ?? client).post<PostStoragesByStorageIdFilesByFileIdReindexResponses, PostStoragesByStorageIdFilesByFileIdReindexErrors, ThrowOnError>({
     security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
     url: '/v1/storages/{storage_id}/files/{file_id}/reindex/',
-    ...options
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
 });
 
 /**
@@ -3739,7 +3763,11 @@ export const postStoragesByStorageIdLogs = <ThrowOnError extends boolean = false
 export const postStoragesByStorageIdReindex = <ThrowOnError extends boolean = false>(options: Options<PostStoragesByStorageIdReindexData, ThrowOnError>): RequestResult<PostStoragesByStorageIdReindexResponses, PostStoragesByStorageIdReindexErrors, ThrowOnError> => (options.client ?? client).post<PostStoragesByStorageIdReindexResponses, PostStoragesByStorageIdReindexErrors, ThrowOnError>({
     security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
     url: '/v1/storages/{storage_id}/reindex/',
-    ...options
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
 });
 
 /**
@@ -4103,7 +4131,11 @@ export const getTranscodersByTranscoderIdOptionsByOptionName = <ThrowOnError ext
 export const postTranscodersByTranscoderIdReindex = <ThrowOnError extends boolean = false>(options: Options<PostTranscodersByTranscoderIdReindexData, ThrowOnError>): RequestResult<PostTranscodersByTranscoderIdReindexResponses, PostTranscodersByTranscoderIdReindexErrors, ThrowOnError> => (options.client ?? client).post<PostTranscodersByTranscoderIdReindexResponses, PostTranscodersByTranscoderIdReindexErrors, ThrowOnError>({
     security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
     url: '/v1/transcoders/{transcoder_id}/reindex/',
-    ...options
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
 });
 
 /**

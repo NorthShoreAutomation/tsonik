@@ -2019,7 +2019,12 @@ export type PostGroupsByGroupIdLogoResponses = {
 export type PostGroupsByGroupIdLogoResponse = PostGroupsByGroupIdLogoResponses[keyof PostGroupsByGroupIdLogoResponses];
 
 export type PostGroupsByGroupIdReindexData = {
-    body?: never;
+    /**
+     * empty reindex body
+     */
+    body: {
+        [key: string]: unknown;
+    };
     path: {
         group_id: string;
     };
@@ -2054,7 +2059,10 @@ export type PostGroupsByGroupIdReindexResponses = {
     /**
      * Returns a job
      */
-    200: UserSchema;
+    201: {
+        job_id?: string | null;
+        status?: string | null;
+    };
 };
 
 export type PostGroupsByGroupIdReindexResponse = PostGroupsByGroupIdReindexResponses[keyof PostGroupsByGroupIdReindexResponses];
@@ -4359,7 +4367,12 @@ export type PostUsersByUserIdPhotoResponses = {
 export type PostUsersByUserIdPhotoResponse = PostUsersByUserIdPhotoResponses[keyof PostUsersByUserIdPhotoResponses];
 
 export type PostUsersByUserIdReindexData = {
-    body?: never;
+    /**
+     * empty reindex body
+     */
+    body: {
+        [key: string]: unknown;
+    };
     path: {
         user_id: string;
     };
@@ -4394,7 +4407,10 @@ export type PostUsersByUserIdReindexResponses = {
     /**
      * Returns a job
      */
-    200: UserSchema;
+    201: {
+        job_id?: string | null;
+        status?: string | null;
+    };
 };
 
 export type PostUsersByUserIdReindexResponse = PostUsersByUserIdReindexResponses[keyof PostUsersByUserIdReindexResponses];

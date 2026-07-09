@@ -7851,7 +7851,12 @@ export type PostAssetsByAssetIdFilesByFileIdMultipartUrlS3PartResponses = {
 export type PostAssetsByAssetIdFilesByFileIdMultipartUrlS3PartResponse = PostAssetsByAssetIdFilesByFileIdMultipartUrlS3PartResponses[keyof PostAssetsByAssetIdFilesByFileIdMultipartUrlS3PartResponses];
 
 export type PostAssetsByAssetIdFilesByFileIdReindexData = {
-    body?: never;
+    /**
+     * empty reindex body
+     */
+    body: {
+        [key: string]: unknown;
+    };
     path: {
         asset_id: string;
         file_id: string;
@@ -12835,7 +12840,12 @@ export type PostExportLocationsByExportLocationIdBulkExportResponses = {
 };
 
 export type PostExportLocationsByExportLocationIdReindexData = {
-    body?: never;
+    /**
+     * empty reindex body
+     */
+    body: {
+        [key: string]: unknown;
+    };
     path: {
         export_location_id: string;
     };
@@ -14556,7 +14566,12 @@ export type PostStoragesResponses = {
 export type PostStoragesResponse = PostStoragesResponses[keyof PostStoragesResponses];
 
 export type PostStoragesFilesReindexData = {
-    body?: never;
+    /**
+     * empty reindex body
+     */
+    body: {
+        [key: string]: unknown;
+    };
     path?: never;
     query?: never;
     url: '/v1/storages/files/reindex/';
@@ -14703,7 +14718,12 @@ export type GetStoragesMatchingByPurposeMethodByMethodResponses = {
 export type GetStoragesMatchingByPurposeMethodByMethodResponse = GetStoragesMatchingByPurposeMethodByMethodResponses[keyof GetStoragesMatchingByPurposeMethodByMethodResponses];
 
 export type PostStoragesReindexData = {
-    body?: never;
+    /**
+     * empty reindex body
+     */
+    body: {
+        [key: string]: unknown;
+    };
     path?: never;
     query?: never;
     url: '/v1/storages/reindex/';
@@ -15706,7 +15726,12 @@ export type PutStoragesByStorageIdFilesResponses = {
 export type PutStoragesByStorageIdFilesResponse = PutStoragesByStorageIdFilesResponses[keyof PutStoragesByStorageIdFilesResponses];
 
 export type PostStoragesByStorageIdFilesReindexData = {
-    body?: never;
+    /**
+     * empty reindex body
+     */
+    body: {
+        [key: string]: unknown;
+    };
     path: {
         storage_id: string;
     };
@@ -15737,7 +15762,12 @@ export type PostStoragesByStorageIdFilesReindexResponses = {
 };
 
 export type PostStoragesByStorageIdFilesByFileIdReindexData = {
-    body?: never;
+    /**
+     * empty reindex body
+     */
+    body: {
+        [key: string]: unknown;
+    };
     path: {
         storage_id: string;
         file_id: string;
@@ -16106,7 +16136,12 @@ export type PostStoragesByStorageIdLogsResponses = {
 export type PostStoragesByStorageIdLogsResponse = PostStoragesByStorageIdLogsResponses[keyof PostStoragesByStorageIdLogsResponses];
 
 export type PostStoragesByStorageIdReindexData = {
-    body?: never;
+    /**
+     * empty reindex body
+     */
+    body: {
+        [key: string]: unknown;
+    };
     path: {
         storage_id: string;
     };
@@ -17105,7 +17140,12 @@ export type GetTranscodersByTranscoderIdOptionsByOptionNameResponses = {
 export type GetTranscodersByTranscoderIdOptionsByOptionNameResponse = GetTranscodersByTranscoderIdOptionsByOptionNameResponses[keyof GetTranscodersByTranscoderIdOptionsByOptionNameResponses];
 
 export type PostTranscodersByTranscoderIdReindexData = {
-    body?: never;
+    /**
+     * empty reindex body
+     */
+    body: {
+        [key: string]: unknown;
+    };
     path: {
         transcoder_id: string;
     };
