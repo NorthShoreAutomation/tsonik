@@ -1,17 +1,12 @@
-# CodeQL Analysis - Disabled for private repository
-# GitHub Advanced Security required for CodeQL on private repos
-# To re-enable: upgrade to GitHub Team/Enterprise or make repo public
-
 name: "CodeQL Analysis"
 
 on:
-  # Temporarily disabled - uncomment when Advanced Security is available
-  # push:
-  #   branches: [ main ]
-  # pull_request:
-  #   branches: [ main ]
-  # schedule:
-  #   - cron: '0 0 * * 0' # Run once a week (Sunday at midnight)
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * 0' # Run once a week (Sunday at midnight)
 
 jobs:
   analyze:
@@ -30,9 +25,6 @@ jobs:
       uses: github/codeql-action/init@v4
       with:
         languages: javascript-typescript
-
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v4
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v4

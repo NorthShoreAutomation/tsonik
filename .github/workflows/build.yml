@@ -1,0 +1,62 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [20, 24]
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Import smoke test (stubbed fetch, no live calls)
+        run: |
+          cat > "$RUNNER_TEMP/smoke.mjs" <<'SMOKE'
+          import assert from 'node:assert/strict';
+          import { pathToFileURL } from 'node:url';
+
+          const dist = (p) => import(pathToFileURL(`${process.cwd()}/dist/${p}`));
+          const { configure } = await dist('index.js');
+          const { getAssets } = await dist('assets/index.js');
+
+          let captured;
+          globalThis.fetch = async (input, init) => {
+            captured = input instanceof Request ? input : new Request(input, init);
+            return new Response(JSON.stringify({ objects: [] }), {
+              status: 200,
+              headers: { 'content-type': 'application/json' },
+            });
+          };
+
+          configure({ appId: 'smoke-app', authToken: 'smoke-token', baseUrl: 'https://example.invalid' });
+          const { data, error } = await getAssets({ query: { per_page: 1 } });
+
+          assert.equal(error, undefined);
+          assert.ok(data, 'expected data from stubbed response');
+          assert.ok(
+            captured.url.startsWith('https://example.invalid/API/assets/'),
+            `unexpected URL: ${captured.url}`,
+          );
+          assert.equal(captured.headers.get('App-ID'), 'smoke-app');
+          assert.equal(captured.headers.get('Auth-Token'), 'smoke-token');
+          console.log('smoke ok:', captured.url);
+          SMOKE
+          node "$RUNNER_TEMP/smoke.mjs"

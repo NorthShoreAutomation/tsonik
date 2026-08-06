@@ -1,208 +1,56 @@
-# Tsonik
+# tsonik
 
-[![npm version](https://img.shields.io/npm/v/tsonik.svg)](https://www.npmjs.com/package/tsonik)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://github.com/NorthShoreAutomation/tsonik/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/NorthShoreAutomation/tsonik/actions/workflows/unit-tests.yml)
-[![Lint Status](https://github.com/NorthShoreAutomation/tsonik/actions/workflows/lint.yml/badge.svg)](https://github.com/NorthShoreAutomation/tsonik/actions/workflows/lint.yml)
+A complete, generated TypeScript SDK for the [iconik](https://app.iconik.io) media management API.
 
-A TypeScript client library for the Iconik API that makes it easy to manage media assets, collections, jobs, and metadata. Named after the original Python `nsa-pythonik` library, this is the TypeScript version.
+- **15 services**, one subpath each: `tsonik/acls`, `tsonik/assets`, `tsonik/auth`, `tsonik/automations`, `tsonik/files`, `tsonik/jobs`, `tsonik/metadata`, `tsonik/ml`, `tsonik/notifications`, `tsonik/search`, `tsonik/settings`, `tsonik/stats`, `tsonik/transcode`, `tsonik/users`, `tsonik/users-notifications`
+- **Every operation in every service** (953 endpoints) — generated from iconik's published OpenAPI specs with [@hey-api/openapi-ts](https://github.com/hey-api/openapi-ts). One fully typed function per operation, request and response types included, fetch-based client, ESM.
+- Runs in Node ≥ 18 and modern browsers (anything with global `fetch`).
 
-## Features
+## Install
 
-- 🎯 **TypeScript-first** with full type safety
-- 🚀 **Promise-based API** with async/await support
-- 🛡️ **Comprehensive error handling** with detailed error types
-- 📡 **Built on Axios** for reliable HTTP requests
-- 🏗️ **Resource-based architecture** (assets, collections, jobs, metadata)
-- 📚 **Extensive documentation** with real-world examples
-- ⚡ **Modern ES6+** JavaScript practices
-
-## Installation
-
-```bash
+```sh
 npm install tsonik
-# or
-yarn add tsonik
 ```
 
-## Quick Start
+## Usage
 
-```typescript
-import { Tsonik } from 'tsonik';
+Set your `App-ID` / `Auth-Token` credentials **once**; every call is then authenticated (operations that iconik's specs mark as unauthenticated — login/SAML flows — send no auth headers):
 
-// Initialize the client
-const client = new Tsonik({
-  appId: 'your-app-id',
-  authToken: 'your-auth-token'
-});
+```ts
+import { configure } from 'tsonik';
+import { getAssets, getAssetsByAssetId } from 'tsonik/assets';
 
-// Get all assets
-const assets = await client.assets.listAssets();
-console.log(`Found ${assets.data.objects.length} assets`);
-
-// Create a new asset
-const newAsset = await client.assets.createAsset({
-  title: 'My Video',
-  type: 'ASSET',
-  description: 'A sample video file'
-});
-
-// Get a specific asset
-const asset = await client.assets.getAsset('asset-id');
-console.log(`Asset: ${asset.data.title}`);
-
-// Work with collections
-const collection = await client.collections.createCollection({
-  title: 'Marketing Assets',
-  description: 'All marketing materials'
-});
-
-// Update metadata
-await client.metadata.putMetadata(
-  'assets',
-  newAsset.data.id,
-  {
-    metadata_values: {
-      'custom.project': {
-        field_values: [{ value: 'Marketing Campaign' }],
-        mode: 'overwrite'
-      }
-    }
-  }
-);
-
-// Search for assets
-const searchResults = await client.search.search({
-  query: 'marketing video',
-  size: 10,
-  filter: {
-    terms: {
-      object_type: ['assets']
-    }
-  }
-});
-console.log(`Found ${searchResults.data.hits?.total?.value || 0} matching assets`);
-```
-
-## Documentation
-
-📖 **[Getting Started](https://northshoreautomation.github.io/tsonik/docs/getting-started.html)** - Complete setup and first steps
-
-💡 **[Usage Examples](https://northshoreautomation.github.io/tsonik/docs/examples.html)** - Real-world examples for all features
-
-📚 **[API Reference](https://northshoreautomation.github.io/tsonik/docs/api-reference.html)** - Complete method documentation
-
-🛠️ **[Best Practices](https://northshoreautomation.github.io/tsonik/docs/best-practices.html)** - Performance tips and patterns
-
-🌐 **[Full Documentation Site](https://northshoreautomation.github.io/tsonik/)** - Complete hosted documentation
-
-## Authentication
-
-You'll need your Iconik App ID and Auth Token:
-
-```typescript
-// From environment variables (recommended)
-const client = new Tsonik({
+configure({
   appId: process.env.ICONIK_APP_ID!,
-  authToken: process.env.ICONIK_AUTH_TOKEN!
+  authToken: process.env.ICONIK_AUTH_TOKEN!,
 });
 
-// Or directly (not recommended for production)
-const client = new Tsonik({
-  appId: 'your-app-id',
-  authToken: 'your-auth-token',
-  baseURL: 'https://app.iconik.io' // optional
+const { data, error } = await getAssets({ query: { per_page: 10 } });
+const asset = await getAssetsByAssetId({ path: { asset_id: 'some-asset-uuid' } });
+```
+
+Every operation returns `{ data, error, request, response }`; pass `throwOnError: true` to get `data` directly and have non-2xx responses throw instead.
+
+Self-hosted iconik? Pass `baseUrl`:
+
+```ts
+configure({ appId, authToken, baseUrl: 'https://iconik.example.com' });
+```
+
+### Per-service clients
+
+Each service subpath also exports its own `client` (a [hey-api fetch client](https://heyapi.dev/openapi-ts/clients/fetch)) if you need per-service interceptors, custom fetch, or separate credentials:
+
+```ts
+import { client } from 'tsonik/assets';
+
+client.interceptors.request.use((request) => {
+  console.log(request.method, request.url);
+  return request;
 });
 ```
 
-## Error Handling
+## Regeneration
 
-```typescript
-import { IconikAPIError, IconikAuthError } from 'tsonik';
-
-try {
-  const asset = await client.assets.get('asset-id');
-} catch (error) {
-  if (error instanceof IconikAPIError) {
-    console.log(`API Error ${error.status}: ${error.message}`);
-  } else if (error instanceof IconikAuthError) {
-    console.log('Authentication failed');
-  }
-}
-```
-
-## Available Resources
-
-- **`client.assets`** - Asset management (create, read, update, delete)
-- **`client.collections`** - Collection management and asset organization
-- **`client.jobs`** - Job monitoring and management (transcoding, analysis, etc.)
-- **`client.files`** - File operations and metadata
-- **`client.filesets`** - Fileset management
-- **`client.metadata`** - Metadata operations for any object type
-- **`client.formats`** - Format information and management
-- **`client.search`** - Search across assets, collections, and other objects
-
-## Development
-
-1. Install dependencies:
-
-```bash
-npm install
-```
-
-2. Build the project:
-
-```bash
-npm run build
-```
-
-3. Run tests:
-
-```bash
-npm test
-```
-
-4. Run tests in watch mode:
-
-```bash
-npm run test:watch
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a new Pull Request
-
-## Releasing New Versions
-
-This project uses semantic-release for automated versioning and publishing. When adding new features or fixing bugs:
-
-### Automated Release Process
-
-1. Make changes and write tests
-2. Use [Conventional Commits](https://www.conventionalcommit.org/) format for your commit messages:
-   - `feat: add new feature` - for features (minor version bump)
-   - `fix: resolve bug` - for bug fixes (patch version bump)
-   - Add `BREAKING CHANGE:` in commit body for breaking changes (major version bump)
-3. Create a pull request to the `main` branch
-4. After merging to `main`, semantic-release will automatically:
-   - Determine the next version number based on your commits
-   - Generate/update CHANGELOG.md
-   - Create a GitHub Release
-   - Publish to npm
-
-### Manual Release Process
-
-If needed, trigger a manual release:
-
-1. Go to GitHub Actions → "Version and Release" workflow
-2. Click "Run workflow" and select the version type (patch/minor/major)
-
-For more detailed instructions, see [the full release guide](dev-docs/RELEASE_GUIDE.md).
-
-## License
-
-MIT
+This repo's entire tree (minus README, `.github/`, `.gitignore`) is emitted by
+[iconik-sdk-generator](https://github.com/NorthShoreAutomation/iconik-sdk-generator) — **do not edit it by hand**; changes belong in the generator.
