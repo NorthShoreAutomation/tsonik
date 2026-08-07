@@ -67,3 +67,6 @@ export const configure = ({ appId, authToken, baseUrl = 'https://app.iconik.io' 
     client.setConfig({ auth, baseUrl: `${baseUrl}/API/${service}` });
   }
 };
+
+// human-readable alias per operation (the `iconik` CLI's names)
+export * from './friendly.js';

@@ -2,3 +2,6 @@
 
 export { deleteWebhooksByWebhookId, getWebhooks, getWebhooksByWebhookId, type Options, postWebhooks, putWebhooksByWebhookId } from './sdk.gen.js';
 export type { ClientOptions, DeleteWebhooksByWebhookIdData, DeleteWebhooksByWebhookIdError, DeleteWebhooksByWebhookIdErrors, DeleteWebhooksByWebhookIdResponse, DeleteWebhooksByWebhookIdResponses, GetWebhooksByWebhookIdData, GetWebhooksByWebhookIdError, GetWebhooksByWebhookIdErrors, GetWebhooksByWebhookIdResponse, GetWebhooksByWebhookIdResponses, GetWebhooksData, GetWebhooksError, GetWebhooksErrors, GetWebhooksResponse, GetWebhooksResponses, PostWebhooksData, PostWebhooksError, PostWebhooksErrors, PostWebhooksResponse, PostWebhooksResponses, PutWebhooksByWebhookIdData, PutWebhooksByWebhookIdError, PutWebhooksByWebhookIdErrors, PutWebhooksByWebhookIdResponse, PutWebhooksByWebhookIdResponses, WebhookBaseSchema, WebhookCreateSchema, WebhookCreateSchemaWritable, WebhookInternalSchema, WebhookSchema, WebhookSchemaWritable, WebhooksSchema, WebhooksSchemaWritable } from './types.gen.js';
+
+// the service's own fetch client, for per-service interceptors or a custom fetch
+export { client } from './client.gen.js';
