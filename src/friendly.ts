@@ -5207,7 +5207,7 @@ export const getObjectMetadata = <ThrowOnError extends boolean = false>(objectTy
 /**
  * Get object metadata by object type, object ID and view ID
  *
- * `GET /v1/{object_type}/{object_id}/views/{view_id}/` — metadata.getByObjectTypeByObjectIdViewsByViewId
+ * `GET /v1/assets/{object_id}/views/{view_id}/` — metadata.getByObjectTypeByObjectIdViewsByViewId
  */
 export const getAssetMetadata = <ThrowOnError extends boolean = false>(assetId: string, viewId: string, ...rest: Opt<Omit<metadataApi.Options<metadataApi.GetByObjectTypeByObjectIdViewsByViewIdData, ThrowOnError>, 'path'>>) =>
   metadataApi.getByObjectTypeByObjectIdViewsByViewId<ThrowOnError>({ ...rest[0], path: { object_type: "assets", object_id: assetId, view_id: viewId } });
@@ -5215,7 +5215,7 @@ export const getAssetMetadata = <ThrowOnError extends boolean = false>(assetId: 
 /**
  * Get object metadata by object type, object ID and view ID
  *
- * `GET /v1/{object_type}/{object_id}/views/{view_id}/` — metadata.getByObjectTypeByObjectIdViewsByViewId
+ * `GET /v1/collections/{object_id}/views/{view_id}/` — metadata.getByObjectTypeByObjectIdViewsByViewId
  */
 export const getCollectionMetadata = <ThrowOnError extends boolean = false>(collectionId: string, viewId: string, ...rest: Opt<Omit<metadataApi.Options<metadataApi.GetByObjectTypeByObjectIdViewsByViewIdData, ThrowOnError>, 'path'>>) =>
   metadataApi.getByObjectTypeByObjectIdViewsByViewId<ThrowOnError>({ ...rest[0], path: { object_type: "collections", object_id: collectionId, view_id: viewId } });
@@ -5223,7 +5223,7 @@ export const getCollectionMetadata = <ThrowOnError extends boolean = false>(coll
 /**
  * Get object metadata by object type, object ID and view ID
  *
- * `GET /v1/{object_type}/{object_id}/views/{view_id}/` — metadata.getByObjectTypeByObjectIdViewsByViewId
+ * `GET /v1/segments/{object_id}/views/{view_id}/` — metadata.getByObjectTypeByObjectIdViewsByViewId
  */
 export const getSegmentMetadata = <ThrowOnError extends boolean = false>(segmentId: string, viewId: string, ...rest: Opt<Omit<metadataApi.Options<metadataApi.GetByObjectTypeByObjectIdViewsByViewIdData, ThrowOnError>, 'path'>>) =>
   metadataApi.getByObjectTypeByObjectIdViewsByViewId<ThrowOnError>({ ...rest[0], path: { object_type: "segments", object_id: segmentId, view_id: viewId } });
@@ -5415,7 +5415,7 @@ export const putObjectMetadata = <ThrowOnError extends boolean = false>(objectTy
 /**
  * Edit view metadata values for a single object
  *
- * `PUT /v1/{object_type}/{object_id}/views/{view_id}/` — metadata.putByObjectTypeByObjectIdViewsByViewId
+ * `PUT /v1/assets/{object_id}/views/{view_id}/` — metadata.putByObjectTypeByObjectIdViewsByViewId
  */
 export const putAssetMetadata = <ThrowOnError extends boolean = false>(assetId: string, viewId: string, ...rest: Opt<Omit<metadataApi.Options<metadataApi.PutByObjectTypeByObjectIdViewsByViewIdData, ThrowOnError>, 'path'>>) =>
   metadataApi.putByObjectTypeByObjectIdViewsByViewId<ThrowOnError>({ ...rest[0], path: { object_type: "assets", object_id: assetId, view_id: viewId } });
@@ -5423,7 +5423,7 @@ export const putAssetMetadata = <ThrowOnError extends boolean = false>(assetId: 
 /**
  * Edit view metadata values for a single object
  *
- * `PUT /v1/{object_type}/{object_id}/views/{view_id}/` — metadata.putByObjectTypeByObjectIdViewsByViewId
+ * `PUT /v1/collections/{object_id}/views/{view_id}/` — metadata.putByObjectTypeByObjectIdViewsByViewId
  */
 export const putCollectionMetadata = <ThrowOnError extends boolean = false>(collectionId: string, viewId: string, ...rest: Opt<Omit<metadataApi.Options<metadataApi.PutByObjectTypeByObjectIdViewsByViewIdData, ThrowOnError>, 'path'>>) =>
   metadataApi.putByObjectTypeByObjectIdViewsByViewId<ThrowOnError>({ ...rest[0], path: { object_type: "collections", object_id: collectionId, view_id: viewId } });
@@ -5431,7 +5431,7 @@ export const putCollectionMetadata = <ThrowOnError extends boolean = false>(coll
 /**
  * Edit view metadata values for a single object
  *
- * `PUT /v1/{object_type}/{object_id}/views/{view_id}/` — metadata.putByObjectTypeByObjectIdViewsByViewId
+ * `PUT /v1/segments/{object_id}/views/{view_id}/` — metadata.putByObjectTypeByObjectIdViewsByViewId
  */
 export const putSegmentMetadata = <ThrowOnError extends boolean = false>(segmentId: string, viewId: string, ...rest: Opt<Omit<metadataApi.Options<metadataApi.PutByObjectTypeByObjectIdViewsByViewIdData, ThrowOnError>, 'path'>>) =>
   metadataApi.putByObjectTypeByObjectIdViewsByViewId<ThrowOnError>({ ...rest[0], path: { object_type: "segments", object_id: segmentId, view_id: viewId } });
@@ -5463,7 +5463,7 @@ export const putObjectMetadataBulk = <ThrowOnError extends boolean = false>(obje
 /**
  * Edit view metadata values for multiple objects (Assets, Collections or Segments)
  *
- * `PUT /v1/{object_type}/views/{view_id}/` — metadata.putByObjectTypeViewsByViewId
+ * `PUT /v1/assets/views/{view_id}/` — metadata.putByObjectTypeViewsByViewId
  */
 export const putAssetMetadataBulk = <ThrowOnError extends boolean = false>(viewId: string, ...rest: Opt<Omit<metadataApi.Options<metadataApi.PutByObjectTypeViewsByViewIdData, ThrowOnError>, 'path'>>) =>
   metadataApi.putByObjectTypeViewsByViewId<ThrowOnError>({ ...rest[0], path: { object_type: "assets", view_id: viewId } });
@@ -5471,7 +5471,7 @@ export const putAssetMetadataBulk = <ThrowOnError extends boolean = false>(viewI
 /**
  * Edit view metadata values for multiple objects (Assets, Collections or Segments)
  *
- * `PUT /v1/{object_type}/views/{view_id}/` — metadata.putByObjectTypeViewsByViewId
+ * `PUT /v1/collections/views/{view_id}/` — metadata.putByObjectTypeViewsByViewId
  */
 export const putCollectionMetadataBulk = <ThrowOnError extends boolean = false>(viewId: string, ...rest: Opt<Omit<metadataApi.Options<metadataApi.PutByObjectTypeViewsByViewIdData, ThrowOnError>, 'path'>>) =>
   metadataApi.putByObjectTypeViewsByViewId<ThrowOnError>({ ...rest[0], path: { object_type: "collections", view_id: viewId } });
@@ -5479,7 +5479,7 @@ export const putCollectionMetadataBulk = <ThrowOnError extends boolean = false>(
 /**
  * Edit view metadata values for multiple objects (Assets, Collections or Segments)
  *
- * `PUT /v1/{object_type}/views/{view_id}/` — metadata.putByObjectTypeViewsByViewId
+ * `PUT /v1/segments/views/{view_id}/` — metadata.putByObjectTypeViewsByViewId
  */
 export const putSegmentMetadataBulk = <ThrowOnError extends boolean = false>(viewId: string, ...rest: Opt<Omit<metadataApi.Options<metadataApi.PutByObjectTypeViewsByViewIdData, ThrowOnError>, 'path'>>) =>
   metadataApi.putByObjectTypeViewsByViewId<ThrowOnError>({ ...rest[0], path: { object_type: "segments", view_id: viewId } });

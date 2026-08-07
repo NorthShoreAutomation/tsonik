@@ -61,8 +61,10 @@ class Probe {
     return MARKER;
   }
 }
-// typed `never` so one probe satisfies every operation's body type; a `body`
-// the alias does not accept is still an excess-property error.
+// typed `never` so one probe satisfies every operation's body type. NOTE:
+// `never` is assignable even to `body?: never`, so this column proves bodies
+// PASS THROUGH, not that a bodyless op rejects one — body presence/requiredness
+// for all 962 signatures is asserted by the Python alias suite.
 const PROBE = new Probe() as unknown as never;
 
 const seen: Request[] = [];
@@ -3092,4 +3094,5 @@ configure({ appId: APP_ID, authToken: AUTH_TOKEN });
 for (const c of clients) {
   c.setConfig({ fetch: capture });
 }
-void run();
+declare const process: { exit(code: number): void };
+run().catch((e) => { console.error(e); process.exit(1); });
