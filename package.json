@@ -1,6 +1,6 @@
 {
   "name": "tsonik",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Complete generated TypeScript SDK for the iconik media management API (15 services)",
   "license": "MIT",
   "repository": {
@@ -17,6 +17,10 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
+    },
+    "./friendly": {
+      "types": "./dist/friendly.d.ts",
+      "default": "./dist/friendly.js"
     },
     "./acls": {
       "types": "./dist/acls/index.d.ts",

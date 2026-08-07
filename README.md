@@ -37,9 +37,22 @@ Self-hosted iconik? Pass `baseUrl`:
 configure({ appId, authToken, baseUrl: 'https://iconik.example.com' });
 ```
 
+### Friendly client
+
+The root module also exports a human-named alias for every operation — the same names the `iconik` CLI uses (`tsonik/friendly` if you'd rather import them on their own). Path parameters are positional; anything an alias pins (e.g. `object_type` on the shared metadata endpoints) is baked in:
+
+```ts
+import { configure, putAssetMetadata, getAssetFiles } from 'tsonik';
+
+configure({ appId, authToken });
+
+await putAssetMetadata(assetId, viewId, { body: { metadata_values: { title: { field_values: [{ value: 'New title' }] } } } });
+const { data } = await getAssetFiles(assetId, { query: { per_page: 10 } });
+```
+
 ### Per-service clients
 
-Each service subpath also exports its own `client` (a [hey-api fetch client](https://heyapi.dev/openapi-ts/clients/fetch)) if you need per-service interceptors, custom fetch, or separate credentials:
+Each service subpath also exports its own `client` (a [hey-api fetch client](https://heyapi.dev/openapi-ts/clients/fetch)) if you need per-service interceptors, a custom fetch, or separate credentials:
 
 ```ts
 import { client } from 'tsonik/assets';
@@ -48,7 +61,11 @@ client.interceptors.request.use((request) => {
   console.log(request.method, request.url);
   return request;
 });
+
+client.setConfig({ fetch: myFetch });
 ```
+
+These are the same clients `configure()` writes to, and `setConfig` merges — so interceptors and your own config keys survive it in either order; only `auth` and `baseUrl` are the ones `configure()` sets.
 
 ## Regeneration
 
