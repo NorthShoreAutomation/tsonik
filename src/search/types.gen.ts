@@ -210,9 +210,33 @@ export type DiscoveryViewSettingsSchema = {
     readonly system_domain_id?: string | null;
 };
 
+/**
+ * FacetFilter
+ */
+export type FacetFilter = {
+    /**
+     * Name
+     */
+    name: string;
+    /**
+     * Value In
+     */
+    value_in?: Array<string> | null;
+};
+
 export type FacetFilterSchema = {
     name: string;
     value_in?: Array<string> | null;
+};
+
+/**
+ * HTTPValidationError
+ */
+export type HttpValidationError = {
+    /**
+     * Detail
+     */
+    detail?: Array<ValidationError> | null;
 };
 
 export type ListObjectsSchema = {
@@ -234,16 +258,32 @@ export type MultiSelectFilterGroupSchema = {
 
 export type MultiSelectFilterGroupSchemaModifier = 'exclude_all_of' | 'exclude_any_of' | 'include_all_of' | 'include_any_of';
 
+/**
+ * NltfContext
+ */
+export type NltfContext = {
+    displayed_filters?: NltfDisplayedFilters | null;
+};
+
 export type NltfContextSchema = {
     displayed_filters?: NltfDisplayedFilters | null;
 };
 
+/**
+ * NltfDisplayedFilters
+ */
 export type NltfDisplayedFilters = {
+    /**
+     * Facets
+     */
     facets?: {
-        [key: string]: Array<string | number>;
+        [key: string]: unknown;
     } | null;
+    /**
+     * Filters
+     */
     filters?: {
-        [key: string]: Array<string | number>;
+        [key: string]: unknown;
     } | null;
 };
 
@@ -260,6 +300,17 @@ export type NltfParseMetadataSchema = {
     readonly model?: string | null;
     readonly original_query?: string | null;
     readonly provider?: string | null;
+};
+
+/**
+ * NltfParseRequest
+ */
+export type NltfParseRequest = {
+    context?: NltfContext | null;
+    /**
+     * Query
+     */
+    query: string;
 };
 
 export type NltfParseRequestSchema = {
@@ -485,6 +536,55 @@ export type SearchContentInfoSchema = {
     readonly total_size?: number | null;
 };
 
+/**
+ * SearchCriteria
+ */
+export type SearchCriteria = {
+    /**
+     * Doc Types
+     */
+    doc_types?: Array<string> | null;
+    /**
+     * Exclude Fields
+     */
+    exclude_fields?: Array<string> | null;
+    /**
+     * Facets
+     */
+    facets?: Array<string> | null;
+    /**
+     * Facets Filters
+     */
+    facets_filters?: Array<FacetFilter> | null;
+    filter?: SearchCriteriaFilter | null;
+    /**
+     * Include Fields
+     */
+    include_fields?: Array<string> | null;
+    /**
+     * Metadata View Id
+     */
+    metadata_view_id?: string | null;
+    /**
+     * Query
+     */
+    query?: string | null;
+    /**
+     * Search After
+     *
+     * Infinite-scroll pagination key (replaces the deprecated scroll API). A list of sort keys taken from the `_sort` of the last object of the previous response.
+     */
+    search_after?: Array<unknown> | null;
+    /**
+     * Search Fields
+     */
+    search_fields?: Array<string> | null;
+    /**
+     * Sort
+     */
+    sort?: Array<SortField> | null;
+};
+
 export type SearchCriteriaBaseSchema = {
     doc_types?: Array<'assets' | 'collections' | 'saved_search_groups' | 'saved_searches' | 'segments'> | null;
     exclude_fields?: Array<string> | null;
@@ -496,6 +596,24 @@ export type SearchCriteriaBaseSchema = {
     query?: string | null;
     search_fields?: Array<string> | null;
     sort?: Array<CriteriaSortSchema> | null;
+};
+
+/**
+ * SearchCriteriaFilter
+ */
+export type SearchCriteriaFilter = {
+    /**
+     * Filters
+     */
+    filters?: Array<SearchCriteriaFilter> | null;
+    /**
+     * Operator
+     */
+    operator: 'AND' | 'NOT' | 'OR';
+    /**
+     * Terms
+     */
+    terms?: Array<SearchTerm> | null;
 };
 
 export type SearchCriteriaSaved = {
@@ -637,6 +755,48 @@ export type SearchQueryParamsSchema = {
     types?: Array<'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP'> | null;
 };
 
+/**
+ * SearchRangeFilter
+ */
+export type SearchRangeFilter = {
+    /**
+     * Max
+     */
+    max?: string | null;
+    /**
+     * Min
+     */
+    min?: string | null;
+    /**
+     * Timezone
+     *
+     * Format: +02:00. Results returned in UTC by default
+     */
+    timezone?: string | null;
+};
+
+/**
+ * SearchSuggestRequest
+ */
+export type SearchSuggestRequest = {
+    /**
+     * Doc Types
+     */
+    doc_types?: Array<string> | null;
+    /**
+     * Field Name
+     */
+    field_name: string;
+    /**
+     * Metadata View Id
+     */
+    metadata_view_id?: string | null;
+    /**
+     * Query
+     */
+    query: string;
+};
+
 export type SearchSuggestResponseSchema = {
     value?: string | null;
 };
@@ -650,6 +810,33 @@ export type SearchSuggestSchema = {
 
 export type SearchSuggestsResponseSchema = {
     readonly objects?: Array<SearchSuggestResponseSchema> | null;
+};
+
+/**
+ * SearchTerm
+ */
+export type SearchTerm = {
+    /**
+     * Exists
+     */
+    exists?: boolean | null;
+    /**
+     * Missing
+     */
+    missing?: boolean | null;
+    /**
+     * Name
+     */
+    name: string;
+    range?: SearchRangeFilter | null;
+    /**
+     * Value
+     */
+    value?: string | null;
+    /**
+     * Value In
+     */
+    value_in?: Array<string> | null;
 };
 
 export type SearchViewFieldTypeSchema = {
@@ -696,6 +883,20 @@ export type SearchViewsSchema = {
     readonly objects?: Array<SearchViewSchema> | null;
 };
 
+/**
+ * SortField
+ */
+export type SortField = {
+    /**
+     * Name
+     */
+    name: string;
+    /**
+     * Order
+     */
+    order?: string | null;
+};
+
 export type StorageContentInfo = {
     readonly assets_count?: number | null;
     readonly file_count?: number | null;
@@ -710,6 +911,24 @@ export type StorageContentInfoSchema = {
     readonly storage_id?: string | null;
     readonly total_duration_milliseconds?: number | null;
     readonly total_size?: number | null;
+};
+
+/**
+ * ValidationError
+ */
+export type ValidationError = {
+    /**
+     * Location
+     */
+    loc: Array<string | number>;
+    /**
+     * Message
+     */
+    msg: string;
+    /**
+     * Error Type
+     */
+    type: string;
 };
 
 export type BulkSavedSearchObjectsDeleteSchemaWritable = {
@@ -2779,3 +2998,137 @@ export type PutViewsByViewIdResponses = {
 };
 
 export type PutViewsByViewIdResponse = PutViewsByViewIdResponses[keyof PutViewsByViewIdResponses];
+
+export type PostNltfParse1Data = {
+    body: NltfParseRequest;
+    path?: never;
+    query?: never;
+    url: '/v2/nltf_parse/';
+};
+
+export type PostNltfParse1Errors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type PostNltfParse1Error = PostNltfParse1Errors[keyof PostNltfParse1Errors];
+
+export type PostNltfParse1Responses = {
+    /**
+     * Successful Response
+     */
+    200: unknown;
+};
+
+export type GetPingData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/v2/ping/';
+};
+
+export type GetPingResponses = {
+    /**
+     * Response Ping V2 Ping  Get
+     *
+     * Successful Response
+     */
+    200: {
+        [key: string]: unknown;
+    };
+};
+
+export type GetPingResponse = GetPingResponses[keyof GetPingResponses];
+
+export type PostSearch1Data = {
+    body: SearchCriteria;
+    path?: never;
+    query?: {
+        /**
+         * Per Page
+         */
+        per_page?: number;
+        /**
+         * Page
+         */
+        page?: number;
+        /**
+         * Scroll
+         *
+         * @deprecated
+         */
+        scroll?: boolean;
+        /**
+         * Scroll Id
+         *
+         * @deprecated
+         */
+        scroll_id?: string | null;
+        /**
+         * Generate Signed Url
+         */
+        generate_signed_url?: boolean;
+        /**
+         * Generate Signed Download Url
+         */
+        generate_signed_download_url?: boolean;
+        /**
+         * Generate Signed Proxy Url
+         */
+        generate_signed_proxy_url?: boolean;
+        /**
+         * Save Search History
+         */
+        save_search_history?: boolean;
+        /**
+         * Types
+         */
+        types?: string | null;
+        /**
+         * Include Users
+         */
+        include_users?: boolean;
+    };
+    url: '/v2/search/';
+};
+
+export type PostSearch1Errors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type PostSearch1Error = PostSearch1Errors[keyof PostSearch1Errors];
+
+export type PostSearch1Responses = {
+    /**
+     * Successful Response
+     */
+    200: unknown;
+};
+
+export type PostSearchSuggest1Data = {
+    body: SearchSuggestRequest;
+    path?: never;
+    query?: never;
+    url: '/v2/search/suggest/';
+};
+
+export type PostSearchSuggest1Errors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type PostSearchSuggest1Error = PostSearchSuggest1Errors[keyof PostSearchSuggest1Errors];
+
+export type PostSearchSuggest1Responses = {
+    /**
+     * Successful Response
+     */
+    200: unknown;
+};

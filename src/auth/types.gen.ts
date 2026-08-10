@@ -433,6 +433,9 @@ export type PublishFeature = {
 };
 
 export type PublishFeatureParameters = {
+    /**
+     * Wildmoka region, must be explicitly set to US or EU
+     */
     region: 'EU' | 'US';
     salesforce_id: string;
 };

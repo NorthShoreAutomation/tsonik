@@ -2,7 +2,7 @@
 
 import { client } from './client.gen.js';
 import type { Client, ClientMeta, Options as Options2, RequestResult, TDataShape } from '../_base/client/index.js';
-import type { DeleteDiscoveryDefaultEntitiesByEntityIdData, DeleteDiscoveryDefaultEntitiesByEntityIdErrors, DeleteDiscoveryDefaultEntitiesByEntityIdResponses, DeleteFavoritesData, DeleteFavoritesErrors, DeleteFavoritesResponses, DeleteSearchHistoryBySearchHistoryIdData, DeleteSearchHistoryBySearchHistoryIdErrors, DeleteSearchHistoryBySearchHistoryIdResponses, DeleteSearchSavedBySearchIdData, DeleteSearchSavedBySearchIdErrors, DeleteSearchSavedBySearchIdResponses, DeleteSearchSavedGroupByGroupIdData, DeleteSearchSavedGroupByGroupIdErrors, DeleteSearchSavedGroupByGroupIdResponses, DeleteSearchSavedGroupByGroupIdSearchBySearchIdData, DeleteSearchSavedGroupByGroupIdSearchBySearchIdErrors, DeleteSearchSavedGroupByGroupIdSearchBySearchIdResponses, DeleteViewsByViewIdData, DeleteViewsByViewIdErrors, DeleteViewsByViewIdResponses, DeleteViewsData, DeleteViewsErrors, DeleteViewsResponses, GetDiscoveryDefaultEntitiesAdminData, GetDiscoveryDefaultEntitiesAdminErrors, GetDiscoveryDefaultEntitiesAdminResponses, GetDiscoveryDefaultEntitiesByEntityIdData, GetDiscoveryDefaultEntitiesByEntityIdErrors, GetDiscoveryDefaultEntitiesByEntityIdResponses, GetDiscoveryDefaultEntitiesData, GetDiscoveryDefaultEntitiesErrors, GetDiscoveryDefaultEntitiesResponses, GetSearchHistoryBySearchHistoryIdData, GetSearchHistoryBySearchHistoryIdErrors, GetSearchHistoryBySearchHistoryIdResponses, GetSearchHistoryData, GetSearchHistoryErrors, GetSearchHistoryResponses, GetSearchSavedBySearchIdContentInfoData, GetSearchSavedBySearchIdContentInfoErrors, GetSearchSavedBySearchIdContentInfoResponses, GetSearchSavedBySearchIdData, GetSearchSavedBySearchIdErrors, GetSearchSavedBySearchIdResponses, GetSearchSavedData, GetSearchSavedErrors, GetSearchSavedGroupByGroupIdData, GetSearchSavedGroupByGroupIdErrors, GetSearchSavedGroupByGroupIdResponses, GetSearchSavedGroupsData, GetSearchSavedGroupsErrors, GetSearchSavedGroupsResponses, GetSearchSavedResponses, GetViewsByViewIdData, GetViewsByViewIdErrors, GetViewsByViewIdResponses, GetViewsData, GetViewsErrors, GetViewsResponses, PatchDiscoveryDefaultEntitiesByEntityIdData, PatchDiscoveryDefaultEntitiesByEntityIdErrors, PatchDiscoveryDefaultEntitiesByEntityIdResponses, PatchDiscoveryEntitiesByObjectTypeByObjectIdData, PatchDiscoveryEntitiesByObjectTypeByObjectIdErrors, PatchDiscoveryEntitiesByObjectTypeByObjectIdResponses, PatchSearchSavedBySearchIdData, PatchSearchSavedBySearchIdErrors, PatchSearchSavedBySearchIdResponses, PatchSearchSavedGroupByGroupIdData, PatchSearchSavedGroupByGroupIdErrors, PatchSearchSavedGroupByGroupIdResponses, PostDiscoveryDefaultEntitiesData, PostDiscoveryDefaultEntitiesErrors, PostDiscoveryDefaultEntitiesResponses, PostFavoritesData, PostFavoritesErrors, PostFavoritesResponses, PostNltfParseData, PostNltfParseErrors, PostNltfParseResponses, PostSearchData, PostSearchErrors, PostSearchResponses, PostSearchSavedBySearchIdConvertToCollectionData, PostSearchSavedBySearchIdConvertToCollectionErrors, PostSearchSavedBySearchIdConvertToCollectionResponses, PostSearchSavedBySearchIdReindexData, PostSearchSavedBySearchIdReindexErrors, PostSearchSavedBySearchIdReindexResponses, PostSearchSavedData, PostSearchSavedErrors, PostSearchSavedGroupByGroupIdSearchBySearchIdData, PostSearchSavedGroupByGroupIdSearchBySearchIdErrors, PostSearchSavedGroupByGroupIdSearchBySearchIdResponses, PostSearchSavedGroupData, PostSearchSavedGroupErrors, PostSearchSavedGroupResponses, PostSearchSavedGroupsByGroupIdReindexData, PostSearchSavedGroupsByGroupIdReindexErrors, PostSearchSavedGroupsByGroupIdReindexResponses, PostSearchSavedResponses, PostSearchSuggestData, PostSearchSuggestErrors, PostSearchSuggestResponses, PostViewsData, PostViewsErrors, PostViewsResponses, PutDiscoveryDefaultData, PutDiscoveryDefaultEntitiesByEntityIdData, PutDiscoveryDefaultEntitiesByEntityIdErrors, PutDiscoveryDefaultEntitiesByEntityIdResponses, PutDiscoveryDefaultErrors, PutDiscoveryDefaultResponses, PutDiscoveryEntitiesByObjectTypeByObjectIdData, PutDiscoveryEntitiesByObjectTypeByObjectIdErrors, PutDiscoveryEntitiesByObjectTypeByObjectIdResponses, PutSearchSavedBySearchIdData, PutSearchSavedBySearchIdErrors, PutSearchSavedBySearchIdResponses, PutSearchSavedGroupByGroupIdData, PutSearchSavedGroupByGroupIdErrors, PutSearchSavedGroupByGroupIdResponses, PutViewsByViewIdData, PutViewsByViewIdErrors, PutViewsByViewIdResponses } from './types.gen.js';
+import type { DeleteDiscoveryDefaultEntitiesByEntityIdData, DeleteDiscoveryDefaultEntitiesByEntityIdErrors, DeleteDiscoveryDefaultEntitiesByEntityIdResponses, DeleteFavoritesData, DeleteFavoritesErrors, DeleteFavoritesResponses, DeleteSearchHistoryBySearchHistoryIdData, DeleteSearchHistoryBySearchHistoryIdErrors, DeleteSearchHistoryBySearchHistoryIdResponses, DeleteSearchSavedBySearchIdData, DeleteSearchSavedBySearchIdErrors, DeleteSearchSavedBySearchIdResponses, DeleteSearchSavedGroupByGroupIdData, DeleteSearchSavedGroupByGroupIdErrors, DeleteSearchSavedGroupByGroupIdResponses, DeleteSearchSavedGroupByGroupIdSearchBySearchIdData, DeleteSearchSavedGroupByGroupIdSearchBySearchIdErrors, DeleteSearchSavedGroupByGroupIdSearchBySearchIdResponses, DeleteViewsByViewIdData, DeleteViewsByViewIdErrors, DeleteViewsByViewIdResponses, DeleteViewsData, DeleteViewsErrors, DeleteViewsResponses, GetDiscoveryDefaultEntitiesAdminData, GetDiscoveryDefaultEntitiesAdminErrors, GetDiscoveryDefaultEntitiesAdminResponses, GetDiscoveryDefaultEntitiesByEntityIdData, GetDiscoveryDefaultEntitiesByEntityIdErrors, GetDiscoveryDefaultEntitiesByEntityIdResponses, GetDiscoveryDefaultEntitiesData, GetDiscoveryDefaultEntitiesErrors, GetDiscoveryDefaultEntitiesResponses, GetPingData, GetPingResponses, GetSearchHistoryBySearchHistoryIdData, GetSearchHistoryBySearchHistoryIdErrors, GetSearchHistoryBySearchHistoryIdResponses, GetSearchHistoryData, GetSearchHistoryErrors, GetSearchHistoryResponses, GetSearchSavedBySearchIdContentInfoData, GetSearchSavedBySearchIdContentInfoErrors, GetSearchSavedBySearchIdContentInfoResponses, GetSearchSavedBySearchIdData, GetSearchSavedBySearchIdErrors, GetSearchSavedBySearchIdResponses, GetSearchSavedData, GetSearchSavedErrors, GetSearchSavedGroupByGroupIdData, GetSearchSavedGroupByGroupIdErrors, GetSearchSavedGroupByGroupIdResponses, GetSearchSavedGroupsData, GetSearchSavedGroupsErrors, GetSearchSavedGroupsResponses, GetSearchSavedResponses, GetViewsByViewIdData, GetViewsByViewIdErrors, GetViewsByViewIdResponses, GetViewsData, GetViewsErrors, GetViewsResponses, PatchDiscoveryDefaultEntitiesByEntityIdData, PatchDiscoveryDefaultEntitiesByEntityIdErrors, PatchDiscoveryDefaultEntitiesByEntityIdResponses, PatchDiscoveryEntitiesByObjectTypeByObjectIdData, PatchDiscoveryEntitiesByObjectTypeByObjectIdErrors, PatchDiscoveryEntitiesByObjectTypeByObjectIdResponses, PatchSearchSavedBySearchIdData, PatchSearchSavedBySearchIdErrors, PatchSearchSavedBySearchIdResponses, PatchSearchSavedGroupByGroupIdData, PatchSearchSavedGroupByGroupIdErrors, PatchSearchSavedGroupByGroupIdResponses, PostDiscoveryDefaultEntitiesData, PostDiscoveryDefaultEntitiesErrors, PostDiscoveryDefaultEntitiesResponses, PostFavoritesData, PostFavoritesErrors, PostFavoritesResponses, PostNltfParse1Data, PostNltfParse1Errors, PostNltfParse1Responses, PostNltfParseData, PostNltfParseErrors, PostNltfParseResponses, PostSearch1Data, PostSearch1Errors, PostSearch1Responses, PostSearchData, PostSearchErrors, PostSearchResponses, PostSearchSavedBySearchIdConvertToCollectionData, PostSearchSavedBySearchIdConvertToCollectionErrors, PostSearchSavedBySearchIdConvertToCollectionResponses, PostSearchSavedBySearchIdReindexData, PostSearchSavedBySearchIdReindexErrors, PostSearchSavedBySearchIdReindexResponses, PostSearchSavedData, PostSearchSavedErrors, PostSearchSavedGroupByGroupIdSearchBySearchIdData, PostSearchSavedGroupByGroupIdSearchBySearchIdErrors, PostSearchSavedGroupByGroupIdSearchBySearchIdResponses, PostSearchSavedGroupData, PostSearchSavedGroupErrors, PostSearchSavedGroupResponses, PostSearchSavedGroupsByGroupIdReindexData, PostSearchSavedGroupsByGroupIdReindexErrors, PostSearchSavedGroupsByGroupIdReindexResponses, PostSearchSavedResponses, PostSearchSuggest1Data, PostSearchSuggest1Errors, PostSearchSuggest1Responses, PostSearchSuggestData, PostSearchSuggestErrors, PostSearchSuggestResponses, PostViewsData, PostViewsErrors, PostViewsResponses, PutDiscoveryDefaultData, PutDiscoveryDefaultEntitiesByEntityIdData, PutDiscoveryDefaultEntitiesByEntityIdErrors, PutDiscoveryDefaultEntitiesByEntityIdResponses, PutDiscoveryDefaultErrors, PutDiscoveryDefaultResponses, PutDiscoveryEntitiesByObjectTypeByObjectIdData, PutDiscoveryEntitiesByObjectTypeByObjectIdErrors, PutDiscoveryEntitiesByObjectTypeByObjectIdResponses, PutSearchSavedBySearchIdData, PutSearchSavedBySearchIdErrors, PutSearchSavedBySearchIdResponses, PutSearchSavedGroupByGroupIdData, PutSearchSavedGroupByGroupIdErrors, PutSearchSavedGroupByGroupIdResponses, PutViewsByViewIdData, PutViewsByViewIdErrors, PutViewsByViewIdResponses } from './types.gen.js';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -713,6 +713,65 @@ export const getViewsByViewId = <ThrowOnError extends boolean = false>(options: 
 export const putViewsByViewId = <ThrowOnError extends boolean = false>(options: Options<PutViewsByViewIdData, ThrowOnError>): RequestResult<PutViewsByViewIdResponses, PutViewsByViewIdErrors, ThrowOnError> => (options.client ?? client).put<PutViewsByViewIdResponses, PutViewsByViewIdErrors, ThrowOnError>({
     security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
     url: '/v1/views/{view_id}/',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * NLTF Parse
+ *
+ * Required roles:
+ * - can_search
+ */
+export const postNltfParse1 = <ThrowOnError extends boolean = false>(options: Options<PostNltfParse1Data, ThrowOnError>): RequestResult<PostNltfParse1Responses, PostNltfParse1Errors, ThrowOnError> => (options.client ?? client).post<PostNltfParse1Responses, PostNltfParse1Errors, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
+    url: '/v2/nltf_parse/',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Routing health check
+ *
+ * Lightweight endpoint to verify gateway routing to search-v2.
+ */
+export const getPing = <ThrowOnError extends boolean = false>(options?: Options<GetPingData, ThrowOnError>): RequestResult<GetPingResponses, unknown, ThrowOnError> => (options?.client ?? client).get<GetPingResponses, unknown, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
+    url: '/v2/ping/',
+    ...options
+});
+
+/**
+ * Search
+ *
+ * Required roles:
+ * - can_search
+ */
+export const postSearch1 = <ThrowOnError extends boolean = false>(options: Options<PostSearch1Data, ThrowOnError>): RequestResult<PostSearch1Responses, PostSearch1Errors, ThrowOnError> => (options.client ?? client).post<PostSearch1Responses, PostSearch1Errors, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
+    url: '/v2/search/',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Search suggestions
+ *
+ * Required roles:
+ * - can_search
+ */
+export const postSearchSuggest1 = <ThrowOnError extends boolean = false>(options: Options<PostSearchSuggest1Data, ThrowOnError>): RequestResult<PostSearchSuggest1Responses, PostSearchSuggest1Errors, ThrowOnError> => (options.client ?? client).post<PostSearchSuggest1Responses, PostSearchSuggest1Errors, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
+    url: '/v2/search/suggest/',
     ...options,
     headers: {
         'Content-Type': 'application/json',

@@ -517,14 +517,6 @@ export const deletePlaylistItem = <ThrowOnError extends boolean = false>(playlis
   assetsApi.deletePlaylistsByPlaylistIdItemsByItemId<ThrowOnError>({ ...rest[0], path: { playlist_id: playlistId, item_id: itemId } });
 
 /**
- * Delete a particular portfolio by id
- *
- * `DELETE /v1/portfolios/{portfolio_id}/` — assets.deletePortfoliosByPortfolioId
- */
-export const deletePortfolio = <ThrowOnError extends boolean = false>(portfolioId: string, ...rest: Opt<Omit<assetsApi.Options<assetsApi.DeletePortfoliosByPortfolioIdData, ThrowOnError>, 'path'>>) =>
-  assetsApi.deletePortfoliosByPortfolioId<ThrowOnError>({ ...rest[0], path: { portfolio_id: portfolioId } });
-
-/**
  * Delete a particular project by id
  *
  * `DELETE /v1/projects/{project_id}/` — assets.deleteProjectsByProjectId
@@ -949,22 +941,6 @@ export const getPlaylistItems = <ThrowOnError extends boolean = false>(playlistI
   assetsApi.getPlaylistsByPlaylistIdItems<ThrowOnError>({ ...rest[0], path: { playlist_id: playlistId } });
 
 /**
- * Get list of portfolios
- *
- * `GET /v1/portfolios/` — assets.getPortfolios
- */
-export const getPortfolios = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<assetsApi.Options<assetsApi.GetPortfoliosData, ThrowOnError>, 'path'>>) =>
-  assetsApi.getPortfolios<ThrowOnError>(rest[0]);
-
-/**
- * Returns a particular portfolio by id
- *
- * `GET /v1/portfolios/{portfolio_id}/` — assets.getPortfoliosByPortfolioId
- */
-export const getPortfolio = <ThrowOnError extends boolean = false>(portfolioId: string, ...rest: Opt<Omit<assetsApi.Options<assetsApi.GetPortfoliosByPortfolioIdData, ThrowOnError>, 'path'>>) =>
-  assetsApi.getPortfoliosByPortfolioId<ThrowOnError>({ ...rest[0], path: { portfolio_id: portfolioId } });
-
-/**
  * Get list of projects
  *
  * `GET /v1/projects/` — assets.getProjects
@@ -1179,14 +1155,6 @@ export const patchPlaylist = <ThrowOnError extends boolean = false>(playlistId: 
  */
 export const patchPlaylistItem = <ThrowOnError extends boolean = false>(playlistId: string, itemId: string, ...rest: Opt<Omit<assetsApi.Options<assetsApi.PatchPlaylistsByPlaylistIdItemsByItemIdData, ThrowOnError>, 'path'>>) =>
   assetsApi.patchPlaylistsByPlaylistIdItemsByItemId<ThrowOnError>({ ...rest[0], path: { playlist_id: playlistId, item_id: itemId } });
-
-/**
- * Update a portfolio
- *
- * `PATCH /v1/portfolios/{portfolio_id}/` — assets.patchPortfoliosByPortfolioId
- */
-export const patchPortfolio = <ThrowOnError extends boolean = false>(portfolioId: string, ...rest: Opt<Omit<assetsApi.Options<assetsApi.PatchPortfoliosByPortfolioIdData, ThrowOnError>, 'path'>>) =>
-  assetsApi.patchPortfoliosByPortfolioId<ThrowOnError>({ ...rest[0], path: { portfolio_id: portfolioId } });
 
 /**
  * Update project
@@ -1653,22 +1621,6 @@ export const postPlaylistReindex = <ThrowOnError extends boolean = false>(playli
   assetsApi.postPlaylistsByPlaylistIdReindex<ThrowOnError>({ ...rest[0], path: { playlist_id: playlistId } });
 
 /**
- * Create a new portfolio
- *
- * `POST /v1/portfolios/` — assets.postPortfolios
- */
-export const postPortfolios = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<assetsApi.Options<assetsApi.PostPortfoliosData, ThrowOnError>, 'path'>>) =>
-  assetsApi.postPortfolios<ThrowOnError>(rest[0]);
-
-/**
- * Reindex the portfolio
- *
- * `POST /v1/portfolios/{portfolio_id}/reindex/` — assets.postPortfoliosByPortfolioIdReindex
- */
-export const postPortfolioReindex = <ThrowOnError extends boolean = false>(portfolioId: string, ...rest: Opt<Omit<assetsApi.Options<assetsApi.PostPortfoliosByPortfolioIdReindexData, ThrowOnError>, 'path'>>) =>
-  assetsApi.postPortfoliosByPortfolioIdReindex<ThrowOnError>({ ...rest[0], path: { portfolio_id: portfolioId } });
-
-/**
  * Create a new project
  *
  * `POST /v1/projects/` — assets.postProjects
@@ -1971,14 +1923,6 @@ export const putPlaylistItem = <ThrowOnError extends boolean = false>(playlistId
  */
 export const putPlaylistItemPosition = <ThrowOnError extends boolean = false>(playlistId: string, itemId: string, ...rest: Opt<Omit<assetsApi.Options<assetsApi.PutPlaylistsByPlaylistIdItemsByItemIdPositionData, ThrowOnError>, 'path'>>) =>
   assetsApi.putPlaylistsByPlaylistIdItemsByItemIdPosition<ThrowOnError>({ ...rest[0], path: { playlist_id: playlistId, item_id: itemId } });
-
-/**
- * Update a portfolio
- *
- * `PUT /v1/portfolios/{portfolio_id}/` — assets.putPortfoliosByPortfolioId
- */
-export const putPortfolio = <ThrowOnError extends boolean = false>(portfolioId: string, ...rest: Opt<Omit<assetsApi.Options<assetsApi.PutPortfoliosByPortfolioIdData, ThrowOnError>, 'path'>>) =>
-  assetsApi.putPortfoliosByPortfolioId<ThrowOnError>({ ...rest[0], path: { portfolio_id: portfolioId } });
 
 /**
  * Update project
@@ -5837,6 +5781,14 @@ export const getDiscoveryDefaultEntity = <ThrowOnError extends boolean = false>(
   searchApi.getDiscoveryDefaultEntitiesByEntityId<ThrowOnError>({ ...rest[0], path: { entity_id: entityId } });
 
 /**
+ * Routing health check
+ *
+ * `GET /v2/ping/` — search.getPing
+ */
+export const getPingV2 = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<searchApi.Options<searchApi.GetPingData, ThrowOnError>, 'path'>>) =>
+  searchApi.getPing<ThrowOnError>(rest[0]);
+
+/**
  * Returns the current search history
  *
  * `GET /v1/search/history/` — search.getSearchHistory
@@ -5965,12 +5917,28 @@ export const postNltfParse = <ThrowOnError extends boolean = false>(...rest: Opt
   searchApi.postNltfParse<ThrowOnError>(rest[0]);
 
 /**
+ * NLTF Parse
+ *
+ * `POST /v2/nltf_parse/` — search.postNltfParse1
+ */
+export const postNltfParseV2 = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<searchApi.Options<searchApi.PostNltfParse1Data, ThrowOnError>, 'path'>>) =>
+  searchApi.postNltfParse1<ThrowOnError>(rest[0]);
+
+/**
  * Search
  *
  * `POST /v1/search/` — search.postSearch
  */
 export const postSearch = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<searchApi.Options<searchApi.PostSearchData, ThrowOnError>, 'path'>>) =>
   searchApi.postSearch<ThrowOnError>(rest[0]);
+
+/**
+ * Search
+ *
+ * `POST /v2/search/` — search.postSearch1
+ */
+export const postSearchV2 = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<searchApi.Options<searchApi.PostSearch1Data, ThrowOnError>, 'path'>>) =>
+  searchApi.postSearch1<ThrowOnError>(rest[0]);
 
 /**
  * Search, save and return result of this search
@@ -6027,6 +5995,14 @@ export const postSearchSavedGroupReindex = <ThrowOnError extends boolean = false
  */
 export const postSearchSuggest = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<searchApi.Options<searchApi.PostSearchSuggestData, ThrowOnError>, 'path'>>) =>
   searchApi.postSearchSuggest<ThrowOnError>(rest[0]);
+
+/**
+ * Search suggestions
+ *
+ * `POST /v2/search/suggest/` — search.postSearchSuggest1
+ */
+export const postSearchSuggestV2 = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<searchApi.Options<searchApi.PostSearchSuggest1Data, ThrowOnError>, 'path'>>) =>
+  searchApi.postSearchSuggest1<ThrowOnError>(rest[0]);
 
 /**
  * Insert a View for the system domain.

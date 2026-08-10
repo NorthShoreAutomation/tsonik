@@ -77,6 +77,7 @@ export const postFaceRecognitionBulkExtract = <ThrowOnError extends boolean = fa
  *
  */
 export const putFaceRecognitionChangePersonJobsState = <ThrowOnError extends boolean = false>(options: Options<PutFaceRecognitionChangePersonJobsStateData, ThrowOnError>): RequestResult<PutFaceRecognitionChangePersonJobsStateResponses, PutFaceRecognitionChangePersonJobsStateErrors, ThrowOnError> => (options.client ?? client).put<PutFaceRecognitionChangePersonJobsStateResponses, PutFaceRecognitionChangePersonJobsStateErrors, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
     url: '/v1/face_recognition/change_person/jobs/state/',
     ...options,
     headers: {
@@ -144,6 +145,7 @@ export const postFaceRecognitionExtractAssetsByAssetIdVersionsByVersionId = <Thr
  *
  */
 export const putFaceRecognitionJobsPriority = <ThrowOnError extends boolean = false>(options: Options<PutFaceRecognitionJobsPriorityData, ThrowOnError>): RequestResult<PutFaceRecognitionJobsPriorityResponses, PutFaceRecognitionJobsPriorityErrors, ThrowOnError> => (options.client ?? client).put<PutFaceRecognitionJobsPriorityResponses, PutFaceRecognitionJobsPriorityErrors, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
     url: '/v1/face_recognition/jobs/priority/',
     ...options,
     headers: {
@@ -161,6 +163,7 @@ export const putFaceRecognitionJobsPriority = <ThrowOnError extends boolean = fa
  *
  */
 export const putFaceRecognitionJobsState = <ThrowOnError extends boolean = false>(options: Options<PutFaceRecognitionJobsStateData, ThrowOnError>): RequestResult<PutFaceRecognitionJobsStateResponses, PutFaceRecognitionJobsStateErrors, ThrowOnError> => (options.client ?? client).put<PutFaceRecognitionJobsStateResponses, PutFaceRecognitionJobsStateErrors, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
     url: '/v1/face_recognition/jobs/state/',
     ...options,
     headers: {
