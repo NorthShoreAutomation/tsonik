@@ -3,7 +3,7 @@
 A complete, generated TypeScript SDK for the [iconik](https://app.iconik.io) media management API.
 
 - **15 services**, one subpath each: `tsonik/acls`, `tsonik/assets`, `tsonik/auth`, `tsonik/automations`, `tsonik/files`, `tsonik/jobs`, `tsonik/metadata`, `tsonik/ml`, `tsonik/notifications`, `tsonik/search`, `tsonik/settings`, `tsonik/stats`, `tsonik/transcode`, `tsonik/users`, `tsonik/users-notifications`
-- **Every operation in every service** (953 endpoints) — generated from iconik's published OpenAPI specs with [@hey-api/openapi-ts](https://github.com/hey-api/openapi-ts). One fully typed function per operation, request and response types included, fetch-based client, ESM.
+- **Every operation in every service** (1002 endpoints) — generated from iconik's published OpenAPI specs with [@hey-api/openapi-ts](https://github.com/hey-api/openapi-ts). One fully typed function per operation, request and response types included, fetch-based client, ESM.
 - Runs in Node ≥ 18 and modern browsers (anything with global `fetch`).
 
 ## Install

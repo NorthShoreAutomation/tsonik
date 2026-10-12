@@ -11,6 +11,17 @@ export type AclUpdateSchema = {
     user_ids?: Array<string> | null;
 };
 
+export type AiMetadataFillingActionParameters = {
+    field_names?: Array<string> | null;
+    metadata_view_id: string;
+    overwrite: boolean;
+};
+
+export type AiMetadataFillingActionSchema = {
+    parameters: AiMetadataFillingActionParameters;
+    type: 'AI_METADATA_FILLING';
+};
+
 export type AddToCollectionActionParameters = {
     collection_id: string;
     index_immediately?: boolean | null;
@@ -109,7 +120,7 @@ export type AutomationHistorySchema = {
 };
 
 export type AutomationInternalSchema = {
-    actions: Array<AnalyzeActionSchema | ExtractFacesAction | CreatePublicationJobAction | ArchiveActionSchema | RestoreAction | ExportAction | UpdateAclAction | MetadataUpdateAction | TranscodeAction | TransferAction | RequestOriginalAction | AddToCollectionActionSchema | TranscribeAction | CreateShareAction | DeleteAction | DeleteFileSetAction | RestrictAssetAction | RemoveAssetRestrictionAction | RequestReviewAction | TriggerCustomAction>;
+    actions: Array<AnalyzeActionSchema | ExtractFacesAction | CreatePublicationJobAction | ArchiveActionSchema | RestoreAction | ExportAction | UpdateAclAction | MetadataUpdateAction | AiMetadataFillingActionSchema | TranscodeAction | TransferAction | RequestOriginalAction | AddToCollectionActionSchema | TranscribeAction | CreateShareAction | DeleteAction | DeleteFileSetAction | RestrictAssetAction | RemoveAssetRestrictionAction | RequestReviewAction | TriggerCustomAction>;
     conditions?: Array<Condition> | null;
     readonly created_by?: string | null;
     readonly date_created?: string | null;
@@ -152,6 +163,8 @@ export type AutomationSchema = {
         } & UpdateAclAction) | ({
             type: 'METADATA_UPDATE';
         } & MetadataUpdateAction) | ({
+            type: 'AI_METADATA_FILLING';
+        } & AiMetadataFillingActionSchema) | ({
             type: 'TRANSCODE';
         } & TranscodeAction) | ({
             type: 'TRANSFER';
@@ -872,7 +885,7 @@ export type AutomationHistorySchemaWritable = {
 };
 
 export type AutomationInternalSchemaWritable = {
-    actions: Array<AnalyzeActionSchema | ExtractFacesAction | CreatePublicationJobAction | ArchiveActionSchema | RestoreAction | ExportAction | UpdateAclAction | MetadataUpdateAction | TranscodeAction | TransferAction | RequestOriginalAction | AddToCollectionActionSchema | TranscribeAction | CreateShareActionWritable | DeleteAction | DeleteFileSetAction | RestrictAssetAction | RemoveAssetRestrictionAction | RequestReviewActionWritable | TriggerCustomAction>;
+    actions: Array<AnalyzeActionSchema | ExtractFacesAction | CreatePublicationJobAction | ArchiveActionSchema | RestoreAction | ExportAction | UpdateAclAction | MetadataUpdateAction | AiMetadataFillingActionSchema | TranscodeAction | TransferAction | RequestOriginalAction | AddToCollectionActionSchema | TranscribeAction | CreateShareActionWritable | DeleteAction | DeleteFileSetAction | RestrictAssetAction | RemoveAssetRestrictionAction | RequestReviewActionWritable | TriggerCustomAction>;
     conditions?: Array<ConditionWritable> | null;
     description?: string | null;
     name: string;
@@ -906,6 +919,8 @@ export type AutomationSchemaWritable = {
         } & UpdateAclAction) | ({
             type: 'METADATA_UPDATE';
         } & MetadataUpdateAction) | ({
+            type: 'AI_METADATA_FILLING';
+        } & AiMetadataFillingActionSchema) | ({
             type: 'TRANSCODE';
         } & TranscodeAction) | ({
             type: 'TRANSFER';

@@ -5,6 +5,7 @@ export type ClientOptions = {
 };
 
 export type AppCreateSchema = {
+    allowed_origins?: Array<string> | null;
     allowed_scopes?: Array<string> | null;
     readonly client_secret?: string | null;
     readonly date_created?: string | null;
@@ -25,6 +26,7 @@ export type AppCreateSchemaOauthClientType = 'confidential' | 'public';
 export type AppCreateSchemaType = 'OAUTH' | 'PAT';
 
 export type AppSchema = {
+    allowed_origins?: Array<string> | null;
     allowed_scopes?: Array<string> | null;
     readonly date_created?: string | null;
     readonly date_modified?: string | null;
@@ -99,6 +101,10 @@ export type BaseQueryParamsSchema = {
     sort?: string | null;
 };
 
+export type BasicBillingLimitsSchema = {
+    max_portals?: number | null;
+};
+
 export type BillingLimitsSchema = {
     ai_credits?: number | null;
     ai_object_detection_hours?: number | null;
@@ -109,6 +115,7 @@ export type BillingLimitsSchema = {
     face_recognition_hours?: number | null;
     face_recognition_images?: number | null;
     image_recognition?: number | null;
+    max_portals?: number | null;
     max_storage_gateway_clusters?: number | null;
     max_storage_gateway_nodes?: number | null;
     multiregion_storage_gb?: number | null;
@@ -155,6 +162,21 @@ export type CountrySchema = {
     numeric?: string | null;
 };
 
+export type CuttingRoomErrorSchema = {
+    code?: string | null;
+    message?: string | null;
+};
+
+export type CuttingRoomTokenResponseSchema = {
+    access_token?: string | null;
+    expires_in?: string | null;
+    refresh_expires_in?: string | null;
+    refresh_token?: string | null;
+    token_type?: CuttingRoomTokenResponseSchemaTokenType | null;
+};
+
+export type CuttingRoomTokenResponseSchemaTokenType = 'Bearer';
+
 export type DomainIdentityProviderMapSchema = {
     domain: string;
     identity_provider_id: string;
@@ -164,6 +186,17 @@ export type DomainIdentityProviderMapSchema = {
 export type EmailLoginSchema = {
     app_name?: string | null;
     email: string;
+};
+
+export type EmbedTokenRequestSchema = {
+    app_id?: string | null;
+    app_name?: string | null;
+};
+
+export type EmbedTokenResponseSchema = {
+    app_id?: string | null;
+    embed_token?: string | null;
+    expires?: string | null;
 };
 
 export type EnableSystemDomainFeatureSchema = {
@@ -215,6 +248,12 @@ export type GenericSettingsSchemaCertFingerprintAlgorithm = 'http://www.w3.org/2
 export type GenericSettingsSchemaDigestAlgorithm = 'http://www.w3.org/2000/09/xmldsig#sha1' | 'http://www.w3.org/2001/04/xmldsig-more#sha384' | 'http://www.w3.org/2001/04/xmlenc#sha256' | 'http://www.w3.org/2001/04/xmlenc#sha512';
 
 export type GenericSettingsSchemaSignatureAlgorithm = 'http://www.w3.org/2000/09/xmldsig#dsa-sha1' | 'http://www.w3.org/2000/09/xmldsig#rsa-sha1' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384' | 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512';
+
+export type IconikTokenResponseSchema = {
+    expires?: string | null;
+    refresh_token?: string | null;
+    token?: string | null;
+};
 
 export type IdentityProviderBaseSchema = {
     readonly saml_settings?: {
@@ -376,10 +415,42 @@ export type OAuth2AuthorizeDescribeSchema = {
     redirect_uri: string;
     scopes: Array<string>;
     state?: string | null;
+    system_domain: OAuth2AuthorizeSystemDomain;
+    user: OAuth2AuthorizeUser;
 };
 
 export type OAuth2AuthorizeResponseSchema = {
     redirect_uri: string;
+};
+
+export type OAuth2AuthorizeSystemDomain = {
+    id: string;
+    name: string;
+};
+
+export type OAuth2AuthorizeSystemDomainSchema = {
+    id: string;
+    name: string;
+};
+
+export type OAuth2AuthorizeUser = {
+    email: string;
+    first_name?: string | null;
+    id: string;
+    last_name?: string | null;
+    photo?: string | null;
+};
+
+export type OAuth2AuthorizeUserSchema = {
+    email: string;
+    first_name?: string | null;
+    id: string;
+    last_name?: string | null;
+    photo?: string | null;
+};
+
+export type OAuthScopesSchema = {
+    readonly scopes?: Array<string> | null;
 };
 
 export type OktaSettingsSchema = {
@@ -520,6 +591,7 @@ export type SystemDomainBaseSchema = {
 };
 
 export type SystemDomainBasicAdminSchema = {
+    billing_limits?: BasicBillingLimitsSchema | null;
     billing_tier?: SystemDomainBasicAdminSchemaBillingTier | null;
     readonly contract_end_date?: string | null;
     readonly country?: string | null;
@@ -537,6 +609,7 @@ export type SystemDomainBasicAdminSchemaBillingTier = 'ENTERPRISE' | 'ENTERPRISE
 export type SystemDomainBasicAdminSchemaType = 'CUSTOMER' | 'INTERNAL' | 'PARTNER' | 'TRIAL';
 
 export type SystemDomainBasicSchema = {
+    billing_limits?: BasicBillingLimitsSchema | null;
     billing_tier?: SystemDomainBasicSchemaBillingTier | null;
     readonly country?: string | null;
     readonly date_created?: string | null;
@@ -579,6 +652,10 @@ export type SystemDomainFromTemplateSchema = {
     readonly date_created?: string | null;
     readonly date_modified?: string | null;
     description?: string | null;
+    /**
+     * Opt the new domain out of every AI feature.
+     */
+    disable_ai_features?: boolean | null;
     readonly id?: string | null;
     name: string;
     status?: SystemDomainFromTemplateSchemaStatus | null;
@@ -609,12 +686,14 @@ export type SystemDomainSchema = {
     readonly date_modified?: string | null;
     readonly deactivate_date?: string | null;
     description?: string | null;
+    readonly disable_ai_features?: boolean | null;
     readonly disable_billing_page?: boolean | null;
     disable_cc_purchase?: boolean | null;
     readonly discount_percent?: number | null;
     readonly do_not_charge_edge_transcoder?: boolean | null;
     readonly do_not_charge_remote_proxies?: boolean | null;
     readonly do_not_charge_shield?: boolean | null;
+    readonly do_not_trace_ai_usage?: boolean | null;
     readonly features?: Array<string> | null;
     readonly freeze_date?: string | null;
     has_preloaded_assets?: boolean | null;
@@ -660,12 +739,14 @@ export type SystemDomainSuperAdminSchema = {
     readonly date_modified?: string | null;
     deactivate_date?: string | null;
     description?: string | null;
+    disable_ai_features?: boolean | null;
     disable_billing_page?: boolean | null;
     disable_cc_purchase?: boolean | null;
     discount_percent?: number | null;
     do_not_charge_edge_transcoder?: boolean | null;
     do_not_charge_remote_proxies?: boolean | null;
     do_not_charge_shield?: boolean | null;
+    do_not_trace_ai_usage?: boolean | null;
     features?: Array<string> | null;
     freeze_date?: string | null;
     has_preloaded_assets?: boolean | null;
@@ -786,6 +867,11 @@ export type TokenBaseSchema = {
 };
 
 export type TokenBaseSchemaSystemDomainStatus = 'ACTIVE' | 'DEACTIVATED' | 'FROZEN' | 'WARNING';
+
+export type TokenExchangeRequestSchema = {
+    embed_token: string;
+    requested_scopes?: Array<string> | null;
+};
 
 export type TokenMultiplatformLoginSchema = {
     readonly app_id?: string | null;
@@ -909,6 +995,7 @@ export type SystemDomainFeatureSchemaBase = {
 };
 
 export type AppCreateSchemaWritable = {
+    allowed_origins?: Array<string> | null;
     allowed_scopes?: Array<string> | null;
     default_user_id?: string | null;
     description?: string | null;
@@ -920,6 +1007,7 @@ export type AppCreateSchemaWritable = {
 };
 
 export type AppSchemaWritable = {
+    allowed_origins?: Array<string> | null;
     allowed_scopes?: Array<string> | null;
     default_user_id?: string | null;
     description?: string | null;
@@ -1077,6 +1165,7 @@ export type SystemDomainBaseSchemaWritable = {
 };
 
 export type SystemDomainBasicAdminSchemaWritable = {
+    billing_limits?: BasicBillingLimitsSchema | null;
     billing_tier?: unknown;
     is_plg?: boolean | null;
     name: string;
@@ -1084,6 +1173,7 @@ export type SystemDomainBasicAdminSchemaWritable = {
 };
 
 export type SystemDomainBasicSchemaWritable = {
+    billing_limits?: BasicBillingLimitsSchema | null;
     billing_tier?: unknown;
     is_plg?: boolean | null;
     name: string;
@@ -1110,6 +1200,10 @@ export type SystemDomainFromTemplateSchemaWritable = {
     billing_tier?: SystemDomainFromTemplateSchemaBillingTier | null;
     custom_terms?: boolean | null;
     description?: string | null;
+    /**
+     * Opt the new domain out of every AI feature.
+     */
+    disable_ai_features?: boolean | null;
     name: string;
     status?: SystemDomainFromTemplateSchemaStatus | null;
     type?: SystemDomainFromTemplateSchemaType | null;
@@ -1139,12 +1233,14 @@ export type SystemDomainSuperAdminSchemaWritable = {
     custom_terms?: boolean | null;
     deactivate_date?: string | null;
     description?: string | null;
+    disable_ai_features?: boolean | null;
     disable_billing_page?: boolean | null;
     disable_cc_purchase?: boolean | null;
     discount_percent?: number | null;
     do_not_charge_edge_transcoder?: boolean | null;
     do_not_charge_remote_proxies?: boolean | null;
     do_not_charge_shield?: boolean | null;
+    do_not_trace_ai_usage?: boolean | null;
     features?: Array<string> | null;
     freeze_date?: string | null;
     has_preloaded_assets?: boolean | null;
@@ -1478,6 +1574,37 @@ export type GetAppsInstanceByApprovedInstanceIdResponses = {
 
 export type GetAppsInstanceByApprovedInstanceIdResponse = GetAppsInstanceByApprovedInstanceIdResponses[keyof GetAppsInstanceByApprovedInstanceIdResponses];
 
+export type GetAppsOauthScopesData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/v1/apps/oauth_scopes/';
+};
+
+export type GetAppsOauthScopesErrors = {
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type GetAppsOauthScopesError = GetAppsOauthScopesErrors[keyof GetAppsOauthScopesErrors];
+
+export type GetAppsOauthScopesResponses = {
+    /**
+     * Returns the list of OAuth scopes an app's allowed_scopes may contain
+     */
+    200: OAuthScopesSchema;
+};
+
+export type GetAppsOauthScopesResponse = GetAppsOauthScopesResponses[keyof GetAppsOauthScopesResponses];
+
 export type DeleteAppsByAppIdData = {
     body?: never;
     path: {
@@ -1742,6 +1869,87 @@ export type PostAuthCurrentOtpGenerateResponses = {
      */
     201: unknown;
 };
+
+export type PostAuthEmbedTokenData = {
+    /**
+     * body
+     */
+    body: EmbedTokenRequestSchema;
+    path?: never;
+    query?: never;
+    url: '/v1/auth/embed/token/';
+};
+
+export type PostAuthEmbedTokenErrors = {
+    /**
+     * Bad request
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type PostAuthEmbedTokenError = PostAuthEmbedTokenErrors[keyof PostAuthEmbedTokenErrors];
+
+export type PostAuthEmbedTokenResponses = {
+    /**
+     * Returns an embed token
+     */
+    201: EmbedTokenResponseSchema;
+};
+
+export type PostAuthEmbedTokenResponse = PostAuthEmbedTokenResponses[keyof PostAuthEmbedTokenResponses];
+
+export type PostAuthEmbedTokenExchangeData = {
+    /**
+     * body
+     */
+    body: TokenExchangeRequestSchema;
+    path?: never;
+    query?: {
+        /**
+         * Output format, one of `cuttingroom` (default) or `iconik`
+         */
+        format?: string;
+    };
+    url: '/v1/auth/embed/token/exchange/';
+};
+
+export type PostAuthEmbedTokenExchangeErrors = {
+    /**
+     * Bad request
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type PostAuthEmbedTokenExchangeError = PostAuthEmbedTokenExchangeErrors[keyof PostAuthEmbedTokenExchangeErrors];
+
+export type PostAuthEmbedTokenExchangeResponses = {
+    /**
+     * Returns an access token and a refresh token
+     */
+    200: CuttingRoomTokenResponseSchema;
+};
+
+export type PostAuthEmbedTokenExchangeResponse = PostAuthEmbedTokenExchangeResponses[keyof PostAuthEmbedTokenExchangeResponses];
 
 export type PostAuthMultidomainLoginData = {
     /**
@@ -3070,7 +3278,7 @@ export type GetOauthAuthorizeData = {
          */
         redirect_uri: string;
         /**
-         * Space-separated list of scopes to request (e.g. "assets:read assets:write"). Must be a subset of the application's allowed scopes.
+         * Space-separated list of scopes to request (e.g. "assets:read assets:write"). The returned `scopes` field is filtered down to the intersection of the requested scopes and the application's allowed scopes - it may be empty if none overlap. This endpoint never rejects a request just because it asked for scopes the application isn't allowed to have; every requested scope must still be one this platform supports, though.
          */
         scope: string;
         /**
@@ -3106,7 +3314,7 @@ export type GetOauthAuthorizeError = GetOauthAuthorizeErrors[keyof GetOauthAutho
 
 export type GetOauthAuthorizeResponses = {
     /**
-     * Consent metadata (client name, scopes, redirect_uri, state).
+     * Consent metadata (client name, authorizing user, system domain, scopes, redirect_uri, state).
      */
     200: OAuth2AuthorizeDescribeSchema;
 };
@@ -3126,7 +3334,7 @@ export type PostOauthAuthorizeData = {
          */
         redirect_uri: string;
         /**
-         * Space-separated list of scopes to request (e.g. "assets:read assets:write"). Must be a subset of the application's allowed scopes.
+         * Space-separated list of scopes to request (e.g. "assets:read assets:write"). Unlike the GET describe step, this endpoint requires every requested scope to be within the application's allowed scopes and rejects the whole request otherwise (no partial grants), since this is the step that actually mints the authorization code. Every requested scope must also be one this platform supports.
          */
         scope: string;
         /**
@@ -3172,11 +3380,11 @@ export type PostOauthAuthorizeResponse = PostOauthAuthorizeResponses[keyof PostO
 export type PostOauthTokenData = {
     body: {
         /**
-         * The OAuth2 client ID (application ID)
+         * The OAuth2 client ID (application ID). Required unless the client authenticates with HTTP Basic.
          */
-        client_id: string;
+        client_id?: string | null;
         /**
-         * The OAuth2 client secret (required for client_credentials grant)
+         * The OAuth2 client secret (required for the client_credentials grant unless sent as HTTP Basic credentials)
          */
         client_secret?: string | null;
         /**
@@ -3190,18 +3398,33 @@ export type PostOauthTokenData = {
         /**
          * The OAuth2 grant type
          */
-        grant_type: 'authorization_code' | 'client_credentials';
+        grant_type: 'authorization_code' | 'client_credentials' | 'refresh_token';
         /**
          * The redirect URI used in the authorization request (required for authorization_code grant)
          */
         redirect_uri?: string | null;
         /**
-         * The requested scope (used for client_credentials grant)
+         * The refresh token (required for refresh_token grant)
+         */
+        refresh_token?: string | null;
+        /**
+         * The requested scope. Used by the client_credentials grant, and by the refresh_token grant to request a subset of the scope already granted (a broader scope is rejected).
          */
         scope?: string | null;
     };
+    headers?: {
+        /**
+         * HTTP Basic credentials for a confidential client (``client_secret_basic``), as an alternative to sending client_id / client_secret in the form body.
+         */
+        Authorization?: string;
+    };
     path?: never;
-    query?: never;
+    query?: {
+        /**
+         * The number of seconds the access token will be valid for. Defaults to, and is clamped by, the system default.
+         */
+        expires_in?: number;
+    };
     url: '/v1/oauth/token/';
 };
 

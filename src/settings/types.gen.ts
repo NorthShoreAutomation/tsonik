@@ -4,6 +4,133 @@ export type ClientOptions = {
     baseUrl: `${string}://${string}/API/settings/` | (string & {});
 };
 
+export type AiConsentAcceptSchema = {
+    documents: Array<AiConsentDocumentRef>;
+};
+
+export type AiConsentDeclineRequestSchema = {
+    documents: Array<AiConsentDocumentRef>;
+};
+
+export type AiConsentDocumentRef = {
+    id: string;
+    version: string;
+};
+
+export type AiConsentDocumentRefSchema = {
+    id: string;
+    version: string;
+};
+
+export type AiConsentDocumentSchema = {
+    id?: string | null;
+    /**
+     * ISO 8601 date this version was published.
+     */
+    published_at?: string | null;
+    title?: string | null;
+    url?: string | null;
+    version?: string | null;
+};
+
+export type AiConsentDocumentsSchema = {
+    readonly objects?: Array<AiConsentDocumentSchema> | null;
+};
+
+export type AiConsentEventSchema = {
+    readonly acting_as_user_id?: string | null;
+    action?: AiConsentEventSchemaAction | null;
+    readonly app_id?: string | null;
+    readonly date_created?: string | null;
+    readonly document_id?: string | null;
+    readonly document_url?: string | null;
+    readonly document_version?: string | null;
+    readonly evidence?: string | null;
+    readonly id?: string | null;
+    readonly ip?: string | null;
+    readonly origin?: string | null;
+    readonly user_email?: string | null;
+    readonly user_id?: string | null;
+};
+
+export type AiConsentEventSchemaAction = 'ACCEPTED' | 'DECLINED' | 'LEGACY_IMPORTED' | 'NOTICE_ELAPSED' | 'REVOKED' | 'REVOKED_BY_MASTER_SWITCH';
+
+export type AiConsentEventsSchema = {
+    readonly objects?: Array<AiConsentEventSchema> | null;
+};
+
+export type AiConsentRevokeSchema = {
+    /**
+     * Document ids to revoke.
+     */
+    documents: Array<string>;
+};
+
+export type AiConsentSchema = {
+    readonly date_created?: string | null;
+    readonly date_revoked?: string | null;
+    readonly document_id?: string | null;
+    readonly document_url?: string | null;
+    readonly evidence?: string | null;
+    origin?: AiConsentSchemaOrigin | null;
+    status?: AiConsentSchemaStatus | null;
+    readonly version?: string | null;
+};
+
+export type AiConsentSchemaOrigin = 'ADMIN_ACCEPTED' | 'LEGACY_BETA_AGREEMENT' | 'LEGACY_UI_CONSENT' | 'NOTICE_ELAPSED';
+
+export type AiConsentSchemaStatus = 'DECLINED' | 'GRANTED' | 'REVOKED';
+
+export type AiConsentsSchema = {
+    readonly objects?: Array<AiConsentSchema> | null;
+};
+
+export type AiFeatureStateSchema = {
+    /**
+     * Billing tiers that grant this feature, as an alternative to its feature flag. Empty when no tier does: the feature is then gated on the flag alone.
+     */
+    readonly billing_tiers?: Array<string> | null;
+    /**
+     * False while the interface for accepting this feature's terms is still being built: `documents_to_accept` is reported as usual, but it neither blocks enabling the feature nor masks it off.
+     */
+    readonly consent_enforced?: boolean | null;
+    /**
+     * Accept these to satisfy what this feature is missing. Empty when nothing is.
+     */
+    readonly documents_to_accept?: Array<AiConsentDocumentSchema> | null;
+    /**
+     * What the feature actually does. False as soon as the master switch is off, the consent is missing or stale, or the domain lost the entitlement.
+     */
+    readonly effective?: boolean | null;
+    /**
+     * What the administrator asked for.
+     */
+    enabled?: boolean | null;
+    readonly id?: string | null;
+    readonly setting_name?: string | null;
+    status?: AiFeatureStateSchemaStatus | null;
+};
+
+export type AiFeatureStateSchemaStatus = 'CONSENT_REQUIRED' | 'CONSENT_STALE' | 'DISABLED' | 'ENABLED' | 'UNAVAILABLE';
+
+export type AiStateSchema = {
+    /**
+     * Every position this customer has taken, accepted and refused alike. A refusal does not switch anything off by itself: it stops the terms taking effect by non-objection.
+     */
+    readonly consents?: Array<AiConsentSchema> | null;
+    /**
+     * The platform forbids AI on this system domain. Every feature reads as UNAVAILABLE and nothing can be enabled. Not something the customer can change; the interface should explain rather than offer a switch.
+     */
+    readonly disabled_by_domain?: boolean | null;
+    /**
+     * Master switch.
+     */
+    enabled?: boolean | null;
+    features?: {
+        [key: string]: AiFeatureStateSchema;
+    } | null;
+};
+
 export type AllowedIpSchema = {
     app_id?: string | null;
     ip?: string | null;
@@ -79,6 +206,13 @@ export type DefaultShareOptionsTypeSchema = {
     show_existing_comments?: boolean | null;
     show_watermark?: boolean | null;
 };
+
+export type ExternalShareOptionsTypeSchema = {
+    groups?: Array<string> | null;
+    show_for_groups?: ExternalShareOptionsTypeSchemaShowForGroups | null;
+};
+
+export type ExternalShareOptionsTypeSchemaShowForGroups = 'all' | 'except' | 'selected_only';
 
 export type FacetFieldSchema = {
     name: string;
@@ -191,7 +325,9 @@ export type JobsWidgetOptionSchema = {
 
 export type MergedSettingsSchema = {
     acl_template_id?: string | null;
+    ai?: AiStateSchema | null;
     allow_invites_by_link?: boolean | null;
+    allow_mobile_upload_without_required_metadata?: boolean | null;
     /**
      * Allow playing the original file while transcoding is in progress.
      */
@@ -205,6 +341,10 @@ export type MergedSettingsSchema = {
     collections_get_parent_acls?: boolean | null;
     cors_hosts?: Array<string> | null;
     readonly custom_terms?: boolean | null;
+    /**
+     * URL to a CuttingRoom tenant. (e.g https://tenant.region.cuttingroom.com)
+     */
+    cuttingroom_url?: string | null;
     dashboard?: DashboardSchema | null;
     date_format?: string | null;
     datetime_format?: string | null;
@@ -233,15 +373,21 @@ export type MergedSettingsSchema = {
      * Whether to require hardware DRM for playback when DRM is enabled
      */
     drm_enforce?: boolean | null;
+    /**
+     * Master switch for AI features.
+     */
+    readonly enable_ai?: boolean | null;
     enable_ai_metadata_filling?: boolean | null;
     enable_face_recognition?: boolean | null;
     enable_nltf?: boolean | null;
+    enable_portals?: boolean | null;
     enable_shield?: boolean | null;
     /**
      * When enabled, magic links can only be sent to allowlisted emails/domains
      */
     enforce_magic_link_allowlist?: boolean | null;
     external_share?: boolean | null;
+    external_share_options?: ExternalShareOptionsTypeSchema | null;
     facet_fields?: Array<FacetFieldSchema> | null;
     readonly features?: Array<string> | null;
     filters_default_metadata_view_id?: string | null;
@@ -351,7 +497,9 @@ export type SortSchemaOrder = 'asc' | 'desc';
 
 export type SystemSettingPublicSchema = {
     acl_template_id?: string | null;
+    ai?: AiStateSchema | null;
     allow_invites_by_link?: boolean | null;
+    allow_mobile_upload_without_required_metadata?: boolean | null;
     /**
      * Allow playing the original file while transcoding is in progress.
      */
@@ -365,6 +513,10 @@ export type SystemSettingPublicSchema = {
     collections_get_parent_acls?: boolean | null;
     cors_hosts?: Array<string> | null;
     readonly custom_terms?: boolean | null;
+    /**
+     * URL to a CuttingRoom tenant. (e.g https://tenant.region.cuttingroom.com)
+     */
+    cuttingroom_url?: string | null;
     date_format?: string | null;
     datetime_format?: string | null;
     /**
@@ -392,15 +544,21 @@ export type SystemSettingPublicSchema = {
      * Whether to require hardware DRM for playback when DRM is enabled
      */
     drm_enforce?: boolean | null;
+    /**
+     * Master switch for AI features.
+     */
+    readonly enable_ai?: boolean | null;
     enable_ai_metadata_filling?: boolean | null;
     enable_face_recognition?: boolean | null;
     enable_nltf?: boolean | null;
+    enable_portals?: boolean | null;
     enable_shield?: boolean | null;
     /**
      * When enabled, magic links can only be sent to allowlisted emails/domains
      */
     enforce_magic_link_allowlist?: boolean | null;
     external_share?: boolean | null;
+    external_share_options?: ExternalShareOptionsTypeSchema | null;
     facet_fields?: Array<FacetFieldSchema> | null;
     readonly features?: Array<string> | null;
     filters_default_metadata_view_id?: string | null;
@@ -466,7 +624,9 @@ export type SystemSettingPublicSchemaWatermark = 'none' | 'standard';
 
 export type SystemSettingSchema = {
     acl_template_id?: string | null;
+    ai?: AiStateSchema | null;
     allow_invites_by_link?: boolean | null;
+    allow_mobile_upload_without_required_metadata?: boolean | null;
     /**
      * Allow playing the original file while transcoding is in progress.
      */
@@ -478,6 +638,10 @@ export type SystemSettingSchema = {
     readonly client_ip?: string | null;
     collections_get_parent_acls?: boolean | null;
     cors_hosts?: Array<string> | null;
+    /**
+     * URL to a CuttingRoom tenant. (e.g https://tenant.region.cuttingroom.com)
+     */
+    cuttingroom_url?: string | null;
     date_format?: string | null;
     datetime_format?: string | null;
     /**
@@ -503,15 +667,21 @@ export type SystemSettingSchema = {
      * Whether to require hardware DRM for playback when DRM is enabled
      */
     drm_enforce?: boolean | null;
+    /**
+     * Master switch for AI features.
+     */
+    readonly enable_ai?: boolean | null;
     enable_ai_metadata_filling?: boolean | null;
     enable_face_recognition?: boolean | null;
     enable_nltf?: boolean | null;
+    enable_portals?: boolean | null;
     enable_shield?: boolean | null;
     /**
      * When enabled, magic links can only be sent to allowlisted emails/domains
      */
     enforce_magic_link_allowlist?: boolean | null;
     external_share?: boolean | null;
+    external_share_options?: ExternalShareOptionsTypeSchema | null;
     facet_fields?: Array<FacetFieldSchema> | null;
     filters_default_metadata_view_id?: string | null;
     hide_favourites?: boolean | null;
@@ -571,6 +741,82 @@ export type SystemSettingSchemaDrm = 'none' | 'standard';
  * Watermark setting
  */
 export type SystemSettingSchemaWatermark = 'none' | 'standard';
+
+export type ThemeBaseSchema = {
+    readonly created_by_user?: string | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    readonly id?: string | null;
+    name: string;
+    readonly system_domain_id?: string | null;
+    theme_data: ThemeData;
+};
+
+export type ThemeColors = {
+    background?: string | null;
+    primary?: string | null;
+    secondary?: string | null;
+    text?: string | null;
+};
+
+export type ThemeColorsSchema = {
+    background?: string | null;
+    primary?: string | null;
+    secondary?: string | null;
+    text?: string | null;
+};
+
+export type ThemeCreateSchema = {
+    readonly created_by_user?: string | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    readonly id?: string | null;
+    name: string;
+    readonly system_domain_id?: string | null;
+    theme_data: ThemeData;
+};
+
+export type ThemeData = {
+    base?: ThemeDataBase | null;
+    colors?: ThemeColors | null;
+    typography?: ThemeTypography | null;
+};
+
+export type ThemeDataBase = 'dark' | 'light';
+
+export type ThemeDataSchema = {
+    base?: ThemeDataSchemaBase | null;
+    colors?: ThemeColorsSchema | null;
+    typography?: ThemeTypography | null;
+};
+
+export type ThemeDataSchemaBase = 'dark' | 'light';
+
+export type ThemeSchema = {
+    readonly created_by_user?: string | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    readonly id?: string | null;
+    name: string;
+    readonly system_domain_id?: string | null;
+    theme_data: ThemeDataSchema;
+};
+
+export type ThemeTypography = {
+    font_family?: string | null;
+    font_size_base?: string | null;
+    heading_font_family?: string | null;
+};
+
+export type ThemeTypographySchema = {
+    font_family?: string | null;
+    font_size_base?: string | null;
+    heading_font_family?: string | null;
+};
+
+export type ThemesSchema = {
+    readonly objects?: Array<ThemeSchema> | null;
+};
 
 export type UsageHistory = {
     widgets?: Array<UsageHistoryWidget> | null;
@@ -679,6 +925,45 @@ export type WatermarkOptionsTypeShowInContext = 'proxies' | 'shares';
 
 export type WatermarkOptionsTypeTextAppearance = 'bottom' | 'center' | 'top';
 
+export type AiConsentDocumentsSchemaWritable = {
+    [key: string]: unknown;
+};
+
+export type AiConsentEventSchemaWritable = {
+    action?: unknown;
+};
+
+export type AiConsentEventsSchemaWritable = {
+    [key: string]: unknown;
+};
+
+export type AiConsentSchemaWritable = {
+    origin?: unknown;
+    status?: unknown;
+};
+
+export type AiConsentsSchemaWritable = {
+    [key: string]: unknown;
+};
+
+export type AiFeatureStateSchemaWritable = {
+    /**
+     * What the administrator asked for.
+     */
+    enabled?: boolean | null;
+    status?: unknown;
+};
+
+export type AiStateSchemaWritable = {
+    /**
+     * Master switch.
+     */
+    enabled?: boolean | null;
+    features?: {
+        [key: string]: AiFeatureStateSchemaWritable;
+    } | null;
+};
+
 export type CorsHostSchemaWritable = {
     host: string;
 };
@@ -728,7 +1013,9 @@ export type GroupSettingSchemaWritable = {
 
 export type MergedSettingsSchemaWritable = {
     acl_template_id?: string | null;
+    ai?: AiStateSchemaWritable | null;
     allow_invites_by_link?: boolean | null;
+    allow_mobile_upload_without_required_metadata?: boolean | null;
     /**
      * Allow playing the original file while transcoding is in progress.
      */
@@ -739,6 +1026,10 @@ export type MergedSettingsSchemaWritable = {
     asset_default_sections?: Array<string> | null;
     collections_get_parent_acls?: boolean | null;
     cors_hosts?: Array<string> | null;
+    /**
+     * URL to a CuttingRoom tenant. (e.g https://tenant.region.cuttingroom.com)
+     */
+    cuttingroom_url?: string | null;
     dashboard?: DashboardSchema | null;
     date_format?: string | null;
     datetime_format?: string | null;
@@ -768,12 +1059,14 @@ export type MergedSettingsSchemaWritable = {
     enable_ai_metadata_filling?: boolean | null;
     enable_face_recognition?: boolean | null;
     enable_nltf?: boolean | null;
+    enable_portals?: boolean | null;
     enable_shield?: boolean | null;
     /**
      * When enabled, magic links can only be sent to allowlisted emails/domains
      */
     enforce_magic_link_allowlist?: boolean | null;
     external_share?: boolean | null;
+    external_share_options?: ExternalShareOptionsTypeSchema | null;
     facet_fields?: Array<FacetFieldSchema> | null;
     filters_default_metadata_view_id?: string | null;
     genesis?: string | null;
@@ -827,7 +1120,9 @@ export type MergedSettingsSchemaWritable = {
 
 export type SystemSettingPublicSchemaWritable = {
     acl_template_id?: string | null;
+    ai?: AiStateSchemaWritable | null;
     allow_invites_by_link?: boolean | null;
+    allow_mobile_upload_without_required_metadata?: boolean | null;
     /**
      * Allow playing the original file while transcoding is in progress.
      */
@@ -838,6 +1133,10 @@ export type SystemSettingPublicSchemaWritable = {
     asset_default_sections?: Array<string> | null;
     collections_get_parent_acls?: boolean | null;
     cors_hosts?: Array<string> | null;
+    /**
+     * URL to a CuttingRoom tenant. (e.g https://tenant.region.cuttingroom.com)
+     */
+    cuttingroom_url?: string | null;
     date_format?: string | null;
     datetime_format?: string | null;
     /**
@@ -866,12 +1165,14 @@ export type SystemSettingPublicSchemaWritable = {
     enable_ai_metadata_filling?: boolean | null;
     enable_face_recognition?: boolean | null;
     enable_nltf?: boolean | null;
+    enable_portals?: boolean | null;
     enable_shield?: boolean | null;
     /**
      * When enabled, magic links can only be sent to allowlisted emails/domains
      */
     enforce_magic_link_allowlist?: boolean | null;
     external_share?: boolean | null;
+    external_share_options?: ExternalShareOptionsTypeSchema | null;
     facet_fields?: Array<FacetFieldSchema> | null;
     filters_default_metadata_view_id?: string | null;
     hide_favourites?: boolean | null;
@@ -922,7 +1223,9 @@ export type SystemSettingPublicSchemaWritable = {
 
 export type SystemSettingSchemaWritable = {
     acl_template_id?: string | null;
+    ai?: AiStateSchemaWritable | null;
     allow_invites_by_link?: boolean | null;
+    allow_mobile_upload_without_required_metadata?: boolean | null;
     /**
      * Allow playing the original file while transcoding is in progress.
      */
@@ -933,6 +1236,10 @@ export type SystemSettingSchemaWritable = {
     asset_default_sections?: Array<string> | null;
     collections_get_parent_acls?: boolean | null;
     cors_hosts?: Array<string> | null;
+    /**
+     * URL to a CuttingRoom tenant. (e.g https://tenant.region.cuttingroom.com)
+     */
+    cuttingroom_url?: string | null;
     date_format?: string | null;
     datetime_format?: string | null;
     /**
@@ -961,12 +1268,14 @@ export type SystemSettingSchemaWritable = {
     enable_ai_metadata_filling?: boolean | null;
     enable_face_recognition?: boolean | null;
     enable_nltf?: boolean | null;
+    enable_portals?: boolean | null;
     enable_shield?: boolean | null;
     /**
      * When enabled, magic links can only be sent to allowlisted emails/domains
      */
     enforce_magic_link_allowlist?: boolean | null;
     external_share?: boolean | null;
+    external_share_options?: ExternalShareOptionsTypeSchema | null;
     facet_fields?: Array<FacetFieldSchema> | null;
     filters_default_metadata_view_id?: string | null;
     hide_favourites?: boolean | null;
@@ -1015,6 +1324,25 @@ export type SystemSettingSchemaWritable = {
     watermark_options?: WatermarkOptionsType | null;
 };
 
+export type ThemeBaseSchemaWritable = {
+    name: string;
+    theme_data: ThemeData;
+};
+
+export type ThemeCreateSchemaWritable = {
+    name: string;
+    theme_data: ThemeData;
+};
+
+export type ThemeSchemaWritable = {
+    name: string;
+    theme_data: ThemeDataSchema;
+};
+
+export type ThemesSchemaWritable = {
+    [key: string]: unknown;
+};
+
 export type UserSettingSchemaWritable = {
     acl_template_id?: string | null;
     allowed_ips?: Array<AllowedIpSchema> | null;
@@ -1050,6 +1378,243 @@ export type UserSettingSchemaWritable = {
     usage_history?: UsageHistorySchema | null;
     use_asset_name_on_download?: boolean | null;
 };
+
+export type GetAiConsentEventsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        per_page?: number;
+    };
+    url: '/v1/ai/consent_events/';
+};
+
+export type GetAiConsentEventsErrors = {
+    /**
+     * Bad request
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Restricted access
+     */
+    403: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type GetAiConsentEventsError = GetAiConsentEventsErrors[keyof GetAiConsentEventsErrors];
+
+export type GetAiConsentEventsResponses = {
+    /**
+     * Returns the consent events, most recent first
+     */
+    200: AiConsentEventsSchema;
+};
+
+export type GetAiConsentEventsResponse = GetAiConsentEventsResponses[keyof GetAiConsentEventsResponses];
+
+export type GetAiConsentsData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/v1/ai/consents/';
+};
+
+export type GetAiConsentsErrors = {
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type GetAiConsentsError = GetAiConsentsErrors[keyof GetAiConsentsErrors];
+
+export type GetAiConsentsResponses = {
+    /**
+     * Returns the consents of the system domain
+     */
+    200: AiConsentsSchema;
+};
+
+export type GetAiConsentsResponse = GetAiConsentsResponses[keyof GetAiConsentsResponses];
+
+export type PostAiConsentsData = {
+    /**
+     * body
+     */
+    body: AiConsentAcceptSchema;
+    path?: never;
+    query?: never;
+    url: '/v1/ai/consents/';
+};
+
+export type PostAiConsentsErrors = {
+    /**
+     * Bad request, or unknown document
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Restricted access
+     */
+    403: unknown;
+    /**
+     * A referenced document is no longer the version in force
+     */
+    409: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type PostAiConsentsError = PostAiConsentsErrors[keyof PostAiConsentsErrors];
+
+export type PostAiConsentsResponses = {
+    /**
+     * Returns the consents of the system domain after acceptance
+     */
+    200: AiConsentsSchema;
+};
+
+export type PostAiConsentsResponse = PostAiConsentsResponses[keyof PostAiConsentsResponses];
+
+export type PostAiConsentsDeclineData = {
+    /**
+     * body
+     */
+    body: AiConsentDeclineRequestSchema;
+    path?: never;
+    query?: never;
+    url: '/v1/ai/consents/decline/';
+};
+
+export type PostAiConsentsDeclineErrors = {
+    /**
+     * Bad request, or unknown document
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Restricted access
+     */
+    403: unknown;
+    /**
+     * A referenced document is no longer the version in force
+     */
+    409: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type PostAiConsentsDeclineError = PostAiConsentsDeclineErrors[keyof PostAiConsentsDeclineErrors];
+
+export type PostAiConsentsDeclineResponses = {
+    /**
+     * Returns the consents of the system domain after the refusal
+     */
+    200: AiConsentsSchema;
+};
+
+export type PostAiConsentsDeclineResponse = PostAiConsentsDeclineResponses[keyof PostAiConsentsDeclineResponses];
+
+export type PostAiConsentsRevokeData = {
+    /**
+     * body
+     */
+    body: AiConsentRevokeSchema;
+    path?: never;
+    query?: never;
+    url: '/v1/ai/consents/revoke/';
+};
+
+export type PostAiConsentsRevokeErrors = {
+    /**
+     * Bad request
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Restricted access
+     */
+    403: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type PostAiConsentsRevokeError = PostAiConsentsRevokeErrors[keyof PostAiConsentsRevokeErrors];
+
+export type PostAiConsentsRevokeResponses = {
+    /**
+     * Returns the positions of the domain after the withdrawal
+     */
+    200: AiConsentsSchema;
+};
+
+export type PostAiConsentsRevokeResponse = PostAiConsentsRevokeResponses[keyof PostAiConsentsRevokeResponses];
+
+export type GetAiDocumentsData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/v1/ai/documents/';
+};
+
+export type GetAiDocumentsErrors = {
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type GetAiDocumentsError = GetAiDocumentsErrors[keyof GetAiDocumentsErrors];
+
+export type GetAiDocumentsResponses = {
+    /**
+     * Returns the consent documents catalog
+     */
+    200: AiConsentDocumentsSchema;
+};
+
+export type GetAiDocumentsResponse = GetAiDocumentsResponses[keyof GetAiDocumentsResponses];
 
 export type GetCorsHostsData = {
     body?: never;
@@ -1306,6 +1871,10 @@ export type PatchGroupByGroupIdErrors = {
      */
     401: unknown;
     /**
+     * Restricted access, or share_expiration_time cannot be changed
+     */
+    403: unknown;
+    /**
      * Error response
      */
     default: {
@@ -1345,6 +1914,10 @@ export type PutGroupByGroupIdErrors = {
      * Token is invalid
      */
     401: unknown;
+    /**
+     * Restricted access, or share_expiration_time cannot be changed
+     */
+    403: unknown;
     /**
      * Error response
      */
@@ -1945,6 +2518,10 @@ export type PatchTeamByTeamIdErrors = {
      */
     401: unknown;
     /**
+     * Restricted access, or share_expiration_time cannot be changed
+     */
+    403: unknown;
+    /**
      * Error response
      */
     default: {
@@ -1985,6 +2562,10 @@ export type PutTeamByTeamIdErrors = {
      */
     401: unknown;
     /**
+     * Restricted access, or share_expiration_time cannot be changed
+     */
+    403: unknown;
+    /**
      * Error response
      */
     default: {
@@ -2003,17 +2584,14 @@ export type PutTeamByTeamIdResponses = {
 
 export type PutTeamByTeamIdResponse = PutTeamByTeamIdResponses[keyof PutTeamByTeamIdResponses];
 
-export type DeleteUserAttributesData = {
-    /**
-     * body
-     */
-    body: UserSettingRemoveAttributesSchema;
+export type GetThemesData = {
+    body?: never;
     path?: never;
     query?: never;
-    url: '/v1/user/attributes/';
+    url: '/v1/themes/';
 };
 
-export type DeleteUserAttributesErrors = {
+export type GetThemesErrors = {
     /**
      * Bad request
      */
@@ -2030,20 +2608,224 @@ export type DeleteUserAttributesErrors = {
     };
 };
 
-export type DeleteUserAttributesError = DeleteUserAttributesErrors[keyof DeleteUserAttributesErrors];
+export type GetThemesError = GetThemesErrors[keyof GetThemesErrors];
 
-export type DeleteUserAttributesResponses = {
+export type GetThemesResponses = {
     /**
-     * Returns changed user settings
+     * Returns a list of themes
      */
-    200: unknown;
+    200: ThemesSchema;
+};
+
+export type GetThemesResponse = GetThemesResponses[keyof GetThemesResponses];
+
+export type PostThemesData = {
     /**
-     * No Content
+     * body
+     */
+    body: ThemeCreateSchemaWritable;
+    path?: never;
+    query?: never;
+    url: '/v1/themes/';
+};
+
+export type PostThemesErrors = {
+    /**
+     * Bad request
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type PostThemesError = PostThemesErrors[keyof PostThemesErrors];
+
+export type PostThemesResponses = {
+    /**
+     * Returns a created theme
+     */
+    201: ThemeSchema;
+};
+
+export type PostThemesResponse = PostThemesResponses[keyof PostThemesResponses];
+
+export type DeleteThemesByThemeIdData = {
+    body?: never;
+    path: {
+        theme_id: string;
+    };
+    query?: never;
+    url: '/v1/themes/{theme_id}/';
+};
+
+export type DeleteThemesByThemeIdErrors = {
+    /**
+     * Bad request
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Theme does not exist
+     */
+    404: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type DeleteThemesByThemeIdError = DeleteThemesByThemeIdErrors[keyof DeleteThemesByThemeIdErrors];
+
+export type DeleteThemesByThemeIdResponses = {
+    /**
+     * Successfully deleted
      */
     204: void;
 };
 
-export type DeleteUserAttributesResponse = DeleteUserAttributesResponses[keyof DeleteUserAttributesResponses];
+export type DeleteThemesByThemeIdResponse = DeleteThemesByThemeIdResponses[keyof DeleteThemesByThemeIdResponses];
+
+export type GetThemesByThemeIdData = {
+    body?: never;
+    path: {
+        theme_id: string;
+    };
+    query?: never;
+    url: '/v1/themes/{theme_id}/';
+};
+
+export type GetThemesByThemeIdErrors = {
+    /**
+     * Bad request
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Theme does not exist
+     */
+    404: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type GetThemesByThemeIdError = GetThemesByThemeIdErrors[keyof GetThemesByThemeIdErrors];
+
+export type GetThemesByThemeIdResponses = {
+    /**
+     * Returns a theme
+     */
+    200: ThemeSchema;
+};
+
+export type GetThemesByThemeIdResponse = GetThemesByThemeIdResponses[keyof GetThemesByThemeIdResponses];
+
+export type PatchThemesByThemeIdData = {
+    /**
+     * body
+     */
+    body: ThemeSchemaWritable;
+    path: {
+        theme_id: string;
+    };
+    query?: never;
+    url: '/v1/themes/{theme_id}/';
+};
+
+export type PatchThemesByThemeIdErrors = {
+    /**
+     * Bad request
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Theme does not exist
+     */
+    404: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type PatchThemesByThemeIdError = PatchThemesByThemeIdErrors[keyof PatchThemesByThemeIdErrors];
+
+export type PatchThemesByThemeIdResponses = {
+    /**
+     * Returns an updated theme
+     */
+    200: ThemeSchema;
+};
+
+export type PatchThemesByThemeIdResponse = PatchThemesByThemeIdResponses[keyof PatchThemesByThemeIdResponses];
+
+export type PutThemesByThemeIdData = {
+    /**
+     * body
+     */
+    body: ThemeSchemaWritable;
+    path: {
+        theme_id: string;
+    };
+    query?: never;
+    url: '/v1/themes/{theme_id}/';
+};
+
+export type PutThemesByThemeIdErrors = {
+    /**
+     * Bad request
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Theme does not exist
+     */
+    404: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type PutThemesByThemeIdError = PutThemesByThemeIdErrors[keyof PutThemesByThemeIdErrors];
+
+export type PutThemesByThemeIdResponses = {
+    /**
+     * Returns an updated theme
+     */
+    200: ThemeSchema;
+};
+
+export type PutThemesByThemeIdResponse = PutThemesByThemeIdResponses[keyof PutThemesByThemeIdResponses];
 
 export type DeleteUserByUserIdData = {
     body?: never;
@@ -2145,6 +2927,10 @@ export type PatchUserByUserIdErrors = {
      */
     401: unknown;
     /**
+     * Restricted access, or share_expiration_time cannot be changed
+     */
+    403: unknown;
+    /**
      * Error response
      */
     default: {
@@ -2184,6 +2970,10 @@ export type PutUserByUserIdErrors = {
      * Token is invalid
      */
     401: unknown;
+    /**
+     * Restricted access, or share_expiration_time cannot be changed
+     */
+    403: unknown;
     /**
      * Error response
      */

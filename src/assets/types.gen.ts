@@ -60,6 +60,10 @@ export type AssetBaseSchema = {
     analyze_status?: AssetBaseSchemaAnalyzeStatus | null;
     archive_status?: AssetBaseSchemaArchiveStatus | null;
     category?: string | null;
+    /**
+     * ID of the draft clip in the Wildmoka system that is linked to this asset.
+     */
+    readonly clip_id?: number | null;
     readonly created_by_user?: string | null;
     created_by_user_info?: User | null;
     custom_keyframe?: string | null;
@@ -104,12 +108,16 @@ export type AssetBaseSchemaFaceRecognitionStatus = 'DONE' | 'FAILED' | 'IN_PROGR
 
 export type AssetBaseSchemaStatus = 'ACTIVE' | 'DELETED';
 
-export type AssetBaseSchemaType = 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP';
+export type AssetBaseSchemaType = 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'SEQUENCE' | 'SUBCLIP';
 
 export type AssetCreateSchema = {
     analyze_status?: AssetCreateSchemaAnalyzeStatus | null;
     archive_status?: AssetCreateSchemaArchiveStatus | null;
     category?: string | null;
+    /**
+     * ID of the draft clip in the Wildmoka system that is linked to this asset.
+     */
+    readonly clip_id?: number | null;
     collection_id?: string | null;
     readonly created_by_user?: string | null;
     created_by_user_info?: User | null;
@@ -155,7 +163,7 @@ export type AssetCreateSchemaFaceRecognitionStatus = 'DONE' | 'FAILED' | 'IN_PRO
 
 export type AssetCreateSchemaStatus = 'ACTIVE' | 'DELETED';
 
-export type AssetCreateSchemaType = 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP';
+export type AssetCreateSchemaType = 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'SEQUENCE' | 'SUBCLIP';
 
 export type AssetCreateSchemaTyped = ({
     type: 'ASSET';
@@ -167,6 +175,10 @@ export type AssetEditSchema = {
     analyze_status?: AssetEditSchemaAnalyzeStatus | null;
     archive_status?: AssetEditSchemaArchiveStatus | null;
     category?: string | null;
+    /**
+     * ID of the draft clip in the Wildmoka system that is linked to this asset.
+     */
+    readonly clip_id?: number | null;
     created_by_user?: string | null;
     created_by_user_info?: User | null;
     custom_keyframe?: string | null;
@@ -211,7 +223,7 @@ export type AssetEditSchemaFaceRecognitionStatus = 'DONE' | 'FAILED' | 'IN_PROGR
 
 export type AssetEditSchemaStatus = 'ACTIVE' | 'DELETED';
 
-export type AssetEditSchemaType = 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP';
+export type AssetEditSchemaType = 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'SEQUENCE' | 'SUBCLIP';
 
 export type AssetEditSchemaTyped = ({
     type: 'ASSET';
@@ -228,6 +240,10 @@ export type AssetElasticSchema = {
     approval?: ApprovalSchema | null;
     archive_status?: AssetElasticSchemaArchiveStatus | null;
     category?: string | null;
+    /**
+     * ID of the draft clip in the Wildmoka system that is linked to this asset.
+     */
+    readonly clip_id?: number | null;
     readonly comments_count?: number | null;
     readonly created_by_user?: string | null;
     created_by_user_info?: User | null;
@@ -296,7 +312,7 @@ export type AssetElasticSchemaFaceRecognitionStatus = 'DONE' | 'FAILED' | 'IN_PR
 
 export type AssetElasticSchemaStatus = 'ACTIVE' | 'DELETED';
 
-export type AssetElasticSchemaType = 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP';
+export type AssetElasticSchemaType = 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'SEQUENCE' | 'SUBCLIP';
 
 export type AssetElasticSchemaTyped = ({
     type: 'ASSET';
@@ -308,7 +324,7 @@ export type AssetHistoryBaseSchema = {
     readonly id?: string | null;
     job_id?: string | null;
     operation_description?: string | null;
-    operation_type: 'ADD_FORMAT' | 'ANALYZE' | 'APPROVE' | 'ARCHIVE' | 'CUSTOM' | 'DELETE' | 'DELETE_FILE' | 'DELETE_FILESET' | 'DELETE_FORMAT' | 'DOWNLOAD' | 'EXPORT' | 'FACE_RECOGNITION' | 'METADATA' | 'MODIFY_FILESET' | 'REJECT' | 'RESTORE' | 'RESTORE_ARCHIVE' | 'RESTORE_FILESET' | 'RESTORE_FORMAT' | 'RESTORE_FROM_GLACIER' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER' | 'UNLINK_SUBCLIP' | 'VERSION_CREATE' | 'VERSION_DELETE' | 'VERSION_PROMOTE' | 'VERSION_UPDATE';
+    operation_type: 'ADD_FORMAT' | 'ANALYZE' | 'APPROVE' | 'ARCHIVE' | 'CUSTOM' | 'DELETE' | 'DELETE_FILE' | 'DELETE_FILESET' | 'DELETE_FORMAT' | 'DOWNLOAD' | 'EXPORT' | 'FACE_RECOGNITION' | 'METADATA' | 'MODIFY_FILESET' | 'PUBLISH' | 'PUBLISH_SAVE_DRAFT' | 'PUBLISH_SCHEDULED' | 'REJECT' | 'RESTORE' | 'RESTORE_ARCHIVE' | 'RESTORE_FILESET' | 'RESTORE_FORMAT' | 'RESTORE_FROM_GLACIER' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER' | 'UNLINK_SUBCLIP' | 'VERSION_CREATE' | 'VERSION_DELETE' | 'VERSION_PROMOTE' | 'VERSION_UPDATE';
     share_id?: string | null;
     share_user_id?: string | null;
     readonly system_domain_id?: string | null;
@@ -326,7 +342,7 @@ export type AssetHistoryBulkSchema = {
     readonly id?: string | null;
     job_id?: string | null;
     operation_description?: string | null;
-    operation_type: 'ADD_FORMAT' | 'ANALYZE' | 'APPROVE' | 'ARCHIVE' | 'CUSTOM' | 'DELETE' | 'DELETE_FILE' | 'DELETE_FILESET' | 'DELETE_FORMAT' | 'DOWNLOAD' | 'EXPORT' | 'FACE_RECOGNITION' | 'METADATA' | 'MODIFY_FILESET' | 'REJECT' | 'RESTORE' | 'RESTORE_ARCHIVE' | 'RESTORE_FILESET' | 'RESTORE_FORMAT' | 'RESTORE_FROM_GLACIER' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER' | 'UNLINK_SUBCLIP' | 'VERSION_CREATE' | 'VERSION_DELETE' | 'VERSION_PROMOTE' | 'VERSION_UPDATE';
+    operation_type: 'ADD_FORMAT' | 'ANALYZE' | 'APPROVE' | 'ARCHIVE' | 'CUSTOM' | 'DELETE' | 'DELETE_FILE' | 'DELETE_FILESET' | 'DELETE_FORMAT' | 'DOWNLOAD' | 'EXPORT' | 'FACE_RECOGNITION' | 'METADATA' | 'MODIFY_FILESET' | 'PUBLISH' | 'PUBLISH_SAVE_DRAFT' | 'PUBLISH_SCHEDULED' | 'REJECT' | 'RESTORE' | 'RESTORE_ARCHIVE' | 'RESTORE_FILESET' | 'RESTORE_FORMAT' | 'RESTORE_FROM_GLACIER' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER' | 'UNLINK_SUBCLIP' | 'VERSION_CREATE' | 'VERSION_DELETE' | 'VERSION_PROMOTE' | 'VERSION_UPDATE';
     share_id?: string | null;
     share_user_id?: string | null;
     readonly system_domain_id?: string | null;
@@ -341,7 +357,7 @@ export type AssetHistoryElasticSchema = {
     readonly id?: string | null;
     job_id?: string | null;
     operation_description?: string | null;
-    operation_type: 'ADD_FORMAT' | 'ANALYZE' | 'APPROVE' | 'ARCHIVE' | 'CUSTOM' | 'DELETE' | 'DELETE_FILE' | 'DELETE_FILESET' | 'DELETE_FORMAT' | 'DOWNLOAD' | 'EXPORT' | 'FACE_RECOGNITION' | 'METADATA' | 'MODIFY_FILESET' | 'REJECT' | 'RESTORE' | 'RESTORE_ARCHIVE' | 'RESTORE_FILESET' | 'RESTORE_FORMAT' | 'RESTORE_FROM_GLACIER' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER' | 'UNLINK_SUBCLIP' | 'VERSION_CREATE' | 'VERSION_DELETE' | 'VERSION_PROMOTE' | 'VERSION_UPDATE';
+    operation_type: 'ADD_FORMAT' | 'ANALYZE' | 'APPROVE' | 'ARCHIVE' | 'CUSTOM' | 'DELETE' | 'DELETE_FILE' | 'DELETE_FILESET' | 'DELETE_FORMAT' | 'DOWNLOAD' | 'EXPORT' | 'FACE_RECOGNITION' | 'METADATA' | 'MODIFY_FILESET' | 'PUBLISH' | 'PUBLISH_SAVE_DRAFT' | 'PUBLISH_SCHEDULED' | 'REJECT' | 'RESTORE' | 'RESTORE_ARCHIVE' | 'RESTORE_FILESET' | 'RESTORE_FORMAT' | 'RESTORE_FROM_GLACIER' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER' | 'UNLINK_SUBCLIP' | 'VERSION_CREATE' | 'VERSION_DELETE' | 'VERSION_PROMOTE' | 'VERSION_UPDATE';
     share_id?: string | null;
     share_user_id?: string | null;
     readonly system_domain_id?: string | null;
@@ -370,7 +386,7 @@ export type AssetHistorySchema = {
     readonly id?: string | null;
     job_id?: string | null;
     operation_description?: string | null;
-    operation_type: 'ADD_FORMAT' | 'ANALYZE' | 'APPROVE' | 'ARCHIVE' | 'CUSTOM' | 'DELETE' | 'DELETE_FILE' | 'DELETE_FILESET' | 'DELETE_FORMAT' | 'DOWNLOAD' | 'EXPORT' | 'FACE_RECOGNITION' | 'METADATA' | 'MODIFY_FILESET' | 'REJECT' | 'RESTORE' | 'RESTORE_ARCHIVE' | 'RESTORE_FILESET' | 'RESTORE_FORMAT' | 'RESTORE_FROM_GLACIER' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER' | 'UNLINK_SUBCLIP' | 'VERSION_CREATE' | 'VERSION_DELETE' | 'VERSION_PROMOTE' | 'VERSION_UPDATE';
+    operation_type: 'ADD_FORMAT' | 'ANALYZE' | 'APPROVE' | 'ARCHIVE' | 'CUSTOM' | 'DELETE' | 'DELETE_FILE' | 'DELETE_FILESET' | 'DELETE_FORMAT' | 'DOWNLOAD' | 'EXPORT' | 'FACE_RECOGNITION' | 'METADATA' | 'MODIFY_FILESET' | 'PUBLISH' | 'PUBLISH_SAVE_DRAFT' | 'PUBLISH_SCHEDULED' | 'REJECT' | 'RESTORE' | 'RESTORE_ARCHIVE' | 'RESTORE_FILESET' | 'RESTORE_FORMAT' | 'RESTORE_FROM_GLACIER' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER' | 'UNLINK_SUBCLIP' | 'VERSION_CREATE' | 'VERSION_DELETE' | 'VERSION_PROMOTE' | 'VERSION_UPDATE';
     share_id?: string | null;
     share_user_id?: string | null;
     readonly system_domain_id?: string | null;
@@ -435,6 +451,7 @@ export type AssetPostCreate = {
     original_segment_id?: string | null;
     original_version_id?: string | null;
     person_ids?: Array<string> | null;
+    publication_id?: number | null;
     publication_status?: AssetPostCreatePublicationStatus | null;
     site_name?: string | null;
     status?: AssetPostCreateStatus | null;
@@ -496,6 +513,7 @@ export type AssetPostCreateSchema = {
     original_segment_id?: string | null;
     original_version_id?: string | null;
     person_ids?: Array<string> | null;
+    publication_id?: number | null;
     publication_status?: AssetPostCreateSchemaPublicationStatus | null;
     site_name?: string | null;
     status?: AssetPostCreateSchemaStatus | null;
@@ -564,6 +582,7 @@ export type AssetPostEdit = {
     original_segment_id?: string | null;
     original_version_id?: string | null;
     person_ids?: Array<string> | null;
+    publication_id?: number | null;
     publication_status?: AssetPostEditPublicationStatus | null;
     site_name?: string | null;
     status?: AssetPostEditStatus | null;
@@ -624,6 +643,7 @@ export type AssetPostEditSchema = {
     original_segment_id?: string | null;
     original_version_id?: string | null;
     person_ids?: Array<string> | null;
+    publication_id?: number | null;
     publication_status?: AssetPostEditSchemaPublicationStatus | null;
     site_name?: string | null;
     status?: AssetPostEditSchemaStatus | null;
@@ -718,6 +738,7 @@ export type AssetPostElastic = {
     readonly proxies?: Array<{
         [key: string]: unknown;
     }> | null;
+    publication_id?: number | null;
     publication_status?: AssetPostElasticPublicationStatus | null;
     readonly relations?: Array<RelationElastic> | null;
     site_name?: string | null;
@@ -807,6 +828,7 @@ export type AssetPostElasticSchema = {
     readonly proxies?: Array<{
         [key: string]: unknown;
     }> | null;
+    publication_id?: number | null;
     publication_status?: AssetPostElasticSchemaPublicationStatus | null;
     readonly relations?: Array<RelationElastic> | null;
     site_name?: string | null;
@@ -879,6 +901,7 @@ export type AssetPostSchema = {
     original_segment_id?: string | null;
     original_version_id?: string | null;
     person_ids?: Array<string> | null;
+    publication_id?: number | null;
     publication_status?: AssetPostSchemaPublicationStatus | null;
     site_name?: string | null;
     status?: AssetPostSchemaStatus | null;
@@ -909,6 +932,10 @@ export type AssetSchema = {
     analyze_status?: AssetSchemaAnalyzeStatus | null;
     archive_status?: AssetSchemaArchiveStatus | null;
     category?: string | null;
+    /**
+     * ID of the draft clip in the Wildmoka system that is linked to this asset.
+     */
+    readonly clip_id?: number | null;
     readonly created_by_user?: string | null;
     created_by_user_info?: User | null;
     custom_keyframe?: string | null;
@@ -955,7 +982,7 @@ export type AssetSchemaFaceRecognitionStatus = 'DONE' | 'FAILED' | 'IN_PROGRESS'
 
 export type AssetSchemaStatus = 'ACTIVE' | 'DELETED';
 
-export type AssetSchemaType = 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP';
+export type AssetSchemaType = 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'SEQUENCE' | 'SUBCLIP';
 
 export type AssetSchemaTyped = ({
     type: 'ASSET';
@@ -978,6 +1005,7 @@ export type AssetTranscriptionFromSubtitleSchemaFormat = 'SRT' | 'VTT' | 'WEBVTT
 
 export type AssetTranscriptionPropertiesSchema = {
     readonly asset_id?: string | null;
+    engine_info?: TranscriptionEngineInfo | null;
     readonly id?: string | null;
     language?: string | null;
     speaker_labels?: {
@@ -1421,6 +1449,7 @@ export type CollectionContentInfoSchema = {
     readonly storage_info?: Array<StorageContentInfo> | null;
     readonly title?: string | null;
     readonly total_duration_milliseconds?: number | null;
+    readonly total_proxy_size?: number | null;
     readonly total_size?: number | null;
 };
 
@@ -1649,7 +1678,7 @@ export type CollectionsSchema = {
 export type CreateAssetVersionFromAssetSchema = {
     copy_previous_version_persons?: boolean | null;
     copy_previous_version_segments?: boolean | null;
-    include_segment_types?: Array<'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'TAG' | 'TRANSCRIPTION'> | null;
+    include_segment_types?: Array<'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'SEMANTIC_TRANSCRIPTION' | 'SHOT' | 'TAG' | 'TRANSCRIPTION'> | null;
     source_metadata_asset_id?: string | null;
     readonly system_domain_id?: string | null;
 };
@@ -1658,7 +1687,7 @@ export type CreateAssetVersionFromVersionSchema = {
     copy_previous_version_persons?: boolean | null;
     copy_previous_version_segments?: boolean | null;
     exclude_format_ids?: Array<string> | null;
-    include_segment_types?: Array<'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'TAG' | 'TRANSCRIPTION'> | null;
+    include_segment_types?: Array<'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'SEMANTIC_TRANSCRIPTION' | 'SHOT' | 'TAG' | 'TRANSCRIPTION'> | null;
     source_metadata_asset_id?: string | null;
     readonly system_domain_id?: string | null;
 };
@@ -1667,7 +1696,7 @@ export type CreateAssetVersionSchema = {
     copy_metadata?: boolean | null;
     copy_persons?: boolean | null;
     copy_segments?: boolean | null;
-    include_segment_types?: Array<'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'TAG' | 'TRANSCRIPTION'> | null;
+    include_segment_types?: Array<'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'SEMANTIC_TRANSCRIPTION' | 'SHOT' | 'TAG' | 'TRANSCRIPTION'> | null;
     source_version_id?: string | null;
     readonly system_domain_id?: string | null;
 };
@@ -1689,16 +1718,34 @@ export type CreateCollectionFromSavedSearchSchema = {
     saved_search_id: string;
 };
 
+export type CreateCollectionFromSearchResponseSchema = {
+    readonly collection_title?: string | null;
+};
+
+export type CreateCollectionFromSearchSchema = {
+    collection_id: string;
+    job_id: string;
+};
+
 export type CreatePublicationJobSchema = {
     allow_transfer?: boolean | null;
     asset_id: string;
     metadata_overrides?: {
         [key: string]: unknown;
     } | null;
+    /**
+     * Schedule publishing at this date/time instead of immediately. Naive values are interpreted as UTC.
+     */
+    publish_at_time?: string | null;
+    /**
+     * Whether to immediately create a draft clip for this asset without waiting for ingestion. The clip is created right away and appears in clip management like any other clip, while the media is ingested in the background. This lets the asset be opened/edited before the media is available. This is mutually exclusive with publishing the clip when done.
+     */
+    save_clip_as_draft?: boolean | null;
     storage_id?: string | null;
     template?: CreatePublicationTemplate | null;
     thumbnail?: CreatePublicationJobThumbnailKeyframe | null;
     title?: string | null;
+    video_source?: VideoSource | null;
 };
 
 export type CreatePublicationJobThumbnailKeyframe = {
@@ -1754,6 +1801,7 @@ export type CustomActionCallbackSchema = {
 
 export type CustomActionCreateSchema = {
     app_id?: string | null;
+    color?: string | null;
     context: 'ASSET' | 'ASSET_SUBCLIP' | 'BULK' | 'COLLECTION' | 'NONE' | 'PLAYLIST' | 'SAVED_SEARCH' | 'SHARED_ASSET' | 'SHARED_COLLECTION' | 'SHARED_PLAYLIST';
     readonly date_created?: string | null;
     readonly date_modified?: string | null;
@@ -1781,6 +1829,7 @@ export type CustomActionCreateSchemaType = 'OPEN' | 'POST' | 'PUBLISH';
 
 export type CustomActionSchema = {
     app_id?: string | null;
+    color?: string | null;
     context: 'ASSET' | 'ASSET_SUBCLIP' | 'BULK' | 'COLLECTION' | 'NONE' | 'PLAYLIST' | 'SAVED_SEARCH' | 'SHARED_ASSET' | 'SHARED_COLLECTION' | 'SHARED_PLAYLIST';
     readonly date_created?: string | null;
     readonly date_modified?: string | null;
@@ -1844,12 +1893,25 @@ export type DeleteQueueSchema = {
 };
 
 export type DeleteSegmentsSchema = {
+    /**
+     * List of Segment attribute name/value pairs that must all match for a segment to be deleted. Can be combined with segment_ids or segment_type to further filter which segments are deleted.
+     */
+    attributes?: Array<SegmentAttributeMatch> | null;
     segment_ids?: Array<string> | null;
     segment_type?: DeleteSegmentsSchemaSegmentType | null;
     version_id?: string | null;
 };
 
-export type DeleteSegmentsSchemaSegmentType = 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'TAG' | 'TRANSCRIPTION';
+export type DeleteSegmentsSchemaSegmentType = 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'SEMANTIC_TRANSCRIPTION' | 'SHOT' | 'TAG' | 'TRANSCRIPTION';
+
+export type DestinationItemSchema = {
+    label?: string | null;
+    value?: string | null;
+};
+
+export type DestinationItemsSchema = {
+    readonly objects?: Array<DestinationItemSchema> | null;
+};
 
 export type Drawing = {
     primitives?: Array<DrawingPrimitive> | null;
@@ -1871,7 +1933,7 @@ export type DrawingPrimitive = {
     opacity?: number | null;
     points?: Array<DrawingPoint> | null;
     text?: string | null;
-    type: 'ARROW' | 'ELLIPSE' | 'LINE' | 'PENCIL' | 'RECTANGLE' | 'TEXT';
+    type: 'ARROW' | 'CROSS' | 'ELLIPSE' | 'LINE' | 'PENCIL' | 'RECTANGLE' | 'TEXT';
     width?: number | null;
 };
 
@@ -1880,7 +1942,7 @@ export type DrawingPrimitiveSchema = {
     opacity?: number | null;
     points?: Array<DrawingPointSchema> | null;
     text?: string | null;
-    type: 'ARROW' | 'ELLIPSE' | 'LINE' | 'PENCIL' | 'RECTANGLE' | 'TEXT';
+    type: 'ARROW' | 'CROSS' | 'ELLIPSE' | 'LINE' | 'PENCIL' | 'RECTANGLE' | 'TEXT';
     width?: number | null;
 };
 
@@ -1917,12 +1979,15 @@ export type EditAssetSegment = {
     segment_color?: string | null;
     segment_text?: string | null;
     segment_track?: string | null;
-    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'TAG' | 'TRANSCRIPTION';
+    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'SEMANTIC_TRANSCRIPTION' | 'SHOT' | 'TAG' | 'TRANSCRIPTION';
+    semantic_transcription?: SemanticTranscription | null;
     /**
      * ID of a share if the segment is created from a share
      */
     share_id?: string | null;
+    readonly share_session_id?: string | null;
     share_user_email?: string | null;
+    shot?: Shot | null;
     status?: EditAssetSegmentStatus | null;
     readonly subclip_id?: string | null;
     time_end_milliseconds?: number | null;
@@ -1966,12 +2031,15 @@ export type EditAssetSegmentSchema = {
     segment_color?: string | null;
     segment_text?: string | null;
     segment_track?: string | null;
-    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'TAG' | 'TRANSCRIPTION';
+    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'SEMANTIC_TRANSCRIPTION' | 'SHOT' | 'TAG' | 'TRANSCRIPTION';
+    semantic_transcription?: SemanticTranscription | null;
     /**
      * ID of a share if the segment is created from a share
      */
     share_id?: string | null;
+    readonly share_session_id?: string | null;
     share_user_email?: string | null;
+    shot?: Shot | null;
     status?: EditAssetSegmentSchemaStatus | null;
     readonly subclip_id?: string | null;
     time_end_milliseconds?: number | null;
@@ -1987,9 +2055,9 @@ export type EditAssetSegmentSchema = {
     version_id?: string | null;
 };
 
-export type EditAssetSegmentSchemaStatus = 'ACTIVE' | 'DELETED';
+export type EditAssetSegmentSchemaStatus = 'ACTIVE' | 'AWAITED' | 'DELETED';
 
-export type EditAssetSegmentStatus = 'ACTIVE' | 'DELETED';
+export type EditAssetSegmentStatus = 'ACTIVE' | 'AWAITED' | 'DELETED';
 
 export type EditAssetVersion = {
     analyze_status?: EditAssetVersionAnalyzeStatus | null;
@@ -2093,12 +2161,15 @@ export type EditSegmentForBulk = {
     segment_color?: string | null;
     segment_text?: string | null;
     segment_track?: string | null;
-    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'TAG' | 'TRANSCRIPTION';
+    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'SEMANTIC_TRANSCRIPTION' | 'SHOT' | 'TAG' | 'TRANSCRIPTION';
+    semantic_transcription?: SemanticTranscription | null;
     /**
      * ID of a share if the segment is created from a share
      */
     share_id?: string | null;
+    readonly share_session_id?: string | null;
     share_user_email?: string | null;
+    shot?: Shot | null;
     status?: EditSegmentForBulkStatus | null;
     readonly subclip_id?: string | null;
     time_end_milliseconds?: number | null;
@@ -2142,12 +2213,15 @@ export type EditSegmentForBulkSchema = {
     segment_color?: string | null;
     segment_text?: string | null;
     segment_track?: string | null;
-    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'TAG' | 'TRANSCRIPTION';
+    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'SEMANTIC_TRANSCRIPTION' | 'SHOT' | 'TAG' | 'TRANSCRIPTION';
+    semantic_transcription?: SemanticTranscription | null;
     /**
      * ID of a share if the segment is created from a share
      */
     share_id?: string | null;
+    readonly share_session_id?: string | null;
     share_user_email?: string | null;
+    shot?: Shot | null;
     status?: EditSegmentForBulkSchemaStatus | null;
     readonly subclip_id?: string | null;
     time_end_milliseconds?: number | null;
@@ -2163,9 +2237,9 @@ export type EditSegmentForBulkSchema = {
     version_id?: string | null;
 };
 
-export type EditSegmentForBulkSchemaStatus = 'ACTIVE' | 'DELETED';
+export type EditSegmentForBulkSchemaStatus = 'ACTIVE' | 'AWAITED' | 'DELETED';
 
-export type EditSegmentForBulkStatus = 'ACTIVE' | 'DELETED';
+export type EditSegmentForBulkStatus = 'ACTIVE' | 'AWAITED' | 'DELETED';
 
 export type EditSegmentSchema = {
     readonly asset_id?: string | null;
@@ -2174,6 +2248,7 @@ export type EditSegmentSchema = {
     drawing?: DrawingSchema | null;
     external_id?: string | null;
     face_bounding_boxes?: Array<FaceBoundingBox> | null;
+    has_attachments?: boolean | null;
     readonly id?: string | null;
     /**
      * If set to true, the segment is only visible to internal iconik users
@@ -2195,12 +2270,15 @@ export type EditSegmentSchema = {
     segment_color?: string | null;
     segment_text?: string | null;
     segment_track?: string | null;
-    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'TAG' | 'TRANSCRIPTION';
+    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'SEMANTIC_TRANSCRIPTION' | 'SHOT' | 'TAG' | 'TRANSCRIPTION';
+    semantic_transcription?: SemanticTranscription | null;
     /**
      * ID of a share if the segment is created from a share
      */
     share_id?: string | null;
+    readonly share_session_id?: string | null;
     share_user_email?: string | null;
+    shot?: Shot | null;
     status?: EditSegmentSchemaStatus | null;
     readonly subclip_id?: string | null;
     time_end_milliseconds?: number | null;
@@ -2216,7 +2294,7 @@ export type EditSegmentSchema = {
     version_id?: string | null;
 };
 
-export type EditSegmentSchemaStatus = 'ACTIVE' | 'DELETED';
+export type EditSegmentSchemaStatus = 'ACTIVE' | 'AWAITED' | 'DELETED';
 
 export type FaceBoundingBox = {
     bounding_box?: Array<number> | null;
@@ -2486,6 +2564,10 @@ export type PlaylistItemElasticSchema = {
     approval?: ApprovalSchema | null;
     archive_status?: PlaylistItemElasticSchemaArchiveStatus | null;
     category?: string | null;
+    /**
+     * ID of the draft clip in the Wildmoka system that is linked to this asset.
+     */
+    readonly clip_id?: number | null;
     readonly comments_count?: number | null;
     readonly created_by_user?: string | null;
     created_by_user_info?: User | null;
@@ -2554,7 +2636,7 @@ export type PlaylistItemElasticSchemaFaceRecognitionStatus = 'DONE' | 'FAILED' |
 
 export type PlaylistItemElasticSchemaStatus = 'ACTIVE' | 'DELETED';
 
-export type PlaylistItemElasticSchemaType = 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP';
+export type PlaylistItemElasticSchemaType = 'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'SEQUENCE' | 'SUBCLIP';
 
 export type PlaylistItemSchema = {
     id?: string | null;
@@ -2641,6 +2723,111 @@ export type PlaylistsSchema = {
     readonly last_url?: string | null;
     readonly next_url?: string | null;
     readonly objects?: Array<Playlist> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly search_after?: Array<unknown> | null;
+    readonly total?: number | null;
+};
+
+export type PortalBaseSchema = {
+    config?: PortalConfig | null;
+    readonly created_by_user?: string | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    description?: string | null;
+    readonly id?: string | null;
+    readonly keyframes?: Array<{
+        [key: string]: unknown;
+    }> | null;
+    readonly logo?: string | null;
+    readonly logo_storage_id?: string | null;
+    name: string;
+    playlist_id?: string | null;
+    status?: PortalBaseSchemaStatus | null;
+    readonly system_domain_id?: string | null;
+};
+
+export type PortalBaseSchemaStatus = 'ACTIVE';
+
+export type PortalConfig = {
+    theme: Theme;
+};
+
+export type PortalConfigSchema = {
+    theme: Theme;
+};
+
+export type PortalCreateSchema = {
+    config?: PortalConfigSchema | null;
+    readonly created_by_user?: string | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    description?: string | null;
+    readonly id?: string | null;
+    readonly keyframes?: Array<{
+        [key: string]: unknown;
+    }> | null;
+    readonly logo?: string | null;
+    readonly logo_storage_id?: string | null;
+    name: string;
+    playlist_id: string;
+    status?: PortalCreateSchemaStatus | null;
+    readonly system_domain_id?: string | null;
+};
+
+export type PortalCreateSchemaStatus = 'ACTIVE';
+
+export type PortalSchema = {
+    config?: PortalConfigSchema | null;
+    readonly created_by_user?: string | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    description?: string | null;
+    readonly id?: string | null;
+    readonly keyframes?: Array<{
+        [key: string]: unknown;
+    }> | null;
+    readonly logo?: string | null;
+    readonly logo_storage_id?: string | null;
+    name: string;
+    playlist_id?: string | null;
+    status?: PortalSchemaStatus | null;
+    readonly system_domain_id?: string | null;
+};
+
+export type PortalSchemaStatus = 'ACTIVE';
+
+export type PortalsQueryParamsSchema = {
+    /**
+     * A comma separated list of portal IDs to filter by
+     */
+    ids?: string | null;
+    /**
+     * Which page number to fetch
+     */
+    page?: number | null;
+    /**
+     * The number of items for each page
+     */
+    per_page?: number | null;
+    /**
+     * Free text search over the portal name, with wildcard (`*`) support
+     */
+    query?: string | null;
+    /**
+     * A comma separated list of fieldnames with order (asc/desc)
+     */
+    sort?: string | null;
+};
+
+export type PortalsSchema = {
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<PortalSchema> | null;
     readonly page?: number | null;
     readonly pages?: number | null;
     readonly per_page?: number | null;
@@ -2786,6 +2973,23 @@ export type ProjectsSchema = {
     readonly scroll_id?: string | null;
     readonly search_after?: Array<unknown> | null;
     readonly total?: number | null;
+};
+
+export type PublicationDraftSchema = {
+    readonly asset_id?: string | null;
+    readonly metadata_overrides?: {
+        [key: string]: unknown;
+    } | null;
+    readonly publish_at_time?: string | null;
+    readonly storage_id?: string | null;
+    template?: PublicationTemplate | null;
+    thumbnail?: CreatePublicationJobThumbnailKeyframeSchema | null;
+    readonly title?: string | null;
+};
+
+export type PublicationTemplate = {
+    id?: string | null;
+    name?: string | null;
 };
 
 export type PublicationTemplateSchema = {
@@ -2940,6 +3144,10 @@ export type ReindexPlaylistSchema = {
     sync_to_another_dc?: boolean | null;
 };
 
+export type ReindexPortalSchema = {
+    sync_to_another_dc?: boolean | null;
+};
+
 export type ReindexProjectSchema = {
     sync_to_another_dc?: boolean | null;
 };
@@ -3077,6 +3285,10 @@ export type Segment = {
     drawing?: Drawing | null;
     external_id?: string | null;
     face_bounding_boxes?: Array<FaceBoundingBox> | null;
+    /**
+     * Whether the comment has attachments in iconik_files
+     */
+    readonly has_attachments?: boolean | null;
     readonly has_drawing?: unknown;
     readonly id?: string | null;
     /**
@@ -3099,12 +3311,15 @@ export type Segment = {
     segment_color?: string | null;
     segment_text?: string | null;
     segment_track?: string | null;
-    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'TAG' | 'TRANSCRIPTION';
+    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'SEMANTIC_TRANSCRIPTION' | 'SHOT' | 'TAG' | 'TRANSCRIPTION';
+    semantic_transcription?: SemanticTranscription | null;
     /**
      * ID of a share if the segment is created from a share
      */
     share_id?: string | null;
+    readonly share_session_id?: string | null;
     share_user_email?: string | null;
+    shot?: Shot | null;
     status?: SegmentStatus | null;
     readonly subclip_id?: string | null;
     time_end_milliseconds?: number | null;
@@ -3119,6 +3334,28 @@ export type Segment = {
     readonly user_photo?: string | null;
     version_id?: string | null;
 };
+
+export type SegmentAttributeMatch = {
+    name: string;
+    operator?: SegmentAttributeMatchOperator | null;
+    value: unknown;
+};
+
+/**
+ * Comparison operator used when matching the attribute. 'eq' works for any attribute, while 'lt' (less than) and 'gt' (greater than) are only valid for date and number attributes.
+ */
+export type SegmentAttributeMatchOperator = 'eq' | 'gt' | 'lt';
+
+export type SegmentAttributeMatchSchema = {
+    name: string;
+    operator?: SegmentAttributeMatchSchemaOperator | null;
+    value: unknown;
+};
+
+/**
+ * Comparison operator used when matching the attribute. 'eq' works for any attribute, while 'lt' (less than) and 'gt' (greater than) are only valid for date and number attributes.
+ */
+export type SegmentAttributeMatchSchemaOperator = 'eq' | 'gt' | 'lt';
 
 export type SegmentBaseSchema = {
     readonly asset_id?: string | null;
@@ -3148,12 +3385,15 @@ export type SegmentBaseSchema = {
     segment_color?: string | null;
     segment_text?: string | null;
     segment_track?: string | null;
-    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'TAG' | 'TRANSCRIPTION';
+    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'SEMANTIC_TRANSCRIPTION' | 'SHOT' | 'TAG' | 'TRANSCRIPTION';
+    semantic_transcription?: SemanticTranscription | null;
     /**
      * ID of a share if the segment is created from a share
      */
     share_id?: string | null;
+    readonly share_session_id?: string | null;
     share_user_email?: string | null;
+    shot?: Shot | null;
     status?: SegmentBaseSchemaStatus | null;
     readonly subclip_id?: string | null;
     time_end_milliseconds?: number | null;
@@ -3169,15 +3409,19 @@ export type SegmentBaseSchema = {
     version_id?: string | null;
 };
 
-export type SegmentBaseSchemaStatus = 'ACTIVE' | 'DELETED';
+export type SegmentBaseSchemaStatus = 'ACTIVE' | 'AWAITED' | 'DELETED';
 
 export type SegmentElasticSchema = {
     readonly asset_id?: string | null;
+    readonly attachments?: Array<{
+        [key: string]: unknown;
+    }> | null;
     readonly date_created?: string | null;
     readonly date_modified?: string | null;
     drawing?: DrawingSchema | null;
     external_id?: string | null;
     face_bounding_boxes?: Array<FaceBoundingBoxSchema> | null;
+    readonly has_attachments?: boolean | null;
     readonly has_drawing?: boolean | null;
     readonly id?: string | null;
     /**
@@ -3200,12 +3444,15 @@ export type SegmentElasticSchema = {
     segment_color?: string | null;
     segment_text?: string | null;
     segment_track?: string | null;
-    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'TAG' | 'TRANSCRIPTION';
+    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'SEMANTIC_TRANSCRIPTION' | 'SHOT' | 'TAG' | 'TRANSCRIPTION';
+    semantic_transcription?: SemanticTranscription | null;
     /**
      * ID of a share if the segment is created from a share
      */
     share_id?: string | null;
+    readonly share_session_id?: string | null;
     share_user_email?: string | null;
+    shot?: Shot | null;
     status?: SegmentElasticSchemaStatus | null;
     readonly subclip_id?: string | null;
     time_end_milliseconds?: number | null;
@@ -3221,7 +3468,7 @@ export type SegmentElasticSchema = {
     version_id?: string | null;
 };
 
-export type SegmentElasticSchemaStatus = 'ACTIVE' | 'DELETED';
+export type SegmentElasticSchemaStatus = 'ACTIVE' | 'AWAITED' | 'DELETED';
 
 export type SegmentQueryParamsSchema = {
     /**
@@ -3247,6 +3494,10 @@ export type SegmentSchema = {
     drawing?: DrawingSchema | null;
     external_id?: string | null;
     face_bounding_boxes?: Array<FaceBoundingBoxSchema> | null;
+    /**
+     * Whether the comment has attachments in iconik_files
+     */
+    readonly has_attachments?: boolean | null;
     readonly has_drawing?: boolean | null;
     readonly id?: string | null;
     /**
@@ -3269,12 +3520,15 @@ export type SegmentSchema = {
     segment_color?: string | null;
     segment_text?: string | null;
     segment_track?: string | null;
-    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'TAG' | 'TRANSCRIPTION';
+    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'SEMANTIC_TRANSCRIPTION' | 'SHOT' | 'TAG' | 'TRANSCRIPTION';
+    semantic_transcription?: SemanticTranscription | null;
     /**
      * ID of a share if the segment is created from a share
      */
     share_id?: string | null;
+    readonly share_session_id?: string | null;
     share_user_email?: string | null;
+    shot?: Shot | null;
     status?: SegmentSchemaStatus | null;
     readonly subclip_id?: string | null;
     time_end_milliseconds?: number | null;
@@ -3290,9 +3544,9 @@ export type SegmentSchema = {
     version_id?: string | null;
 };
 
-export type SegmentSchemaStatus = 'ACTIVE' | 'DELETED';
+export type SegmentSchemaStatus = 'ACTIVE' | 'AWAITED' | 'DELETED';
 
-export type SegmentStatus = 'ACTIVE' | 'DELETED';
+export type SegmentStatus = 'ACTIVE' | 'AWAITED' | 'DELETED';
 
 export type SegmentsSchema = {
     facets?: {
@@ -3309,6 +3563,52 @@ export type SegmentsSchema = {
     readonly scroll_id?: string | null;
     readonly search_after?: Array<unknown> | null;
     readonly total?: number | null;
+};
+
+export type SemanticTranscription = {
+    cut_reasons?: Array<string> | null;
+    embedding?: string | null;
+    embedding_dim?: number | null;
+    embedding_encoding?: string | null;
+    embedding_model?: string | null;
+    embedding_model_version?: string | null;
+    entities?: Array<SemanticTranscriptionEntity> | null;
+    language?: string | null;
+    speaker_count?: string | null;
+    tone?: string | null;
+    topics?: Array<UnderstandingTag> | null;
+    track_id?: string | null;
+    valence?: string | null;
+    [key: string]: unknown;
+};
+
+export type SemanticTranscriptionEntity = {
+    label?: string | null;
+    text: string;
+    [key: string]: unknown;
+};
+
+export type SemanticTranscriptionEntitySchema = {
+    label?: string | null;
+    text: string;
+    [key: string]: unknown;
+};
+
+export type SemanticTranscriptionSchema = {
+    cut_reasons?: Array<string> | null;
+    embedding?: string | null;
+    embedding_dim?: number | null;
+    embedding_encoding?: string | null;
+    embedding_model?: string | null;
+    embedding_model_version?: string | null;
+    entities?: Array<SemanticTranscriptionEntitySchema> | null;
+    language?: string | null;
+    speaker_count?: string | null;
+    tone?: string | null;
+    topics?: Array<UnderstandingTag> | null;
+    track_id?: string | null;
+    valence?: string | null;
+    [key: string]: unknown;
 };
 
 export type SequenceBaseSchema = {
@@ -3666,6 +3966,7 @@ export type ShareTokenSchema = {
     readonly object_type: string;
     readonly roles: Array<string>;
     readonly share_id: string;
+    readonly share_session_id?: string | null;
     readonly share_user_id: string;
     readonly system_domain_id: string;
     token: string;
@@ -3768,6 +4069,7 @@ export type ShareUrlSchemaWatermark = 'none' | 'standard';
 
 export type ShareUser = {
     readonly access_count?: number | null;
+    readonly download_count?: number | null;
     email: string;
     readonly first_name?: string | null;
     id?: string | null;
@@ -3784,6 +4086,7 @@ export type ShareUser = {
 
 export type ShareUserSchema = {
     readonly access_count?: number | null;
+    readonly download_count?: number | null;
     email: string;
     readonly first_name?: string | null;
     id?: string | null;
@@ -3800,6 +4103,7 @@ export type ShareUserSchema = {
 
 export type ShareUsersElastic = {
     access_count?: number | null;
+    download_count?: number | null;
     email?: string | null;
     id?: string | null;
     last_access_date?: string | null;
@@ -3807,6 +4111,7 @@ export type ShareUsersElastic = {
 
 export type ShareUsersElasticSchema = {
     access_count?: number | null;
+    download_count?: number | null;
     email?: string | null;
     id?: string | null;
     last_access_date?: string | null;
@@ -3835,6 +4140,100 @@ export type SharesElasticSchema = {
 
 export type SharesSchema = {
     readonly objects?: Array<ShareSchema> | null;
+};
+
+export type Shot = {
+    actions?: Array<UnderstandingTag> | null;
+    animal_species?: Array<UnderstandingTag> | null;
+    brand_logo?: Array<UnderstandingTag> | null;
+    camera_angle?: UnderstandingTag | null;
+    caption?: string | null;
+    color_palette?: Array<UnderstandingTag> | null;
+    composition?: string | null;
+    dog_breeds?: Array<UnderstandingTag> | null;
+    dominant_hue?: string | null;
+    embedding?: string | null;
+    embedding_dim?: number | null;
+    embedding_encoding?: string | null;
+    embedding_model?: string | null;
+    embedding_model_version?: string | null;
+    facial_expression?: Array<UnderstandingTag> | null;
+    keyframe_ts?: number | null;
+    light_key?: string | null;
+    light_side?: string | null;
+    light_style?: Array<string> | null;
+    light_time?: string | null;
+    mood?: Array<UnderstandingTag> | null;
+    mood_valence?: string | null;
+    movement?: Array<string> | null;
+    objects?: Array<UnderstandingTag> | null;
+    ocr_text?: string | null;
+    orientation?: string | null;
+    people_age_range?: Array<string> | null;
+    people_bucket?: string | null;
+    people_count?: number | null;
+    people_features?: Array<UnderstandingTag> | null;
+    people_gender?: Array<string> | null;
+    place?: UnderstandingTag | null;
+    resolution?: string | null;
+    scale_rank?: number | null;
+    season?: UnderstandingTag | null;
+    sensitive_content?: Array<UnderstandingTag> | null;
+    setting?: UnderstandingTag | null;
+    shot_scale?: UnderstandingTag | null;
+    sport_type?: UnderstandingTag | null;
+    subject_type?: Array<UnderstandingTag> | null;
+    time_of_day?: string | null;
+    track_id?: string | null;
+    weather?: UnderstandingTag | null;
+    [key: string]: unknown;
+};
+
+export type ShotSchema = {
+    actions?: Array<UnderstandingTag> | null;
+    animal_species?: Array<UnderstandingTag> | null;
+    brand_logo?: Array<UnderstandingTag> | null;
+    camera_angle?: UnderstandingTag | null;
+    caption?: string | null;
+    color_palette?: Array<UnderstandingTag> | null;
+    composition?: string | null;
+    dog_breeds?: Array<UnderstandingTag> | null;
+    dominant_hue?: string | null;
+    embedding?: string | null;
+    embedding_dim?: number | null;
+    embedding_encoding?: string | null;
+    embedding_model?: string | null;
+    embedding_model_version?: string | null;
+    facial_expression?: Array<UnderstandingTag> | null;
+    keyframe_ts?: number | null;
+    light_key?: string | null;
+    light_side?: string | null;
+    light_style?: Array<string> | null;
+    light_time?: string | null;
+    mood?: Array<UnderstandingTag> | null;
+    mood_valence?: string | null;
+    movement?: Array<string> | null;
+    objects?: Array<UnderstandingTag> | null;
+    ocr_text?: string | null;
+    orientation?: string | null;
+    people_age_range?: Array<string> | null;
+    people_bucket?: string | null;
+    people_count?: number | null;
+    people_features?: Array<UnderstandingTag> | null;
+    people_gender?: Array<string> | null;
+    place?: UnderstandingTag | null;
+    resolution?: string | null;
+    scale_rank?: number | null;
+    season?: UnderstandingTag | null;
+    sensitive_content?: Array<UnderstandingTag> | null;
+    setting?: UnderstandingTag | null;
+    shot_scale?: UnderstandingTag | null;
+    sport_type?: UnderstandingTag | null;
+    subject_type?: Array<UnderstandingTag> | null;
+    time_of_day?: string | null;
+    track_id?: string | null;
+    weather?: UnderstandingTag | null;
+    [key: string]: unknown;
 };
 
 export type StorageContentInfo = {
@@ -3875,6 +4274,48 @@ export type SynchronizeCollectionKeyframesSchema = {
     asset_ids?: Array<string> | null;
 };
 
+export type Theme = {
+    base?: ThemeBase | null;
+    colors?: ThemeColors | null;
+    typography?: ThemeTypography | null;
+};
+
+export type ThemeBase = 'dark' | 'light';
+
+export type ThemeColors = {
+    background?: string | null;
+    primary?: string | null;
+    secondary?: string | null;
+    text?: string | null;
+};
+
+export type ThemeColorsSchema = {
+    background?: string | null;
+    primary?: string | null;
+    secondary?: string | null;
+    text?: string | null;
+};
+
+export type ThemeSchema = {
+    base?: ThemeSchemaBase | null;
+    colors?: ThemeColorsSchema | null;
+    typography?: ThemeTypography | null;
+};
+
+export type ThemeSchemaBase = 'dark' | 'light';
+
+export type ThemeTypography = {
+    font_family?: string | null;
+    font_size_base?: string | null;
+    heading_font_family?: string | null;
+};
+
+export type ThemeTypographySchema = {
+    font_family?: string | null;
+    font_size_base?: string | null;
+    heading_font_family?: string | null;
+};
+
 export type TranscriptionElementType = {
     end_ms: number;
     score?: number | null;
@@ -3889,6 +4330,15 @@ export type TranscriptionElementTypeSchema = {
     value: string;
 };
 
+export type TranscriptionEngineInfo = {
+    model?: string | null;
+    name?: string | null;
+    type?: TranscriptionEngineInfoType | null;
+    version?: string | null;
+};
+
+export type TranscriptionEngineInfoType = 'EXTERNAL' | 'INTERNAL';
+
 export type TranscriptionType = {
     speaker?: number | null;
     words: Array<TranscriptionElementType>;
@@ -3897,6 +4347,20 @@ export type TranscriptionType = {
 export type TranscriptionTypeSchema = {
     speaker?: number | null;
     words: Array<TranscriptionElementTypeSchema>;
+};
+
+export type UnderstandingTag = {
+    label: string;
+    level?: string | null;
+    score?: number | null;
+    [key: string]: unknown;
+};
+
+export type UnderstandingTagSchema = {
+    label: string;
+    level?: string | null;
+    score?: number | null;
+    [key: string]: unknown;
 };
 
 export type UploadStorage = {
@@ -3932,6 +4396,32 @@ export type UserSchema = {
     readonly photo_big?: string | null;
     readonly photo_small?: string | null;
 };
+
+export type VideoSource = {
+    /**
+     * The iconik file ID to use as the video source for the import.
+     */
+    file_id?: string | null;
+    mode?: VideoSourceMode | null;
+};
+
+/**
+ * The mode to use for the import. Only "as-is" is supported for now, which means the file will be used as-is without any transcoding or processing.
+ */
+export type VideoSourceMode = 'as-is';
+
+export type VideoSourceSchema = {
+    /**
+     * The iconik file ID to use as the video source for the import.
+     */
+    file_id?: string | null;
+    mode?: VideoSourceSchemaMode | null;
+};
+
+/**
+ * The mode to use for the import. Only "as-is" is supported for now, which means the file will be used as-is without any transcoding or processing.
+ */
+export type VideoSourceSchemaMode = 'as-is';
 
 export type PublicationJobThumbnailSchemaBase = {
     [key: string]: unknown;
@@ -4095,7 +4585,7 @@ export type AssetElasticSchemaTypedWritable = ({
 export type AssetHistoryBaseSchemaWritable = {
     job_id?: string | null;
     operation_description?: string | null;
-    operation_type: 'ADD_FORMAT' | 'ANALYZE' | 'APPROVE' | 'ARCHIVE' | 'CUSTOM' | 'DELETE' | 'DELETE_FILE' | 'DELETE_FILESET' | 'DELETE_FORMAT' | 'DOWNLOAD' | 'EXPORT' | 'FACE_RECOGNITION' | 'METADATA' | 'MODIFY_FILESET' | 'REJECT' | 'RESTORE' | 'RESTORE_ARCHIVE' | 'RESTORE_FILESET' | 'RESTORE_FORMAT' | 'RESTORE_FROM_GLACIER' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER' | 'UNLINK_SUBCLIP' | 'VERSION_CREATE' | 'VERSION_DELETE' | 'VERSION_PROMOTE' | 'VERSION_UPDATE';
+    operation_type: 'ADD_FORMAT' | 'ANALYZE' | 'APPROVE' | 'ARCHIVE' | 'CUSTOM' | 'DELETE' | 'DELETE_FILE' | 'DELETE_FILESET' | 'DELETE_FORMAT' | 'DOWNLOAD' | 'EXPORT' | 'FACE_RECOGNITION' | 'METADATA' | 'MODIFY_FILESET' | 'PUBLISH' | 'PUBLISH_SAVE_DRAFT' | 'PUBLISH_SCHEDULED' | 'REJECT' | 'RESTORE' | 'RESTORE_ARCHIVE' | 'RESTORE_FILESET' | 'RESTORE_FORMAT' | 'RESTORE_FROM_GLACIER' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER' | 'UNLINK_SUBCLIP' | 'VERSION_CREATE' | 'VERSION_DELETE' | 'VERSION_PROMOTE' | 'VERSION_UPDATE';
     share_id?: string | null;
     share_user_id?: string | null;
 };
@@ -4107,7 +4597,7 @@ export type AssetHistoryBulkSchemaWritable = {
     } | null;
     job_id?: string | null;
     operation_description?: string | null;
-    operation_type: 'ADD_FORMAT' | 'ANALYZE' | 'APPROVE' | 'ARCHIVE' | 'CUSTOM' | 'DELETE' | 'DELETE_FILE' | 'DELETE_FILESET' | 'DELETE_FORMAT' | 'DOWNLOAD' | 'EXPORT' | 'FACE_RECOGNITION' | 'METADATA' | 'MODIFY_FILESET' | 'REJECT' | 'RESTORE' | 'RESTORE_ARCHIVE' | 'RESTORE_FILESET' | 'RESTORE_FORMAT' | 'RESTORE_FROM_GLACIER' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER' | 'UNLINK_SUBCLIP' | 'VERSION_CREATE' | 'VERSION_DELETE' | 'VERSION_PROMOTE' | 'VERSION_UPDATE';
+    operation_type: 'ADD_FORMAT' | 'ANALYZE' | 'APPROVE' | 'ARCHIVE' | 'CUSTOM' | 'DELETE' | 'DELETE_FILE' | 'DELETE_FILESET' | 'DELETE_FORMAT' | 'DOWNLOAD' | 'EXPORT' | 'FACE_RECOGNITION' | 'METADATA' | 'MODIFY_FILESET' | 'PUBLISH' | 'PUBLISH_SAVE_DRAFT' | 'PUBLISH_SCHEDULED' | 'REJECT' | 'RESTORE' | 'RESTORE_ARCHIVE' | 'RESTORE_FILESET' | 'RESTORE_FORMAT' | 'RESTORE_FROM_GLACIER' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER' | 'UNLINK_SUBCLIP' | 'VERSION_CREATE' | 'VERSION_DELETE' | 'VERSION_PROMOTE' | 'VERSION_UPDATE';
     share_id?: string | null;
     share_user_id?: string | null;
 };
@@ -4115,7 +4605,7 @@ export type AssetHistoryBulkSchemaWritable = {
 export type AssetHistoryElasticSchemaWritable = {
     job_id?: string | null;
     operation_description?: string | null;
-    operation_type: 'ADD_FORMAT' | 'ANALYZE' | 'APPROVE' | 'ARCHIVE' | 'CUSTOM' | 'DELETE' | 'DELETE_FILE' | 'DELETE_FILESET' | 'DELETE_FORMAT' | 'DOWNLOAD' | 'EXPORT' | 'FACE_RECOGNITION' | 'METADATA' | 'MODIFY_FILESET' | 'REJECT' | 'RESTORE' | 'RESTORE_ARCHIVE' | 'RESTORE_FILESET' | 'RESTORE_FORMAT' | 'RESTORE_FROM_GLACIER' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER' | 'UNLINK_SUBCLIP' | 'VERSION_CREATE' | 'VERSION_DELETE' | 'VERSION_PROMOTE' | 'VERSION_UPDATE';
+    operation_type: 'ADD_FORMAT' | 'ANALYZE' | 'APPROVE' | 'ARCHIVE' | 'CUSTOM' | 'DELETE' | 'DELETE_FILE' | 'DELETE_FILESET' | 'DELETE_FORMAT' | 'DOWNLOAD' | 'EXPORT' | 'FACE_RECOGNITION' | 'METADATA' | 'MODIFY_FILESET' | 'PUBLISH' | 'PUBLISH_SAVE_DRAFT' | 'PUBLISH_SCHEDULED' | 'REJECT' | 'RESTORE' | 'RESTORE_ARCHIVE' | 'RESTORE_FILESET' | 'RESTORE_FORMAT' | 'RESTORE_FROM_GLACIER' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER' | 'UNLINK_SUBCLIP' | 'VERSION_CREATE' | 'VERSION_DELETE' | 'VERSION_PROMOTE' | 'VERSION_UPDATE';
     share_id?: string | null;
     share_user_id?: string | null;
 };
@@ -4127,7 +4617,7 @@ export type AssetHistoryEntitiesSchemaWritable = {
 export type AssetHistorySchemaWritable = {
     job_id?: string | null;
     operation_description?: string | null;
-    operation_type: 'ADD_FORMAT' | 'ANALYZE' | 'APPROVE' | 'ARCHIVE' | 'CUSTOM' | 'DELETE' | 'DELETE_FILE' | 'DELETE_FILESET' | 'DELETE_FORMAT' | 'DOWNLOAD' | 'EXPORT' | 'FACE_RECOGNITION' | 'METADATA' | 'MODIFY_FILESET' | 'REJECT' | 'RESTORE' | 'RESTORE_ARCHIVE' | 'RESTORE_FILESET' | 'RESTORE_FORMAT' | 'RESTORE_FROM_GLACIER' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER' | 'UNLINK_SUBCLIP' | 'VERSION_CREATE' | 'VERSION_DELETE' | 'VERSION_PROMOTE' | 'VERSION_UPDATE';
+    operation_type: 'ADD_FORMAT' | 'ANALYZE' | 'APPROVE' | 'ARCHIVE' | 'CUSTOM' | 'DELETE' | 'DELETE_FILE' | 'DELETE_FILESET' | 'DELETE_FORMAT' | 'DOWNLOAD' | 'EXPORT' | 'FACE_RECOGNITION' | 'METADATA' | 'MODIFY_FILESET' | 'PUBLISH' | 'PUBLISH_SAVE_DRAFT' | 'PUBLISH_SCHEDULED' | 'REJECT' | 'RESTORE' | 'RESTORE_ARCHIVE' | 'RESTORE_FILESET' | 'RESTORE_FORMAT' | 'RESTORE_FROM_GLACIER' | 'TRANSCODE' | 'TRANSCRIPTION' | 'TRANSFER' | 'UNLINK_SUBCLIP' | 'VERSION_CREATE' | 'VERSION_DELETE' | 'VERSION_PROMOTE' | 'VERSION_UPDATE';
     share_id?: string | null;
     share_user_id?: string | null;
 };
@@ -4170,6 +4660,7 @@ export type AssetPostCreateWritable = {
     original_segment_id?: string | null;
     original_version_id?: string | null;
     person_ids?: Array<string> | null;
+    publication_id?: number | null;
     publication_status?: AssetPostCreatePublicationStatus | null;
     site_name?: string | null;
     status?: AssetPostCreateStatus | null;
@@ -4213,6 +4704,7 @@ export type AssetPostCreateSchemaWritable = {
     original_segment_id?: string | null;
     original_version_id?: string | null;
     person_ids?: Array<string> | null;
+    publication_id?: number | null;
     publication_status?: AssetPostCreateSchemaPublicationStatus | null;
     site_name?: string | null;
     status?: AssetPostCreateSchemaStatus | null;
@@ -4256,6 +4748,7 @@ export type AssetPostEditWritable = {
     original_segment_id?: string | null;
     original_version_id?: string | null;
     person_ids?: Array<string> | null;
+    publication_id?: number | null;
     publication_status?: AssetPostEditPublicationStatus | null;
     site_name?: string | null;
     status?: AssetPostEditStatus | null;
@@ -4299,6 +4792,7 @@ export type AssetPostEditSchemaWritable = {
     original_segment_id?: string | null;
     original_version_id?: string | null;
     person_ids?: Array<string> | null;
+    publication_id?: number | null;
     publication_status?: AssetPostEditSchemaPublicationStatus | null;
     site_name?: string | null;
     status?: AssetPostEditSchemaStatus | null;
@@ -4336,6 +4830,7 @@ export type AssetPostElasticWritable = {
     original_asset_id?: string | null;
     original_segment_id?: string | null;
     original_version_id?: string | null;
+    publication_id?: number | null;
     publication_status?: AssetPostElasticPublicationStatus | null;
     site_name?: string | null;
     status?: AssetPostElasticStatus | null;
@@ -4373,6 +4868,7 @@ export type AssetPostElasticSchemaWritable = {
     original_asset_id?: string | null;
     original_segment_id?: string | null;
     original_version_id?: string | null;
+    publication_id?: number | null;
     publication_status?: AssetPostElasticSchemaPublicationStatus | null;
     site_name?: string | null;
     status?: AssetPostElasticSchemaStatus | null;
@@ -4415,6 +4911,7 @@ export type AssetPostSchemaWritable = {
     original_segment_id?: string | null;
     original_version_id?: string | null;
     person_ids?: Array<string> | null;
+    publication_id?: number | null;
     publication_status?: AssetPostSchemaPublicationStatus | null;
     site_name?: string | null;
     status?: AssetPostSchemaStatus | null;
@@ -4463,6 +4960,7 @@ export type AssetSchemaTypedWritable = ({
 } & AssetPostSchemaWritable);
 
 export type AssetTranscriptionPropertiesSchemaWritable = {
+    engine_info?: TranscriptionEngineInfo | null;
     language?: string | null;
     speaker_labels?: {
         [key: string]: string;
@@ -4672,7 +5170,7 @@ export type CollectionsSchemaWritable = {
 export type CreateAssetVersionFromAssetSchemaWritable = {
     copy_previous_version_persons?: boolean | null;
     copy_previous_version_segments?: boolean | null;
-    include_segment_types?: Array<'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'TAG' | 'TRANSCRIPTION'> | null;
+    include_segment_types?: Array<'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'SEMANTIC_TRANSCRIPTION' | 'SHOT' | 'TAG' | 'TRANSCRIPTION'> | null;
     source_metadata_asset_id?: string | null;
 };
 
@@ -4680,7 +5178,7 @@ export type CreateAssetVersionFromVersionSchemaWritable = {
     copy_previous_version_persons?: boolean | null;
     copy_previous_version_segments?: boolean | null;
     exclude_format_ids?: Array<string> | null;
-    include_segment_types?: Array<'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'TAG' | 'TRANSCRIPTION'> | null;
+    include_segment_types?: Array<'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'SEMANTIC_TRANSCRIPTION' | 'SHOT' | 'TAG' | 'TRANSCRIPTION'> | null;
     source_metadata_asset_id?: string | null;
 };
 
@@ -4688,12 +5186,13 @@ export type CreateAssetVersionSchemaWritable = {
     copy_metadata?: boolean | null;
     copy_persons?: boolean | null;
     copy_segments?: boolean | null;
-    include_segment_types?: Array<'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'TAG' | 'TRANSCRIPTION'> | null;
+    include_segment_types?: Array<'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'SEMANTIC_TRANSCRIPTION' | 'SHOT' | 'TAG' | 'TRANSCRIPTION'> | null;
     source_version_id?: string | null;
 };
 
 export type CustomActionCreateSchemaWritable = {
     app_id?: string | null;
+    color?: string | null;
     context: 'ASSET' | 'ASSET_SUBCLIP' | 'BULK' | 'COLLECTION' | 'NONE' | 'PLAYLIST' | 'SAVED_SEARCH' | 'SHARED_ASSET' | 'SHARED_COLLECTION' | 'SHARED_PLAYLIST';
     disabled?: boolean | null;
     headers?: {
@@ -4711,6 +5210,7 @@ export type CustomActionCreateSchemaWritable = {
 
 export type CustomActionSchemaWritable = {
     app_id?: string | null;
+    color?: string | null;
     context: 'ASSET' | 'ASSET_SUBCLIP' | 'BULK' | 'COLLECTION' | 'NONE' | 'PLAYLIST' | 'SAVED_SEARCH' | 'SHARED_ASSET' | 'SHARED_COLLECTION' | 'SHARED_PLAYLIST';
     disabled?: boolean | null;
     headers?: {
@@ -4726,6 +5226,10 @@ export type CustomActionSchemaWritable = {
 };
 
 export type CustomActionsSchemaWritable = {
+    [key: string]: unknown;
+};
+
+export type DestinationItemsSchemaWritable = {
     [key: string]: unknown;
 };
 
@@ -4752,12 +5256,14 @@ export type EditAssetSegmentWritable = {
     segment_color?: string | null;
     segment_text?: string | null;
     segment_track?: string | null;
-    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'TAG' | 'TRANSCRIPTION';
+    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'SEMANTIC_TRANSCRIPTION' | 'SHOT' | 'TAG' | 'TRANSCRIPTION';
+    semantic_transcription?: SemanticTranscription | null;
     /**
      * ID of a share if the segment is created from a share
      */
     share_id?: string | null;
     share_user_email?: string | null;
+    shot?: Shot | null;
     status?: EditAssetSegmentStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
@@ -4790,12 +5296,14 @@ export type EditAssetSegmentSchemaWritable = {
     segment_color?: string | null;
     segment_text?: string | null;
     segment_track?: string | null;
-    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'TAG' | 'TRANSCRIPTION';
+    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'SEMANTIC_TRANSCRIPTION' | 'SHOT' | 'TAG' | 'TRANSCRIPTION';
+    semantic_transcription?: SemanticTranscription | null;
     /**
      * ID of a share if the segment is created from a share
      */
     share_id?: string | null;
     share_user_email?: string | null;
+    shot?: Shot | null;
     status?: EditAssetSegmentSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
@@ -4870,12 +5378,14 @@ export type EditSegmentForBulkWritable = {
     segment_color?: string | null;
     segment_text?: string | null;
     segment_track?: string | null;
-    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'TAG' | 'TRANSCRIPTION';
+    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'SEMANTIC_TRANSCRIPTION' | 'SHOT' | 'TAG' | 'TRANSCRIPTION';
+    semantic_transcription?: SemanticTranscription | null;
     /**
      * ID of a share if the segment is created from a share
      */
     share_id?: string | null;
     share_user_email?: string | null;
+    shot?: Shot | null;
     status?: EditSegmentForBulkStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
@@ -4913,12 +5423,14 @@ export type EditSegmentForBulkSchemaWritable = {
     segment_color?: string | null;
     segment_text?: string | null;
     segment_track?: string | null;
-    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'TAG' | 'TRANSCRIPTION';
+    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'SEMANTIC_TRANSCRIPTION' | 'SHOT' | 'TAG' | 'TRANSCRIPTION';
+    semantic_transcription?: SemanticTranscription | null;
     /**
      * ID of a share if the segment is created from a share
      */
     share_id?: string | null;
     share_user_email?: string | null;
+    shot?: Shot | null;
     status?: EditSegmentForBulkSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
@@ -4934,6 +5446,7 @@ export type EditSegmentSchemaWritable = {
     drawing?: DrawingSchema | null;
     external_id?: string | null;
     face_bounding_boxes?: Array<FaceBoundingBox> | null;
+    has_attachments?: boolean | null;
     /**
      * If set to true, the segment is only visible to internal iconik users
      */
@@ -4952,12 +5465,14 @@ export type EditSegmentSchemaWritable = {
     segment_color?: string | null;
     segment_text?: string | null;
     segment_track?: string | null;
-    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'TAG' | 'TRANSCRIPTION';
+    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'SEMANTIC_TRANSCRIPTION' | 'SHOT' | 'TAG' | 'TRANSCRIPTION';
+    semantic_transcription?: SemanticTranscription | null;
     /**
      * ID of a share if the segment is created from a share
      */
     share_id?: string | null;
     share_user_email?: string | null;
+    shot?: Shot | null;
     status?: EditSegmentSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
@@ -5099,6 +5614,34 @@ export type PlaylistsSchemaWritable = {
     [key: string]: unknown;
 };
 
+export type PortalBaseSchemaWritable = {
+    config?: PortalConfig | null;
+    description?: string | null;
+    name: string;
+    playlist_id?: string | null;
+    status?: PortalBaseSchemaStatus | null;
+};
+
+export type PortalCreateSchemaWritable = {
+    config?: PortalConfigSchema | null;
+    description?: string | null;
+    name: string;
+    playlist_id: string;
+    status?: PortalCreateSchemaStatus | null;
+};
+
+export type PortalSchemaWritable = {
+    config?: PortalConfigSchema | null;
+    description?: string | null;
+    name: string;
+    playlist_id?: string | null;
+    status?: PortalSchemaStatus | null;
+};
+
+export type PortalsSchemaWritable = {
+    [key: string]: unknown;
+};
+
 export type ProjectBaseSchemaWritable = {
     collection_id: string;
     name: string;
@@ -5135,6 +5678,10 @@ export type ProjectSchemaWritable = {
 };
 
 export type ProjectsSchemaWritable = {
+    [key: string]: unknown;
+};
+
+export type PublicationDraftSchemaWritable = {
     [key: string]: unknown;
 };
 
@@ -5203,12 +5750,14 @@ export type SegmentWritable = {
     segment_color?: string | null;
     segment_text?: string | null;
     segment_track?: string | null;
-    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'TAG' | 'TRANSCRIPTION';
+    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'SEMANTIC_TRANSCRIPTION' | 'SHOT' | 'TAG' | 'TRANSCRIPTION';
+    semantic_transcription?: SemanticTranscription | null;
     /**
      * ID of a share if the segment is created from a share
      */
     share_id?: string | null;
     share_user_email?: string | null;
+    shot?: Shot | null;
     status?: SegmentStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
@@ -5244,12 +5793,14 @@ export type SegmentBaseSchemaWritable = {
     segment_color?: string | null;
     segment_text?: string | null;
     segment_track?: string | null;
-    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'TAG' | 'TRANSCRIPTION';
+    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'SEMANTIC_TRANSCRIPTION' | 'SHOT' | 'TAG' | 'TRANSCRIPTION';
+    semantic_transcription?: SemanticTranscription | null;
     /**
      * ID of a share if the segment is created from a share
      */
     share_id?: string | null;
     share_user_email?: string | null;
+    shot?: Shot | null;
     status?: SegmentBaseSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
@@ -5285,12 +5836,14 @@ export type SegmentElasticSchemaWritable = {
     segment_color?: string | null;
     segment_text?: string | null;
     segment_track?: string | null;
-    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'TAG' | 'TRANSCRIPTION';
+    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'SEMANTIC_TRANSCRIPTION' | 'SHOT' | 'TAG' | 'TRANSCRIPTION';
+    semantic_transcription?: SemanticTranscription | null;
     /**
      * ID of a share if the segment is created from a share
      */
     share_id?: string | null;
     share_user_email?: string | null;
+    shot?: Shot | null;
     status?: SegmentElasticSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
@@ -5326,12 +5879,14 @@ export type SegmentSchemaWritable = {
     segment_color?: string | null;
     segment_text?: string | null;
     segment_track?: string | null;
-    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'TAG' | 'TRANSCRIPTION';
+    segment_type: 'COMMENT' | 'GENERIC' | 'MARKER' | 'PERSON' | 'QC' | 'SCENE' | 'SEMANTIC_TRANSCRIPTION' | 'SHOT' | 'TAG' | 'TRANSCRIPTION';
+    semantic_transcription?: SemanticTranscription | null;
     /**
      * ID of a share if the segment is created from a share
      */
     share_id?: string | null;
     share_user_email?: string | null;
+    shot?: Shot | null;
     status?: SegmentSchemaStatus | null;
     time_end_milliseconds?: number | null;
     time_start_milliseconds?: number | null;
@@ -7200,7 +7755,8 @@ export type GetAssetsByAssetIdSegmentsData = {
          */
         time_end_milliseconds__lte?: number;
         /**
-         * Filter segments by status
+         * Filter segments by status. AWAITED segments are hidden unless a status filter is given
+         *
          */
         status?: string;
         /**
@@ -7469,6 +8025,11 @@ export type GetAssetsByAssetIdSegmentsCsvData = {
          * Filter segments by segment_color
          */
         segment_color?: string;
+        /**
+         * Filter segments by status. AWAITED segments are hidden unless a status filter is given
+         *
+         */
+        status?: string;
     };
     url: '/v1/assets/{asset_id}/segments/csv/';
 };
@@ -7574,6 +8135,11 @@ export type GetAssetsByAssetIdSegmentsSrtData = {
          */
         segment_color?: string;
         /**
+         * Filter segments by status. AWAITED segments are hidden unless a status filter is given
+         *
+         */
+        status?: string;
+        /**
          * Limit the number of words per subtitle line
          */
         words_per_line?: number;
@@ -7643,6 +8209,11 @@ export type GetAssetsByAssetIdSegmentsTextData = {
          * Filter segments by segment_color
          */
         segment_color?: string;
+        /**
+         * Filter segments by status. AWAITED segments are hidden unless a status filter is given
+         *
+         */
+        status?: string;
     };
     url: '/v1/assets/{asset_id}/segments/text/';
 };
@@ -7709,6 +8280,11 @@ export type GetAssetsByAssetIdSegmentsVttData = {
          * Filter segments by segment_color
          */
         segment_color?: string;
+        /**
+         * Filter segments by status. AWAITED segments are hidden unless a status filter is given
+         *
+         */
+        status?: string;
         /**
          * Limit the number of words per subtitle line
          */
@@ -9266,7 +9842,7 @@ export type GetCollectionsByCollectionIdContentInfoError = GetCollectionsByColle
 
 export type GetCollectionsByCollectionIdContentInfoResponses = {
     /**
-     * Returns counts, total size, total duration, and optional grouping
+     * Returns counts, total size, total proxy size, total duration, and optional grouping
      */
     200: CollectionContentInfoSchema;
 };
@@ -11905,6 +12481,406 @@ export type PostPlaylistsByPlaylistIdReindexResponses = {
     201: unknown;
 };
 
+export type GetPortalsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * The number of items for each page
+         */
+        per_page?: number;
+        /**
+         * Which page number to fetch
+         */
+        page?: number;
+        /**
+         * If true passed then uses scroll pagination instead of default one
+         */
+        scroll?: boolean;
+        /**
+         * In order to get next batch of results using scroll pagination the scroll_id is required
+         */
+        scroll_id?: string;
+        /**
+         * A comma separated list of fieldnames with order. For example - title,asc;date_created,desc
+         */
+        sort?: string;
+        /**
+         * Filter by status
+         */
+        status?: string;
+        /**
+         * A comma separated list of portal IDs to filter by
+         */
+        ids?: string;
+        /**
+         * Free text search over the portal name, with wildcard (`*`) support
+         */
+        query?: string;
+    };
+    url: '/v1/portals/';
+};
+
+export type GetPortalsErrors = {
+    /**
+     * Bad request
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Requested page does not exist
+     */
+    404: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type GetPortalsError = GetPortalsErrors[keyof GetPortalsErrors];
+
+export type GetPortalsResponses = {
+    /**
+     * Returns a list of portals
+     */
+    200: PortalsSchema;
+};
+
+export type GetPortalsResponse = GetPortalsResponses[keyof GetPortalsResponses];
+
+export type PostPortalsData = {
+    /**
+     * body
+     */
+    body: PortalCreateSchemaWritable;
+    path?: never;
+    query?: never;
+    url: '/v1/portals/';
+};
+
+export type PostPortalsErrors = {
+    /**
+     * Bad request
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type PostPortalsError = PostPortalsErrors[keyof PostPortalsErrors];
+
+export type PostPortalsResponses = {
+    /**
+     * Returns a created portal
+     */
+    201: PortalSchema;
+};
+
+export type PostPortalsResponse = PostPortalsResponses[keyof PostPortalsResponses];
+
+export type DeletePortalsByPortalIdData = {
+    body?: never;
+    path: {
+        portal_id: string;
+    };
+    query?: never;
+    url: '/v1/portals/{portal_id}/';
+};
+
+export type DeletePortalsByPortalIdErrors = {
+    /**
+     * Bad request
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Portal does not exist
+     */
+    404: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type DeletePortalsByPortalIdError = DeletePortalsByPortalIdErrors[keyof DeletePortalsByPortalIdErrors];
+
+export type DeletePortalsByPortalIdResponses = {
+    /**
+     * Successfully deleted
+     */
+    204: void;
+};
+
+export type DeletePortalsByPortalIdResponse = DeletePortalsByPortalIdResponses[keyof DeletePortalsByPortalIdResponses];
+
+export type GetPortalsByPortalIdData = {
+    body?: never;
+    path: {
+        portal_id: string;
+    };
+    query?: never;
+    url: '/v1/portals/{portal_id}/';
+};
+
+export type GetPortalsByPortalIdErrors = {
+    /**
+     * Bad request
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type GetPortalsByPortalIdError = GetPortalsByPortalIdErrors[keyof GetPortalsByPortalIdErrors];
+
+export type GetPortalsByPortalIdResponses = {
+    /**
+     * Returns a portal
+     */
+    200: PortalSchema;
+};
+
+export type GetPortalsByPortalIdResponse = GetPortalsByPortalIdResponses[keyof GetPortalsByPortalIdResponses];
+
+export type PatchPortalsByPortalIdData = {
+    /**
+     * body
+     */
+    body: PortalSchemaWritable;
+    path: {
+        portal_id: string;
+    };
+    query?: never;
+    url: '/v1/portals/{portal_id}/';
+};
+
+export type PatchPortalsByPortalIdErrors = {
+    /**
+     * Bad request
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Portal does not exist
+     */
+    404: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type PatchPortalsByPortalIdError = PatchPortalsByPortalIdErrors[keyof PatchPortalsByPortalIdErrors];
+
+export type PatchPortalsByPortalIdResponses = {
+    /**
+     * Returns an updated portal
+     */
+    200: PortalSchema;
+};
+
+export type PatchPortalsByPortalIdResponse = PatchPortalsByPortalIdResponses[keyof PatchPortalsByPortalIdResponses];
+
+export type PutPortalsByPortalIdData = {
+    /**
+     * body
+     */
+    body: PortalSchemaWritable;
+    path: {
+        portal_id: string;
+    };
+    query?: never;
+    url: '/v1/portals/{portal_id}/';
+};
+
+export type PutPortalsByPortalIdErrors = {
+    /**
+     * Bad request
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Portal does not exist
+     */
+    404: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type PutPortalsByPortalIdError = PutPortalsByPortalIdErrors[keyof PutPortalsByPortalIdErrors];
+
+export type PutPortalsByPortalIdResponses = {
+    /**
+     * Returns an updated portal
+     */
+    200: PortalSchema;
+};
+
+export type PutPortalsByPortalIdResponse = PutPortalsByPortalIdResponses[keyof PutPortalsByPortalIdResponses];
+
+export type DeletePortalsByPortalIdLogoData = {
+    body?: never;
+    path: {
+        portal_id: string;
+    };
+    query?: never;
+    url: '/v1/portals/{portal_id}/logo/';
+};
+
+export type DeletePortalsByPortalIdLogoErrors = {
+    /**
+     * Bad request
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Portal does not exist
+     */
+    404: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type DeletePortalsByPortalIdLogoError = DeletePortalsByPortalIdLogoErrors[keyof DeletePortalsByPortalIdLogoErrors];
+
+export type DeletePortalsByPortalIdLogoResponses = {
+    /**
+     * Successfully deleted
+     */
+    204: void;
+};
+
+export type DeletePortalsByPortalIdLogoResponse = DeletePortalsByPortalIdLogoResponses[keyof DeletePortalsByPortalIdLogoResponses];
+
+export type PostPortalsByPortalIdLogoData = {
+    body: Blob | File;
+    path: {
+        portal_id: string;
+    };
+    query?: never;
+    url: '/v1/portals/{portal_id}/logo/';
+};
+
+export type PostPortalsByPortalIdLogoErrors = {
+    /**
+     * Bad request
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Portal does not exist
+     */
+    404: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type PostPortalsByPortalIdLogoError = PostPortalsByPortalIdLogoErrors[keyof PostPortalsByPortalIdLogoErrors];
+
+export type PostPortalsByPortalIdLogoResponses = {
+    /**
+     * Returns the portal with its logo URL
+     */
+    201: PortalSchema;
+};
+
+export type PostPortalsByPortalIdLogoResponse = PostPortalsByPortalIdLogoResponses[keyof PostPortalsByPortalIdLogoResponses];
+
+export type PostPortalsByPortalIdReindexData = {
+    /**
+     * body
+     */
+    body: ReindexPortalSchema;
+    path: {
+        portal_id: string;
+    };
+    query?: never;
+    url: '/v1/portals/{portal_id}/reindex/';
+};
+
+export type PostPortalsByPortalIdReindexErrors = {
+    /**
+     * Bad request
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Portal does not exist
+     */
+    404: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type PostPortalsByPortalIdReindexError = PostPortalsByPortalIdReindexErrors[keyof PostPortalsByPortalIdReindexErrors];
+
+export type PostPortalsByPortalIdReindexResponses = {
+    /**
+     * Without body
+     */
+    201: unknown;
+};
+
 export type GetProjectsData = {
     body?: never;
     path?: never;
@@ -12381,6 +13357,149 @@ export type PostProjectsByProjectIdReindexResponses = {
     201: unknown;
 };
 
+export type GetPublicationsDestinationsAccountsData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/v1/publications/destinations/accounts/';
+};
+
+export type GetPublicationsDestinationsAccountsErrors = {
+    /**
+     * Wildmoka settings are incomplete
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * User is not allowed to fetch destination accounts from Wildmoka
+     */
+    403: unknown;
+    /**
+     * Publishing is not configured
+     */
+    422: unknown;
+    /**
+     * Failed to reach Wildmoka
+     */
+    502: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type GetPublicationsDestinationsAccountsError = GetPublicationsDestinationsAccountsErrors[keyof GetPublicationsDestinationsAccountsErrors];
+
+export type GetPublicationsDestinationsAccountsResponses = {
+    /**
+     * Returns a list of destination accounts.
+     */
+    200: DestinationItemsSchema;
+};
+
+export type GetPublicationsDestinationsAccountsResponse = GetPublicationsDestinationsAccountsResponses[keyof GetPublicationsDestinationsAccountsResponses];
+
+export type GetPublicationsDestinationsPlatformsData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/v1/publications/destinations/platforms/';
+};
+
+export type GetPublicationsDestinationsPlatformsErrors = {
+    /**
+     * Wildmoka settings are incomplete
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * User is not allowed to fetch destination accounts from Wildmoka
+     */
+    403: unknown;
+    /**
+     * Publishing is not configured
+     */
+    422: unknown;
+    /**
+     * Failed to reach Wildmoka
+     */
+    502: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type GetPublicationsDestinationsPlatformsError = GetPublicationsDestinationsPlatformsErrors[keyof GetPublicationsDestinationsPlatformsErrors];
+
+export type GetPublicationsDestinationsPlatformsResponses = {
+    /**
+     * Returns a list of destination platforms.
+     */
+    200: DestinationItemsSchema;
+};
+
+export type GetPublicationsDestinationsPlatformsResponse = GetPublicationsDestinationsPlatformsResponses[keyof GetPublicationsDestinationsPlatformsResponses];
+
+export type GetPublicationsDraftsByAssetIdData = {
+    body?: never;
+    path: {
+        asset_id: string;
+    };
+    query?: never;
+    url: '/v1/publications/drafts/{asset_id}/';
+};
+
+export type GetPublicationsDraftsByAssetIdErrors = {
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * User is not allowed to fetch the draft from Wildmoka
+     */
+    403: unknown;
+    /**
+     * No draft exists for the asset
+     */
+    404: unknown;
+    /**
+     * Publishing is not configured
+     */
+    422: unknown;
+    /**
+     * Failed to reach Wildmoka
+     */
+    502: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type GetPublicationsDraftsByAssetIdError = GetPublicationsDraftsByAssetIdErrors[keyof GetPublicationsDraftsByAssetIdErrors];
+
+export type GetPublicationsDraftsByAssetIdResponses = {
+    /**
+     * Returns the iconik-native fields saved for the draft.
+     */
+    200: PublicationDraftSchema;
+};
+
+export type GetPublicationsDraftsByAssetIdResponse = GetPublicationsDraftsByAssetIdResponses[keyof GetPublicationsDraftsByAssetIdResponses];
+
 export type PostPublicationsJobsData = {
     /**
      * body
@@ -12400,6 +13519,10 @@ export type PostPublicationsJobsErrors = {
      * Token is invalid
      */
     401: unknown;
+    /**
+     * Forbidden
+     */
+    403: unknown;
     /**
      * Requested page does not exist
      */
@@ -12498,6 +13621,49 @@ export type GetPublicationsTokenResponses = {
 };
 
 export type GetPublicationsTokenResponse = GetPublicationsTokenResponses[keyof GetPublicationsTokenResponses];
+
+export type PostPublicationsByPublicationIdCancelData = {
+    body?: never;
+    path: {
+        publication_id: string;
+    };
+    query?: never;
+    url: '/v1/publications/{publication_id}/cancel/';
+};
+
+export type PostPublicationsByPublicationIdCancelErrors = {
+    /**
+     * Bad request
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Asset or publication does not exist
+     */
+    404: unknown;
+    /**
+     * Publishing is not configured
+     */
+    422: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type PostPublicationsByPublicationIdCancelError = PostPublicationsByPublicationIdCancelErrors[keyof PostPublicationsByPublicationIdCancelErrors];
+
+export type PostPublicationsByPublicationIdCancelResponses = {
+    /**
+     * Returns the outcome of the cancellation and the resulting status.
+     */
+    200: unknown;
+};
 
 export type PostReindexBulkData = {
     /**

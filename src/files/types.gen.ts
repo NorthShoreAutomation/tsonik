@@ -162,7 +162,7 @@ export type ArchiveAssetRequest = {
     delete_original?: boolean | null;
     destination_directory_path?: string | null;
     /**
-     * List of format names to transfer. If not specified, all formats will be transferred.
+     * List of format names to transfer. If not specified, ORIGINAL will be transferred.
      */
     formats?: Array<string> | null;
     /**
@@ -183,7 +183,7 @@ export type ArchiveAssetRequestSchema = {
     delete_original?: boolean | null;
     destination_directory_path?: string | null;
     /**
-     * List of format names to transfer. If not specified, all formats will be transferred.
+     * List of format names to transfer. If not specified, ORIGINAL will be transferred.
      */
     formats?: Array<string> | null;
     /**
@@ -204,7 +204,7 @@ export type ArchiveCollectionRequest = {
     delete_original?: boolean | null;
     destination_directory_path?: string | null;
     /**
-     * List of format names to transfer. If not specified, all formats will be transferred.
+     * List of format names to transfer. If not specified, ORIGINAL will be transferred.
      */
     formats?: Array<string> | null;
     /**
@@ -229,7 +229,7 @@ export type ArchiveCollectionRequestSchema = {
     delete_original?: boolean | null;
     destination_directory_path?: string | null;
     /**
-     * List of format names to transfer. If not specified, all formats will be transferred.
+     * List of format names to transfer. If not specified, ORIGINAL will be transferred.
      */
     formats?: Array<string> | null;
     /**
@@ -254,7 +254,7 @@ export type ArchiveSavedSearchRequest = {
     delete_original?: boolean | null;
     destination_directory_path?: string | null;
     /**
-     * List of format names to transfer. If not specified, all formats will be transferred.
+     * List of format names to transfer. If not specified, ORIGINAL will be transferred.
      */
     formats?: Array<string> | null;
     /**
@@ -271,7 +271,7 @@ export type ArchiveSavedSearchRequestSchema = {
     delete_original?: boolean | null;
     destination_directory_path?: string | null;
     /**
-     * List of format names to transfer. If not specified, all formats will be transferred.
+     * List of format names to transfer. If not specified, ORIGINAL will be transferred.
      */
     formats?: Array<string> | null;
     /**
@@ -342,6 +342,98 @@ export type AssetVersionKeyframesSchema = {
 
 export type AssetVersionsKeyframesSchema = {
     objects?: Array<AssetVersionKeyframesSchema> | null;
+};
+
+export type AttachmentBaseSchema = {
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    readonly filename?: string | null;
+    format?: string | null;
+    name?: string | null;
+    size?: number | null;
+    status?: AttachmentBaseSchemaStatus | null;
+    readonly url?: string | null;
+};
+
+export type AttachmentBaseSchemaStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
+
+export type AttachmentCreateSchema = {
+    asset_id?: string | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    readonly filename?: string | null;
+    format?: string | null;
+    readonly id?: string | null;
+    name?: string | null;
+    segment_id?: string | null;
+    size?: number | null;
+    status?: AttachmentCreateSchemaStatus | null;
+    storage_id?: string | null;
+    readonly storage_method?: string | null;
+    readonly upload_credentials?: {
+        [key: string]: unknown;
+    } | null;
+    readonly upload_headers?: {
+        [key: string]: unknown;
+    } | null;
+    readonly upload_method?: string | null;
+    readonly upload_url?: string | null;
+    readonly url?: string | null;
+};
+
+export type AttachmentCreateSchemaStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
+
+export type AttachmentSchema = {
+    asset_id?: string | null;
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    readonly filename?: string | null;
+    format?: string | null;
+    readonly id?: string | null;
+    name?: string | null;
+    segment_id?: string | null;
+    size?: number | null;
+    status?: AttachmentSchemaStatus | null;
+    storage_id?: string | null;
+    readonly storage_method?: string | null;
+    readonly upload_credentials?: {
+        [key: string]: unknown;
+    } | null;
+    readonly upload_headers?: {
+        [key: string]: unknown;
+    } | null;
+    readonly upload_method?: string | null;
+    readonly upload_url?: string | null;
+    readonly url?: string | null;
+};
+
+export type AttachmentSchemaStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
+
+export type AttachmentUpdateSchema = {
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    readonly filename?: string | null;
+    format?: string | null;
+    name?: string | null;
+    size?: number | null;
+    status?: AttachmentUpdateSchemaStatus | null;
+    storage_id?: string | null;
+    readonly url?: string | null;
+};
+
+export type AttachmentUpdateSchemaStatus = 'ARCHIVED' | 'AWAITED' | 'CLOSED' | 'DELETED' | 'FAILED' | 'GROWING' | 'MISSING' | 'OPEN' | 'REDISCOVERED';
+
+export type AttachmentsSchema = {
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    objects?: Array<AttachmentSchema> | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
 };
 
 export type AzureSettingsSchema = {
@@ -738,6 +830,9 @@ export type CollectionKeyframeCreateSchema = {
     readonly upload_credentials?: {
         [key: string]: unknown;
     } | null;
+    readonly upload_headers?: {
+        [key: string]: unknown;
+    } | null;
     readonly upload_method?: string | null;
     readonly upload_url?: string | null;
     readonly url?: string | null;
@@ -963,6 +1058,7 @@ export type EditReadyTranscoderSchema = {
     edit_proxy_upload_storage_path?: string | null;
     edit_proxy_width?: number | null;
     editready_preset?: string | null;
+    enable_multi_channel_audio?: boolean | null;
     exclude_patterns?: Array<string> | null;
     include_patterns?: Array<string> | null;
     local?: boolean | null;
@@ -1256,6 +1352,7 @@ export type FFmpegSettingsSchema = {
     overlay_url?: string | null;
     priority?: number | null;
     scaling_method?: FFmpegSettingsSchemaScalingMethod | null;
+    use_next_generation_transcoder?: boolean | null;
     width?: number | null;
 };
 
@@ -1321,6 +1418,9 @@ export type FileCreateSchema = {
         [key: string]: unknown;
     } | null;
     readonly upload_filename?: string | null;
+    readonly upload_headers?: {
+        [key: string]: unknown;
+    } | null;
     readonly upload_method?: string | null;
     readonly upload_url?: string | null;
     user_id?: string | null;
@@ -1439,6 +1539,9 @@ export type FileSchema = {
         [key: string]: unknown;
     } | null;
     readonly upload_filename?: string | null;
+    readonly upload_headers?: {
+        [key: string]: unknown;
+    } | null;
     readonly upload_method?: string | null;
     /**
      * On a file creation for Backblaze B2 storage in case when request to Backblaze failed, upload_url field will be empty. You can try getting upload_url again by requesting created file with `generate_signed_post_url` set to true.
@@ -1682,12 +1785,14 @@ export type FlicsTranscoderSchema = {
     edit_proxy_local_storage_path?: string | null;
     edit_proxy_upload_storage_id?: string | null;
     edit_proxy_upload_storage_path?: string | null;
+    enable_multi_channel_audio?: boolean | null;
     exclude_patterns?: Array<string> | null;
     host?: string | null;
     image_template_id?: string | null;
     include_patterns?: Array<string> | null;
     local?: boolean | null;
     max_concurrency?: number | null;
+    mc_video_template_id?: string | null;
     secret_key?: string | null;
     storage_id_path_mapping?: unknown;
     storage_ids_mapping?: unknown;
@@ -1947,7 +2052,7 @@ export type IconikStorageGatewayClusterReadSchema = {
     /**
      * Database connection URI
      */
-    db_connection_uri: string;
+    db_connection_uri?: string | null;
     description?: string | null;
     /**
      * Application toggle. If turned off ISG will enter idle state waiting to get enabled again.
@@ -1993,7 +2098,7 @@ export type IconikStorageGatewayClusterSchema = {
     /**
      * Database connection URI
      */
-    db_connection_uri: string;
+    db_connection_uri?: string | null;
     description?: string | null;
     /**
      * Application toggle. If turned off ISG will enter idle state waiting to get enabled again.
@@ -2301,6 +2406,9 @@ export type Keyframe = {
     readonly upload_credentials?: {
         [key: string]: unknown;
     } | null;
+    readonly upload_headers?: {
+        [key: string]: unknown;
+    } | null;
     readonly upload_method?: string | null;
     readonly upload_url?: string | null;
     readonly url?: string | null;
@@ -2348,6 +2456,9 @@ export type KeyframeCreateSchema = {
     readonly upload_credentials?: {
         [key: string]: unknown;
     } | null;
+    readonly upload_headers?: {
+        [key: string]: unknown;
+    } | null;
     readonly upload_method?: string | null;
     readonly upload_url?: string | null;
     readonly url?: string | null;
@@ -2376,6 +2487,9 @@ export type KeyframeSchema = {
     time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
     readonly upload_credentials?: {
+        [key: string]: unknown;
+    } | null;
+    readonly upload_headers?: {
         [key: string]: unknown;
     } | null;
     readonly upload_method?: string | null;
@@ -2432,6 +2546,61 @@ export type ListObjectsSchema = {
     readonly first_url?: string | null;
     readonly last_url?: string | null;
     readonly next_url?: string | null;
+    readonly page?: number | null;
+    readonly pages?: number | null;
+    readonly per_page?: number | null;
+    readonly prev_url?: string | null;
+    readonly scroll_id?: string | null;
+    readonly total?: number | null;
+};
+
+export type LogoCreateSchema = {
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    readonly filename?: string | null;
+    readonly id?: string | null;
+    name: string;
+    readonly storage_id?: string | null;
+    readonly storage_method?: string | null;
+    readonly system_domain_id?: string | null;
+    readonly upload_credentials?: {
+        [key: string]: unknown;
+    } | null;
+    readonly upload_headers?: {
+        [key: string]: unknown;
+    } | null;
+    readonly upload_method?: string | null;
+    readonly upload_url?: string | null;
+    readonly url?: string | null;
+    readonly user_id?: string | null;
+};
+
+export type LogoSchema = {
+    readonly date_created?: string | null;
+    readonly date_modified?: string | null;
+    readonly filename?: string | null;
+    readonly id?: string | null;
+    name: string;
+    readonly storage_id?: string | null;
+    readonly storage_method?: string | null;
+    readonly system_domain_id?: string | null;
+    readonly upload_credentials?: {
+        [key: string]: unknown;
+    } | null;
+    readonly upload_headers?: {
+        [key: string]: unknown;
+    } | null;
+    readonly upload_method?: string | null;
+    readonly upload_url?: string | null;
+    readonly url?: string | null;
+    readonly user_id?: string | null;
+};
+
+export type LogosSchema = {
+    readonly first_url?: string | null;
+    readonly last_url?: string | null;
+    readonly next_url?: string | null;
+    readonly objects?: Array<LogoSchema> | null;
     readonly page?: number | null;
     readonly pages?: number | null;
     readonly per_page?: number | null;
@@ -2545,6 +2714,9 @@ export type PlaylistKeyframeCreateSchema = {
     time_code?: TimeCodeType | null;
     type: 'KEYFRAME' | 'KEYFRAME_MAP' | 'POSTER';
     readonly upload_credentials?: {
+        [key: string]: unknown;
+    } | null;
+    readonly upload_headers?: {
         [key: string]: unknown;
     } | null;
     readonly upload_method?: string | null;
@@ -2677,6 +2849,9 @@ export type Proxy = {
     readonly upload_credentials?: {
         [key: string]: unknown;
     } | null;
+    readonly upload_headers?: {
+        [key: string]: unknown;
+    } | null;
     readonly upload_method?: string | null;
     readonly upload_url?: string | null;
     readonly url?: string | null;
@@ -2699,6 +2874,7 @@ export type ProxyBaseSchema = {
     is_multichannel?: boolean | null;
     readonly is_public?: boolean | null;
     name?: string | null;
+    proxy_container_id?: string | null;
     resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
@@ -2766,6 +2942,9 @@ export type ProxyCreateSchema = {
     storage_id?: string | null;
     readonly storage_method?: string | null;
     readonly upload_credentials?: {
+        [key: string]: unknown;
+    } | null;
+    readonly upload_headers?: {
         [key: string]: unknown;
     } | null;
     readonly upload_method?: string | null;
@@ -2844,6 +3023,9 @@ export type ProxySchema = {
     readonly upload_credentials?: {
         [key: string]: unknown;
     } | null;
+    readonly upload_headers?: {
+        [key: string]: unknown;
+    } | null;
     readonly upload_method?: string | null;
     readonly upload_url?: string | null;
     readonly url?: string | null;
@@ -2870,6 +3052,7 @@ export type ProxyUpdateSchema = {
     is_multichannel?: boolean | null;
     readonly is_public?: boolean | null;
     name?: string | null;
+    proxy_container_id?: string | null;
     resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
@@ -2949,7 +3132,7 @@ export type RestoreAssetToStorageRequest = {
     all_versions?: boolean | null;
     destination_directory_path?: string | null;
     /**
-     * List of format names to transfer. If not specified, all formats will be transferred.
+     * List of format names to transfer. If not specified, ORIGINAL will be transferred.
      */
     formats?: Array<string> | null;
     /**
@@ -2971,7 +3154,7 @@ export type RestoreAssetToStorageRequestSchema = {
     all_versions?: boolean | null;
     destination_directory_path?: string | null;
     /**
-     * List of format names to transfer. If not specified, all formats will be transferred.
+     * List of format names to transfer. If not specified, ORIGINAL will be transferred.
      */
     formats?: Array<string> | null;
     /**
@@ -2993,7 +3176,7 @@ export type RestoreCollectionToStorageRequest = {
     all_versions?: boolean | null;
     destination_directory_path?: string | null;
     /**
-     * List of format names to transfer. If not specified, all formats will be transferred.
+     * List of format names to transfer. If not specified, ORIGINAL will be transferred.
      */
     formats?: Array<string> | null;
     /**
@@ -3023,7 +3206,7 @@ export type RestoreCollectionToStorageRequestSchema = {
     all_versions?: boolean | null;
     destination_directory_path?: string | null;
     /**
-     * List of format names to transfer. If not specified, all formats will be transferred.
+     * List of format names to transfer. If not specified, ORIGINAL will be transferred.
      */
     formats?: Array<string> | null;
     /**
@@ -3053,7 +3236,7 @@ export type RestoreSavedSearchToStorageRequest = {
     all_versions?: boolean | null;
     destination_directory_path?: string | null;
     /**
-     * List of format names to transfer. If not specified, all formats will be transferred.
+     * List of format names to transfer. If not specified, ORIGINAL will be transferred.
      */
     formats?: Array<string> | null;
     /**
@@ -3075,7 +3258,7 @@ export type RestoreSavedSearchToStorageRequestSchema = {
     all_versions?: boolean | null;
     destination_directory_path?: string | null;
     /**
-     * List of format names to transfer. If not specified, all formats will be transferred.
+     * List of format names to transfer. If not specified, ORIGINAL will be transferred.
      */
     formats?: Array<string> | null;
     /**
@@ -3133,6 +3316,28 @@ export type S3SettingsSchema = {
     transcode_ignore?: Array<string> | null;
     use_acceleration?: boolean | null;
     write?: boolean | null;
+};
+
+export type SegmentAttachmentsCopyPairSchema = {
+    destination_segment_id: string;
+    source_segment_id: string;
+};
+
+export type SegmentAttachmentsCopyRequestSchema = {
+    segments: Array<SegmentAttachmentsCopyPairSchema>;
+};
+
+export type SegmentAttachmentsCopyResponseSchema = {
+    destination_segment_ids_with_attachments?: Array<string> | null;
+};
+
+export type SegmentAttachmentsMoveRequestSchema = {
+    destination_asset_id: string;
+    segment_ids: Array<string>;
+};
+
+export type SegmentAttachmentsMoveResponseSchema = {
+    segment_ids?: Array<string> | null;
 };
 
 export type SequenceUpdateSchema = {
@@ -3522,6 +3727,9 @@ export type TemporaryFileCreateSchema = {
         [key: string]: unknown;
     } | null;
     readonly upload_filename?: string | null;
+    readonly upload_headers?: {
+        [key: string]: unknown;
+    } | null;
     readonly upload_method?: string | null;
     readonly upload_url?: string | null;
     user_id?: string | null;
@@ -3719,7 +3927,7 @@ export type TransferAssetToStorageRequest = {
     delete_original?: boolean | null;
     destination_directory_path?: string | null;
     /**
-     * List of format names to transfer. If not specified, all formats will be transferred.
+     * List of format names to transfer. If not specified, ORIGINAL will be transferred.
      */
     formats?: Array<string> | null;
     /**
@@ -3740,7 +3948,7 @@ export type TransferAssetToStorageRequestSchema = {
     delete_original?: boolean | null;
     destination_directory_path?: string | null;
     /**
-     * List of format names to transfer. If not specified, all formats will be transferred.
+     * List of format names to transfer. If not specified, ORIGINAL will be transferred.
      */
     formats?: Array<string> | null;
     /**
@@ -3812,7 +4020,7 @@ export type TransferCollectionToStorageRequest = {
     delete_original?: boolean | null;
     destination_directory_path?: string | null;
     /**
-     * List of format names to transfer. If not specified, all formats will be transferred.
+     * List of format names to transfer. If not specified, ORIGINAL will be transferred.
      */
     formats?: Array<string> | null;
     /**
@@ -3837,7 +4045,7 @@ export type TransferCollectionToStorageRequestSchema = {
     delete_original?: boolean | null;
     destination_directory_path?: string | null;
     /**
-     * List of format names to transfer. If not specified, all formats will be transferred.
+     * List of format names to transfer. If not specified, ORIGINAL will be transferred.
      */
     formats?: Array<string> | null;
     /**
@@ -3930,7 +4138,7 @@ export type TransferSavedSearchToStorageRequest = {
     delete_original?: boolean | null;
     destination_directory_path?: string | null;
     /**
-     * List of format names to transfer. If not specified, all formats will be transferred.
+     * List of format names to transfer. If not specified, ORIGINAL will be transferred.
      */
     formats?: Array<string> | null;
     /**
@@ -3947,7 +4155,7 @@ export type TransferSavedSearchToStorageRequestSchema = {
     delete_original?: boolean | null;
     destination_directory_path?: string | null;
     /**
-     * List of format names to transfer. If not specified, all formats will be transferred.
+     * List of format names to transfer. If not specified, ORIGINAL will be transferred.
      */
     formats?: Array<string> | null;
     /**
@@ -4256,6 +4464,47 @@ export type AssetVersionKeyframesSchemaWritable = {
 
 export type AssetVersionsKeyframesSchemaWritable = {
     objects?: Array<AssetVersionKeyframesSchemaWritable> | null;
+};
+
+export type AttachmentBaseSchemaWritable = {
+    format?: string | null;
+    name?: string | null;
+    size?: number | null;
+    status?: AttachmentBaseSchemaStatus | null;
+};
+
+export type AttachmentCreateSchemaWritable = {
+    asset_id?: string | null;
+    content_type?: string | null;
+    format?: string | null;
+    name?: string | null;
+    segment_id?: string | null;
+    size?: number | null;
+    status?: AttachmentCreateSchemaStatus | null;
+    storage_id?: string | null;
+};
+
+export type AttachmentSchemaWritable = {
+    asset_id?: string | null;
+    format?: string | null;
+    name?: string | null;
+    segment_id?: string | null;
+    size?: number | null;
+    status?: AttachmentSchemaStatus | null;
+    storage_id?: string | null;
+};
+
+export type AttachmentUpdateSchemaWritable = {
+    content_type?: string | null;
+    format?: string | null;
+    name?: string | null;
+    size?: number | null;
+    status?: AttachmentUpdateSchemaStatus | null;
+    storage_id?: string | null;
+};
+
+export type AttachmentsSchemaWritable = {
+    objects?: Array<AttachmentSchemaWritable> | null;
 };
 
 export type CollectionKeyframeCreateSchemaWritable = {
@@ -4727,7 +4976,7 @@ export type IconikStorageGatewayClusterReadSchemaWritable = {
     /**
      * Database connection URI
      */
-    db_connection_uri: string;
+    db_connection_uri?: string | null;
     description?: string | null;
     /**
      * Application toggle. If turned off ISG will enter idle state waiting to get enabled again.
@@ -4750,7 +4999,7 @@ export type IconikStorageGatewayClusterSchemaWritable = {
     /**
      * Database connection URI
      */
-    db_connection_uri: string;
+    db_connection_uri?: string | null;
     description?: string | null;
     /**
      * Application toggle. If turned off ISG will enter idle state waiting to get enabled again.
@@ -4994,6 +5243,19 @@ export type KeyframesSchemaWritable = {
     objects?: Array<KeyframeSchemaWritable> | null;
 };
 
+export type LogoCreateSchemaWritable = {
+    content_type?: string | null;
+    name: string;
+};
+
+export type LogoSchemaWritable = {
+    name: string;
+};
+
+export type LogosSchemaWritable = {
+    [key: string]: unknown;
+};
+
 export type MultiPartS3UrlPartSchemaWritable = {
     /**
      * base64-encoded md5 digest
@@ -5097,6 +5359,7 @@ export type ProxyBaseSchemaWritable = {
     is_drop_frame?: boolean | null;
     is_multichannel?: boolean | null;
     name?: string | null;
+    proxy_container_id?: string | null;
     resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
@@ -5203,6 +5466,7 @@ export type ProxyUpdateSchemaWritable = {
     is_drop_frame?: boolean | null;
     is_multichannel?: boolean | null;
     name?: string | null;
+    proxy_container_id?: string | null;
     resolution?: ResolutionType | null;
     rotation?: number | null;
     size?: number | null;
@@ -10061,6 +10325,368 @@ export type PostAssetsByAssetIdProxiesByProxyIdPublicResponses = {
 
 export type PostAssetsByAssetIdProxiesByProxyIdPublicResponse = PostAssetsByAssetIdProxiesByProxyIdPublicResponses[keyof PostAssetsByAssetIdProxiesByProxyIdPublicResponses];
 
+export type DeleteAssetsByAssetIdSegmentsBySegmentIdAttachmentsData = {
+    body?: never;
+    path: {
+        asset_id: string;
+        segment_id: string;
+    };
+    query?: {
+        /**
+         * Set to false to not have the segment's has_attachments updated, or
+         * the segment reindexed, afterwards, e.g. when the segment itself has
+         * already been deleted
+         *
+         */
+        reindex?: boolean;
+    };
+    url: '/v1/assets/{asset_id}/segments/{segment_id}/attachments/';
+};
+
+export type DeleteAssetsByAssetIdSegmentsBySegmentIdAttachmentsErrors = {
+    /**
+     * Bad request
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Not allowed to change another user's comment
+     */
+    403: unknown;
+    /**
+     * Segment doesn't exist for this asset, or is not a comment
+     */
+    404: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type DeleteAssetsByAssetIdSegmentsBySegmentIdAttachmentsError = DeleteAssetsByAssetIdSegmentsBySegmentIdAttachmentsErrors[keyof DeleteAssetsByAssetIdSegmentsBySegmentIdAttachmentsErrors];
+
+export type DeleteAssetsByAssetIdSegmentsBySegmentIdAttachmentsResponses = {
+    /**
+     * Without body
+     */
+    204: void;
+};
+
+export type DeleteAssetsByAssetIdSegmentsBySegmentIdAttachmentsResponse = DeleteAssetsByAssetIdSegmentsBySegmentIdAttachmentsResponses[keyof DeleteAssetsByAssetIdSegmentsBySegmentIdAttachmentsResponses];
+
+export type GetAssetsByAssetIdSegmentsBySegmentIdAttachmentsData = {
+    body?: never;
+    path: {
+        asset_id: string;
+        segment_id: string;
+    };
+    query?: {
+        /**
+         * The number of items for each page
+         */
+        per_page?: number;
+        /**
+         * Set to false if you don't need a URL, will speed things up
+         */
+        generate_signed_url?: boolean;
+        /**
+         * Set to attachment to force a download instead of inline display
+         */
+        content_disposition?: string;
+        /**
+         * ID of a last attachment on previous page
+         */
+        last_id?: string;
+    };
+    url: '/v1/assets/{asset_id}/segments/{segment_id}/attachments/';
+};
+
+export type GetAssetsByAssetIdSegmentsBySegmentIdAttachmentsErrors = {
+    /**
+     * Bad request
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * No such segment on this asset, not a comment
+     */
+    404: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type GetAssetsByAssetIdSegmentsBySegmentIdAttachmentsError = GetAssetsByAssetIdSegmentsBySegmentIdAttachmentsErrors[keyof GetAssetsByAssetIdSegmentsBySegmentIdAttachmentsErrors];
+
+export type GetAssetsByAssetIdSegmentsBySegmentIdAttachmentsResponses = {
+    /**
+     * Returns all attachments associated with this segment
+     */
+    200: AttachmentsSchema;
+};
+
+export type GetAssetsByAssetIdSegmentsBySegmentIdAttachmentsResponse = GetAssetsByAssetIdSegmentsBySegmentIdAttachmentsResponses[keyof GetAssetsByAssetIdSegmentsBySegmentIdAttachmentsResponses];
+
+export type PostAssetsByAssetIdSegmentsBySegmentIdAttachmentsData = {
+    /**
+     * body
+     */
+    body: AttachmentCreateSchemaWritable;
+    path: {
+        asset_id: string;
+        segment_id: string;
+    };
+    query?: {
+        /**
+         * Set to True to get a google resumable upload link
+         */
+        use_google_resumable_upload?: boolean;
+    };
+    url: '/v1/assets/{asset_id}/segments/{segment_id}/attachments/';
+};
+
+export type PostAssetsByAssetIdSegmentsBySegmentIdAttachmentsErrors = {
+    /**
+     * Bad request, or the segment is not a comment
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Not allowed to change another user's comment
+     */
+    403: unknown;
+    /**
+     * Segment doesn't exist for this asset
+     */
+    404: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type PostAssetsByAssetIdSegmentsBySegmentIdAttachmentsError = PostAssetsByAssetIdSegmentsBySegmentIdAttachmentsErrors[keyof PostAssetsByAssetIdSegmentsBySegmentIdAttachmentsErrors];
+
+export type PostAssetsByAssetIdSegmentsBySegmentIdAttachmentsResponses = {
+    /**
+     * Returns the attachment that was created for this segment
+     */
+    201: AttachmentCreateSchema;
+};
+
+export type PostAssetsByAssetIdSegmentsBySegmentIdAttachmentsResponse = PostAssetsByAssetIdSegmentsBySegmentIdAttachmentsResponses[keyof PostAssetsByAssetIdSegmentsBySegmentIdAttachmentsResponses];
+
+export type DeleteAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdData = {
+    body?: never;
+    path: {
+        asset_id: string;
+        segment_id: string;
+        attachment_id: string;
+    };
+    query?: never;
+    url: '/v1/assets/{asset_id}/segments/{segment_id}/attachments/{attachment_id}/';
+};
+
+export type DeleteAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdErrors = {
+    /**
+     * Bad request
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Not allowed to change another user's comment
+     */
+    403: unknown;
+    /**
+     * Attachment for this segment doesn't exist, or the segment is not a comment
+     */
+    404: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type DeleteAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdError = DeleteAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdErrors[keyof DeleteAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdErrors];
+
+export type DeleteAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdResponses = {
+    /**
+     * Without body
+     */
+    204: void;
+};
+
+export type DeleteAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdResponse = DeleteAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdResponses[keyof DeleteAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdResponses];
+
+export type GetAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdData = {
+    body?: never;
+    path: {
+        asset_id: string;
+        segment_id: string;
+        attachment_id: string;
+    };
+    query?: {
+        /**
+         * Set to attachment if you do not want a download link
+         */
+        content_disposition?: string;
+        /**
+         * Content type to add to the pre-signed upload url
+         */
+        content_type?: string;
+    };
+    url: '/v1/assets/{asset_id}/segments/{segment_id}/attachments/{attachment_id}/';
+};
+
+export type GetAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdErrors = {
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * No such attachment, segment is not a comment
+     */
+    404: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type GetAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdError = GetAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdErrors[keyof GetAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdErrors];
+
+export type GetAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdResponses = {
+    /**
+     * Returns the attachment
+     */
+    200: AttachmentSchema;
+};
+
+export type GetAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdResponse = GetAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdResponses[keyof GetAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdResponses];
+
+export type PatchAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdData = {
+    /**
+     * body
+     */
+    body: AttachmentUpdateSchemaWritable;
+    path: {
+        asset_id: string;
+        segment_id: string;
+        attachment_id: string;
+    };
+    query?: never;
+    url: '/v1/assets/{asset_id}/segments/{segment_id}/attachments/{attachment_id}/';
+};
+
+export type PatchAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdErrors = {
+    /**
+     * Bad request
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Not allowed to change another user's comment
+     */
+    403: unknown;
+    /**
+     * Attachment for this segment doesn't exist, or the segment is not a comment
+     */
+    404: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type PatchAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdError = PatchAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdErrors[keyof PatchAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdErrors];
+
+export type PatchAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdResponses = {
+    /**
+     * Returns the attachment that was updated
+     */
+    200: AttachmentSchema;
+};
+
+export type PatchAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdResponse = PatchAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdResponses[keyof PatchAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdResponses];
+
+export type PutAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdData = {
+    /**
+     * body
+     */
+    body: AttachmentUpdateSchemaWritable;
+    path: {
+        asset_id: string;
+        segment_id: string;
+        attachment_id: string;
+    };
+    query?: never;
+    url: '/v1/assets/{asset_id}/segments/{segment_id}/attachments/{attachment_id}/';
+};
+
+export type PutAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdErrors = {
+    /**
+     * Bad request
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Not allowed to change another user's comment
+     */
+    403: unknown;
+    /**
+     * Attachment for this segment doesn't exist, or the segment is not a comment
+     */
+    404: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type PutAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdError = PutAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdErrors[keyof PutAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdErrors];
+
+export type PutAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdResponses = {
+    /**
+     * Returns the attachment that was updated
+     */
+    200: AttachmentSchema;
+};
+
+export type PutAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdResponse = PutAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdResponses[keyof PutAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdResponses];
+
 export type GetAssetsByAssetIdSubtitlesData = {
     body?: never;
     path: {
@@ -11735,7 +12361,7 @@ export type GetAssetsByAssetIdWatermarkMatchesData = {
         proxy_id?: string;
         version_id?: string;
     };
-    url: '/v1/assets/{asset_id}/watermark-matches/';
+    url: '/v1/assets/{asset_id}/watermark_matches/';
 };
 
 export type GetAssetsByAssetIdWatermarkMatchesErrors = {
@@ -13434,6 +14060,206 @@ export type PostFormatsByFormatNameRestoreBulkResponses = {
      */
     202: unknown;
 };
+
+export type GetLogosData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * The number of items for each page
+         */
+        per_page?: number;
+        /**
+         * Set to false if you don't need a URL, will speed things up
+         */
+        generate_signed_url?: boolean;
+        /**
+         * ID of a last logo on previous page
+         */
+        last_id?: string;
+    };
+    url: '/v1/logos/';
+};
+
+export type GetLogosErrors = {
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type GetLogosError = GetLogosErrors[keyof GetLogosErrors];
+
+export type GetLogosResponses = {
+    /**
+     * Returns a list of logos
+     */
+    200: LogosSchema;
+};
+
+export type GetLogosResponse = GetLogosResponses[keyof GetLogosResponses];
+
+export type PostLogosData = {
+    /**
+     * body
+     */
+    body: LogoCreateSchemaWritable;
+    path?: never;
+    query?: never;
+    url: '/v1/logos/';
+};
+
+export type PostLogosErrors = {
+    /**
+     * Bad request
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type PostLogosError = PostLogosErrors[keyof PostLogosErrors];
+
+export type PostLogosResponses = {
+    /**
+     * Returns the created logo with a pre-signed upload URL
+     */
+    201: LogoCreateSchema;
+};
+
+export type PostLogosResponse = PostLogosResponses[keyof PostLogosResponses];
+
+export type DeleteLogosByLogoIdData = {
+    body?: never;
+    path: {
+        logo_id: string;
+    };
+    query?: never;
+    url: '/v1/logos/{logo_id}/';
+};
+
+export type DeleteLogosByLogoIdErrors = {
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Logo doesn't exist
+     */
+    404: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type DeleteLogosByLogoIdError = DeleteLogosByLogoIdErrors[keyof DeleteLogosByLogoIdErrors];
+
+export type DeleteLogosByLogoIdResponses = {
+    /**
+     * Without body
+     */
+    204: void;
+};
+
+export type DeleteLogosByLogoIdResponse = DeleteLogosByLogoIdResponses[keyof DeleteLogosByLogoIdResponses];
+
+export type GetLogosByLogoIdData = {
+    body?: never;
+    path: {
+        logo_id: string;
+    };
+    query?: never;
+    url: '/v1/logos/{logo_id}/';
+};
+
+export type GetLogosByLogoIdErrors = {
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Logo doesn't exist
+     */
+    404: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type GetLogosByLogoIdError = GetLogosByLogoIdErrors[keyof GetLogosByLogoIdErrors];
+
+export type GetLogosByLogoIdResponses = {
+    /**
+     * Returns a logo
+     */
+    200: LogoSchema;
+};
+
+export type GetLogosByLogoIdResponse = GetLogosByLogoIdResponses[keyof GetLogosByLogoIdResponses];
+
+export type PatchLogosByLogoIdData = {
+    /**
+     * body
+     */
+    body: LogoSchemaWritable;
+    path: {
+        logo_id: string;
+    };
+    query?: never;
+    url: '/v1/logos/{logo_id}/';
+};
+
+export type PatchLogosByLogoIdErrors = {
+    /**
+     * Bad request
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Logo doesn't exist
+     */
+    404: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type PatchLogosByLogoIdError = PatchLogosByLogoIdErrors[keyof PatchLogosByLogoIdErrors];
+
+export type PatchLogosByLogoIdResponses = {
+    /**
+     * Returns the updated logo
+     */
+    200: LogoSchema;
+};
+
+export type PatchLogosByLogoIdResponse = PatchLogosByLogoIdResponses[keyof PatchLogosByLogoIdResponses];
 
 export type GetPlaylistsByPlaylistIdKeyframesData = {
     body?: never;
