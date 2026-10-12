@@ -112,15 +112,35 @@ export type BulkSavedSearchReindexSchema = {
     search_ids: Array<string>;
 };
 
+/**
+ * Result of testing one configured backend against its remote provider.
+ *
+ * ``supported`` is ``False`` when the plugin implements no connection check —
+ * the config may still be perfectly valid, there is just nothing to probe.
+ */
+export type ConnectionTestSchema = {
+    message?: string | null;
+    ok: boolean;
+    supported: boolean;
+};
+
 export type CriteriaFilter = {
     filters?: Array<CriteriaFilter> | null;
     operator: string;
+    /**
+     * Nested field path. Required for the `NESTED` operator.
+     */
+    path?: string | null;
     terms?: Array<CriteriaTerm> | null;
 };
 
 export type CriteriaFilterSchema = {
     filters?: Array<CriteriaFilterSchema> | null;
     operator: string;
+    /**
+     * Nested field path. Required for the `NESTED` operator.
+     */
+    path?: string | null;
     terms?: Array<CriteriaTerm> | null;
 };
 
@@ -211,16 +231,50 @@ export type DiscoveryViewSettingsSchema = {
 };
 
 /**
- * FacetFilter
+ * Common iconik error envelope.
+ *
+ * ``errors`` is either a flat list of messages or a mapping of field name to
+ * its list of messages, matching the shapes returned across the v2 endpoints.
  */
+export type ErrorResponse = {
+    errors?: Array<string> | {
+        [key: string]: Array<string>;
+    } | null;
+};
+
+/**
+ * One reason a hit is in the list, from one source.
+ *
+ * A hit carries a list of these. `field` is the backend's own name for where
+ * this came from (`transcription_text.analyzed`); `location` is the same
+ * thing in the words a person reads (`transcript`). `text` carries the
+ * highlight markers `[[mark]]` / `[[/mark]]` around the matched terms.
+ *
+ * An empty list means nothing matched textually — the filters alone selected
+ * the hit. `match.quality` says so as a value you can branch on.
+ */
+export type Evidence = {
+    field?: string | null;
+    kind?: EvidenceKind | null;
+    location?: string | null;
+    /**
+     * Which backend gave this account, as its internal key.
+     */
+    source?: string | null;
+    /**
+     * That backend's display name ("iconik", "TwelveLabs").
+     */
+    source_label?: string | null;
+    text?: string | null;
+};
+
+/**
+ * `text` — an excerpt of a field the query matched, the only kind that can point at where in a document the match landed. `clause` — a named structured clause matched ("exact file name"); there is no excerpt, only the name of what matched, in `location`. `rationale` — a backend's own account of why it returned the hit (a retrieved passage, a clip transcription), tied to no field of ours and carrying no markers.
+ */
+export type EvidenceKind = 'clause' | 'rationale' | 'text';
+
 export type FacetFilter = {
-    /**
-     * Name
-     */
     name: string;
-    /**
-     * Value In
-     */
     value_in?: Array<string> | null;
 };
 
@@ -230,13 +284,74 @@ export type FacetFilterSchema = {
 };
 
 /**
- * HTTPValidationError
+ * Whether a filter may be loosened during zero-hit recovery.
  */
+export type FilterDisposition = 'mandatory' | 'relaxable';
+
+export type FilterModifier = 'exclude_all_of' | 'exclude_any_of' | 'include_all_of' | 'include_any_of';
+
+/**
+ * What a reported filter did to the results: excluded (``FILTER``) or only
+ * ranked (``SCORING``).
+ *
+ * Deliberately not :class:`Tier`: a tier is what the compiler was free to do,
+ * this is what the answering round actually did.
+ */
+export type FilterRole = 'filter' | 'scoring';
+
 export type HttpValidationError = {
-    /**
-     * Detail
-     */
     detail?: Array<ValidationError> | null;
+};
+
+/**
+ * Exact keyword / metadata constraint.
+ *
+ * Ops: ``eq`` (scalar), ``in`` (ANY of a list), ``all`` (EVERY value of a
+ * list must be present -- multivalued fields), ``range`` (bounds),
+ * ``exists`` (field presence; ``value`` is ignored and normalized to ``True``)
+ * and ``any_of`` (see below). ``negate`` inverts whichever op is set ("not
+ * archived", "not in July", "has no approval status"), composing with every op
+ * instead of doubling the op vocabulary.
+ *
+ * ``any_of`` is the *disjunctive* op: ``value`` is a list of branches (each a
+ * scalar / list / :class:`RangeBound`) on the **same field**, of which at least
+ * one must match -- the one way to state a mandatory "A or B" that plain
+ * clauses cannot, since those all AND together (two ranges on one field would
+ * contradict). Its canonical use is an OR of date windows ("created this month
+ * or three months ago"). Negated, De Morgan applies: "in none of the branches".
+ * Cross-field OR is explicitly out of scope: it would explode both pushdown and
+ * gate validation, and a disjunction across fields is better expressed as a
+ * ``try`` probe.
+ *
+ * The Understanding compiler's ``_keyword_predicate`` is the single place
+ * that builds these; each backend adapter folds only the ops it declares
+ * support for (``FieldCapability.supported_ops``), so a simple plugin never
+ * sees a shape it cannot express -- mandatory enforcement of the rest is the
+ * authority gate's job.
+ */
+export type KeywordPredicate = {
+    kind?: string | null;
+    negate?: boolean | null;
+    op: 'all' | 'any_of' | 'eq' | 'exists' | 'in' | 'range';
+    value: string | number | number | boolean | RangeBound | Array<RangeBound | Array<string | number | number | boolean> | string | number | number | boolean>;
+};
+
+/**
+ * One installed plugin kind and the JSON schema of its options.
+ *
+ * ``options_schema`` is the pydantic JSON schema of the plugin's options
+ * model — secret fields carry ``format: password`` / ``writeOnly: true``,
+ * which is exactly what an onboarding UI needs to render them.
+ */
+export type KindDescriptorSchema = {
+    kind: string;
+    options_schema: {
+        [key: string]: unknown;
+    };
+};
+
+export type KindsListSchema = {
+    objects: Array<KindDescriptorSchema>;
 };
 
 export type ListObjectsSchema = {
@@ -251,6 +366,41 @@ export type ListObjectsSchema = {
     readonly total?: number | null;
 };
 
+/**
+ * How a hit was reached — a mechanical fact, not a relevance score.
+ */
+export type MatchAssessment = {
+    basis?: MatchAssessmentBasis | null;
+    quality: 'approximate' | 'exact' | 'filters_only' | 'related';
+    round_index?: number | null;
+};
+
+export type MatchAssessmentBasis = 'judge' | 'reranker' | 'retrieval';
+
+/**
+ * The *source perceptual signal* a field carries.
+ *
+ * A field is characterised by the pair ``(RetrievalKind, Modality)``. Modality
+ * is *orthogonal* to :class:`RetrievalKind` (how you query): any modality may
+ * be queried by any retrieval kind — e.g. LEXICAL search over the SPOKEN
+ * transcript, or SEMANTIC search over VISUAL frames.
+ *
+ * Modality is optional/nullable. ``None`` means descriptive data that is *not*
+ * perceived in any media — title, description, tags and other structured
+ * metadata. There is deliberately no ``METADATA`` member: the absence of a
+ * modality expresses it.
+ *
+ * Like :class:`RetrievalKind`, shared vocabulary between capability
+ * declarations and result-list contexts; re-exported by
+ * ``backends.capabilities``.
+ */
+export type Modality = 'audio' | 'document' | 'spoken' | 'visual';
+
+export type MultiSelectFilterGroup = {
+    items: Array<string>;
+    modifier: FilterModifier;
+};
+
 export type MultiSelectFilterGroupSchema = {
     readonly items?: Array<string> | null;
     modifier?: MultiSelectFilterGroupSchemaModifier | null;
@@ -259,8 +409,236 @@ export type MultiSelectFilterGroupSchema = {
 export type MultiSelectFilterGroupSchemaModifier = 'exclude_all_of' | 'exclude_any_of' | 'include_all_of' | 'include_any_of';
 
 /**
- * NltfContext
+ * A natural-search hit: the regular search document plus its ranking story.
+ *
+ * Identical to what ``/v2/search/`` returns for the same object — same
+ * post-processing, same signed URLs — so a client renders both result sets
+ * with one code path.
  */
+export type NaturalSearchDocument = {
+    date_created?: string | null;
+    date_modified?: string | null;
+    description?: string | null;
+    /**
+     * Why this hit matched: every account, from every source that found it, each naming its own `source`. Empty when nothing matched textually and the filters alone selected the hit — see `match`.
+     */
+    evidence?: Array<Evidence> | null;
+    id?: string | null;
+    /**
+     * How this hit was retrieved, not how relevant it is: `quality` is `exact` when the query as typed matched, `related` when the query asked for what a result shows and it was matched by stand-in words, `approximate` when only a recovery round matched (fuzzed terms, a broadened phrase), and `filters_only` when no text matched and the filters alone selected it. `basis` names the evidence behind that verdict — `retrieval` today.
+     */
+    match?: MatchAssessment | null;
+    metadata?: {
+        [key: string]: unknown;
+    } | null;
+    object_type: string;
+    score?: number | null;
+    /**
+     * Matched moments within this hit, best first. Empty for a hit with no sub-structure, and always empty when `nested_results` is false.
+     */
+    segments?: Array<NaturalSearchSegment> | null;
+    title: string;
+};
+
+export type NaturalSearchImage = {
+    asset_id: string;
+    similarity?: NaturalSearchImageSimilarity | null;
+};
+
+/**
+ * How the reference image is matched: `visual` or `semantic`.
+ */
+export type NaturalSearchImageSimilarity = 'semantic' | 'visual';
+
+/**
+ * A matched moment standing as a result of its own.
+ *
+ * What `objects` holds when `result_unit` is `segment`: the search ranked
+ * moments, so each result *is* a moment rather than an asset that contains
+ * some. The asset it belongs to is named by `asset_id` and its document is in
+ * the response's `assets` map — several moments commonly share one asset, so
+ * repeating a whole document per moment would be most of the payload.
+ */
+export type NaturalSearchMoment = {
+    /**
+     * The asset this moment is part of; its key in `assets`.
+     */
+    asset_id: string;
+    end_s?: number | null;
+    /**
+     * Why this moment matched: every account, from every source that found it. Empty when nothing matched textually — see `match`.
+     */
+    evidence?: Array<Evidence> | null;
+    id: string;
+    /**
+     * How this hit was retrieved, not how relevant it is: `quality` is `exact` when the query as typed matched, `related` when the query asked for what a result shows and it was matched by stand-in words, `approximate` when only a recovery round matched (fuzzed terms, a broadened phrase), and `filters_only` when no text matched and the filters alone selected it. `basis` names the evidence behind that verdict — `retrieval` today.
+     */
+    match?: MatchAssessment | null;
+    score?: number | null;
+    start_s?: number | null;
+    thumbnail_s?: number | null;
+};
+
+/**
+ * The response `filters` block sent back as-is; only what a replay needs is read.
+ */
+export type NaturalSearchReplay = {
+    /**
+     * The query to run. Each entry's `role` is honoured, so the block as received reproduces the same search; drop an entry to drop that filter.
+     */
+    applied?: Array<ResponseFilterInput> | null;
+    exact_text?: boolean | null;
+    meaning_led?: boolean | null;
+    order?: NaturalSearchReplayOrder | null;
+    ranking_unit?: NaturalSearchReplayRankingUnit | null;
+    /**
+     * The block's `version`. One this server no longer replays is a 400.
+     */
+    version: number;
+};
+
+export type NaturalSearchReplayOrder = 'recent' | 'relevance';
+
+export type NaturalSearchReplayRankingUnit = 'asset' | 'collection' | 'post' | 'segment';
+
+export type NaturalSearchRequest = {
+    /**
+     * Filters to enforce on top of the query, in the same shape the response reports them under `filters.applied` — so a filter from a previous response can be edited and sent straight back. Each is applied as given and wins over whatever the query text would have implied for the same field; omitting one is how you drop it. A filter on an unknown or reserved field is not enforced and comes back under `filters.rejected`, never under `filters.applied`.
+     *
+     * Every filter you send is enforced whatever its `role`, so echoing back all of `filters.applied` searches more narrowly than the original search: send only the filters you mean to pin. To reproduce a search, send its block as `replay` instead.
+     */
+    filters?: Array<ResponseFilterInput> | null;
+    /**
+     * Optional reference image for visual search. **Not supported yet**: a request carrying one is rejected with a 400 until a visual-similarity backend serves it.
+     */
+    image?: NaturalSearchImage | null;
+    /**
+     * **Deprecated** alias of `per_page`. When both are given, `per_page` wins.
+     */
+    limit?: number | null;
+    /**
+     * Cap on how many finer-grain sub-items (e.g. localized segments) each nested result keeps, trimming the low-signal tail to the top-N most relevant. `null` keeps every matched sub-item. Only affects nested results; never changes which items surface or their ranking.
+     */
+    max_sub_items?: number | null;
+    /**
+     * Return items with sub-items instead of a flat list.
+     */
+    nested_results?: boolean | null;
+    /**
+     * 1-based page to return. Above 1, requires `replay` (the `filters` of the response being continued), or the request is rejected with a 400. Ignored when `search_after` is given.
+     */
+    page?: number | null;
+    /**
+     * Number of results per page; replaces `limit`. Exact on a paginated answer (`pagination.supported` true); an unpaginated answer may return more ranked results than this.
+     */
+    per_page?: number | null;
+    /**
+     * Free-text natural-language query.
+     */
+    query?: string | null;
+    /**
+     * A response's `filters` block (or an `interpretations[].filters` one), sent back as received, possibly with entries removed from `applied`. The search then runs that interpretation instead of reading the query again: no language-model call, one retrieval round, no zero-result recovery. Use it to page through an answer, run another reading, or re-run it with a filter dropped. An entry this server cannot honour is a 400. Cannot be combined with `filters`.
+     */
+    replay?: NaturalSearchReplay | null;
+    result_unit?: NaturalSearchRequestResultUnit | null;
+    /**
+     * Infinite-scroll pagination key, as on `/v2/search/`: the `_sort` of the last object of the previous response. Wins over `page`. Requires `replay` (the previous response's `filters`), or the request is rejected with a 400.
+     */
+    search_after?: Array<unknown> | null;
+};
+
+/**
+ * Grain the result list should be expressed in (e.g. `asset`, `segment`). Omit to let the search decide. When coarser than the interesting grain (e.g. `asset` while ranking on the best `segment`s), each item carries its matched finer hits as sub-items and `limit` counts the coarser items.
+ */
+export type NaturalSearchRequestResultUnit = 'asset' | 'collection' | 'post' | 'segment';
+
+/**
+ * Natural-language search results.
+ *
+ * Same envelope as ``/v2/search/`` — `objects` and the pagination fields — so
+ * both endpoints feed one rendering path.
+ *
+ * When `pagination.supported` is true, `page` / `pages` / `total` mean what
+ * they do on ``/v2/search/``; otherwise the answer is a single ranked set
+ * (`page` and `pages` are 1) and `pagination.reason` says why.
+ *
+ * The navigation urls are always null: pagination is driven by re-posting the
+ * request body (see `pagination`).
+ */
+export type NaturalSearchResponse = {
+    /**
+     * The documents `objects` refer to but do not contain, keyed by asset id. Empty unless the results are moments. Plain documents: the ranking story (`score`, `evidence`, `match`) belongs to the moment that matched, not to the asset it happens to sit in.
+     */
+    assets?: {
+        [key: string]: SearchDocument;
+    } | null;
+    /**
+     * True when at least one search backend failed, timed out or answered partially. The results are still usable, just not the full picture.
+     */
+    degraded?: boolean | null;
+    /**
+     * Always null here; natural search computes no aggregations.
+     */
+    facets?: {
+        [key: string]: unknown;
+    } | null;
+    filters?: ResponseFilters | null;
+    first_url?: string | null;
+    /**
+     * Every way the query was read, best first; more than one when the query is ambiguous (e.g. a name to filter on, or a word in the content). The search stops at the first reading that finds something; `answered` marks it.
+     *
+     * Show another entry's `why` as a "did you mean ...?" and, if picked, re-post with that entry's `filters` as `replay`. Each is shaped like this response's `filters`; the `answered` entry carries it unchanged.
+     */
+    interpretations?: Array<ResponseInterpretation> | null;
+    /**
+     * BCP-47 tag of the query's language, which the `interpretations` sentences are written in. Empty when unknown.
+     */
+    language?: string | null;
+    last_url?: string | null;
+    match_quality?: NaturalSearchResponseMatchQuality | null;
+    next_url?: string | null;
+    /**
+     * The ranked results, at the requested `result_unit`. Documents for an asset/collection grain; moments (see `NaturalSearchMoment`) when `result_unit` is `segment`.
+     */
+    objects?: Array<NaturalSearchDocument | NaturalSearchMoment> | null;
+    page?: number | null;
+    pages?: number | null;
+    pagination?: ResponsePagination | null;
+    per_page?: number | null;
+    prev_url?: string | null;
+    scroll_id?: string | null;
+    total?: number | null;
+};
+
+/**
+ * The best `match.quality` among `objects` — what the search can claim about this answer as a whole. Null when there are no results. `related` means stand-in words matched a question about what a result shows. Below that, the query as typed matched nothing and these are recovered results: worth showing and labelling, not presenting as the answer.
+ */
+export type NaturalSearchResponseMatchQuality = 'approximate' | 'exact' | 'filters_only' | 'related';
+
+/**
+ * One matched moment inside a natural-search hit.
+ *
+ * A hit ranked on its best moments carries them here, in descending relevance,
+ * capped by the request's ``max_sub_items``. ``thumbnail_s`` is the frame that
+ * best represents the moment (the midpoint when nothing better is known), so a
+ * UI has a poster without computing one.
+ */
+export type NaturalSearchSegment = {
+    end_s?: number | null;
+    /**
+     * Why this moment matched: every account, from every source that found it. Empty when nothing matched textually — see `match`.
+     */
+    evidence?: Array<Evidence> | null;
+    id: string;
+    /**
+     * How this hit was retrieved, not how relevant it is: `quality` is `exact` when the query as typed matched, `related` when the query asked for what a result shows and it was matched by stand-in words, `approximate` when only a recovery round matched (fuzzed terms, a broadened phrase), and `filters_only` when no text matched and the filters alone selected it. `basis` names the evidence behind that verdict — `retrieval` today.
+     */
+    match?: MatchAssessment | null;
+    score?: number | null;
+    start_s?: number | null;
+    thumbnail_s?: number | null;
+};
+
 export type NltfContext = {
     displayed_filters?: NltfDisplayedFilters | null;
 };
@@ -269,19 +647,10 @@ export type NltfContextSchema = {
     displayed_filters?: NltfDisplayedFilters | null;
 };
 
-/**
- * NltfDisplayedFilters
- */
 export type NltfDisplayedFilters = {
-    /**
-     * Facets
-     */
     facets?: {
         [key: string]: unknown;
     } | null;
-    /**
-     * Filters
-     */
     filters?: {
         [key: string]: unknown;
     } | null;
@@ -296,20 +665,21 @@ export type NltfDisplayedFiltersSchema = {
     } | null;
 };
 
+export type NltfParseMetadata = {
+    model?: string | null;
+    original_query?: string | null;
+    provider?: string | null;
+    source_trace_id?: string | null;
+};
+
 export type NltfParseMetadataSchema = {
     readonly model?: string | null;
     readonly original_query?: string | null;
     readonly provider?: string | null;
 };
 
-/**
- * NltfParseRequest
- */
 export type NltfParseRequest = {
     context?: NltfContext | null;
-    /**
-     * Query
-     */
     query: string;
 };
 
@@ -318,26 +688,31 @@ export type NltfParseRequestSchema = {
     query: string;
 };
 
+export type NltfParseResponse = {
+    metadata?: NltfParseMetadata | null;
+    result?: NltfParseResult | null;
+};
+
 export type NltfParseResponseSchema = {
     metadata?: NltfParseMetadataSchema | null;
     result?: NltfParseResult | null;
 };
 
 export type NltfParseResult = {
-    readonly facets_filters?: {
+    facets_filters?: {
         [key: string]: Array<string>;
     } | null;
-    readonly field_types?: {
+    field_types?: {
         [key: string]: string;
     } | null;
-    readonly filter?: {
-        [key: string]: string | Array<string> | Array<MultiSelectFilterGroupSchema> | CriteriaRangeFilterSchema;
+    filter?: {
+        [key: string]: string | Array<string> | Array<MultiSelectFilterGroup> | CriteriaRangeFilter;
     } | null;
-    readonly filter_options?: {
+    filter_options?: {
         [key: string]: Array<string | number>;
     } | null;
-    readonly query?: string | null;
-    readonly query_mapping?: {
+    query?: string | null;
+    query_mapping?: {
         [key: string]: string;
     } | null;
 };
@@ -361,6 +736,118 @@ export type NltfParseResultSchema = {
     } | null;
 };
 
+/**
+ * Why an answer cannot be paginated.
+ *
+ * Pagination is the internal Elasticsearch cursor, so it only works when that
+ * engine's single list *is* the answer:
+ *
+ * - ``MULTIPLE_ROUNDS`` -- several rounds' lists were interleaved;
+ * - ``EXTERNAL_BACKEND`` -- another backend contributed (fusing page-N slices
+ * yields duplicates and gaps);
+ * - ``UNEXPRESSIBLE_QUERY`` -- the query has a shape the public filters
+ * cannot state (a soft OR-gate over probes), so a replay may differ;
+ * - ``RERANK_APPLIED`` -- a reranker reordered the list;
+ * - ``SEGMENT_RESULT_UNIT`` -- results are moments, the cursor walks assets;
+ * - ``NO_RESULTS`` -- nothing to page through.
+ */
+export type PaginationRefusal = 'external_backend' | 'multiple_rounds' | 'no_results' | 'rerank_applied' | 'segment_result_unit' | 'unexpressible_query';
+
+export type PingResponse = {
+    service?: string | null;
+    status?: string | null;
+    version?: string | null;
+};
+
+/**
+ * A lexical clause as the API states it: without ``tier``.
+ *
+ * ``tier`` is compilation mechanics; the API exposes its outcome as
+ * :class:`FilterRole` instead (the two can disagree, e.g. a gate-lifted round
+ * runs ``require`` words that only rank). A replay reconstructs the tier from
+ * the role.
+ */
+export type PublicLexicalPredicateInput = {
+    any_of?: Array<string> | null;
+    fuzziness?: string | null;
+    kind?: string | null;
+    operator?: PublicLexicalPredicateInputOperator | null;
+    sub_field?: string | null;
+    terms?: string | null;
+    tier?: Tier | null;
+};
+
+/**
+ * A lexical clause as the API states it: without ``tier``.
+ *
+ * ``tier`` is compilation mechanics; the API exposes its outcome as
+ * :class:`FilterRole` instead (the two can disagree, e.g. a gate-lifted round
+ * runs ``require`` words that only rank). A replay reconstructs the tier from
+ * the role.
+ */
+export type PublicLexicalPredicateOutput = {
+    any_of?: Array<string> | null;
+    fuzziness?: string | null;
+    kind?: string | null;
+    operator?: PublicLexicalPredicateOutputOperator | null;
+    sub_field?: string | null;
+    terms?: string | null;
+};
+
+export type PublicLexicalPredicateInputOperator = 'and' | 'or';
+
+export type PublicLexicalPredicateOutputOperator = 'and' | 'or';
+
+/**
+ * A semantic clause as the API states it: without ``tier`` (always ``SCORING``).
+ */
+export type PublicSemanticPredicateInput = {
+    kind?: string | null;
+    text: string;
+    tier?: Tier | null;
+};
+
+/**
+ * A semantic clause as the API states it: without ``tier`` (always ``SCORING``).
+ */
+export type PublicSemanticPredicateOutput = {
+    kind?: string | null;
+    text: string;
+};
+
+/**
+ * Bounds for a ``range`` keyword predicate (every bound is optional).
+ *
+ * ``gte`` / ``lte`` are the inclusive pair and the ones producers normally
+ * reach for (the Understanding prompt only ever asks for those). ``gt`` / ``lt``
+ * are their strict counterparts, here so a producer that *does* mean "strictly
+ * after" can say it instead of being silently rounded to the inclusive bound:
+ * every backend honours all four, and the naming matches Elasticsearch's so
+ * there is nothing to remember.
+ *
+ * Bounds AND together, so several on one side simply intersect
+ * (``gte=1, gt=5`` is ``x > 5``) -- a pointless-but-harmless combination that
+ * is deliberately not rejected, since the producer is often an LLM and a
+ * well-defined narrowing beats a failed compile.
+ *
+ * Read them with :meth:`bounds` rather than four ``is not None`` checks: it is
+ * the one place the set of bounds is enumerated, so a backend adapter cannot
+ * quietly ignore one.
+ */
+export type RangeBound = {
+    gt?: string | number | number | boolean | null;
+    gte?: string | number | number | boolean | null;
+    lt?: string | number | number | boolean | null;
+    lte?: string | number | number | boolean | null;
+};
+
+/**
+ * The unit every result is ultimately rolled up to and ranked on.
+ *
+ * Picked by the Understanding phase depending on the query intent.
+ */
+export type RankingUnit = 'asset' | 'collection' | 'post' | 'segment';
+
 export type ReindexSavedSearchGroupSchema = {
     sync_to_another_dc?: boolean | null;
 };
@@ -368,6 +855,170 @@ export type ReindexSavedSearchGroupSchema = {
 export type ReindexSavedSearchSchema = {
     sync_to_another_dc?: boolean | null;
 };
+
+/**
+ * One filter as the response states it, re-sendable as-is in
+ * ``SearchConstraint.filters``.
+ *
+ * Retrieval clauses (words, meaning) are reported here too, on the field they
+ * ran against, in the form the answering round actually ran (e.g. fuzzed).
+ * ``disposition`` is not serialized: ``applied`` vs ``relaxed`` already says
+ * it, and it is ignored inbound.
+ */
+export type ResponseFilterInput = {
+    disposition?: FilterDisposition | null;
+    facetable?: boolean | null;
+    field: string;
+    field_type?: string | null;
+    label?: string | null;
+    predicate: ({
+        kind: 'keyword';
+    } & KeywordPredicate) | ({
+        kind: 'lexical';
+    } & PublicLexicalPredicateInput) | ({
+        kind: 'semantic';
+    } & PublicSemanticPredicateInput);
+    pushed_down?: boolean | null;
+    reason?: string | null;
+    role?: FilterRole | null;
+    value_labels?: {
+        [key: string]: string;
+    } | null;
+    weight?: number | null;
+};
+
+/**
+ * One filter as the response states it, re-sendable as-is in
+ * ``SearchConstraint.filters``.
+ *
+ * Retrieval clauses (words, meaning) are reported here too, on the field they
+ * ran against, in the form the answering round actually ran (e.g. fuzzed).
+ * ``disposition`` is not serialized: ``applied`` vs ``relaxed`` already says
+ * it, and it is ignored inbound.
+ */
+export type ResponseFilterOutput = {
+    facetable?: boolean | null;
+    field: string;
+    field_type?: string | null;
+    label?: string | null;
+    predicate: ({
+        kind: 'keyword';
+    } & KeywordPredicate) | ({
+        kind: 'lexical';
+    } & PublicLexicalPredicateOutput) | ({
+        kind: 'semantic';
+    } & PublicSemanticPredicateOutput);
+    pushed_down?: boolean | null;
+    reason?: string | null;
+    role?: FilterRole | null;
+    value_labels?: {
+        [key: string]: string;
+    } | null;
+    weight?: number | null;
+};
+
+/**
+ * The whole query behind these results, in a form a client can edit and
+ * send back whole as the request's ``replay`` to chain a follow-up or next page.
+ *
+ * The compiled plan (rounds, tiers, weights) is deliberately not exposed; a
+ * multi-round answer reports the last round and refuses pagination.
+ *
+ * Three lists, not a partition (a field may appear in two):
+ *
+ * - ``applied`` -- what built the answering query; each entry's ``role`` says
+ * whether it excluded or only ranked;
+ * - ``relaxed`` -- restrictions an earlier round enforced and found too
+ * narrow. Re-sending one narrows the search back down;
+ * - ``rejected`` -- could not be honoured (unknown field, off the public
+ * surface). Re-sending one changes nothing.
+ *
+ * E.g. a facet a tier demoted to a boost is in ``applied`` as ``SCORING`` and
+ * in ``relaxed``; likewise ``relaxed`` may carry ``ceremonoy`` while
+ * ``applied`` carries ``ceremonoy~1``. Entries outside ``applied`` carry a
+ * ``reason`` and no ``role``. Invariant: a filter not honoured is never
+ * reported as applied.
+ *
+ * ``ranking_unit`` and ``order`` are part of the replayed query: they fix the
+ * ranking grain and the sort the cursor walks. ``exact_text`` / ``meaning_led``
+ * are replayed so a later page grades its hits as the first did.
+ */
+export type ResponseFilters = {
+    applied?: Array<ResponseFilterOutput> | null;
+    exact_text?: boolean | null;
+    meaning_led?: boolean | null;
+    modalities?: Array<Modality> | null;
+    order?: ResultOrder | null;
+    query?: string | null;
+    ranking_unit?: RankingUnit | null;
+    rejected?: Array<ResponseFilterOutput> | null;
+    relaxed?: Array<ResponseFilterOutput> | null;
+    result_unit?: RankingUnit | null;
+    scoring?: ResponseScoring | null;
+    sources?: Array<ResponseSource> | null;
+    version?: number | null;
+};
+
+/**
+ * One way the query was read.
+ *
+ * Readings run best first until one finds something (``answered``); the
+ * others are "did you mean ...?" suggestions a client runs by replaying their
+ * ``filters`` as the request's ``replay``.
+ */
+export type ResponseInterpretation = {
+    answered?: boolean | null;
+    confidence?: number | null;
+    filters?: ResponseFilters | null;
+    why?: string | null;
+};
+
+/**
+ * Whether this answer can be paginated, and where in it we are.
+ *
+ * When ``supported`` is ``False``, :attr:`reason` says why and the answer is a
+ * single page.
+ */
+export type ResponsePagination = {
+    page?: number | null;
+    pages?: number | null;
+    per_page?: number | null;
+    reason?: PaginationRefusal | null;
+    supported?: boolean | null;
+    total?: number | null;
+};
+
+/**
+ * How these results were ranked: the fusion / rerank methods that ran.
+ */
+export type ResponseScoring = {
+    methods?: Array<ScoringMethod> | null;
+};
+
+/**
+ * One backend queried for these results, and how it fared (the public
+ * half of :class:`SourceRoundState`, without the round).
+ */
+export type ResponseSource = {
+    display_name: string;
+    ref: string;
+    state: SourceState;
+};
+
+/**
+ * Coarse ordering a query asks its backend to sort by.
+ *
+ * ``RELEVANCE`` = rank by the retrieval score (the default for any query that
+ * carries a scored clause). ``RECENT`` = rank by recency (newest first) — the
+ * sensible order for *browse* / pure-filter queries that have no relevance
+ * signal, and for explicit "latest / most recent ..." intents.
+ *
+ * NOTE (future): this is honoured today only *within* a single backend query
+ * (the internal engine maps it to its sort). Cross-backend recency ordering
+ * belongs in fusion once it ranks by more than score — see
+ * :func:`~iconik_search_v2.orchestrator.phases.fusion.fuse_rerank_aggregate`.
+ */
+export type ResultOrder = 'recent' | 'relevance';
 
 export type SavedSearch = {
     criteria: SearchCriteriaSaved;
@@ -512,6 +1163,71 @@ export type SavedSearchesSchema = {
     readonly total?: number | null;
 };
 
+/**
+ * One scoring/ranking method applied at one stage of the pipeline.
+ *
+ * Strengthens what used to be a pair of free-text fields into an ordered,
+ * typed record so the response can attest *exactly* how it ranked: the stage,
+ * the method (an enum value), the concrete model when the method is
+ * model-backed, and any tuning knobs (e.g. the RRF ``k``). Several may apply
+ * (e.g. an RRF fusion followed by a cross-encoder rerank), hence a list on
+ * :class:`ScoringDiagnostics`.
+ */
+export type ScoringMethod = {
+    method: string;
+    model?: string | null;
+    params?: {
+        [key: string]: string;
+    } | null;
+    stage: ScoringStage;
+};
+
+/**
+ * Which stage of the ranking pipeline a :class:`ScoringMethod` describes.
+ */
+export type ScoringStage = 'fusion' | 'rerank';
+
+/**
+ * POST body: onboard one backend plugin instance for the domain.
+ */
+export type SearchBackendCreateSchema = {
+    enabled?: boolean | null;
+    kind: string;
+    name?: string | null;
+    options?: {
+        [key: string]: unknown;
+    } | null;
+};
+
+export type SearchBackendReadSchema = {
+    date_created?: string | null;
+    date_modified?: string | null;
+    enabled?: boolean | null;
+    id: string;
+    kind: string;
+    name?: string | null;
+    options?: {
+        [key: string]: unknown;
+    } | null;
+};
+
+/**
+ * PUT/PATCH body. ``kind`` is immutable: it may be echoed back unchanged
+ * (clients often resend what they read) but never altered.
+ */
+export type SearchBackendUpdateSchema = {
+    enabled?: boolean | null;
+    kind?: string | null;
+    name?: string | null;
+    options?: {
+        [key: string]: unknown;
+    } | null;
+};
+
+export type SearchBackendsListSchema = {
+    objects: Array<SearchBackendReadSchema>;
+};
+
 export type SearchContentInfoInternalSchema = {
     readonly assets_count?: number | null;
     readonly collections_count?: number | null;
@@ -536,52 +1252,34 @@ export type SearchContentInfoSchema = {
     readonly total_size?: number | null;
 };
 
-/**
- * SearchCriteria
- */
-export type SearchCriteria = {
-    /**
-     * Doc Types
-     */
-    doc_types?: Array<string> | null;
-    /**
-     * Exclude Fields
-     */
+export type SearchConvertCollectionSchema = {
+    collection_id: string;
+    doc_types?: Array<'assets' | 'collections' | 'saved_search_groups' | 'saved_searches' | 'segments'> | null;
     exclude_fields?: Array<string> | null;
-    /**
-     * Facets
-     */
     facets?: Array<string> | null;
-    /**
-     * Facets Filters
-     */
+    facets_filters?: Array<FacetFilterSchema> | null;
+    filter?: CriteriaFilterSchema | null;
+    include_fields?: Array<string> | null;
+    metadata_view_id?: string | null;
+    query?: string | null;
+    search_fields?: Array<string> | null;
+    sort?: Array<CriteriaSortSchema> | null;
+};
+
+export type SearchCriteria = {
+    doc_types?: Array<string> | null;
+    exclude_fields?: Array<string> | null;
+    facets?: Array<string> | null;
     facets_filters?: Array<FacetFilter> | null;
     filter?: SearchCriteriaFilter | null;
-    /**
-     * Include Fields
-     */
     include_fields?: Array<string> | null;
-    /**
-     * Metadata View Id
-     */
     metadata_view_id?: string | null;
-    /**
-     * Query
-     */
     query?: string | null;
     /**
-     * Search After
-     *
      * Infinite-scroll pagination key (replaces the deprecated scroll API). A list of sort keys taken from the `_sort` of the last object of the previous response.
      */
     search_after?: Array<unknown> | null;
-    /**
-     * Search Fields
-     */
     search_fields?: Array<string> | null;
-    /**
-     * Sort
-     */
     sort?: Array<SortField> | null;
 };
 
@@ -598,21 +1296,13 @@ export type SearchCriteriaBaseSchema = {
     sort?: Array<CriteriaSortSchema> | null;
 };
 
-/**
- * SearchCriteriaFilter
- */
 export type SearchCriteriaFilter = {
-    /**
-     * Filters
-     */
     filters?: Array<SearchCriteriaFilter> | null;
+    operator: 'AND' | 'NESTED' | 'NOT' | 'OR';
     /**
-     * Operator
+     * Nested field path. Required for the `NESTED` operator.
      */
-    operator: 'AND' | 'NOT' | 'OR';
-    /**
-     * Terms
-     */
+    path?: string | null;
     terms?: Array<SearchTerm> | null;
 };
 
@@ -659,11 +1349,14 @@ export type SearchCriteriaSchema = {
     sort?: Array<CriteriaSortSchema> | null;
 };
 
+/**
+ * A single search hit (ported from v1 ``SearchDocumentSchema``).
+ */
 export type SearchDocument = {
-    readonly date_created?: string | null;
-    readonly date_modified?: string | null;
+    date_created?: string | null;
+    date_modified?: string | null;
     description?: string | null;
-    readonly id?: string | null;
+    id?: string | null;
     metadata?: {
         [key: string]: unknown;
     } | null;
@@ -687,6 +1380,28 @@ export type SearchDocumentSchema = {
     } | null;
     object_type: string;
     title: string;
+};
+
+/**
+ * Search results envelope (ported from v1 ``SearchDocumentsSchema``).
+ */
+export type SearchDocumentsResponse = {
+    facets?: {
+        [key: string]: unknown;
+    } | null;
+    first_url?: string | null;
+    last_url?: string | null;
+    next_url?: string | null;
+    objects?: Array<SearchDocument> | null;
+    page?: number | null;
+    pages?: number | null;
+    per_page?: number | null;
+    prev_url?: string | null;
+    scroll_id?: string | null;
+    search_criteria_document?: {
+        [key: string]: unknown;
+    } | null;
+    total?: number | null;
 };
 
 export type SearchDocumentsSchema = {
@@ -755,46 +1470,24 @@ export type SearchQueryParamsSchema = {
     types?: Array<'ASSET' | 'CUSTOM' | 'LINK' | 'NLE_PROJECT' | 'PLACEHOLDER' | 'POST' | 'SEQUENCE' | 'SUBCLIP'> | null;
 };
 
-/**
- * SearchRangeFilter
- */
 export type SearchRangeFilter = {
-    /**
-     * Max
-     */
     max?: string | null;
-    /**
-     * Min
-     */
     min?: string | null;
     /**
-     * Timezone
-     *
      * Format: +02:00. Results returned in UTC by default
      */
     timezone?: string | null;
 };
 
-/**
- * SearchSuggestRequest
- */
 export type SearchSuggestRequest = {
-    /**
-     * Doc Types
-     */
     doc_types?: Array<string> | null;
-    /**
-     * Field Name
-     */
     field_name: string;
-    /**
-     * Metadata View Id
-     */
     metadata_view_id?: string | null;
-    /**
-     * Query
-     */
     query: string;
+};
+
+export type SearchSuggestResponseItem = {
+    value?: string | null;
 };
 
 export type SearchSuggestResponseSchema = {
@@ -808,34 +1501,23 @@ export type SearchSuggestSchema = {
     query: string;
 };
 
+/**
+ * Suggestions envelope (ported from v1 ``SearchSuggestsResponseSchema``).
+ */
+export type SearchSuggestsResponse = {
+    objects?: Array<SearchSuggestResponseItem> | null;
+};
+
 export type SearchSuggestsResponseSchema = {
     readonly objects?: Array<SearchSuggestResponseSchema> | null;
 };
 
-/**
- * SearchTerm
- */
 export type SearchTerm = {
-    /**
-     * Exists
-     */
     exists?: boolean | null;
-    /**
-     * Missing
-     */
     missing?: boolean | null;
-    /**
-     * Name
-     */
     name: string;
     range?: SearchRangeFilter | null;
-    /**
-     * Value
-     */
     value?: string | null;
-    /**
-     * Value In
-     */
     value_in?: Array<string> | null;
 };
 
@@ -883,19 +1565,15 @@ export type SearchViewsSchema = {
     readonly objects?: Array<SearchViewSchema> | null;
 };
 
-/**
- * SortField
- */
 export type SortField = {
-    /**
-     * Name
-     */
     name: string;
-    /**
-     * Order
-     */
     order?: string | null;
 };
+
+/**
+ * Per-source execution outcome (a slow/down source must not fail us).
+ */
+export type SourceState = 'error' | 'ok' | 'partial' | 'timeout' | 'unavailable';
 
 export type StorageContentInfo = {
     readonly assets_count?: number | null;
@@ -914,20 +1592,20 @@ export type StorageContentInfoSchema = {
 };
 
 /**
- * ValidationError
+ * How hard a clause binds -- named after what the compiler does with it.
+ *
+ * The one vocabulary shared by the prompt, the wire keys, the compiler and the
+ * recovery tiers, whose every relaxation is a demotion down this scale.
+ *
+ * **Declared strongest first**, and read that way: a tier demotes downwards,
+ * and a backend that answers one query per request picks the hardest-binding
+ * clause it was handed (``backends.external._find_selection``).
  */
+export type Tier = 'prefer' | 'require' | 'try';
+
 export type ValidationError = {
-    /**
-     * Location
-     */
     loc: Array<string | number>;
-    /**
-     * Message
-     */
     msg: string;
-    /**
-     * Error Type
-     */
     type: string;
 };
 
@@ -976,10 +1654,6 @@ export type MultiSelectFilterGroupSchemaWritable = {
 };
 
 export type NltfParseResponseSchemaWritable = {
-    [key: string]: unknown;
-};
-
-export type NltfParseResultWritable = {
     [key: string]: unknown;
 };
 
@@ -1039,15 +1713,6 @@ export type SavedSearchesSchemaWritable = {
 export type SearchContentInfoInternalSchemaWritable = {
     media_formats?: Array<unknown> | null;
     media_types?: Array<unknown> | null;
-};
-
-export type SearchDocumentWritable = {
-    description?: string | null;
-    metadata?: {
-        [key: string]: unknown;
-    } | null;
-    object_type: string;
-    title: string;
 };
 
 export type SearchDocumentSchemaWritable = {
@@ -1723,6 +2388,94 @@ export type PostSearchResponses = {
 };
 
 export type PostSearchResponse = PostSearchResponses[keyof PostSearchResponses];
+
+export type PostSearchContentInfoData = {
+    /**
+     * body
+     */
+    body: SearchCriteriaSavedSchema;
+    path?: never;
+    query?: {
+        /**
+         * Compute total size only for files with the specified format name (default - ORIGINAL)
+         */
+        format_name?: string;
+        /**
+         * Group results by storage_id / storage_method
+         */
+        by_storage_id?: boolean;
+    };
+    url: '/v1/search/content/info/';
+};
+
+export type PostSearchContentInfoErrors = {
+    /**
+     * Bad request
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type PostSearchContentInfoError = PostSearchContentInfoErrors[keyof PostSearchContentInfoErrors];
+
+export type PostSearchContentInfoResponses = {
+    /**
+     * Returns aggregated information about the search results
+     */
+    200: SearchContentInfoSchema;
+};
+
+export type PostSearchContentInfoResponse = PostSearchContentInfoResponses[keyof PostSearchContentInfoResponses];
+
+export type PostSearchConvertToCollectionData = {
+    /**
+     * body
+     */
+    body: SearchConvertCollectionSchema;
+    path?: never;
+    query?: never;
+    url: '/v1/search/convert_to_collection/';
+};
+
+export type PostSearchConvertToCollectionErrors = {
+    /**
+     * Bad request, or the search does not have any results, or it has more results than `CONVERT_SEARCH_TO_COLLECTION_MAX_HITS`
+     *
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * Access denied
+     */
+    403: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type PostSearchConvertToCollectionError = PostSearchConvertToCollectionErrors[keyof PostSearchConvertToCollectionErrors];
+
+export type PostSearchConvertToCollectionResponses = {
+    /**
+     * Schedules all the assets of the search to be added to a collection
+     */
+    202: unknown;
+};
 
 export type GetSearchHistoryData = {
     body?: never;
@@ -3008,19 +3761,45 @@ export type PostNltfParse1Data = {
 
 export type PostNltfParse1Errors = {
     /**
+     * Bad request
+     */
+    400: ErrorResponse;
+    /**
+     * Forbidden
+     */
+    403: ErrorResponse;
+    /**
      * Validation Error
      */
     422: HttpValidationError;
+    /**
+     * Too many requests
+     */
+    429: ErrorResponse;
+    /**
+     * Internal server error
+     */
+    500: ErrorResponse;
+    /**
+     * Upstream service error
+     */
+    502: ErrorResponse;
+    /**
+     * Service unavailable
+     */
+    503: ErrorResponse;
 };
 
 export type PostNltfParse1Error = PostNltfParse1Errors[keyof PostNltfParse1Errors];
 
 export type PostNltfParse1Responses = {
     /**
-     * Successful Response
+     * Parsed natural-language query
      */
-    200: unknown;
+    200: NltfParseResponse;
 };
+
+export type PostNltfParse1Response = PostNltfParse1Responses[keyof PostNltfParse1Responses];
 
 export type GetPingData = {
     body?: never;
@@ -3031,13 +3810,9 @@ export type GetPingData = {
 
 export type GetPingResponses = {
     /**
-     * Response Ping V2 Ping  Get
-     *
      * Successful Response
      */
-    200: {
-        [key: string]: unknown;
-    };
+    200: PingResponse;
 };
 
 export type GetPingResponse = GetPingResponses[keyof GetPingResponses];
@@ -3046,49 +3821,21 @@ export type PostSearch1Data = {
     body: SearchCriteria;
     path?: never;
     query?: {
-        /**
-         * Per Page
-         */
         per_page?: number;
-        /**
-         * Page
-         */
         page?: number;
         /**
-         * Scroll
-         *
          * @deprecated
          */
         scroll?: boolean;
         /**
-         * Scroll Id
-         *
          * @deprecated
          */
         scroll_id?: string | null;
-        /**
-         * Generate Signed Url
-         */
         generate_signed_url?: boolean;
-        /**
-         * Generate Signed Download Url
-         */
         generate_signed_download_url?: boolean;
-        /**
-         * Generate Signed Proxy Url
-         */
         generate_signed_proxy_url?: boolean;
-        /**
-         * Save Search History
-         */
         save_search_history?: boolean;
-        /**
-         * Types
-         */
         types?: string | null;
-        /**
-         * Include Users
-         */
         include_users?: boolean;
     };
     url: '/v2/search/';
@@ -3096,19 +3843,83 @@ export type PostSearch1Data = {
 
 export type PostSearch1Errors = {
     /**
+     * Bad request
+     */
+    400: ErrorResponse;
+    /**
+     * Token is invalid
+     */
+    401: ErrorResponse;
+    /**
+     * Not found
+     */
+    404: ErrorResponse;
+    /**
      * Validation Error
      */
     422: HttpValidationError;
+    /**
+     * Internal server error
+     */
+    500: ErrorResponse;
+    /**
+     * Gateway timeout
+     */
+    504: ErrorResponse;
 };
 
 export type PostSearch1Error = PostSearch1Errors[keyof PostSearch1Errors];
 
 export type PostSearch1Responses = {
     /**
-     * Successful Response
+     * Returns the result of search
      */
-    200: unknown;
+    200: SearchDocumentsResponse;
 };
+
+export type PostSearch1Response = PostSearch1Responses[keyof PostSearch1Responses];
+
+export type PostSearchNaturalData = {
+    body: NaturalSearchRequest;
+    path?: never;
+    query?: {
+        generate_signed_url?: boolean;
+        generate_signed_download_url?: boolean;
+        generate_signed_proxy_url?: boolean;
+        include_users?: boolean;
+    };
+    url: '/v2/search/natural/';
+};
+
+export type PostSearchNaturalErrors = {
+    /**
+     * Bad request
+     */
+    400: ErrorResponse;
+    /**
+     * Token is invalid
+     */
+    401: ErrorResponse;
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+    /**
+     * Gateway timeout
+     */
+    504: ErrorResponse;
+};
+
+export type PostSearchNaturalError = PostSearchNaturalErrors[keyof PostSearchNaturalErrors];
+
+export type PostSearchNaturalResponses = {
+    /**
+     * Natural-search results and the filters that produced them
+     */
+    200: NaturalSearchResponse;
+};
+
+export type PostSearchNaturalResponse = PostSearchNaturalResponses[keyof PostSearchNaturalResponses];
 
 export type PostSearchSuggest1Data = {
     body: SearchSuggestRequest;
@@ -3119,6 +3930,14 @@ export type PostSearchSuggest1Data = {
 
 export type PostSearchSuggest1Errors = {
     /**
+     * Bad request
+     */
+    400: ErrorResponse;
+    /**
+     * Token is invalid
+     */
+    401: ErrorResponse;
+    /**
      * Validation Error
      */
     422: HttpValidationError;
@@ -3128,7 +3947,343 @@ export type PostSearchSuggest1Error = PostSearchSuggest1Errors[keyof PostSearchS
 
 export type PostSearchSuggest1Responses = {
     /**
-     * Successful Response
+     * Returns search suggestions for a particular query
      */
-    200: unknown;
+    200: SearchSuggestsResponse;
 };
+
+export type PostSearchSuggest1Response = PostSearchSuggest1Responses[keyof PostSearchSuggest1Responses];
+
+export type GetSearchBackendsData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/v2/search_backends/';
+};
+
+export type GetSearchBackendsErrors = {
+    /**
+     * Token is invalid
+     */
+    401: ErrorResponse;
+    /**
+     * Forbidden
+     */
+    403: ErrorResponse;
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+    /**
+     * Service unavailable
+     */
+    503: ErrorResponse;
+};
+
+export type GetSearchBackendsError = GetSearchBackendsErrors[keyof GetSearchBackendsErrors];
+
+export type GetSearchBackendsResponses = {
+    /**
+     * Configured search backends
+     */
+    200: SearchBackendsListSchema;
+};
+
+export type GetSearchBackendsResponse = GetSearchBackendsResponses[keyof GetSearchBackendsResponses];
+
+export type PostSearchBackendsData = {
+    body: SearchBackendCreateSchema;
+    path?: never;
+    query?: never;
+    url: '/v2/search_backends/';
+};
+
+export type PostSearchBackendsErrors = {
+    /**
+     * Bad request
+     */
+    400: ErrorResponse;
+    /**
+     * Token is invalid
+     */
+    401: ErrorResponse;
+    /**
+     * Forbidden
+     */
+    403: ErrorResponse;
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+    /**
+     * Service unavailable
+     */
+    503: ErrorResponse;
+};
+
+export type PostSearchBackendsError = PostSearchBackendsErrors[keyof PostSearchBackendsErrors];
+
+export type PostSearchBackendsResponses = {
+    /**
+     * The created search backend
+     */
+    201: SearchBackendReadSchema;
+};
+
+export type PostSearchBackendsResponse = PostSearchBackendsResponses[keyof PostSearchBackendsResponses];
+
+export type GetSearchBackendsKindsData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/v2/search_backends/kinds/';
+};
+
+export type GetSearchBackendsKindsErrors = {
+    /**
+     * Token is invalid
+     */
+    401: ErrorResponse;
+    /**
+     * Forbidden
+     */
+    403: ErrorResponse;
+};
+
+export type GetSearchBackendsKindsError = GetSearchBackendsKindsErrors[keyof GetSearchBackendsKindsErrors];
+
+export type GetSearchBackendsKindsResponses = {
+    /**
+     * Installed backend kinds
+     */
+    200: KindsListSchema;
+};
+
+export type GetSearchBackendsKindsResponse = GetSearchBackendsKindsResponses[keyof GetSearchBackendsKindsResponses];
+
+export type DeleteSearchBackendsByBackendIdData = {
+    body?: never;
+    path: {
+        backend_id: string;
+    };
+    query?: never;
+    url: '/v2/search_backends/{backend_id}/';
+};
+
+export type DeleteSearchBackendsByBackendIdErrors = {
+    /**
+     * Token is invalid
+     */
+    401: ErrorResponse;
+    /**
+     * Forbidden
+     */
+    403: ErrorResponse;
+    /**
+     * Not found
+     */
+    404: ErrorResponse;
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+    /**
+     * Service unavailable
+     */
+    503: ErrorResponse;
+};
+
+export type DeleteSearchBackendsByBackendIdError = DeleteSearchBackendsByBackendIdErrors[keyof DeleteSearchBackendsByBackendIdErrors];
+
+export type DeleteSearchBackendsByBackendIdResponses = {
+    /**
+     * The search backend was deleted
+     */
+    204: void;
+};
+
+export type DeleteSearchBackendsByBackendIdResponse = DeleteSearchBackendsByBackendIdResponses[keyof DeleteSearchBackendsByBackendIdResponses];
+
+export type GetSearchBackendsByBackendIdData = {
+    body?: never;
+    path: {
+        backend_id: string;
+    };
+    query?: never;
+    url: '/v2/search_backends/{backend_id}/';
+};
+
+export type GetSearchBackendsByBackendIdErrors = {
+    /**
+     * Token is invalid
+     */
+    401: ErrorResponse;
+    /**
+     * Forbidden
+     */
+    403: ErrorResponse;
+    /**
+     * Not found
+     */
+    404: ErrorResponse;
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+    /**
+     * Service unavailable
+     */
+    503: ErrorResponse;
+};
+
+export type GetSearchBackendsByBackendIdError = GetSearchBackendsByBackendIdErrors[keyof GetSearchBackendsByBackendIdErrors];
+
+export type GetSearchBackendsByBackendIdResponses = {
+    /**
+     * The configured search backend
+     */
+    200: SearchBackendReadSchema;
+};
+
+export type GetSearchBackendsByBackendIdResponse = GetSearchBackendsByBackendIdResponses[keyof GetSearchBackendsByBackendIdResponses];
+
+export type PatchSearchBackendsByBackendIdData = {
+    body: SearchBackendUpdateSchema;
+    path: {
+        backend_id: string;
+    };
+    query?: never;
+    url: '/v2/search_backends/{backend_id}/';
+};
+
+export type PatchSearchBackendsByBackendIdErrors = {
+    /**
+     * Bad request
+     */
+    400: ErrorResponse;
+    /**
+     * Token is invalid
+     */
+    401: ErrorResponse;
+    /**
+     * Forbidden
+     */
+    403: ErrorResponse;
+    /**
+     * Not found
+     */
+    404: ErrorResponse;
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+    /**
+     * Service unavailable
+     */
+    503: ErrorResponse;
+};
+
+export type PatchSearchBackendsByBackendIdError = PatchSearchBackendsByBackendIdErrors[keyof PatchSearchBackendsByBackendIdErrors];
+
+export type PatchSearchBackendsByBackendIdResponses = {
+    /**
+     * The updated search backend
+     */
+    200: SearchBackendReadSchema;
+};
+
+export type PatchSearchBackendsByBackendIdResponse = PatchSearchBackendsByBackendIdResponses[keyof PatchSearchBackendsByBackendIdResponses];
+
+export type PutSearchBackendsByBackendIdData = {
+    body: SearchBackendUpdateSchema;
+    path: {
+        backend_id: string;
+    };
+    query?: never;
+    url: '/v2/search_backends/{backend_id}/';
+};
+
+export type PutSearchBackendsByBackendIdErrors = {
+    /**
+     * Bad request
+     */
+    400: ErrorResponse;
+    /**
+     * Token is invalid
+     */
+    401: ErrorResponse;
+    /**
+     * Forbidden
+     */
+    403: ErrorResponse;
+    /**
+     * Not found
+     */
+    404: ErrorResponse;
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+    /**
+     * Service unavailable
+     */
+    503: ErrorResponse;
+};
+
+export type PutSearchBackendsByBackendIdError = PutSearchBackendsByBackendIdErrors[keyof PutSearchBackendsByBackendIdErrors];
+
+export type PutSearchBackendsByBackendIdResponses = {
+    /**
+     * The updated search backend
+     */
+    200: SearchBackendReadSchema;
+};
+
+export type PutSearchBackendsByBackendIdResponse = PutSearchBackendsByBackendIdResponses[keyof PutSearchBackendsByBackendIdResponses];
+
+export type PostSearchBackendsByBackendIdTestData = {
+    body?: never;
+    path: {
+        backend_id: string;
+    };
+    query?: never;
+    url: '/v2/search_backends/{backend_id}/test/';
+};
+
+export type PostSearchBackendsByBackendIdTestErrors = {
+    /**
+     * Bad request
+     */
+    400: ErrorResponse;
+    /**
+     * Token is invalid
+     */
+    401: ErrorResponse;
+    /**
+     * Forbidden
+     */
+    403: ErrorResponse;
+    /**
+     * Not found
+     */
+    404: ErrorResponse;
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+    /**
+     * Service unavailable
+     */
+    503: ErrorResponse;
+};
+
+export type PostSearchBackendsByBackendIdTestError = PostSearchBackendsByBackendIdTestErrors[keyof PostSearchBackendsByBackendIdTestErrors];
+
+export type PostSearchBackendsByBackendIdTestResponses = {
+    /**
+     * The connection test outcome
+     */
+    200: ConnectionTestSchema;
+};
+
+export type PostSearchBackendsByBackendIdTestResponse = PostSearchBackendsByBackendIdTestResponses[keyof PostSearchBackendsByBackendIdTestResponses];

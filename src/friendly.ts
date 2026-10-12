@@ -517,6 +517,22 @@ export const deletePlaylistItem = <ThrowOnError extends boolean = false>(playlis
   assetsApi.deletePlaylistsByPlaylistIdItemsByItemId<ThrowOnError>({ ...rest[0], path: { playlist_id: playlistId, item_id: itemId } });
 
 /**
+ * Delete a particular portal by id
+ *
+ * `DELETE /v1/portals/{portal_id}/` — assets.deletePortalsByPortalId
+ */
+export const deletePortal = <ThrowOnError extends boolean = false>(portalId: string, ...rest: Opt<Omit<assetsApi.Options<assetsApi.DeletePortalsByPortalIdData, ThrowOnError>, 'path'>>) =>
+  assetsApi.deletePortalsByPortalId<ThrowOnError>({ ...rest[0], path: { portal_id: portalId } });
+
+/**
+ * Delete the portal logo
+ *
+ * `DELETE /v1/portals/{portal_id}/logo/` — assets.deletePortalsByPortalIdLogo
+ */
+export const deletePortalLogo = <ThrowOnError extends boolean = false>(portalId: string, ...rest: Opt<Omit<assetsApi.Options<assetsApi.DeletePortalsByPortalIdLogoData, ThrowOnError>, 'path'>>) =>
+  assetsApi.deletePortalsByPortalIdLogo<ThrowOnError>({ ...rest[0], path: { portal_id: portalId } });
+
+/**
  * Delete a particular project by id
  *
  * `DELETE /v1/projects/{project_id}/` — assets.deleteProjectsByProjectId
@@ -941,6 +957,22 @@ export const getPlaylistItems = <ThrowOnError extends boolean = false>(playlistI
   assetsApi.getPlaylistsByPlaylistIdItems<ThrowOnError>({ ...rest[0], path: { playlist_id: playlistId } });
 
 /**
+ * Get list of portals
+ *
+ * `GET /v1/portals/` — assets.getPortals
+ */
+export const getPortals = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<assetsApi.Options<assetsApi.GetPortalsData, ThrowOnError>, 'path'>>) =>
+  assetsApi.getPortals<ThrowOnError>(rest[0]);
+
+/**
+ * Returns a particular portal by id
+ *
+ * `GET /v1/portals/{portal_id}/` — assets.getPortalsByPortalId
+ */
+export const getPortal = <ThrowOnError extends boolean = false>(portalId: string, ...rest: Opt<Omit<assetsApi.Options<assetsApi.GetPortalsByPortalIdData, ThrowOnError>, 'path'>>) =>
+  assetsApi.getPortalsByPortalId<ThrowOnError>({ ...rest[0], path: { portal_id: portalId } });
+
+/**
  * Get list of projects
  *
  * `GET /v1/projects/` — assets.getProjects
@@ -971,6 +1003,30 @@ export const getProjectMembers = <ThrowOnError extends boolean = false>(projectI
  */
 export const getProjectMember = <ThrowOnError extends boolean = false>(projectId: string, memberId: string, ...rest: Opt<Omit<assetsApi.Options<assetsApi.GetProjectsByProjectIdMembersByMemberIdData, ThrowOnError>, 'path'>>) =>
   assetsApi.getProjectsByProjectIdMembersByMemberId<ThrowOnError>({ ...rest[0], path: { project_id: projectId, member_id: memberId } });
+
+/**
+ * Returns the destination accounts the caller is allowed to publish to
+ *
+ * `GET /v1/publications/destinations/accounts/` — assets.getPublicationsDestinationsAccounts
+ */
+export const getPublicationsDestinationsAccounts = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<assetsApi.Options<assetsApi.GetPublicationsDestinationsAccountsData, ThrowOnError>, 'path'>>) =>
+  assetsApi.getPublicationsDestinationsAccounts<ThrowOnError>(rest[0]);
+
+/**
+ * Returns the distinct destination platforms the caller can publish to
+ *
+ * `GET /v1/publications/destinations/platforms/` — assets.getPublicationsDestinationsPlatforms
+ */
+export const getPublicationsDestinationsPlatforms = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<assetsApi.Options<assetsApi.GetPublicationsDestinationsPlatformsData, ThrowOnError>, 'path'>>) =>
+  assetsApi.getPublicationsDestinationsPlatforms<ThrowOnError>(rest[0]);
+
+/**
+ * ⚠️ Beta: Returns the iconik-native fields of a saved draft so the panel can be pre-filled
+ *
+ * `GET /v1/publications/drafts/{asset_id}/` — assets.getPublicationsDraftsByAssetId
+ */
+export const getPublicationsDraftsByAsset = <ThrowOnError extends boolean = false>(assetId: string, ...rest: Opt<Omit<assetsApi.Options<assetsApi.GetPublicationsDraftsByAssetIdData, ThrowOnError>, 'path'>>) =>
+  assetsApi.getPublicationsDraftsByAssetId<ThrowOnError>({ ...rest[0], path: { asset_id: assetId } });
 
 /**
  * Returns publication templates that can be used for publishing
@@ -1155,6 +1211,14 @@ export const patchPlaylist = <ThrowOnError extends boolean = false>(playlistId: 
  */
 export const patchPlaylistItem = <ThrowOnError extends boolean = false>(playlistId: string, itemId: string, ...rest: Opt<Omit<assetsApi.Options<assetsApi.PatchPlaylistsByPlaylistIdItemsByItemIdData, ThrowOnError>, 'path'>>) =>
   assetsApi.patchPlaylistsByPlaylistIdItemsByItemId<ThrowOnError>({ ...rest[0], path: { playlist_id: playlistId, item_id: itemId } });
+
+/**
+ * Update a portal
+ *
+ * `PATCH /v1/portals/{portal_id}/` — assets.patchPortalsByPortalId
+ */
+export const patchPortal = <ThrowOnError extends boolean = false>(portalId: string, ...rest: Opt<Omit<assetsApi.Options<assetsApi.PatchPortalsByPortalIdData, ThrowOnError>, 'path'>>) =>
+  assetsApi.patchPortalsByPortalId<ThrowOnError>({ ...rest[0], path: { portal_id: portalId } });
 
 /**
  * Update project
@@ -1621,6 +1685,30 @@ export const postPlaylistReindex = <ThrowOnError extends boolean = false>(playli
   assetsApi.postPlaylistsByPlaylistIdReindex<ThrowOnError>({ ...rest[0], path: { playlist_id: playlistId } });
 
 /**
+ * Create a new portal
+ *
+ * `POST /v1/portals/` — assets.postPortals
+ */
+export const postPortals = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<assetsApi.Options<assetsApi.PostPortalsData, ThrowOnError>, 'path'>>) =>
+  assetsApi.postPortals<ThrowOnError>(rest[0]);
+
+/**
+ * Upload a portal logo image
+ *
+ * `POST /v1/portals/{portal_id}/logo/` — assets.postPortalsByPortalIdLogo
+ */
+export const postPortalLogo = <ThrowOnError extends boolean = false>(portalId: string, ...rest: Opt<Omit<assetsApi.Options<assetsApi.PostPortalsByPortalIdLogoData, ThrowOnError>, 'path'>>) =>
+  assetsApi.postPortalsByPortalIdLogo<ThrowOnError>({ ...rest[0], path: { portal_id: portalId } });
+
+/**
+ * Reindex the portal
+ *
+ * `POST /v1/portals/{portal_id}/reindex/` — assets.postPortalsByPortalIdReindex
+ */
+export const postPortalReindex = <ThrowOnError extends boolean = false>(portalId: string, ...rest: Opt<Omit<assetsApi.Options<assetsApi.PostPortalsByPortalIdReindexData, ThrowOnError>, 'path'>>) =>
+  assetsApi.postPortalsByPortalIdReindex<ThrowOnError>({ ...rest[0], path: { portal_id: portalId } });
+
+/**
  * Create a new project
  *
  * `POST /v1/projects/` — assets.postProjects
@@ -1643,6 +1731,14 @@ export const postProjectMembers = <ThrowOnError extends boolean = false>(project
  */
 export const postProjectReindex = <ThrowOnError extends boolean = false>(projectId: string, ...rest: Opt<Omit<assetsApi.Options<assetsApi.PostProjectsByProjectIdReindexData, ThrowOnError>, 'path'>>) =>
   assetsApi.postProjectsByProjectIdReindex<ThrowOnError>({ ...rest[0], path: { project_id: projectId } });
+
+/**
+ * ⚠️ Beta: Cancels the scheduled publication of a post asset
+ *
+ * `POST /v1/publications/{publication_id}/cancel/` — assets.postPublicationsByPublicationIdCancel
+ */
+export const postPublicationCancel = <ThrowOnError extends boolean = false>(publicationId: string, ...rest: Opt<Omit<assetsApi.Options<assetsApi.PostPublicationsByPublicationIdCancelData, ThrowOnError>, 'path'>>) =>
+  assetsApi.postPublicationsByPublicationIdCancel<ThrowOnError>({ ...rest[0], path: { publication_id: publicationId } });
 
 /**
  * ⚠️ Beta: Schedules publishing for an asset to a list of destinations based on template_id
@@ -1925,6 +2021,14 @@ export const putPlaylistItemPosition = <ThrowOnError extends boolean = false>(pl
   assetsApi.putPlaylistsByPlaylistIdItemsByItemIdPosition<ThrowOnError>({ ...rest[0], path: { playlist_id: playlistId, item_id: itemId } });
 
 /**
+ * Update a portal
+ *
+ * `PUT /v1/portals/{portal_id}/` — assets.putPortalsByPortalId
+ */
+export const putPortal = <ThrowOnError extends boolean = false>(portalId: string, ...rest: Opt<Omit<assetsApi.Options<assetsApi.PutPortalsByPortalIdData, ThrowOnError>, 'path'>>) =>
+  assetsApi.putPortalsByPortalId<ThrowOnError>({ ...rest[0], path: { portal_id: portalId } });
+
+/**
  * Update project
  *
  * `PUT /v1/projects/{project_id}/` — assets.putProjectsByProjectId
@@ -2083,6 +2187,14 @@ export const getAppsExternalAuthBySecret = <ThrowOnError extends boolean = false
  */
 export const getAppsInstanceByApprovedInstance = <ThrowOnError extends boolean = false>(approvedInstanceId: string, ...rest: Opt<Omit<authApi.Options<authApi.GetAppsInstanceByApprovedInstanceIdData, ThrowOnError>, 'path'>>) =>
   authApi.getAppsInstanceByApprovedInstanceId<ThrowOnError>({ ...rest[0], path: { approved_instance_id: approvedInstanceId } });
+
+/**
+ * List of OAuth scopes currently supported by the platform
+ *
+ * `GET /v1/apps/oauth_scopes/` — auth.getAppsOauthScopes
+ */
+export const getAppsOauthScopes = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<authApi.Options<authApi.GetAppsOauthScopesData, ThrowOnError>, 'path'>>) =>
+  authApi.getAppsOauthScopes<ThrowOnError>(rest[0]);
 
 /**
  * List application tokens
@@ -2355,6 +2467,22 @@ export const postAuthAdLogin = <ThrowOnError extends boolean = false>(...rest: O
  */
 export const postAuthCurrentOtpGenerate = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<authApi.Options<authApi.PostAuthCurrentOtpGenerateData, ThrowOnError>, 'path'>>) =>
   authApi.postAuthCurrentOtpGenerate<ThrowOnError>(rest[0]);
+
+/**
+ * Create a short lived, single use embed token for the logged in user
+ *
+ * `POST /v1/auth/embed/token/` — auth.postAuthEmbedToken
+ */
+export const postAuthEmbedToken = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<authApi.Options<authApi.PostAuthEmbedTokenData, ThrowOnError>, 'path'>>) =>
+  authApi.postAuthEmbedToken<ThrowOnError>(rest[0]);
+
+/**
+ * Exchange an embed token for an iconik access token
+ *
+ * `POST /v1/auth/embed/token/exchange/` — auth.postAuthEmbedTokenExchange
+ */
+export const postAuthEmbedTokenExchange = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<authApi.Options<authApi.PostAuthEmbedTokenExchangeData, ThrowOnError>, 'path'>>) =>
+  authApi.postAuthEmbedTokenExchange<ThrowOnError>(rest[0]);
 
 /**
  * Login by using temp token
@@ -2805,6 +2933,22 @@ export const deleteAssetProxyPublic = <ThrowOnError extends boolean = false>(ass
   filesApi.deleteAssetsByAssetIdProxiesByProxyIdPublic<ThrowOnError>({ ...rest[0], path: { asset_id: assetId, proxy_id: proxyId } });
 
 /**
+ * Delete all of a segment's attachments
+ *
+ * `DELETE /v1/assets/{asset_id}/segments/{segment_id}/attachments/` — files.deleteAssetsByAssetIdSegmentsBySegmentIdAttachments
+ */
+export const deleteAssetSegmentAttachments = <ThrowOnError extends boolean = false>(assetId: string, segmentId: string, ...rest: Opt<Omit<filesApi.Options<filesApi.DeleteAssetsByAssetIdSegmentsBySegmentIdAttachmentsData, ThrowOnError>, 'path'>>) =>
+  filesApi.deleteAssetsByAssetIdSegmentsBySegmentIdAttachments<ThrowOnError>({ ...rest[0], path: { asset_id: assetId, segment_id: segmentId } });
+
+/**
+ * Delete a segment's attachment
+ *
+ * `DELETE /v1/assets/{asset_id}/segments/{segment_id}/attachments/{attachment_id}/` — files.deleteAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentId
+ */
+export const deleteAssetSegmentAttachment = <ThrowOnError extends boolean = false>(assetId: string, segmentId: string, attachmentId: string, ...rest: Opt<Omit<filesApi.Options<filesApi.DeleteAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdData, ThrowOnError>, 'path'>>) =>
+  filesApi.deleteAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentId<ThrowOnError>({ ...rest[0], path: { asset_id: assetId, segment_id: segmentId, attachment_id: attachmentId } });
+
+/**
  * Delete asset's subtitle
  *
  * `DELETE /v1/assets/{asset_id}/subtitles/{subtitle_id}/` — files.deleteAssetsByAssetIdSubtitlesBySubtitleId
@@ -2987,6 +3131,14 @@ export const deleteFileDeletionsFromByStorage = <ThrowOnError extends boolean = 
  */
 export const deleteFilesMissingStorage = <ThrowOnError extends boolean = false>(storageId: string, ...rest: Opt<Omit<filesApi.Options<filesApi.DeleteFilesMissingStoragesByStorageIdData, ThrowOnError>, 'path'>>) =>
   filesApi.deleteFilesMissingStoragesByStorageId<ThrowOnError>({ ...rest[0], path: { storage_id: storageId } });
+
+/**
+ * Delete a particular logo by id, removing the stored image
+ *
+ * `DELETE /v1/logos/{logo_id}/` — files.deleteLogosByLogoId
+ */
+export const deleteLogo = <ThrowOnError extends boolean = false>(logoId: string, ...rest: Opt<Omit<filesApi.Options<filesApi.DeleteLogosByLogoIdData, ThrowOnError>, 'path'>>) =>
+  filesApi.deleteLogosByLogoId<ThrowOnError>({ ...rest[0], path: { logo_id: logoId } });
 
 /**
  * Delete playlist's keyframe
@@ -3341,6 +3493,22 @@ export const getAssetProxyMultipartUrlPart = <ThrowOnError extends boolean = fal
   filesApi.getAssetsByAssetIdProxiesByProxyIdMultipartUrlPart<ThrowOnError>({ ...rest[0], path: { asset_id: assetId, proxy_id: proxyId } });
 
 /**
+ * Get all attachments for a segment
+ *
+ * `GET /v1/assets/{asset_id}/segments/{segment_id}/attachments/` — files.getAssetsByAssetIdSegmentsBySegmentIdAttachments
+ */
+export const getAssetSegmentAttachments = <ThrowOnError extends boolean = false>(assetId: string, segmentId: string, ...rest: Opt<Omit<filesApi.Options<filesApi.GetAssetsByAssetIdSegmentsBySegmentIdAttachmentsData, ThrowOnError>, 'path'>>) =>
+  filesApi.getAssetsByAssetIdSegmentsBySegmentIdAttachments<ThrowOnError>({ ...rest[0], path: { asset_id: assetId, segment_id: segmentId } });
+
+/**
+ * Get a segment's attachment
+ *
+ * `GET /v1/assets/{asset_id}/segments/{segment_id}/attachments/{attachment_id}/` — files.getAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentId
+ */
+export const getAssetSegmentAttachment = <ThrowOnError extends boolean = false>(assetId: string, segmentId: string, attachmentId: string, ...rest: Opt<Omit<filesApi.Options<filesApi.GetAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdData, ThrowOnError>, 'path'>>) =>
+  filesApi.getAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentId<ThrowOnError>({ ...rest[0], path: { asset_id: assetId, segment_id: segmentId, attachment_id: attachmentId } });
+
+/**
  * Get all asset's subtitles
  *
  * `GET /v1/assets/{asset_id}/subtitles/` — files.getAssetsByAssetIdSubtitles
@@ -3463,7 +3631,7 @@ export const getAssetVersionSubtitlesWebvttByLanguage = <ThrowOnError extends bo
 /**
  * Get all ProxyContainerByUser records for an asset's proxies,
  *
- * `GET /v1/assets/{asset_id}/watermark-matches/` — files.getAssetsByAssetIdWatermarkMatches
+ * `GET /v1/assets/{asset_id}/watermark_matches/` — files.getAssetsByAssetIdWatermarkMatches
  */
 export const getAssetWatermarkMatches = <ThrowOnError extends boolean = false>(assetId: string, ...rest: Opt<Omit<filesApi.Options<filesApi.GetAssetsByAssetIdWatermarkMatchesData, ThrowOnError>, 'path'>>) =>
   filesApi.getAssetsByAssetIdWatermarkMatches<ThrowOnError>({ ...rest[0], path: { asset_id: assetId } });
@@ -3531,6 +3699,22 @@ export const getFileSetFiles = <ThrowOnError extends boolean = false>(fileSetId:
  */
 export const getFilesChecksumByChecksum = <ThrowOnError extends boolean = false>(checksum: string, ...rest: Opt<Omit<filesApi.Options<filesApi.GetFilesChecksumByChecksumData, ThrowOnError>, 'path'>>) =>
   filesApi.getFilesChecksumByChecksum<ThrowOnError>({ ...rest[0], path: { checksum: checksum } });
+
+/**
+ * Get all saved logos for the domain
+ *
+ * `GET /v1/logos/` — files.getLogos
+ */
+export const getLogos = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<filesApi.Options<filesApi.GetLogosData, ThrowOnError>, 'path'>>) =>
+  filesApi.getLogos<ThrowOnError>(rest[0]);
+
+/**
+ * Returns a particular logo by id
+ *
+ * `GET /v1/logos/{logo_id}/` — files.getLogosByLogoId
+ */
+export const getLogo = <ThrowOnError extends boolean = false>(logoId: string, ...rest: Opt<Omit<filesApi.Options<filesApi.GetLogosByLogoIdData, ThrowOnError>, 'path'>>) =>
+  filesApi.getLogosByLogoId<ThrowOnError>({ ...rest[0], path: { logo_id: logoId } });
 
 /**
  * Get all playlist's keyframes
@@ -3877,6 +4061,14 @@ export const patchAssetProxyContainerFile = <ThrowOnError extends boolean = fals
   filesApi.patchAssetsByAssetIdProxiesByProxyIdContainersByContainerIdFilesByFileId<ThrowOnError>({ ...rest[0], path: { asset_id: assetId, proxy_id: proxyId, container_id: containerId, file_id: fileId } });
 
 /**
+ * Update attachment information
+ *
+ * `PATCH /v1/assets/{asset_id}/segments/{segment_id}/attachments/{attachment_id}/` — files.patchAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentId
+ */
+export const patchAssetSegmentAttachment = <ThrowOnError extends boolean = false>(assetId: string, segmentId: string, attachmentId: string, ...rest: Opt<Omit<filesApi.Options<filesApi.PatchAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdData, ThrowOnError>, 'path'>>) =>
+  filesApi.patchAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentId<ThrowOnError>({ ...rest[0], path: { asset_id: assetId, segment_id: segmentId, attachment_id: attachmentId } });
+
+/**
  * Update subtitle information
  *
  * `PATCH /v1/assets/{asset_id}/subtitles/{subtitle_id}/` — files.patchAssetsByAssetIdSubtitlesBySubtitleId
@@ -3907,6 +4099,14 @@ export const patchCollectionKeyframe = <ThrowOnError extends boolean = false>(co
  */
 export const patchExportLocation = <ThrowOnError extends boolean = false>(exportLocationId: string, ...rest: Opt<Omit<filesApi.Options<filesApi.PatchExportLocationsByExportLocationIdData, ThrowOnError>, 'path'>>) =>
   filesApi.patchExportLocationsByExportLocationId<ThrowOnError>({ ...rest[0], path: { export_location_id: exportLocationId } });
+
+/**
+ * Rename a saved logo
+ *
+ * `PATCH /v1/logos/{logo_id}/` — files.patchLogosByLogoId
+ */
+export const patchLogo = <ThrowOnError extends boolean = false>(logoId: string, ...rest: Opt<Omit<filesApi.Options<filesApi.PatchLogosByLogoIdData, ThrowOnError>, 'path'>>) =>
+  filesApi.patchLogosByLogoId<ThrowOnError>({ ...rest[0], path: { logo_id: logoId } });
 
 /**
  * Update keyframe information
@@ -4277,6 +4477,14 @@ export const postAssetProxyPublic = <ThrowOnError extends boolean = false>(asset
   filesApi.postAssetsByAssetIdProxiesByProxyIdPublic<ThrowOnError>({ ...rest[0], path: { asset_id: assetId, proxy_id: proxyId } });
 
 /**
+ * Create an attachment and associate it with a segment
+ *
+ * `POST /v1/assets/{asset_id}/segments/{segment_id}/attachments/` — files.postAssetsByAssetIdSegmentsBySegmentIdAttachments
+ */
+export const postAssetSegmentAttachments = <ThrowOnError extends boolean = false>(assetId: string, segmentId: string, ...rest: Opt<Omit<filesApi.Options<filesApi.PostAssetsByAssetIdSegmentsBySegmentIdAttachmentsData, ThrowOnError>, 'path'>>) =>
+  filesApi.postAssetsByAssetIdSegmentsBySegmentIdAttachments<ThrowOnError>({ ...rest[0], path: { asset_id: assetId, segment_id: segmentId } });
+
+/**
  * Create subtitle proxy and associate to asset
  *
  * `POST /v1/assets/{asset_id}/subtitles/` — files.postAssetsByAssetIdSubtitles
@@ -4515,6 +4723,14 @@ export const postFormatsArchiveBulkByFormatName = <ThrowOnError extends boolean 
  */
 export const postFormatsRestoreBulkByFormatName = <ThrowOnError extends boolean = false>(formatName: string, ...rest: Opt<Omit<filesApi.Options<filesApi.PostFormatsByFormatNameRestoreBulkData, ThrowOnError>, 'path'>>) =>
   filesApi.postFormatsByFormatNameRestoreBulk<ThrowOnError>({ ...rest[0], path: { format_name: formatName } });
+
+/**
+ * Create a new saved logo
+ *
+ * `POST /v1/logos/` — files.postLogos
+ */
+export const postLogos = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<filesApi.Options<filesApi.PostLogosData, ThrowOnError>, 'path'>>) =>
+  filesApi.postLogos<ThrowOnError>(rest[0]);
 
 /**
  * Create keyframe and associate to playlist
@@ -4851,6 +5067,14 @@ export const putAssetProxyContainers = <ThrowOnError extends boolean = false>(as
  */
 export const putAssetProxyContainerFile = <ThrowOnError extends boolean = false>(assetId: string, proxyId: string, containerId: string, fileId: string, ...rest: Opt<Omit<filesApi.Options<filesApi.PutAssetsByAssetIdProxiesByProxyIdContainersByContainerIdFilesByFileIdData, ThrowOnError>, 'path'>>) =>
   filesApi.putAssetsByAssetIdProxiesByProxyIdContainersByContainerIdFilesByFileId<ThrowOnError>({ ...rest[0], path: { asset_id: assetId, proxy_id: proxyId, container_id: containerId, file_id: fileId } });
+
+/**
+ * Update attachment information
+ *
+ * `PUT /v1/assets/{asset_id}/segments/{segment_id}/attachments/{attachment_id}/` — files.putAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentId
+ */
+export const putAssetSegmentAttachment = <ThrowOnError extends boolean = false>(assetId: string, segmentId: string, attachmentId: string, ...rest: Opt<Omit<filesApi.Options<filesApi.PutAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentIdData, ThrowOnError>, 'path'>>) =>
+  filesApi.putAssetsByAssetIdSegmentsBySegmentIdAttachmentsByAttachmentId<ThrowOnError>({ ...rest[0], path: { asset_id: assetId, segment_id: segmentId, attachment_id: attachmentId } });
 
 /**
  * Update subtitle information
@@ -5709,6 +5933,14 @@ export const deleteFavoritesSearch = <ThrowOnError extends boolean = false>(...r
   searchApi.deleteFavorites<ThrowOnError>(rest[0]);
 
 /**
+ * Delete a configured search backend
+ *
+ * `DELETE /v2/search_backends/{backend_id}/` — search.deleteSearchBackendsByBackendId
+ */
+export const deleteSearchBackendsByBackendV2 = <ThrowOnError extends boolean = false>(backendId: string, ...rest: Opt<Omit<searchApi.Options<searchApi.DeleteSearchBackendsByBackendIdData, ThrowOnError>, 'path'>>) =>
+  searchApi.deleteSearchBackendsByBackendId<ThrowOnError>({ ...rest[0], path: { backend_id: backendId } });
+
+/**
  * Delete a search from history by its id
  *
  * `DELETE /v1/search/history/{search_history_id}/` — search.deleteSearchHistoryBySearchHistoryId
@@ -5787,6 +6019,30 @@ export const getDiscoveryDefaultEntity = <ThrowOnError extends boolean = false>(
  */
 export const getPingV2 = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<searchApi.Options<searchApi.GetPingData, ThrowOnError>, 'path'>>) =>
   searchApi.getPing<ThrowOnError>(rest[0]);
+
+/**
+ * List the configured search backends of the domain
+ *
+ * `GET /v2/search_backends/` — search.getSearchBackends
+ */
+export const getSearchBackendsV2 = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<searchApi.Options<searchApi.GetSearchBackendsData, ThrowOnError>, 'path'>>) =>
+  searchApi.getSearchBackends<ThrowOnError>(rest[0]);
+
+/**
+ * Get one configured search backend
+ *
+ * `GET /v2/search_backends/{backend_id}/` — search.getSearchBackendsByBackendId
+ */
+export const getSearchBackendsByBackendV2 = <ThrowOnError extends boolean = false>(backendId: string, ...rest: Opt<Omit<searchApi.Options<searchApi.GetSearchBackendsByBackendIdData, ThrowOnError>, 'path'>>) =>
+  searchApi.getSearchBackendsByBackendId<ThrowOnError>({ ...rest[0], path: { backend_id: backendId } });
+
+/**
+ * List the installed search backend kinds and their options schemas
+ *
+ * `GET /v2/search_backends/kinds/` — search.getSearchBackendsKinds
+ */
+export const getSearchBackendsKindsV2 = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<searchApi.Options<searchApi.GetSearchBackendsKindsData, ThrowOnError>, 'path'>>) =>
+  searchApi.getSearchBackendsKinds<ThrowOnError>(rest[0]);
 
 /**
  * Returns the current search history
@@ -5877,6 +6133,14 @@ export const patchDiscoveryEntitiesObject = <ThrowOnError extends boolean = fals
   searchApi.patchDiscoveryEntitiesByObjectTypeByObjectId<ThrowOnError>({ ...rest[0], path: { object_type: objectType, object_id: objectId } });
 
 /**
+ * Update a configured search backend
+ *
+ * `PATCH /v2/search_backends/{backend_id}/` — search.patchSearchBackendsByBackendId
+ */
+export const patchSearchBackendsByBackendV2 = <ThrowOnError extends boolean = false>(backendId: string, ...rest: Opt<Omit<searchApi.Options<searchApi.PatchSearchBackendsByBackendIdData, ThrowOnError>, 'path'>>) =>
+  searchApi.patchSearchBackendsByBackendId<ThrowOnError>({ ...rest[0], path: { backend_id: backendId } });
+
+/**
  * Search and save this search
  *
  * `PATCH /v1/search/saved/{search_id}/` — search.patchSearchSavedBySearchId
@@ -5939,6 +6203,46 @@ export const postSearch = <ThrowOnError extends boolean = false>(...rest: Opt<Om
  */
 export const postSearchV2 = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<searchApi.Options<searchApi.PostSearch1Data, ThrowOnError>, 'path'>>) =>
   searchApi.postSearch1<ThrowOnError>(rest[0]);
+
+/**
+ * Configure a new search backend for the domain
+ *
+ * `POST /v2/search_backends/` — search.postSearchBackends
+ */
+export const postSearchBackendsV2 = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<searchApi.Options<searchApi.PostSearchBackendsData, ThrowOnError>, 'path'>>) =>
+  searchApi.postSearchBackends<ThrowOnError>(rest[0]);
+
+/**
+ * Test a configured search backend against its remote provider
+ *
+ * `POST /v2/search_backends/{backend_id}/test/` — search.postSearchBackendsByBackendIdTest
+ */
+export const postSearchBackendsTestByBackendV2 = <ThrowOnError extends boolean = false>(backendId: string, ...rest: Opt<Omit<searchApi.Options<searchApi.PostSearchBackendsByBackendIdTestData, ThrowOnError>, 'path'>>) =>
+  searchApi.postSearchBackendsByBackendIdTest<ThrowOnError>({ ...rest[0], path: { backend_id: backendId } });
+
+/**
+ * Get aggregated information about search results
+ *
+ * `POST /v1/search/content/info/` — search.postSearchContentInfo
+ */
+export const postSearchContentInfo = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<searchApi.Options<searchApi.PostSearchContentInfoData, ThrowOnError>, 'path'>>) =>
+  searchApi.postSearchContentInfo<ThrowOnError>(rest[0]);
+
+/**
+ * Copies the results of a search to a collection
+ *
+ * `POST /v1/search/convert_to_collection/` — search.postSearchConvertToCollection
+ */
+export const postSearchConvertToCollection = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<searchApi.Options<searchApi.PostSearchConvertToCollectionData, ThrowOnError>, 'path'>>) =>
+  searchApi.postSearchConvertToCollection<ThrowOnError>(rest[0]);
+
+/**
+ * Natural language search
+ *
+ * `POST /v2/search/natural/` — search.postSearchNatural
+ */
+export const postSearchNaturalV2 = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<searchApi.Options<searchApi.PostSearchNaturalData, ThrowOnError>, 'path'>>) =>
+  searchApi.postSearchNatural<ThrowOnError>(rest[0]);
 
 /**
  * Search, save and return result of this search
@@ -6037,6 +6341,14 @@ export const putDiscoveryEntitiesObject = <ThrowOnError extends boolean = false>
   searchApi.putDiscoveryEntitiesByObjectTypeByObjectId<ThrowOnError>({ ...rest[0], path: { object_type: objectType, object_id: objectId } });
 
 /**
+ * Replace a configured search backend
+ *
+ * `PUT /v2/search_backends/{backend_id}/` — search.putSearchBackendsByBackendId
+ */
+export const putSearchBackendsByBackendV2 = <ThrowOnError extends boolean = false>(backendId: string, ...rest: Opt<Omit<searchApi.Options<searchApi.PutSearchBackendsByBackendIdData, ThrowOnError>, 'path'>>) =>
+  searchApi.putSearchBackendsByBackendId<ThrowOnError>({ ...rest[0], path: { backend_id: backendId } });
+
+/**
  * Search and save this search
  *
  * `PUT /v1/search/saved/{search_id}/` — search.putSearchSavedBySearchId
@@ -6093,12 +6405,12 @@ export const deleteTeamSettings = <ThrowOnError extends boolean = false>(teamId:
   settingsApi.deleteTeamByTeamId<ThrowOnError>({ ...rest[0], path: { team_id: teamId } });
 
 /**
- * Remove attributes from user settings
+ * Delete a particular theme by id
  *
- * `DELETE /v1/user/attributes/` — settings.deleteUserAttributes
+ * `DELETE /v1/themes/{theme_id}/` — settings.deleteThemesByThemeId
  */
-export const deleteUserAttributes = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<settingsApi.Options<settingsApi.DeleteUserAttributesData, ThrowOnError>, 'path'>>) =>
-  settingsApi.deleteUserAttributes<ThrowOnError>(rest[0]);
+export const deleteTheme = <ThrowOnError extends boolean = false>(themeId: string, ...rest: Opt<Omit<settingsApi.Options<settingsApi.DeleteThemesByThemeIdData, ThrowOnError>, 'path'>>) =>
+  settingsApi.deleteThemesByThemeId<ThrowOnError>({ ...rest[0], path: { theme_id: themeId } });
 
 /**
  * Delete user settings
@@ -6107,6 +6419,30 @@ export const deleteUserAttributes = <ThrowOnError extends boolean = false>(...re
  */
 export const deleteUserSettings = <ThrowOnError extends boolean = false>(userId: string, ...rest: Opt<Omit<settingsApi.Options<settingsApi.DeleteUserByUserIdData, ThrowOnError>, 'path'>>) =>
   settingsApi.deleteUserByUserId<ThrowOnError>({ ...rest[0], path: { user_id: userId } });
+
+/**
+ * Audit trail of the consent acceptances and revocations of the system domain
+ *
+ * `GET /v1/ai/consent_events/` — settings.getAiConsentEvents
+ */
+export const getAiConsentEvents = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<settingsApi.Options<settingsApi.GetAiConsentEventsData, ThrowOnError>, 'path'>>) =>
+  settingsApi.getAiConsentEvents<ThrowOnError>(rest[0]);
+
+/**
+ * Consent state of the current system domain, one entry per clause
+ *
+ * `GET /v1/ai/consents/` — settings.getAiConsents
+ */
+export const getAiConsents = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<settingsApi.Options<settingsApi.GetAiConsentsData, ThrowOnError>, 'path'>>) =>
+  settingsApi.getAiConsents<ThrowOnError>(rest[0]);
+
+/**
+ * List the consent documents a customer may be asked to accept
+ *
+ * `GET /v1/ai/documents/` — settings.getAiDocuments
+ */
+export const getAiDocuments = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<settingsApi.Options<settingsApi.GetAiDocumentsData, ThrowOnError>, 'path'>>) =>
+  settingsApi.getAiDocuments<ThrowOnError>(rest[0]);
 
 /**
  * List of CORS hosts
@@ -6181,6 +6517,22 @@ export const getTeamSettings = <ThrowOnError extends boolean = false>(teamId: st
   settingsApi.getTeamByTeamId<ThrowOnError>({ ...rest[0], path: { team_id: teamId } });
 
 /**
+ * Get list of themes
+ *
+ * `GET /v1/themes/` — settings.getThemes
+ */
+export const getThemes = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<settingsApi.Options<settingsApi.GetThemesData, ThrowOnError>, 'path'>>) =>
+  settingsApi.getThemes<ThrowOnError>(rest[0]);
+
+/**
+ * Returns a particular theme by id
+ *
+ * `GET /v1/themes/{theme_id}/` — settings.getThemesByThemeId
+ */
+export const getTheme = <ThrowOnError extends boolean = false>(themeId: string, ...rest: Opt<Omit<settingsApi.Options<settingsApi.GetThemesByThemeIdData, ThrowOnError>, 'path'>>) =>
+  settingsApi.getThemesByThemeId<ThrowOnError>({ ...rest[0], path: { theme_id: themeId } });
+
+/**
  * User settings
  *
  * `GET /v1/user/{user_id}/` — settings.getUserByUserId
@@ -6229,6 +6581,14 @@ export const patchTeamSettings = <ThrowOnError extends boolean = false>(teamId: 
   settingsApi.patchTeamByTeamId<ThrowOnError>({ ...rest[0], path: { team_id: teamId } });
 
 /**
+ * Update a theme
+ *
+ * `PATCH /v1/themes/{theme_id}/` — settings.patchThemesByThemeId
+ */
+export const patchTheme = <ThrowOnError extends boolean = false>(themeId: string, ...rest: Opt<Omit<settingsApi.Options<settingsApi.PatchThemesByThemeIdData, ThrowOnError>, 'path'>>) =>
+  settingsApi.patchThemesByThemeId<ThrowOnError>({ ...rest[0], path: { theme_id: themeId } });
+
+/**
  * Change user settings
  *
  * `PATCH /v1/user/{user_id}/` — settings.patchUserByUserId
@@ -6237,12 +6597,44 @@ export const patchUserSettings = <ThrowOnError extends boolean = false>(userId: 
   settingsApi.patchUserByUserId<ThrowOnError>({ ...rest[0], path: { user_id: userId } });
 
 /**
+ * Accept a batch of consent documents
+ *
+ * `POST /v1/ai/consents/` — settings.postAiConsents
+ */
+export const postAiConsents = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<settingsApi.Options<settingsApi.PostAiConsentsData, ThrowOnError>, 'path'>>) =>
+  settingsApi.postAiConsents<ThrowOnError>(rest[0]);
+
+/**
+ * Refuse consent documents, so they cannot take effect by non-objection
+ *
+ * `POST /v1/ai/consents/decline/` — settings.postAiConsentsDecline
+ */
+export const postAiConsentsDecline = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<settingsApi.Options<settingsApi.PostAiConsentsDeclineData, ThrowOnError>, 'path'>>) =>
+  settingsApi.postAiConsentsDecline<ThrowOnError>(rest[0]);
+
+/**
+ * Withdraw the acceptance of consent documents
+ *
+ * `POST /v1/ai/consents/revoke/` — settings.postAiConsentsRevoke
+ */
+export const postAiConsentsRevoke = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<settingsApi.Options<settingsApi.PostAiConsentsRevokeData, ThrowOnError>, 'path'>>) =>
+  settingsApi.postAiConsentsRevoke<ThrowOnError>(rest[0]);
+
+/**
  * Create a new CORS host
  *
  * `POST /v1/cors_hosts/` — settings.postCorsHosts
  */
 export const postCorsHosts = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<settingsApi.Options<settingsApi.PostCorsHostsData, ThrowOnError>, 'path'>>) =>
   settingsApi.postCorsHosts<ThrowOnError>(rest[0]);
+
+/**
+ * Create a new theme
+ *
+ * `POST /v1/themes/` — settings.postThemes
+ */
+export const postThemes = <ThrowOnError extends boolean = false>(...rest: Opt<Omit<settingsApi.Options<settingsApi.PostThemesData, ThrowOnError>, 'path'>>) =>
+  settingsApi.postThemes<ThrowOnError>(rest[0]);
 
 /**
  * Change group settings
@@ -6283,6 +6675,14 @@ export const putSystemCurrent = <ThrowOnError extends boolean = false>(...rest: 
  */
 export const putTeamSettings = <ThrowOnError extends boolean = false>(teamId: string, ...rest: Opt<Omit<settingsApi.Options<settingsApi.PutTeamByTeamIdData, ThrowOnError>, 'path'>>) =>
   settingsApi.putTeamByTeamId<ThrowOnError>({ ...rest[0], path: { team_id: teamId } });
+
+/**
+ * Update a theme
+ *
+ * `PUT /v1/themes/{theme_id}/` — settings.putThemesByThemeId
+ */
+export const putTheme = <ThrowOnError extends boolean = false>(themeId: string, ...rest: Opt<Omit<settingsApi.Options<settingsApi.PutThemesByThemeIdData, ThrowOnError>, 'path'>>) =>
+  settingsApi.putThemesByThemeId<ThrowOnError>({ ...rest[0], path: { theme_id: themeId } });
 
 /**
  * Change user settings
@@ -6915,6 +7315,22 @@ export const postMetadataFillingProposalsDiscardByJob = <ThrowOnError extends bo
  */
 export const postMetadataFillingProposalsRegenerateByJob = <ThrowOnError extends boolean = false>(jobId: string, ...rest: Opt<Omit<transcodeApi.Options<transcodeApi.PostMetadataFillingProposalsByJobIdRegenerateData, ThrowOnError>, 'path'>>) =>
   transcodeApi.postMetadataFillingProposalsByJobIdRegenerate<ThrowOnError>({ ...rest[0], path: { job_id: jobId } });
+
+/**
+ * Accept every pending AI metadata-filling proposal under a bulk job
+ *
+ * `POST /v1/metadata_filling/proposals/{parent_job_id}/bulk/accept/` — transcode.postMetadataFillingProposalsByParentJobIdBulkAccept
+ */
+export const postMetadataFillingProposalsBulkAcceptByParentJob = <ThrowOnError extends boolean = false>(parentJobId: string, ...rest: Opt<Omit<transcodeApi.Options<transcodeApi.PostMetadataFillingProposalsByParentJobIdBulkAcceptData, ThrowOnError>, 'path'>>) =>
+  transcodeApi.postMetadataFillingProposalsByParentJobIdBulkAccept<ThrowOnError>({ ...rest[0], path: { parent_job_id: parentJobId } });
+
+/**
+ * Discard every pending AI metadata-filling proposal under a bulk job
+ *
+ * `POST /v1/metadata_filling/proposals/{parent_job_id}/bulk/discard/` — transcode.postMetadataFillingProposalsByParentJobIdBulkDiscard
+ */
+export const postMetadataFillingProposalsBulkDiscardByParentJob = <ThrowOnError extends boolean = false>(parentJobId: string, ...rest: Opt<Omit<transcodeApi.Options<transcodeApi.PostMetadataFillingProposalsByParentJobIdBulkDiscardData, ThrowOnError>, 'path'>>) =>
+  transcodeApi.postMetadataFillingProposalsByParentJobIdBulkDiscard<ThrowOnError>({ ...rest[0], path: { parent_job_id: parentJobId } });
 
 /**
  * Starts a new transcode.

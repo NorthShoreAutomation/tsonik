@@ -2,7 +2,7 @@
 
 import { client } from './client.gen.js';
 import type { Client, ClientMeta, Options as Options2, RequestResult, TDataShape } from '../_base/client/index.js';
-import type { DeleteDiscoveryDefaultEntitiesByEntityIdData, DeleteDiscoveryDefaultEntitiesByEntityIdErrors, DeleteDiscoveryDefaultEntitiesByEntityIdResponses, DeleteFavoritesData, DeleteFavoritesErrors, DeleteFavoritesResponses, DeleteSearchHistoryBySearchHistoryIdData, DeleteSearchHistoryBySearchHistoryIdErrors, DeleteSearchHistoryBySearchHistoryIdResponses, DeleteSearchSavedBySearchIdData, DeleteSearchSavedBySearchIdErrors, DeleteSearchSavedBySearchIdResponses, DeleteSearchSavedGroupByGroupIdData, DeleteSearchSavedGroupByGroupIdErrors, DeleteSearchSavedGroupByGroupIdResponses, DeleteSearchSavedGroupByGroupIdSearchBySearchIdData, DeleteSearchSavedGroupByGroupIdSearchBySearchIdErrors, DeleteSearchSavedGroupByGroupIdSearchBySearchIdResponses, DeleteViewsByViewIdData, DeleteViewsByViewIdErrors, DeleteViewsByViewIdResponses, DeleteViewsData, DeleteViewsErrors, DeleteViewsResponses, GetDiscoveryDefaultEntitiesAdminData, GetDiscoveryDefaultEntitiesAdminErrors, GetDiscoveryDefaultEntitiesAdminResponses, GetDiscoveryDefaultEntitiesByEntityIdData, GetDiscoveryDefaultEntitiesByEntityIdErrors, GetDiscoveryDefaultEntitiesByEntityIdResponses, GetDiscoveryDefaultEntitiesData, GetDiscoveryDefaultEntitiesErrors, GetDiscoveryDefaultEntitiesResponses, GetPingData, GetPingResponses, GetSearchHistoryBySearchHistoryIdData, GetSearchHistoryBySearchHistoryIdErrors, GetSearchHistoryBySearchHistoryIdResponses, GetSearchHistoryData, GetSearchHistoryErrors, GetSearchHistoryResponses, GetSearchSavedBySearchIdContentInfoData, GetSearchSavedBySearchIdContentInfoErrors, GetSearchSavedBySearchIdContentInfoResponses, GetSearchSavedBySearchIdData, GetSearchSavedBySearchIdErrors, GetSearchSavedBySearchIdResponses, GetSearchSavedData, GetSearchSavedErrors, GetSearchSavedGroupByGroupIdData, GetSearchSavedGroupByGroupIdErrors, GetSearchSavedGroupByGroupIdResponses, GetSearchSavedGroupsData, GetSearchSavedGroupsErrors, GetSearchSavedGroupsResponses, GetSearchSavedResponses, GetViewsByViewIdData, GetViewsByViewIdErrors, GetViewsByViewIdResponses, GetViewsData, GetViewsErrors, GetViewsResponses, PatchDiscoveryDefaultEntitiesByEntityIdData, PatchDiscoveryDefaultEntitiesByEntityIdErrors, PatchDiscoveryDefaultEntitiesByEntityIdResponses, PatchDiscoveryEntitiesByObjectTypeByObjectIdData, PatchDiscoveryEntitiesByObjectTypeByObjectIdErrors, PatchDiscoveryEntitiesByObjectTypeByObjectIdResponses, PatchSearchSavedBySearchIdData, PatchSearchSavedBySearchIdErrors, PatchSearchSavedBySearchIdResponses, PatchSearchSavedGroupByGroupIdData, PatchSearchSavedGroupByGroupIdErrors, PatchSearchSavedGroupByGroupIdResponses, PostDiscoveryDefaultEntitiesData, PostDiscoveryDefaultEntitiesErrors, PostDiscoveryDefaultEntitiesResponses, PostFavoritesData, PostFavoritesErrors, PostFavoritesResponses, PostNltfParse1Data, PostNltfParse1Errors, PostNltfParse1Responses, PostNltfParseData, PostNltfParseErrors, PostNltfParseResponses, PostSearch1Data, PostSearch1Errors, PostSearch1Responses, PostSearchData, PostSearchErrors, PostSearchResponses, PostSearchSavedBySearchIdConvertToCollectionData, PostSearchSavedBySearchIdConvertToCollectionErrors, PostSearchSavedBySearchIdConvertToCollectionResponses, PostSearchSavedBySearchIdReindexData, PostSearchSavedBySearchIdReindexErrors, PostSearchSavedBySearchIdReindexResponses, PostSearchSavedData, PostSearchSavedErrors, PostSearchSavedGroupByGroupIdSearchBySearchIdData, PostSearchSavedGroupByGroupIdSearchBySearchIdErrors, PostSearchSavedGroupByGroupIdSearchBySearchIdResponses, PostSearchSavedGroupData, PostSearchSavedGroupErrors, PostSearchSavedGroupResponses, PostSearchSavedGroupsByGroupIdReindexData, PostSearchSavedGroupsByGroupIdReindexErrors, PostSearchSavedGroupsByGroupIdReindexResponses, PostSearchSavedResponses, PostSearchSuggest1Data, PostSearchSuggest1Errors, PostSearchSuggest1Responses, PostSearchSuggestData, PostSearchSuggestErrors, PostSearchSuggestResponses, PostViewsData, PostViewsErrors, PostViewsResponses, PutDiscoveryDefaultData, PutDiscoveryDefaultEntitiesByEntityIdData, PutDiscoveryDefaultEntitiesByEntityIdErrors, PutDiscoveryDefaultEntitiesByEntityIdResponses, PutDiscoveryDefaultErrors, PutDiscoveryDefaultResponses, PutDiscoveryEntitiesByObjectTypeByObjectIdData, PutDiscoveryEntitiesByObjectTypeByObjectIdErrors, PutDiscoveryEntitiesByObjectTypeByObjectIdResponses, PutSearchSavedBySearchIdData, PutSearchSavedBySearchIdErrors, PutSearchSavedBySearchIdResponses, PutSearchSavedGroupByGroupIdData, PutSearchSavedGroupByGroupIdErrors, PutSearchSavedGroupByGroupIdResponses, PutViewsByViewIdData, PutViewsByViewIdErrors, PutViewsByViewIdResponses } from './types.gen.js';
+import type { DeleteDiscoveryDefaultEntitiesByEntityIdData, DeleteDiscoveryDefaultEntitiesByEntityIdErrors, DeleteDiscoveryDefaultEntitiesByEntityIdResponses, DeleteFavoritesData, DeleteFavoritesErrors, DeleteFavoritesResponses, DeleteSearchBackendsByBackendIdData, DeleteSearchBackendsByBackendIdErrors, DeleteSearchBackendsByBackendIdResponses, DeleteSearchHistoryBySearchHistoryIdData, DeleteSearchHistoryBySearchHistoryIdErrors, DeleteSearchHistoryBySearchHistoryIdResponses, DeleteSearchSavedBySearchIdData, DeleteSearchSavedBySearchIdErrors, DeleteSearchSavedBySearchIdResponses, DeleteSearchSavedGroupByGroupIdData, DeleteSearchSavedGroupByGroupIdErrors, DeleteSearchSavedGroupByGroupIdResponses, DeleteSearchSavedGroupByGroupIdSearchBySearchIdData, DeleteSearchSavedGroupByGroupIdSearchBySearchIdErrors, DeleteSearchSavedGroupByGroupIdSearchBySearchIdResponses, DeleteViewsByViewIdData, DeleteViewsByViewIdErrors, DeleteViewsByViewIdResponses, DeleteViewsData, DeleteViewsErrors, DeleteViewsResponses, GetDiscoveryDefaultEntitiesAdminData, GetDiscoveryDefaultEntitiesAdminErrors, GetDiscoveryDefaultEntitiesAdminResponses, GetDiscoveryDefaultEntitiesByEntityIdData, GetDiscoveryDefaultEntitiesByEntityIdErrors, GetDiscoveryDefaultEntitiesByEntityIdResponses, GetDiscoveryDefaultEntitiesData, GetDiscoveryDefaultEntitiesErrors, GetDiscoveryDefaultEntitiesResponses, GetPingData, GetPingResponses, GetSearchBackendsByBackendIdData, GetSearchBackendsByBackendIdErrors, GetSearchBackendsByBackendIdResponses, GetSearchBackendsData, GetSearchBackendsErrors, GetSearchBackendsKindsData, GetSearchBackendsKindsErrors, GetSearchBackendsKindsResponses, GetSearchBackendsResponses, GetSearchHistoryBySearchHistoryIdData, GetSearchHistoryBySearchHistoryIdErrors, GetSearchHistoryBySearchHistoryIdResponses, GetSearchHistoryData, GetSearchHistoryErrors, GetSearchHistoryResponses, GetSearchSavedBySearchIdContentInfoData, GetSearchSavedBySearchIdContentInfoErrors, GetSearchSavedBySearchIdContentInfoResponses, GetSearchSavedBySearchIdData, GetSearchSavedBySearchIdErrors, GetSearchSavedBySearchIdResponses, GetSearchSavedData, GetSearchSavedErrors, GetSearchSavedGroupByGroupIdData, GetSearchSavedGroupByGroupIdErrors, GetSearchSavedGroupByGroupIdResponses, GetSearchSavedGroupsData, GetSearchSavedGroupsErrors, GetSearchSavedGroupsResponses, GetSearchSavedResponses, GetViewsByViewIdData, GetViewsByViewIdErrors, GetViewsByViewIdResponses, GetViewsData, GetViewsErrors, GetViewsResponses, PatchDiscoveryDefaultEntitiesByEntityIdData, PatchDiscoveryDefaultEntitiesByEntityIdErrors, PatchDiscoveryDefaultEntitiesByEntityIdResponses, PatchDiscoveryEntitiesByObjectTypeByObjectIdData, PatchDiscoveryEntitiesByObjectTypeByObjectIdErrors, PatchDiscoveryEntitiesByObjectTypeByObjectIdResponses, PatchSearchBackendsByBackendIdData, PatchSearchBackendsByBackendIdErrors, PatchSearchBackendsByBackendIdResponses, PatchSearchSavedBySearchIdData, PatchSearchSavedBySearchIdErrors, PatchSearchSavedBySearchIdResponses, PatchSearchSavedGroupByGroupIdData, PatchSearchSavedGroupByGroupIdErrors, PatchSearchSavedGroupByGroupIdResponses, PostDiscoveryDefaultEntitiesData, PostDiscoveryDefaultEntitiesErrors, PostDiscoveryDefaultEntitiesResponses, PostFavoritesData, PostFavoritesErrors, PostFavoritesResponses, PostNltfParse1Data, PostNltfParse1Errors, PostNltfParse1Responses, PostNltfParseData, PostNltfParseErrors, PostNltfParseResponses, PostSearch1Data, PostSearch1Errors, PostSearch1Responses, PostSearchBackendsByBackendIdTestData, PostSearchBackendsByBackendIdTestErrors, PostSearchBackendsByBackendIdTestResponses, PostSearchBackendsData, PostSearchBackendsErrors, PostSearchBackendsResponses, PostSearchContentInfoData, PostSearchContentInfoErrors, PostSearchContentInfoResponses, PostSearchConvertToCollectionData, PostSearchConvertToCollectionErrors, PostSearchConvertToCollectionResponses, PostSearchData, PostSearchErrors, PostSearchNaturalData, PostSearchNaturalErrors, PostSearchNaturalResponses, PostSearchResponses, PostSearchSavedBySearchIdConvertToCollectionData, PostSearchSavedBySearchIdConvertToCollectionErrors, PostSearchSavedBySearchIdConvertToCollectionResponses, PostSearchSavedBySearchIdReindexData, PostSearchSavedBySearchIdReindexErrors, PostSearchSavedBySearchIdReindexResponses, PostSearchSavedData, PostSearchSavedErrors, PostSearchSavedGroupByGroupIdSearchBySearchIdData, PostSearchSavedGroupByGroupIdSearchBySearchIdErrors, PostSearchSavedGroupByGroupIdSearchBySearchIdResponses, PostSearchSavedGroupData, PostSearchSavedGroupErrors, PostSearchSavedGroupResponses, PostSearchSavedGroupsByGroupIdReindexData, PostSearchSavedGroupsByGroupIdReindexErrors, PostSearchSavedGroupsByGroupIdReindexResponses, PostSearchSavedResponses, PostSearchSuggest1Data, PostSearchSuggest1Errors, PostSearchSuggest1Responses, PostSearchSuggestData, PostSearchSuggestErrors, PostSearchSuggestResponses, PostViewsData, PostViewsErrors, PostViewsResponses, PutDiscoveryDefaultData, PutDiscoveryDefaultEntitiesByEntityIdData, PutDiscoveryDefaultEntitiesByEntityIdErrors, PutDiscoveryDefaultEntitiesByEntityIdResponses, PutDiscoveryDefaultErrors, PutDiscoveryDefaultResponses, PutDiscoveryEntitiesByObjectTypeByObjectIdData, PutDiscoveryEntitiesByObjectTypeByObjectIdErrors, PutDiscoveryEntitiesByObjectTypeByObjectIdResponses, PutSearchBackendsByBackendIdData, PutSearchBackendsByBackendIdErrors, PutSearchBackendsByBackendIdResponses, PutSearchSavedBySearchIdData, PutSearchSavedBySearchIdErrors, PutSearchSavedBySearchIdResponses, PutSearchSavedGroupByGroupIdData, PutSearchSavedGroupByGroupIdErrors, PutSearchSavedGroupByGroupIdResponses, PutViewsByViewIdData, PutViewsByViewIdErrors, PutViewsByViewIdResponses } from './types.gen.js';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -244,6 +244,7 @@ export const postFavorites = <ThrowOnError extends boolean = false>(options: Opt
  *
  * Required roles:
  * - can_search
+ * - can_search_with_ai
  *
  */
 export const postNltfParse = <ThrowOnError extends boolean = false>(options: Options<PostNltfParseData, ThrowOnError>): RequestResult<PostNltfParseResponses, PostNltfParseErrors, ThrowOnError> => (options.client ?? client).post<PostNltfParseResponses, PostNltfParseErrors, ThrowOnError>({
@@ -267,6 +268,44 @@ export const postNltfParse = <ThrowOnError extends boolean = false>(options: Opt
 export const postSearch = <ThrowOnError extends boolean = false>(options: Options<PostSearchData, ThrowOnError>): RequestResult<PostSearchResponses, PostSearchErrors, ThrowOnError> => (options.client ?? client).post<PostSearchResponses, PostSearchErrors, ThrowOnError>({
     security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
     url: '/v1/search/',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Get aggregated information about search results
+ *
+ * <br/>The returned information includes count of assets and collections,<br/>total size of all assets (in bytes) and total duration of video and audio<br/>assets (in milliseconds).<br/>The returned information includes count of assets and collections,<br/>total size of all assets (in bytes) and total duration of video and audio<br/>assets (in milliseconds).
+ * Required roles:
+ * - can_search
+ *
+ */
+export const postSearchContentInfo = <ThrowOnError extends boolean = false>(options: Options<PostSearchContentInfoData, ThrowOnError>): RequestResult<PostSearchContentInfoResponses, PostSearchContentInfoErrors, ThrowOnError> => (options.client ?? client).post<PostSearchContentInfoResponses, PostSearchContentInfoErrors, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
+    url: '/v1/search/content/info/',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Copies the results of a search to a collection
+ *
+ *
+ * Required roles:
+ * - can_search
+ * - can_create_collections
+ * - can_write_collections
+ *
+ */
+export const postSearchConvertToCollection = <ThrowOnError extends boolean = false>(options: Options<PostSearchConvertToCollectionData, ThrowOnError>): RequestResult<PostSearchConvertToCollectionResponses, PostSearchConvertToCollectionErrors, ThrowOnError> => (options.client ?? client).post<PostSearchConvertToCollectionResponses, PostSearchConvertToCollectionErrors, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
+    url: '/v1/search/convert_to_collection/',
     ...options,
     headers: {
         'Content-Type': 'application/json',
@@ -725,6 +764,7 @@ export const putViewsByViewId = <ThrowOnError extends boolean = false>(options: 
  *
  * Required roles:
  * - can_search
+ * - can_search_with_ai
  */
 export const postNltfParse1 = <ThrowOnError extends boolean = false>(options: Options<PostNltfParse1Data, ThrowOnError>): RequestResult<PostNltfParse1Responses, PostNltfParse1Errors, ThrowOnError> => (options.client ?? client).post<PostNltfParse1Responses, PostNltfParse1Errors, ThrowOnError>({
     security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
@@ -764,6 +804,22 @@ export const postSearch1 = <ThrowOnError extends boolean = false>(options: Optio
 });
 
 /**
+ * Natural language search
+ *
+ * Required roles:
+ * - can_search
+ */
+export const postSearchNatural = <ThrowOnError extends boolean = false>(options: Options<PostSearchNaturalData, ThrowOnError>): RequestResult<PostSearchNaturalResponses, PostSearchNaturalErrors, ThrowOnError> => (options.client ?? client).post<PostSearchNaturalResponses, PostSearchNaturalErrors, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
+    url: '/v2/search/natural/',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
  * Search suggestions
  *
  * Required roles:
@@ -777,4 +833,112 @@ export const postSearchSuggest1 = <ThrowOnError extends boolean = false>(options
         'Content-Type': 'application/json',
         ...options.headers
     }
+});
+
+/**
+ * List the configured search backends of the domain
+ *
+ * Required roles:
+ * - can_read_search_backends
+ */
+export const getSearchBackends = <ThrowOnError extends boolean = false>(options?: Options<GetSearchBackendsData, ThrowOnError>): RequestResult<GetSearchBackendsResponses, GetSearchBackendsErrors, ThrowOnError> => (options?.client ?? client).get<GetSearchBackendsResponses, GetSearchBackendsErrors, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
+    url: '/v2/search_backends/',
+    ...options
+});
+
+/**
+ * Configure a new search backend for the domain
+ *
+ * Required roles:
+ * - can_write_search_backends
+ */
+export const postSearchBackends = <ThrowOnError extends boolean = false>(options: Options<PostSearchBackendsData, ThrowOnError>): RequestResult<PostSearchBackendsResponses, PostSearchBackendsErrors, ThrowOnError> => (options.client ?? client).post<PostSearchBackendsResponses, PostSearchBackendsErrors, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
+    url: '/v2/search_backends/',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * List the installed search backend kinds and their options schemas
+ *
+ * Required roles:
+ * - can_read_search_backends
+ */
+export const getSearchBackendsKinds = <ThrowOnError extends boolean = false>(options?: Options<GetSearchBackendsKindsData, ThrowOnError>): RequestResult<GetSearchBackendsKindsResponses, GetSearchBackendsKindsErrors, ThrowOnError> => (options?.client ?? client).get<GetSearchBackendsKindsResponses, GetSearchBackendsKindsErrors, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
+    url: '/v2/search_backends/kinds/',
+    ...options
+});
+
+/**
+ * Delete a configured search backend
+ *
+ * Required roles:
+ * - can_delete_search_backends
+ */
+export const deleteSearchBackendsByBackendId = <ThrowOnError extends boolean = false>(options: Options<DeleteSearchBackendsByBackendIdData, ThrowOnError>): RequestResult<DeleteSearchBackendsByBackendIdResponses, DeleteSearchBackendsByBackendIdErrors, ThrowOnError> => (options.client ?? client).delete<DeleteSearchBackendsByBackendIdResponses, DeleteSearchBackendsByBackendIdErrors, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
+    url: '/v2/search_backends/{backend_id}/',
+    ...options
+});
+
+/**
+ * Get one configured search backend
+ *
+ * Required roles:
+ * - can_read_search_backends
+ */
+export const getSearchBackendsByBackendId = <ThrowOnError extends boolean = false>(options: Options<GetSearchBackendsByBackendIdData, ThrowOnError>): RequestResult<GetSearchBackendsByBackendIdResponses, GetSearchBackendsByBackendIdErrors, ThrowOnError> => (options.client ?? client).get<GetSearchBackendsByBackendIdResponses, GetSearchBackendsByBackendIdErrors, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
+    url: '/v2/search_backends/{backend_id}/',
+    ...options
+});
+
+/**
+ * Update a configured search backend
+ *
+ * Required roles:
+ * - can_write_search_backends
+ */
+export const patchSearchBackendsByBackendId = <ThrowOnError extends boolean = false>(options: Options<PatchSearchBackendsByBackendIdData, ThrowOnError>): RequestResult<PatchSearchBackendsByBackendIdResponses, PatchSearchBackendsByBackendIdErrors, ThrowOnError> => (options.client ?? client).patch<PatchSearchBackendsByBackendIdResponses, PatchSearchBackendsByBackendIdErrors, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
+    url: '/v2/search_backends/{backend_id}/',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Replace a configured search backend
+ *
+ * Required roles:
+ * - can_write_search_backends
+ */
+export const putSearchBackendsByBackendId = <ThrowOnError extends boolean = false>(options: Options<PutSearchBackendsByBackendIdData, ThrowOnError>): RequestResult<PutSearchBackendsByBackendIdResponses, PutSearchBackendsByBackendIdErrors, ThrowOnError> => (options.client ?? client).put<PutSearchBackendsByBackendIdResponses, PutSearchBackendsByBackendIdErrors, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
+    url: '/v2/search_backends/{backend_id}/',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Test a configured search backend against its remote provider
+ *
+ * Required roles:
+ * - can_write_search_backends
+ */
+export const postSearchBackendsByBackendIdTest = <ThrowOnError extends boolean = false>(options: Options<PostSearchBackendsByBackendIdTestData, ThrowOnError>): RequestResult<PostSearchBackendsByBackendIdTestResponses, PostSearchBackendsByBackendIdTestErrors, ThrowOnError> => (options.client ?? client).post<PostSearchBackendsByBackendIdTestResponses, PostSearchBackendsByBackendIdTestErrors, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
+    url: '/v2/search_backends/{backend_id}/test/',
+    ...options
 });

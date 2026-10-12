@@ -2,7 +2,7 @@
 
 import { client } from './client.gen.js';
 import type { Client, ClientMeta, Options as Options2, RequestResult, TDataShape } from '../_base/client/index.js';
-import type { DeleteCorsHostsByCorsHostIdData, DeleteCorsHostsByCorsHostIdErrors, DeleteCorsHostsByCorsHostIdResponses, DeleteGroupByGroupIdData, DeleteGroupByGroupIdErrors, DeleteGroupByGroupIdResponses, DeleteSearchViewByViewIdGroupIdsData, DeleteSearchViewByViewIdGroupIdsErrors, DeleteSearchViewByViewIdGroupIdsResponses, DeleteTeamByTeamIdData, DeleteTeamByTeamIdErrors, DeleteTeamByTeamIdResponses, DeleteUserAttributesData, DeleteUserAttributesErrors, DeleteUserAttributesResponses, DeleteUserByUserIdData, DeleteUserByUserIdErrors, DeleteUserByUserIdResponses, GetCorsHostsByCorsHostIdData, GetCorsHostsByCorsHostIdErrors, GetCorsHostsByCorsHostIdResponses, GetCorsHostsData, GetCorsHostsErrors, GetCorsHostsResponses, GetGroupByGroupIdData, GetGroupByGroupIdErrors, GetGroupByGroupIdResponses, GetMergedByUserIdData, GetMergedByUserIdErrors, GetMergedByUserIdResponses, GetMergedCurrentData, GetMergedCurrentErrors, GetMergedCurrentResponses, GetSearchViewByViewIdGroupIdsData, GetSearchViewByViewIdGroupIdsErrors, GetSearchViewByViewIdGroupIdsResponses, GetSystemBySystemDomainIdData, GetSystemBySystemDomainIdErrors, GetSystemBySystemDomainIdResponses, GetSystemCurrentData, GetSystemCurrentErrors, GetSystemCurrentResponses, GetTeamByTeamIdData, GetTeamByTeamIdErrors, GetTeamByTeamIdResponses, GetUserByUserIdData, GetUserByUserIdErrors, GetUserByUserIdResponses, PatchGroupByGroupIdData, PatchGroupByGroupIdErrors, PatchGroupByGroupIdResponses, PatchSearchViewByViewIdGroupIdsData, PatchSearchViewByViewIdGroupIdsErrors, PatchSearchViewByViewIdGroupIdsResponses, PatchSystemBySystemDomainIdData, PatchSystemBySystemDomainIdErrors, PatchSystemBySystemDomainIdResponses, PatchSystemCurrentData, PatchSystemCurrentErrors, PatchSystemCurrentResponses, PatchTeamByTeamIdData, PatchTeamByTeamIdErrors, PatchTeamByTeamIdResponses, PatchUserByUserIdData, PatchUserByUserIdErrors, PatchUserByUserIdResponses, PostCorsHostsData, PostCorsHostsErrors, PostCorsHostsResponses, PutGroupByGroupIdData, PutGroupByGroupIdErrors, PutGroupByGroupIdResponses, PutSearchViewByViewIdGroupIdsData, PutSearchViewByViewIdGroupIdsErrors, PutSearchViewByViewIdGroupIdsResponses, PutSystemBySystemDomainIdData, PutSystemBySystemDomainIdErrors, PutSystemBySystemDomainIdResponses, PutSystemCurrentData, PutSystemCurrentErrors, PutSystemCurrentResponses, PutTeamByTeamIdData, PutTeamByTeamIdErrors, PutTeamByTeamIdResponses, PutUserByUserIdData, PutUserByUserIdErrors, PutUserByUserIdResponses } from './types.gen.js';
+import type { DeleteCorsHostsByCorsHostIdData, DeleteCorsHostsByCorsHostIdErrors, DeleteCorsHostsByCorsHostIdResponses, DeleteGroupByGroupIdData, DeleteGroupByGroupIdErrors, DeleteGroupByGroupIdResponses, DeleteSearchViewByViewIdGroupIdsData, DeleteSearchViewByViewIdGroupIdsErrors, DeleteSearchViewByViewIdGroupIdsResponses, DeleteTeamByTeamIdData, DeleteTeamByTeamIdErrors, DeleteTeamByTeamIdResponses, DeleteThemesByThemeIdData, DeleteThemesByThemeIdErrors, DeleteThemesByThemeIdResponses, DeleteUserByUserIdData, DeleteUserByUserIdErrors, DeleteUserByUserIdResponses, GetAiConsentEventsData, GetAiConsentEventsErrors, GetAiConsentEventsResponses, GetAiConsentsData, GetAiConsentsErrors, GetAiConsentsResponses, GetAiDocumentsData, GetAiDocumentsErrors, GetAiDocumentsResponses, GetCorsHostsByCorsHostIdData, GetCorsHostsByCorsHostIdErrors, GetCorsHostsByCorsHostIdResponses, GetCorsHostsData, GetCorsHostsErrors, GetCorsHostsResponses, GetGroupByGroupIdData, GetGroupByGroupIdErrors, GetGroupByGroupIdResponses, GetMergedByUserIdData, GetMergedByUserIdErrors, GetMergedByUserIdResponses, GetMergedCurrentData, GetMergedCurrentErrors, GetMergedCurrentResponses, GetSearchViewByViewIdGroupIdsData, GetSearchViewByViewIdGroupIdsErrors, GetSearchViewByViewIdGroupIdsResponses, GetSystemBySystemDomainIdData, GetSystemBySystemDomainIdErrors, GetSystemBySystemDomainIdResponses, GetSystemCurrentData, GetSystemCurrentErrors, GetSystemCurrentResponses, GetTeamByTeamIdData, GetTeamByTeamIdErrors, GetTeamByTeamIdResponses, GetThemesByThemeIdData, GetThemesByThemeIdErrors, GetThemesByThemeIdResponses, GetThemesData, GetThemesErrors, GetThemesResponses, GetUserByUserIdData, GetUserByUserIdErrors, GetUserByUserIdResponses, PatchGroupByGroupIdData, PatchGroupByGroupIdErrors, PatchGroupByGroupIdResponses, PatchSearchViewByViewIdGroupIdsData, PatchSearchViewByViewIdGroupIdsErrors, PatchSearchViewByViewIdGroupIdsResponses, PatchSystemBySystemDomainIdData, PatchSystemBySystemDomainIdErrors, PatchSystemBySystemDomainIdResponses, PatchSystemCurrentData, PatchSystemCurrentErrors, PatchSystemCurrentResponses, PatchTeamByTeamIdData, PatchTeamByTeamIdErrors, PatchTeamByTeamIdResponses, PatchThemesByThemeIdData, PatchThemesByThemeIdErrors, PatchThemesByThemeIdResponses, PatchUserByUserIdData, PatchUserByUserIdErrors, PatchUserByUserIdResponses, PostAiConsentsData, PostAiConsentsDeclineData, PostAiConsentsDeclineErrors, PostAiConsentsDeclineResponses, PostAiConsentsErrors, PostAiConsentsResponses, PostAiConsentsRevokeData, PostAiConsentsRevokeErrors, PostAiConsentsRevokeResponses, PostCorsHostsData, PostCorsHostsErrors, PostCorsHostsResponses, PostThemesData, PostThemesErrors, PostThemesResponses, PutGroupByGroupIdData, PutGroupByGroupIdErrors, PutGroupByGroupIdResponses, PutSearchViewByViewIdGroupIdsData, PutSearchViewByViewIdGroupIdsErrors, PutSearchViewByViewIdGroupIdsResponses, PutSystemBySystemDomainIdData, PutSystemBySystemDomainIdErrors, PutSystemBySystemDomainIdResponses, PutSystemCurrentData, PutSystemCurrentErrors, PutSystemCurrentResponses, PutTeamByTeamIdData, PutTeamByTeamIdErrors, PutTeamByTeamIdResponses, PutThemesByThemeIdData, PutThemesByThemeIdErrors, PutThemesByThemeIdResponses, PutUserByUserIdData, PutUserByUserIdErrors, PutUserByUserIdResponses } from './types.gen.js';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -17,6 +17,72 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
      */
     meta?: keyof ClientMeta extends never ? Record<string, unknown> : ClientMeta;
 };
+
+/**
+ * Audit trail of the consent acceptances and revocations of the system domain
+ */
+export const getAiConsentEvents = <ThrowOnError extends boolean = false>(options?: Options<GetAiConsentEventsData, ThrowOnError>): RequestResult<GetAiConsentEventsResponses, GetAiConsentEventsErrors, ThrowOnError> => (options?.client ?? client).get<GetAiConsentEventsResponses, GetAiConsentEventsErrors, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
+    url: '/v1/ai/consent_events/',
+    ...options
+});
+
+/**
+ * Consent state of the current system domain, one entry per clause
+ */
+export const getAiConsents = <ThrowOnError extends boolean = false>(options?: Options<GetAiConsentsData, ThrowOnError>): RequestResult<GetAiConsentsResponses, GetAiConsentsErrors, ThrowOnError> => (options?.client ?? client).get<GetAiConsentsResponses, GetAiConsentsErrors, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
+    url: '/v1/ai/consents/',
+    ...options
+});
+
+/**
+ * Accept a batch of consent documents
+ */
+export const postAiConsents = <ThrowOnError extends boolean = false>(options: Options<PostAiConsentsData, ThrowOnError>): RequestResult<PostAiConsentsResponses, PostAiConsentsErrors, ThrowOnError> => (options.client ?? client).post<PostAiConsentsResponses, PostAiConsentsErrors, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
+    url: '/v1/ai/consents/',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Refuse consent documents, so they cannot take effect by non-objection
+ */
+export const postAiConsentsDecline = <ThrowOnError extends boolean = false>(options: Options<PostAiConsentsDeclineData, ThrowOnError>): RequestResult<PostAiConsentsDeclineResponses, PostAiConsentsDeclineErrors, ThrowOnError> => (options.client ?? client).post<PostAiConsentsDeclineResponses, PostAiConsentsDeclineErrors, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
+    url: '/v1/ai/consents/decline/',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Withdraw the acceptance of consent documents
+ */
+export const postAiConsentsRevoke = <ThrowOnError extends boolean = false>(options: Options<PostAiConsentsRevokeData, ThrowOnError>): RequestResult<PostAiConsentsRevokeResponses, PostAiConsentsRevokeErrors, ThrowOnError> => (options.client ?? client).post<PostAiConsentsRevokeResponses, PostAiConsentsRevokeErrors, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
+    url: '/v1/ai/consents/revoke/',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * List the consent documents a customer may be asked to accept
+ */
+export const getAiDocuments = <ThrowOnError extends boolean = false>(options?: Options<GetAiDocumentsData, ThrowOnError>): RequestResult<GetAiDocumentsResponses, GetAiDocumentsErrors, ThrowOnError> => (options?.client ?? client).get<GetAiDocumentsResponses, GetAiDocumentsErrors, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
+    url: '/v1/ai/documents/',
+    ...options
+});
 
 /**
  * List of CORS hosts
@@ -337,11 +403,94 @@ export const putTeamByTeamId = <ThrowOnError extends boolean = false>(options: O
 });
 
 /**
- * Remove attributes from user settings
+ * Get list of themes
+ *
+ *
+ * Required roles:
+ * - can_read_themes
+ *
  */
-export const deleteUserAttributes = <ThrowOnError extends boolean = false>(options: Options<DeleteUserAttributesData, ThrowOnError>): RequestResult<DeleteUserAttributesResponses, DeleteUserAttributesErrors, ThrowOnError> => (options.client ?? client).delete<DeleteUserAttributesResponses, DeleteUserAttributesErrors, ThrowOnError>({
+export const getThemes = <ThrowOnError extends boolean = false>(options?: Options<GetThemesData, ThrowOnError>): RequestResult<GetThemesResponses, GetThemesErrors, ThrowOnError> => (options?.client ?? client).get<GetThemesResponses, GetThemesErrors, ThrowOnError>({
     security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
-    url: '/v1/user/attributes/',
+    url: '/v1/themes/',
+    ...options
+});
+
+/**
+ * Create a new theme
+ *
+ *
+ * Required roles:
+ * - can_write_themes
+ *
+ */
+export const postThemes = <ThrowOnError extends boolean = false>(options: Options<PostThemesData, ThrowOnError>): RequestResult<PostThemesResponses, PostThemesErrors, ThrowOnError> => (options.client ?? client).post<PostThemesResponses, PostThemesErrors, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
+    url: '/v1/themes/',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Delete a particular theme by id
+ *
+ *
+ * Required roles:
+ * - can_delete_themes
+ *
+ */
+export const deleteThemesByThemeId = <ThrowOnError extends boolean = false>(options: Options<DeleteThemesByThemeIdData, ThrowOnError>): RequestResult<DeleteThemesByThemeIdResponses, DeleteThemesByThemeIdErrors, ThrowOnError> => (options.client ?? client).delete<DeleteThemesByThemeIdResponses, DeleteThemesByThemeIdErrors, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
+    url: '/v1/themes/{theme_id}/',
+    ...options
+});
+
+/**
+ * Returns a particular theme by id
+ *
+ *
+ * Required roles:
+ * - can_read_themes
+ *
+ */
+export const getThemesByThemeId = <ThrowOnError extends boolean = false>(options: Options<GetThemesByThemeIdData, ThrowOnError>): RequestResult<GetThemesByThemeIdResponses, GetThemesByThemeIdErrors, ThrowOnError> => (options.client ?? client).get<GetThemesByThemeIdResponses, GetThemesByThemeIdErrors, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
+    url: '/v1/themes/{theme_id}/',
+    ...options
+});
+
+/**
+ * Update a theme
+ *
+ *
+ * Required roles:
+ * - can_write_themes
+ *
+ */
+export const patchThemesByThemeId = <ThrowOnError extends boolean = false>(options: Options<PatchThemesByThemeIdData, ThrowOnError>): RequestResult<PatchThemesByThemeIdResponses, PatchThemesByThemeIdErrors, ThrowOnError> => (options.client ?? client).patch<PatchThemesByThemeIdResponses, PatchThemesByThemeIdErrors, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
+    url: '/v1/themes/{theme_id}/',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Update a theme
+ *
+ *
+ * Required roles:
+ * - can_write_themes
+ *
+ */
+export const putThemesByThemeId = <ThrowOnError extends boolean = false>(options: Options<PutThemesByThemeIdData, ThrowOnError>): RequestResult<PutThemesByThemeIdResponses, PutThemesByThemeIdErrors, ThrowOnError> => (options.client ?? client).put<PutThemesByThemeIdResponses, PutThemesByThemeIdErrors, ThrowOnError>({
+    security: [{ name: 'App-ID', type: 'apiKey' }, { name: 'Auth-Token', type: 'apiKey' }],
+    url: '/v1/themes/{theme_id}/',
     ...options,
     headers: {
         'Content-Type': 'application/json',

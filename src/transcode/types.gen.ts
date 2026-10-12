@@ -41,9 +41,11 @@ export type BulkAnalyzeSchema = {
 export type BulkAnalyzeSchemaForceType = 'APPEND' | 'OVERWRITE';
 
 export type BulkMetadataFillingSchema = {
-    field_names: Array<string>;
+    auto_accept?: boolean | null;
+    field_names?: Array<string> | null;
     object_ids: Array<string>;
     object_type: 'assets' | 'collections' | 'saved_searches';
+    overwrite?: boolean | null;
     view_id: string;
 };
 
@@ -254,13 +256,17 @@ export type LlmMetadataJobSchema = {
     analyzed_before?: boolean | null;
     asset_id?: string | null;
     asset_link?: string | null;
+    auto_accept?: boolean | null;
+    automation_id?: string | null;
     collection_id?: string | null;
     create_transcription?: boolean | null;
     delete_old_transcriptions?: boolean | null;
     field_names: Array<string>;
     force_transcoder?: string | null;
     google_cloud_video_intelligence?: boolean | null;
+    group_ids?: Array<string> | null;
     input?: InputSchema | null;
+    is_admin?: boolean | null;
     job_id?: string | null;
     job_steps?: Array<JobStepSchema> | null;
     language?: string | null;
@@ -268,6 +274,7 @@ export type LlmMetadataJobSchema = {
     overwrite?: boolean | null;
     parent_job_id?: string | null;
     priority?: number | null;
+    requested_at?: number | null;
     speakers?: number | null;
     thumbnail?: Array<ThumbnailJob> | null;
     transcode?: Array<TranscodeJob> | null;
@@ -374,6 +381,7 @@ export type MetadataFillingProposalByAssetQueryParamsSchema = {
 
 export type MetadataFillingProposalSchema = {
     asset_id?: string | null;
+    readonly bulk_review_in_progress?: boolean | null;
     date_created?: string | null;
     errors?: Array<string> | null;
     field_names?: Array<string> | null;
@@ -401,7 +409,9 @@ export type MetadataFillingResponseSchema = {
 };
 
 export type MetadataFillingSchema = {
+    auto_accept?: boolean | null;
     field_names: Array<string>;
+    overwrite?: boolean | null;
     view_id: string;
 };
 
@@ -634,7 +644,14 @@ export type WildmokaProtectTranscode = {
     segment_duration: number;
     update_file_status_callback_url: string;
     watermark: string;
+    watermark_bit_profile: number;
+    watermark_deep_fake: number;
     watermark_id: string | null;
+    watermark_pixel_density: number;
+    watermark_sp_height: number;
+    watermark_sp_width: number;
+    watermark_strength: number;
+    watermark_super_pixel_density: number;
     width: number;
 };
 
@@ -649,6 +666,21 @@ export type EdgeTranscodeWorkersSchemaWritable = {
 
 export type LocalStorageFileTranscodeJobsSchemaWritable = {
     [key: string]: unknown;
+};
+
+export type MetadataFillingProposalSchemaWritable = {
+    asset_id?: string | null;
+    date_created?: string | null;
+    errors?: Array<string> | null;
+    field_names?: Array<string> | null;
+    field_values?: unknown;
+    job_id?: string | null;
+    parent_job_id?: string | null;
+    review_status?: MetadataFillingProposalSchemaReviewStatus | null;
+    user_id?: string | null;
+    version_id?: string | null;
+    view_id?: string | null;
+    warnings?: Array<string> | null;
 };
 
 export type TranscodeQueueSchemaWritable = {
@@ -1280,6 +1312,14 @@ export type PostMetadataFillingBulkErrors = {
      */
     403: unknown;
     /**
+     * Metadata view doesn't exist
+     */
+    404: unknown;
+    /**
+     * The metadata view could not be read, the request may be retried
+     */
+    502: unknown;
+    /**
      * Error response
      */
     default: {
@@ -1400,9 +1440,13 @@ export type PostMetadataFillingProposalsByJobIdAcceptErrors = {
      */
     404: unknown;
     /**
-     * Proposal is no longer pending review
+     * Proposal is no longer pending review, or its job is being bulk reviewed
      */
     409: unknown;
+    /**
+     * The job could not be updated, the request may be retried
+     */
+    502: unknown;
     /**
      * Error response
      */
@@ -1446,9 +1490,13 @@ export type PostMetadataFillingProposalsByJobIdDiscardErrors = {
      */
     404: unknown;
     /**
-     * Proposal is no longer pending review
+     * Proposal is no longer pending review, or its job is being bulk reviewed
      */
     409: unknown;
+    /**
+     * The job could not be updated, the request may be retried
+     */
+    502: unknown;
     /**
      * Error response
      */
@@ -1492,10 +1540,15 @@ export type PostMetadataFillingProposalsByJobIdRegenerateErrors = {
      */
     404: unknown;
     /**
-     * Proposal is no longer pending review, or another job is already in
-     * flight for this asset version
+     * Proposal is no longer pending review, its job is being bulk reviewed, or
+     * another job is already in flight for this asset version
+     *
      */
     409: unknown;
+    /**
+     * The job could not be read or updated, the request may be retried
+     */
+    502: unknown;
     /**
      * Error response
      */
@@ -1511,6 +1564,114 @@ export type PostMetadataFillingProposalsByJobIdRegenerateResponses = {
      * Returns the fresh job_id (status WAITING)
      */
     201: unknown;
+};
+
+export type PostMetadataFillingProposalsByParentJobIdBulkAcceptData = {
+    body?: never;
+    headers: {
+        'User-ID': string;
+    };
+    path: {
+        parent_job_id: string;
+    };
+    query?: never;
+    url: '/v1/metadata_filling/proposals/{parent_job_id}/bulk/accept/';
+};
+
+export type PostMetadataFillingProposalsByParentJobIdBulkAcceptErrors = {
+    /**
+     * Parent job is not a metadata filling job, has no children or nothing pending
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * AI metadata filling is not enabled, or the caller did not trigger the job
+     */
+    403: unknown;
+    /**
+     * Parent job not found
+     */
+    404: unknown;
+    /**
+     * The job is still running, or a bulk review of its proposals is in progress
+     */
+    409: unknown;
+    /**
+     * The parent job could not be read, the request may be retried
+     */
+    502: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type PostMetadataFillingProposalsByParentJobIdBulkAcceptError = PostMetadataFillingProposalsByParentJobIdBulkAcceptErrors[keyof PostMetadataFillingProposalsByParentJobIdBulkAcceptErrors];
+
+export type PostMetadataFillingProposalsByParentJobIdBulkAcceptResponses = {
+    /**
+     * The proposals will be accepted in the background
+     */
+    202: unknown;
+};
+
+export type PostMetadataFillingProposalsByParentJobIdBulkDiscardData = {
+    body?: never;
+    headers: {
+        'User-ID': string;
+    };
+    path: {
+        parent_job_id: string;
+    };
+    query?: never;
+    url: '/v1/metadata_filling/proposals/{parent_job_id}/bulk/discard/';
+};
+
+export type PostMetadataFillingProposalsByParentJobIdBulkDiscardErrors = {
+    /**
+     * Parent job is not a metadata filling job, has no children or nothing pending
+     */
+    400: unknown;
+    /**
+     * Token is invalid
+     */
+    401: unknown;
+    /**
+     * AI metadata filling is not enabled, or the caller did not trigger the job
+     */
+    403: unknown;
+    /**
+     * Parent job not found
+     */
+    404: unknown;
+    /**
+     * The job is still running, or a bulk review of its proposals is in progress
+     */
+    409: unknown;
+    /**
+     * The parent job could not be read, the request may be retried
+     */
+    502: unknown;
+    /**
+     * Error response
+     */
+    default: {
+        [key: string]: unknown;
+    };
+};
+
+export type PostMetadataFillingProposalsByParentJobIdBulkDiscardError = PostMetadataFillingProposalsByParentJobIdBulkDiscardErrors[keyof PostMetadataFillingProposalsByParentJobIdBulkDiscardErrors];
+
+export type PostMetadataFillingProposalsByParentJobIdBulkDiscardResponses = {
+    /**
+     * The proposals will be discarded in the background
+     */
+    202: unknown;
 };
 
 export type DeleteStoragesByStorageIdData = {
